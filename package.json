@@ -1,8 +1,11 @@
 {
-  "name": "adatree-atomic-components",
-  "version": "1.0.0",
+  "name": "@adatree-oss/atomic-components",
+  "version": "1.0.2",
   "main": "index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "@adatree-oss:registry": "https://gitlab.com/api/v4/projects/32542974/packages/npm/"
+  }
 }
