@@ -1,1 +1,12 @@
+# Build
+/lib
+/dist
+
+# Development
+node_modules
+
+# Local config
 .npmrc
+
+# Filesystem
+.DS_Store
