@@ -6,10 +6,17 @@ export default [
     input: 'src/index.ts',
     external: Object.keys(pkg.peerDependencies || {}),
     plugins: [typescript()],
-    output: {
-      file: 'dist/index.js',
-      format: 'es',
-      banner: '/* eslint-disable */',
-    },
+    output: [
+      {
+        file: 'dist/index.js',
+        format: 'es',
+        banner: '/* eslint-disable */',
+      },
+      {
+        file: 'storybook/src/lib/index.js',
+        format: 'es',
+        banner: '/* eslint-disable */',
+      },
+    ],
   },
 ];

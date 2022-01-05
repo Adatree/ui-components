@@ -24,7 +24,8 @@
   "scripts": {
     "build": "rm -rf dist/ && rollup -c",
     "build:watch": "rollup -c -w",
+    "format": "yarn prettier --write .",
     "lint": "eslint './src/**/*.{tsx,ts}'",
-    "format": "yarn prettier --write ."
+    "storybook": "yarn --cwd ./storybook/ storybook"
   }
 }
