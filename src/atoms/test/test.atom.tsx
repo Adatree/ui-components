@@ -4,7 +4,7 @@ export interface TestProps {
   text: string;
 }
 
-export const Accordion = (props: TestProps) => {
+export const Test = (props: TestProps) => {
   const { text } = props;
 
   return <h1>{text}</h1>;
