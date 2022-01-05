@@ -1,5 +1,4 @@
-import React, { ReactChild, useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 export interface TestProps {
   text: string;
