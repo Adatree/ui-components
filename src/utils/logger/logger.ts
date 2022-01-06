@@ -1,4 +1,4 @@
-import { isDebug } from '../debug/debug';
+import { Debugger } from '../debug/debug';
 
 const emitLogMessage = (
   messageType: 'debug' | 'info' | 'warn' | 'error',
@@ -10,7 +10,7 @@ const emitLogMessage = (
 };
 
 const debug = (primaryMessage: string, ...supportingData: unknown[]): void => {
-  if (isDebug()) {
+  if (Debugger.isDebug()) {
     emitLogMessage('debug', primaryMessage, ...supportingData);
   }
 };
@@ -24,7 +24,7 @@ const info = (primaryMessage: string, ...supportingData: unknown[]): void => {
   emitLogMessage('info', primaryMessage, ...supportingData);
 };
 
-export const logger = {
+export const Logger = {
   debug,
   warn,
   error,

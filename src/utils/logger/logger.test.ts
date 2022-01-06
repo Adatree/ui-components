@@ -1,5 +1,5 @@
 // tslint:disable:no-console
-import { logger } from './logger';
+import { Logger } from './logger';
 
 describe('Logger Utils', () => {
   console.info = jest.fn();
@@ -20,13 +20,13 @@ describe('Logger Utils', () => {
     const data2 = { test: 'done' };
     const data3 = { some: 'thing' };
 
-    logger.info(expectedMessage, data1, data2);
+    Logger.info(expectedMessage, data1, data2);
     expect(console.info).toHaveBeenCalledWith(expectedMessage, data1, data2);
 
-    logger.warn(expectedMessage, data3);
+    Logger.warn(expectedMessage, data3);
     expect(console.warn).toHaveBeenCalledWith(expectedMessage, data3);
 
-    logger.error(expectedMessage, data3);
+    Logger.error(expectedMessage, data3);
     expect(console.error).toHaveBeenCalledWith(expectedMessage, data3);
 
     // logger.debug(expectedMessage, data3);

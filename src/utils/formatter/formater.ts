@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { logger } from '../logger/logger';
+import { Logger } from '../logger/logger';
 
 const DATE_FORMAT = 'dd/MM/yyyy';
 /*
@@ -15,11 +15,11 @@ const formatDate = (date: Date | string | undefined): string => {
     try {
       return format(parseISO(date), DATE_FORMAT);
     } catch (error) {
-      logger.error('Unable to format date', date);
+      Logger.error('Unable to format date', date);
       return '';
     }
   }
-  logger.error('Unable to format date', date);
+  Logger.error('Unable to format date', date);
   return '';
 };
 
