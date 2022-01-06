@@ -8,8 +8,25 @@
   "publishConfig": {
     "@adatree-oss:registry": "https://gitlab.com/api/v4/projects/32542974/packages/npm/"
   },
+  "scripts": {
+    "build": "rm -rf dist/ && rollup -c",
+    "build:watch": "rollup -c -w",
+    "format": "yarn prettier --write .",
+    "lint": "eslint './src/**/*.{tsx,ts}'",
+    "storybook": "yarn --cwd ./storybook/ storybook"
+  },
+  "dependencies": {
+    "@mui/material": "^5.2.7",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
+    "@mui/styled-engine-sc": "^5.1.0",
+    "styled-components": "^5.3.3"
+  },
+  "resolutions": {
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
+  },
   "devDependencies": {
     "@types/react": "^17.0.38",
+    "@types/styled-components": "^5.1.19",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
@@ -17,15 +34,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "prettier": "2.5.1",
+    "process": "^0.11.10",
     "rollup": "^2.63.0",
     "rollup-plugin-typescript2": "^0.31.1",
     "typescript": "^4.5.4"
-  },
-  "scripts": {
-    "build": "rm -rf dist/ && rollup -c",
-    "build:watch": "rollup -c -w",
-    "format": "yarn prettier --write .",
-    "lint": "eslint './src/**/*.{tsx,ts}'",
-    "storybook": "yarn --cwd ./storybook/ storybook"
   }
 }
