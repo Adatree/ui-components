@@ -1,6 +1,6 @@
 {
   "name": "@adatree-oss/atomic-components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
@@ -13,18 +13,21 @@
     "build:watch": "rollup -c -w",
     "format": "yarn prettier --write .",
     "lint": "eslint './src/**/*.{tsx,ts}'",
-    "storybook": "yarn --cwd ./storybook/ storybook"
+    "storybook": "yarn --cwd ./storybook/ storybook",
+    "test": "jest"
   },
   "dependencies": {
     "@mui/material": "^5.2.7",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@mui/styled-engine-sc": "^5.1.0",
+    "date-fns": "^2.28.0",
     "styled-components": "^5.3.3"
   },
   "resolutions": {
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "@types/react": "^17.0.38",
     "@types/styled-components": "^5.1.19",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
@@ -33,10 +36,12 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "jest": "^27.4.7",
     "prettier": "2.5.1",
     "process": "^0.11.10",
     "rollup": "^2.63.0",
     "rollup-plugin-typescript2": "^0.31.1",
+    "ts-jest": "^27.1.2",
     "typescript": "^4.5.4"
   }
 }
