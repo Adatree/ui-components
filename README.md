@@ -41,5 +41,5 @@ Copy the config below into the new file, updating YOUR_PERSONAL_ACCESS_TOKEN
 ## How to publish
 
 1. Increment the version number in `package.json`.
-2. Run `yarn publish`.
+2. Run `yarn package`.
 3. Commit the new version.

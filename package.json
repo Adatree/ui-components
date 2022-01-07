@@ -13,7 +13,7 @@
     "build:watch": "rollup -c -w",
     "format": "yarn prettier --write .",
     "lint": "eslint './src/**/*.{tsx,ts}'",
-    "publish": "yarn build && npm publish",
+    "package": "yarn build && npm publish",
     "storybook": "yarn --cwd ./storybook/ storybook",
     "test": "jest"
   },
