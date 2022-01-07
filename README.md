@@ -1,12 +1,14 @@
 # Atomic components
 
+This repo contains sharable Adatree react component based on [atomic design principles](https://bradfrost.com/blog/post/atomic-web-design/).
+
 # Creating a new component
 
-1. Create the `*.tsx` file under src
-2. Update the `src/index.ts` with all the exports you need to expose
-3. Build the npm package `yarn build`
-4. Create the `*.stories` file under `storybook/src/stories/`
-5. In your story import your new component from the lib folder `import { NewComponet } from '../lib';`
+1. Create the `*.tsx` file under src.
+2. Update the `src/index.ts` with all the exports you need to expose.
+3. Build the npm package `yarn build` (this builds your new component and makes it available to storybook).
+4. Create the `*.stories` file under `storybook/src/stories/`.
+5. In your story import your new component from the lib folder `import { NewComponet } from '../lib';`.
 
 # Development
 
@@ -26,7 +28,7 @@ Create a personal token, for details see [Gitlab docs](https://docs.gitlab.com/e
 - Select Create personal access token.
 
 Create a `.npmrc` file in the root of the project
-Copy the config into the new file
+Copy the config below into the new file, updating YOUR_PERSONAL_ACCESS_TOKEN
 
 ```
 # Set URL for your scoped packages.
@@ -38,8 +40,6 @@ Copy the config into the new file
 
 ## How to publish
 
-Increment the version number in `package.json`
-
-Run `npm publish`
-
-Commit the new version number
+1. Increment the version number in `package.json`.
+2. Run `yarn publish`.
+3. Commit the new version.

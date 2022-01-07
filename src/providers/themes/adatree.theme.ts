@@ -1,7 +1,7 @@
 export const adatreeTheme = {
   colour: {
-    primary: '#3FDAC9',
-    secondary: '#021C55',
+    primary: '#021C55',
+    secondary: '#3FDAC9',
     highlight: {
       light: '#f2f2f2',
       main: '#e6e6e6',
