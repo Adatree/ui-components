@@ -2,15 +2,15 @@
 
 This repo contains sharable Adatree react component based on [atomic design principles](https://bradfrost.com/blog/post/atomic-web-design/).
 
-# Creating a new component
+# Development
+
+## Creating a new component
 
 1. Create the `*.tsx` file under src.
 2. Update the `src/index.ts` with all the exports you need to expose.
 3. Build the npm package `yarn build` (this builds your new component and makes it available to storybook).
 4. Create the `*.stories` file under `storybook/src/stories/`.
 5. In your story import your new component from the lib folder `import { NewComponet } from '../lib';`.
-
-# Development
 
 # Publish the npm package
 

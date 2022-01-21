@@ -1,6 +1,9 @@
 // Atoms
 export { Test } from './atoms/test/test.atom';
 
+// Molecules
+export { InfoCdrStep } from './molecules/content-steps/info-cdr-step/info-cdr-step.molecule';
+
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
 
