@@ -2875,6 +2875,11 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
+mdi-material-ui@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-7.1.0.tgz#58213ccf7d5a9175e4135e831b8aa5987ce593ab"
+  integrity sha512-mm0oFn1kwi64s4EZ8IDAg4TGE2BGu57KyOKe5j0+7zKAFBpm4UyAE43lffsyh0OOMyqskd7PMvIN2fNgft3Z7w==
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
