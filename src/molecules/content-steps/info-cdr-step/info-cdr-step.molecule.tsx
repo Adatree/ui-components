@@ -19,42 +19,40 @@ export const InfoCdrStep = (props: InfoCDRProps) => {
   const { companyName, accreditationNumber } = props;
 
   return (
-    <>
-      <section>
-        <Typography variant="h1" sx={{ mb: 4 }}>
-          Share data with the Consumer Data Right
-        </Typography>
+    <section>
+      <Typography variant="h1" sx={{ mb: 4 }}>
+        Share data with the Consumer Data Right
+      </Typography>
 
-        <Typography sx={{ mb: 2 }}>
-          You can connect us with your bank via the{' '}
-          <Link sx={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
-            Consumer Data Right
-          </Link>
-          . It's quick, safe, accurate and Government regulated.
-        </Typography>
+      <Typography sx={{ mb: 2 }}>
+        You can connect us with your bank via the{' '}
+        <Link sx={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
+          Consumer Data Right
+        </Link>
+        . It's quick, safe, accurate and Government regulated.
+      </Typography>
 
-        <_div sx={{ mb: 2, gridGap: { xs: '0 10px', md: '0 20px', lg: '0 50px' } }}>
-          <img
-            src="https://adatree-prod.dashboard.adatree.com.au/images/consumer-data-right.png"
-            style={{ width: '100%' }}
-            alt="Consumer Data Right Adatree Pty Ltd Accredited Data Recipient ADRBNK000071"
-          />
-          <Box>
-            <Typography variant="body2">{companyName}</Typography>
-            <Typography variant="body2">Accredited Data Recipient: {accreditationNumber}</Typography>
-          </Box>
-        </_div>
-        <Typography className="margin-bt-md">
-          We are an Accredited Consumer Data Right Recipient, meaning we are bound by rules set by the Australian
-          Government on how we can handle your data.
-        </Typography>
-        <Typography className="margin-bt-md">
-          Learn more about this on{' '}
-          <Link style={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
-            cdr.gov.au
-          </Link>
-        </Typography>
-      </section>
-    </>
+      <_div sx={{ mb: 2, gridGap: { xs: '0 10px', md: '0 20px', lg: '0 50px' } }}>
+        <img
+          src="https://adatree-prod.dashboard.adatree.com.au/images/consumer-data-right.png"
+          style={{ width: '100%' }}
+          alt="Consumer Data Right Adatree Pty Ltd Accredited Data Recipient ADRBNK000071"
+        />
+        <Box>
+          <Typography variant="body2">{companyName}</Typography>
+          <Typography variant="body2">Accredited Data Recipient: {accreditationNumber}</Typography>
+        </Box>
+      </_div>
+      <Typography className="margin-bt-md">
+        We are an Accredited Consumer Data Right Recipient, meaning we are bound by rules set by the Australian
+        Government on how we can handle your data.
+      </Typography>
+      <Typography className="margin-bt-md">
+        Learn more about this on{' '}
+        <Link style={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
+          cdr.gov.au
+        </Link>
+      </Typography>
+    </section>
   );
 };
