@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { InfoCdrStep } from '../lib';
 
 export default {
-  title: 'Consent/Steps',
+  title: 'Consent/Steps/Info CDR',
   component: InfoCdrStep,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -14,6 +14,6 @@ const Template: ComponentStory<typeof InfoCdrStep> = (args) => <InfoCdrStep {...
 
 export const InfoCDR = Template.bind({});
 InfoCDR.args = {
-  companyName: 'My Great Company',
+  companyName: 'My Company',
   accreditationNumber: '1234567890',
 };

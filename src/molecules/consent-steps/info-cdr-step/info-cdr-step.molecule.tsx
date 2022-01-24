@@ -20,7 +20,7 @@ export const InfoCdrStep = (props: InfoCDRProps) => {
 
   return (
     <section>
-      <Typography variant="h1" sx={{ mb: 4 }}>
+      <Typography variant="h2" sx={{ mb: 3 }}>
         Share data with the Consumer Data Right
       </Typography>
 

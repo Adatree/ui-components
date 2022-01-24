@@ -5,15 +5,10 @@ import { IconWithText } from '../../../atoms/icon-with-text/icon-with-text.atom'
 export const InfoHowItWorksStep = () => {
   return (
     <section>
-      <Typography variant="h1" sx={{ mb: 4 }}>
+      <Typography variant="h2" sx={{ mb: 3 }}>
         How it works
       </Typography>
-      <Stack
-        justifyContent="center"
-        direction={{ xs: 'column', sm: 'row' }}
-        spacing={{ xs: 4, sm: 6, md: 8 }}
-        sx={{ mt: { xs: 4, md: 8, lg: 16 } }}
-      >
+      <Stack justifyContent="center" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 4, sm: 6, md: 8 }}>
         <IconWithText
           icon={'CheckboxMultipleMarked'}
           title={'You Consent'}

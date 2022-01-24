@@ -44,7 +44,7 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
 
   return (
     <Box>
-      <Stepper activeStep={activeStep} sx={{ mb: 6 }}>
+      <Stepper activeStep={activeStep} color="secondary" sx={{ mb: 6 }}>
         {steps.map((step) => {
           return (
             <Step key={step.label}>
@@ -56,7 +56,7 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
 
       {steps[activeStep].content}
 
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', pt: 2 }}>
+      <Box sx={{ mt: 3, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', pt: 2 }}>
         <Button
           disabled={activeStep === 0}
           onClick={() => {
