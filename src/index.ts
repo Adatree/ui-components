@@ -3,8 +3,8 @@ export { Test } from './atoms/test/test.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 
 // Molecules
-export { InfoCdrStep } from './molecules/content-steps/info-cdr-step/info-cdr-step.molecule';
-export { InfoHowItWorksStep } from './molecules/content-steps/info-how-it-works-step/info-how-it-works-step.molecule';
+export { InfoCdrStep } from './molecules/consent-steps/info-cdr-step/info-cdr-step.molecule';
+export { InfoHowItWorksStep } from './molecules/consent-steps/info-how-it-works-step/info-how-it-works-step.molecule';
 
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
