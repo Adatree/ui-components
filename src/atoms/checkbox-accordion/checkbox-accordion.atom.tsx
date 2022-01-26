@@ -6,7 +6,7 @@ export type CheckboxAccordionProps = {
   checkboxValue: string;
   checked?: boolean;
   items?: string[];
-  subTitle?: string;
+  subtitle?: string;
   openLabel?: string;
   closeLabel?: string;
   onChange: (isChecked: boolean, value: string) => void;
@@ -15,7 +15,7 @@ export type CheckboxAccordionProps = {
 export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
   const {
     title,
-    subTitle,
+    subtitle,
     checkboxValue,
     checked = false,
     items,
@@ -56,7 +56,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
           />
         </FormGroup>
 
-        {subTitle && <Typography variant="h4">{subTitle}</Typography>}
+        {subtitle && <Typography variant="h4">{subtitle}</Typography>}
 
         {items && items.length > 0 && (
           <>
