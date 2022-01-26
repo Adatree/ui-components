@@ -1,6 +1,7 @@
 // Atoms
 export { Test } from './atoms/test/test.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
+export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
 
 // Molecules
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
