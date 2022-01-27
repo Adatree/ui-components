@@ -1,3 +1,4 @@
+// @ts-nocheck
 // tslint:disable
 /**
  * Consent Dashboard Data Holders API
@@ -11,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
@@ -20,54 +20,54 @@ import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
- * 
+ *
  * @export
  * @interface DataHolder
  */
 export interface DataHolder {
-    /**
-     * The ideintifier of the data holder you wish the consumer to authenitcate with.
-     * @type {string}
-     * @memberof DataHolder
-     */
-    dataHolderBrandId: string;
-    /**
-     * The brand name of the data holder you wish the consumer to authenitcate with.
-     * @type {string}
-     * @memberof DataHolder
-     */
-    brandName: string;
-    /**
-     * The logo URI of the data holder you wish the consumer to authenitcate with.
-     * @type {string}
-     * @memberof DataHolder
-     */
-    logoUri: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DataHolder
-     */
-    sector?: string;
-    /**
-     * 
-     * @type {MetaBanking}
-     * @memberof DataHolder
-     */
-    meta?: MetaBanking;
+  /**
+   * The ideintifier of the data holder you wish the consumer to authenitcate with.
+   * @type {string}
+   * @memberof DataHolder
+   */
+  dataHolderBrandId: string;
+  /**
+   * The brand name of the data holder you wish the consumer to authenitcate with.
+   * @type {string}
+   * @memberof DataHolder
+   */
+  brandName: string;
+  /**
+   * The logo URI of the data holder you wish the consumer to authenitcate with.
+   * @type {string}
+   * @memberof DataHolder
+   */
+  logoUri: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DataHolder
+   */
+  sector?: string;
+  /**
+   *
+   * @type {MetaBanking}
+   * @memberof DataHolder
+   */
+  meta?: MetaBanking;
 }
 /**
- * 
+ *
  * @export
  * @interface MetaBanking
  */
 export interface MetaBanking {
-    /**
-     * a list of bsb prefixes for a data-holder
-     * @type {Array<string>}
-     * @memberof MetaBanking
-     */
-    bsbPrefix?: Array<string>;
+  /**
+   * a list of bsb prefixes for a data-holder
+   * @type {Array<string>}
+   * @memberof MetaBanking
+   */
+  bsbPrefix?: Array<string>;
 }
 
 /**
@@ -75,92 +75,106 @@ export interface MetaBanking {
  * @export
  */
 export const SupportedDataHoldersApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
-         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSupportedDataHolders: async (softwareProductId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'softwareProductId' is not null or undefined
-            if (softwareProductId === null || softwareProductId === undefined) {
-                throw new RequiredError('softwareProductId','Required parameter softwareProductId was null or undefined when calling getSupportedDataHolders.');
-            }
-            const localVarPath = `/software-products/{softwareProductId}/data-holders`
-                .replace(`{${"softwareProductId"}}`, encodeURIComponent(String(softwareProductId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+  return {
+    /**
+     * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
+     * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSupportedDataHolders: async (softwareProductId: string, options: any = {}): Promise<RequestArgs> => {
+      // verify required parameter 'softwareProductId' is not null or undefined
+      if (softwareProductId === null || softwareProductId === undefined) {
+        throw new RequiredError(
+          'softwareProductId',
+          'Required parameter softwareProductId was null or undefined when calling getSupportedDataHolders.',
+        );
+      }
+      const localVarPath = `/software-products/{softwareProductId}/data-holders`.replace(
+        `{${'softwareProductId'}}`,
+        encodeURIComponent(String(softwareProductId)),
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
+      // authentication bearerAuth required
+      // http bearer authentication required
+      if (configuration && configuration.accessToken) {
+        const accessToken =
+          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
+      }
 
+      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
 };
 
 /**
  * SupportedDataHoldersApi - functional programming interface
  * @export
  */
-export const SupportedDataHoldersApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
-         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getSupportedDataHolders(softwareProductId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataHolder>>> {
-            const localVarAxiosArgs = await SupportedDataHoldersApiAxiosParamCreator(configuration).getSupportedDataHolders(softwareProductId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-    }
+export const SupportedDataHoldersApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
+     * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSupportedDataHolders(
+      softwareProductId: string,
+      options?: any,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataHolder>>> {
+      const localVarAxiosArgs = await SupportedDataHoldersApiAxiosParamCreator(configuration).getSupportedDataHolders(
+        softwareProductId,
+        options,
+      );
+      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+  };
 };
 
 /**
  * SupportedDataHoldersApi - factory interface
  * @export
  */
-export const SupportedDataHoldersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    return {
-        /**
-         * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
-         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSupportedDataHolders(softwareProductId: string, options?: any): AxiosPromise<Array<DataHolder>> {
-            return SupportedDataHoldersApiFp(configuration).getSupportedDataHolders(softwareProductId, options).then((request) => request(axios, basePath));
-        },
-    };
+export const SupportedDataHoldersApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance,
+) {
+  return {
+    /**
+     * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
+     * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSupportedDataHolders(softwareProductId: string, options?: any): AxiosPromise<Array<DataHolder>> {
+      return SupportedDataHoldersApiFp(configuration)
+        .getSupportedDataHolders(softwareProductId, options)
+        .then((request) => request(axios, basePath));
+    },
+  };
 };
 
 /**
@@ -170,17 +184,16 @@ export const SupportedDataHoldersApiFactory = function (configuration?: Configur
  * @extends {BaseAPI}
  */
 export class SupportedDataHoldersApi extends BaseAPI {
-    /**
-     * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
-     * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SupportedDataHoldersApi
-     */
-    public getSupportedDataHolders(softwareProductId: string, options?: any) {
-        return SupportedDataHoldersApiFp(this.configuration).getSupportedDataHolders(softwareProductId, options).then((request) => request(this.axios, this.basePath));
-    }
-
+  /**
+   * Feature toggle is avaiable by request to enable anonymous access for this API endpoint
+   * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SupportedDataHoldersApi
+   */
+  public getSupportedDataHolders(softwareProductId: string, options?: any) {
+    return SupportedDataHoldersApiFp(this.configuration)
+      .getSupportedDataHolders(softwareProductId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
 }
-
-
