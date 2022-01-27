@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { IconWithText } from '../lib';
+import { IconWithText } from '../../lib';
 
 export default {
   title: 'Atomic Components/Atoms/Icon with text',

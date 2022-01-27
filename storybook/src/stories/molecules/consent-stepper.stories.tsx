@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentStepperDesktop, InfoCdrStep, InfoHowItWorksStep } from '../lib';
+import { ConsentStepperDesktop, InfoCdrStep, InfoHowItWorksStep } from '../../lib';
 
 export default {
   title: 'Consent/Stepper',

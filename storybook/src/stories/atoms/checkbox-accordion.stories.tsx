@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CheckboxAccordion } from '../lib';
+import { CheckboxAccordion } from '../../lib';
 
 export default {
   title: 'Atomic Components/Atoms/Checkbox Accordion',
