@@ -13,6 +13,7 @@ export { ThemeProvider } from './providers/theme.provider';
 export { Debugger } from './utils/debug/debug';
 export { Formatter } from './utils/formatter/formater';
 export { Logger } from './utils/logger/logger';
+export { TestUtil } from './utils/test/test.util';
 
 // Open API
 export * from './generated/consent/api';

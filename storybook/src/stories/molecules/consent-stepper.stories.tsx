@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentStepperDesktop, InfoCdrStep, InfoHowItWorksStep } from '../../lib';
+import { ConsentStepperDesktop } from '../../lib';
 
 export default {
   title: 'Consent/Stepper',
@@ -12,12 +12,28 @@ export default {
 
 const Template: ComponentStory<typeof ConsentStepperDesktop> = (args) => <ConsentStepperDesktop {...args} />;
 
+const mockStepConent = (
+  <>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu mauris id sem imperdiet maximus. Nullam eros
+      neque, hendrerit ut ipsum sit amet, blandit cursus nulla. Vivamus augue felis, egestas congue finibus a,
+      consectetur eleifend eros. Nullam aliquam egestas consequat. Sed efficitur sit amet nulla vel eleifend. Maecenas
+      et eros eu quam porttitor auctor. In molestie viverra commodo.
+    </p>
+  </>
+);
 export const Desktop = Template.bind({});
 Desktop.args = {
   steps: [
     {
       label: 'CDR',
-      content: <InfoCdrStep companyName="My comoany" accreditationNumber="1234567890" />,
+      content: (
+        <>
+          <h1>This is content for step 1.</h1>
+          {mockStepConent}
+        </>
+      ),
       onPrevious: () => {
         return '';
       },
@@ -27,7 +43,12 @@ Desktop.args = {
     },
     {
       label: 'How it works',
-      content: <InfoHowItWorksStep />,
+      content: (
+        <>
+          <h1>This is content for step 2.</h1>
+          {mockStepConent}
+        </>
+      ),
       onPrevious: () => {
         return '';
       },
@@ -37,7 +58,12 @@ Desktop.args = {
     },
     {
       label: 'Summary',
-      content: <>This is Step 3's content.</>,
+      content: (
+        <>
+          <h1>This is content for step 3.</h1>
+          {mockStepConent}
+        </>
+      ),
       nextButtonLabel: 'Consent',
       onPrevious: () => {
         return '';
