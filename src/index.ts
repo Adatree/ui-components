@@ -19,6 +19,12 @@ export { TestUtil } from './utils/test/test.util';
 export * from './generated/consent/api';
 export * from './generated/dcr/api';
 export * from './generated/infosec/api';
-export { Configuration as ConsentConfig } from './generated/consent/configuration';
-export { Configuration as DcrConfig } from './generated/dcr/configuration';
-export { Configuration as InfosecConfig } from './generated/infosec/configuration';
+export {
+  Configuration as ConsentConfig,
+  ConfigurationParameters as ConsentConfigParams,
+} from './generated/consent/configuration';
+export {
+  Configuration as InfosecConfig,
+  ConfigurationParameters as InfosecConfigParams,
+} from './generated/infosec/configuration';
+export { Configuration as DcrConfig, ConfigurationParameters as DcrConfigParams } from './generated/dcr/configuration';
