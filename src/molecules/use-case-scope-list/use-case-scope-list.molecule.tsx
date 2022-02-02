@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material';
 import { CheckboxAccordion } from '../../atoms/checkbox-accordion/checkbox-accordion.atom';
 import { UseCaseResponse } from '../../generated/consent/api';
 
@@ -16,13 +16,17 @@ export const UseCaseScopeList = (props: UseCaseScopeListProps) => {
   return (
     <section>
       <Typography variant="h2" sx={{ mb: 3 }}>
-        {title}
+        {title ? title : <Skeleton />}
       </Typography>
-      <Typography sx={{ mb: 4 }}>{subtitle}</Typography>
-
-      <Stack justifyContent="center" direction="column" spacing={{ xs: 2, sm: 3, md: 4 }}>
-        {useCase.scopes &&
-          useCase.scopes.map((scope, index) => {
+      <Typography sx={{ mb: 4 }}>{subtitle ? subtitle : <Skeleton />}</Typography>
+      {!useCase && (
+        <>
+          <Skeleton variant="rectangular" height={128} />
+        </>
+      )}
+      {useCase && useCase.scopes && (
+        <Stack justifyContent="center" direction="column" spacing={{ xs: 2, sm: 3, md: 4 }}>
+          {useCase.scopes.map((scope, index) => {
             return (
               <CheckboxAccordion
                 key={index}
@@ -34,7 +38,8 @@ export const UseCaseScopeList = (props: UseCaseScopeListProps) => {
               />
             );
           })}
-      </Stack>
+        </Stack>
+      )}
     </section>
   );
 };

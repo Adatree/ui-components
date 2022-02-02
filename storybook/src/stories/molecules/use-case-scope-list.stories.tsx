@@ -22,3 +22,13 @@ ScopeList.args = {
     alert(`The checkbox with the value ${value} is ${isChecked ? '' : 'not'} checked`);
   },
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  title: undefined,
+  subtitle: undefined,
+  useCase: undefined,
+  onChange: (isChecked, value) => {
+    alert(`The checkbox with the value ${value} is ${isChecked ? '' : 'not'} checked`);
+  },
+};
