@@ -7,11 +7,19 @@ export type UseCaseScopeListProps = {
   title: string;
   subtitle: string;
   useCase: UseCaseResponse;
+  checkedValues?: string[];
   onChange: (isChecked: boolean, value: string) => void;
 };
 
 export const UseCaseScopeList = (props: UseCaseScopeListProps) => {
-  const { title, subtitle, useCase, onChange } = props;
+  const { title, subtitle, useCase, checkedValues = [], onChange } = props;
+  const isChecked = (value: string | undefined): boolean => {
+    if (value) {
+      return checkedValues.includes(value);
+    }
+
+    return false;
+  };
 
   return (
     <section>
@@ -32,7 +40,7 @@ export const UseCaseScopeList = (props: UseCaseScopeListProps) => {
                 key={index}
                 title={scope.name ? scope.name : 'Scope name not provided'}
                 checkboxValue={scope.id ? scope.id : 'Scope ID not provided'}
-                checked={false}
+                checked={isChecked(scope.id)}
                 items={scope.claims}
                 onChange={onChange}
               />

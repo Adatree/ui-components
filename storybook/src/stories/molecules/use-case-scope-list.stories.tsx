@@ -23,6 +23,17 @@ ScopeList.args = {
   },
 };
 
+export const ScopeListChecked = Template.bind({});
+ScopeListChecked.args = {
+  title: 'The data we need',
+  subtitle: `We need to collect the below information in order to provide you with ${homeUseCase.name}.`,
+  useCase: homeUseCase,
+  checkedValues: ['bank:accounts.basic:read', 'common:customer.basic:read'],
+  onChange: (isChecked, value) => {
+    alert(`The checkbox with the value ${value} is ${isChecked ? '' : 'not'} checked`);
+  },
+};
+
 export const Loading = Template.bind({});
 Loading.args = {
   title: undefined,
