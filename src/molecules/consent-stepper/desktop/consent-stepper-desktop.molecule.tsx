@@ -43,8 +43,6 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
     return 'Next';
   };
 
-  console.log('steps', steps);
-  console.log(`activeStep ${activeStep} disableNextButton ${steps[activeStep].disableNextButton}`);
   return (
     <Box>
       <Stepper activeStep={activeStep} color="secondary" sx={{ mb: 6 }}>
