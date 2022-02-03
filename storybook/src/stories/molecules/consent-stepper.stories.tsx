@@ -34,6 +34,7 @@ Desktop.args = {
           {mockStepConent}
         </>
       ),
+      disableNextButton: false,
       onPrevious: () => {
         return '';
       },
@@ -49,6 +50,7 @@ Desktop.args = {
           {mockStepConent}
         </>
       ),
+      disableNextButton: false,
       onPrevious: () => {
         return '';
       },
@@ -65,6 +67,7 @@ Desktop.args = {
         </>
       ),
       nextButtonLabel: 'Consent',
+      disableNextButton: false,
       onPrevious: () => {
         return '';
       },

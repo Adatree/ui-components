@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 type Step = {
   label: string;
   content: React.ReactNode;
+  disableNextButton: boolean;
   onPrevious: () => {};
   onNext: () => {};
   nextButtonLabel?: string;
@@ -42,6 +43,8 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
     return 'Next';
   };
 
+  console.log('steps', steps);
+  console.log(`activeStep ${activeStep} disableNextButton ${steps[activeStep].disableNextButton}`);
   return (
     <Box>
       <Stepper activeStep={activeStep} color="secondary" sx={{ mb: 6 }}>
@@ -69,6 +72,7 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
         <Button
           variant="contained"
           color="secondary"
+          disabled={steps[activeStep].disableNextButton}
           onClick={() => {
             handleOnNext(steps[activeStep]);
           }}
