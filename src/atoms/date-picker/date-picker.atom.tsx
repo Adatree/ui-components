@@ -8,14 +8,14 @@ export type DatePickerProps = {
   label: string;
   date?: Date;
   inputFormat?: string;
-  onChanage: (data: Date) => void;
+  onChange: (data: Date) => void;
 };
 export const DatePicker: React.FC<DatePickerProps> = (props) => {
-  const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', onChanage } = props;
+  const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', onChange } = props;
 
   const handleChange = (newValue: Date | null) => {
     if (newValue) {
-      onChanage(newValue);
+      onChange(newValue);
     }
   };
 
