@@ -3,6 +3,7 @@ export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
+export { SectionCard } from './atoms/section-card/section-card.atom';
 
 // Molecules
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';

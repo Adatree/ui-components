@@ -23,7 +23,7 @@ export const adatreeTheme = {
       dark: '#8d8d8d',
     },
     typography: {
-      light: '#565656',
+      light: '#757575',
       main: '#3D3D3D',
       dark: '#292929',
     },
