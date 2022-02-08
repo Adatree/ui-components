@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react';
-import { Autocomplete, TextField, Typography } from '@mui/material';
+import { Autocomplete, Avatar, Box, TextField, Typography } from '@mui/material';
 import { DataHolder } from '../../generated/dcr/api';
+import Bank from 'mdi-material-ui/Bank';
 
 export type CheckboxAccordionProps = {
   dataHolders: DataHolder[];
@@ -22,6 +23,14 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
       disablePortal
       options={dataHolders}
       getOptionLabel={(option) => option.brandName}
+      renderOption={(props, option) => (
+        <Typography {...props} variant="body1" key={option.dataHolderBrandId} sx={{ display: 'flex' }}>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" component={'span'} sx={{ mr: 2 }}>
+            <Bank />
+          </Avatar>
+          {option.brandName}
+        </Typography>
+      )}
       renderInput={(params) => <TextField {...params} label={label} />}
       onChange={handleChange}
     />
