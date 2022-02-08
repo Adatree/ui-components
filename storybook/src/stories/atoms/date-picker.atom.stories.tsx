@@ -32,3 +32,10 @@ AmericanFormat.args = {
   inputFormat: 'MM/dd/yyyy',
   onChange: () => {},
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Disabled',
+  disabled: true,
+  onChange: () => {},
+};

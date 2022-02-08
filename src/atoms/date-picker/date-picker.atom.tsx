@@ -8,10 +8,11 @@ export type DatePickerProps = {
   label: string;
   date?: Date;
   inputFormat?: string;
+  disabled?: boolean;
   onChange: (data: Date) => void;
 };
 export const DatePicker: React.FC<DatePickerProps> = (props) => {
-  const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', onChange } = props;
+  const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', disabled = false, onChange } = props;
   const [value, setValue] = React.useState<Date | null>(date);
 
   const handleChange = (newValue: Date | null) => {
@@ -27,6 +28,7 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
         label={label}
         inputFormat={inputFormat}
         value={value}
+        disabled={disabled}
         onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
       />
