@@ -35,7 +35,7 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
             <FormControlLabel
               sx={{ m: 0, pl: 1, justifyContent: 'space-between', '&:hover': { backgroundColor: 'highlight.light' } }}
               key={item.value}
-              value={item.value ?? ' '}
+              value={item.value}
               control={<Radio disabled={disabled} color="secondary" />}
               label={item.label}
               labelPlacement="start"
