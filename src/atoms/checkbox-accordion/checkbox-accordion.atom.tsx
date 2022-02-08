@@ -38,12 +38,17 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent sx={{ pl: 1 }}>
         <FormGroup>
           <FormControlLabel
             label={<Typography variant="h3">{title}</Typography>}
             labelPlacement="start"
-            sx={{ justifyContent: 'space-between', ml: 0 }}
+            sx={{
+              justifyContent: 'space-between',
+              ml: 0,
+              pl: 1,
+              '&:hover': { backgroundColor: 'highlight.light' },
+            }}
             control={
               <Checkbox
                 value={checkboxValue}
@@ -56,10 +61,14 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
           />
         </FormGroup>
 
-        {subtitle && <Typography variant="h4">{subtitle}</Typography>}
+        {subtitle && (
+          <Typography sx={{ pl: 1 }} variant="h4">
+            {subtitle}
+          </Typography>
+        )}
 
         {items && items.length > 0 && (
-          <>
+          <Box sx={{ pl: 1 }}>
             <Link href="#" onClick={toggleAccordion} sx={{ display: 'block', mt: 3 }}>
               {isOpen ? closeLabel : openLabel}
             </Link>
@@ -74,7 +83,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
                 </ul>
               </Box>
             )}
-          </>
+          </Box>
         )}
       </CardContent>
     </Card>
