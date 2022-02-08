@@ -12,9 +12,11 @@ export type DatePickerProps = {
 };
 export const DatePicker: React.FC<DatePickerProps> = (props) => {
   const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', onChange } = props;
+  const [value, setValue] = React.useState<Date | null>(date);
 
   const handleChange = (newValue: Date | null) => {
     if (newValue) {
+      setValue(newValue);
       onChange(newValue);
     }
   };
@@ -24,7 +26,7 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
       <MobileDatePicker
         label={label}
         inputFormat={inputFormat}
-        value={date}
+        value={value}
         onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
       />
