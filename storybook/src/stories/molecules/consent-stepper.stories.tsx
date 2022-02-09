@@ -35,12 +35,6 @@ Desktop.args = {
         </>
       ),
       disableNextButton: false,
-      onPrevious: () => {
-        return '';
-      },
-      onNext: () => {
-        return '';
-      },
     },
     {
       label: 'How it works',
@@ -51,12 +45,6 @@ Desktop.args = {
         </>
       ),
       disableNextButton: false,
-      onPrevious: () => {
-        return '';
-      },
-      onNext: () => {
-        return '';
-      },
     },
     {
       label: 'Summary',
@@ -69,6 +57,7 @@ Desktop.args = {
       nextButtonLabel: 'Consent',
       disableNextButton: false,
       onPrevious: () => {
+        alert('Going back');
         return '';
       },
       onNext: () => {

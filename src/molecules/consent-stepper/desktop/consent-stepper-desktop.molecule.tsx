@@ -9,9 +9,9 @@ type Step = {
   label: string;
   content: React.ReactNode;
   disableNextButton: boolean;
-  onPrevious: () => {};
-  onNext: () => {};
   nextButtonLabel?: string;
+  onPrevious?: () => {};
+  onNext?: () => {};
 };
 
 export type ConsentStepperDesktopProps = {
@@ -23,14 +23,19 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleOnPrevious = (step: Step) => {
-    step.onPrevious();
+    if (step.onPrevious) {
+      step.onPrevious();
+    }
+
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
     }
   };
 
   const handleOnNext = (step: Step) => {
-    step.onNext();
+    if (step.onNext) {
+      step.onNext();
+    }
     if (activeStep < steps.length - 1) {
       setActiveStep(activeStep + 1);
     }
