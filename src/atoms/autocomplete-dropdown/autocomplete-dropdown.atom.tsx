@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import { Autocomplete, Avatar, Box, TextField, Typography } from '@mui/material';
+import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
 import { DataHolder } from '../../generated/dcr/api';
 import Bank from 'mdi-material-ui/Bank';
 
