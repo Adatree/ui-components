@@ -24,6 +24,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
       disablePortal
       options={dataHolders}
       getOptionLabel={(option) => option.brandName}
+      isOptionEqualToValue={(option, value) => option.dataHolderBrandId === value.dataHolderBrandId}
       defaultValue={defaultValue}
       renderOption={(props, option) => (
         <Typography {...props} variant="body1" key={option.dataHolderBrandId} sx={{ display: 'flex' }}>
