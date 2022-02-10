@@ -10,8 +10,8 @@ type Step = {
   content: React.ReactNode;
   disableNextButton: boolean;
   nextButtonLabel?: string;
-  onPrevious?: () => {};
-  onNext?: () => {};
+  onPrevious?: () => void;
+  onNext?: () => void;
 };
 
 export type ConsentStepperDesktopProps = {

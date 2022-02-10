@@ -56,7 +56,7 @@ const getTestDataHomeUseCase = (): UseCaseResponse => {
 };
 
 // Use Case
-const getTestDataBudgetingTookUseCase = (): UseCaseResponse => {
+const getTestDataBudgetingToolUseCase = (): UseCaseResponse => {
   return {
     id: 'BUDGETING_TOOL',
     name: 'Budgeting Tool',
@@ -110,7 +110,7 @@ const getTestDataConsentResponses = (): ConsentResponse[] => {
       consumerEmail: 'shane+test@adatree.com.au',
       dataHolderName: 'Yellow Bank of Australia',
       dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
-      useCase: getTestDataBudgetingTookUseCase(),
+      useCase: getTestDataBudgetingToolUseCase(),
       postUsageAction: PostUsageAction.DELETION,
       directMarketingAllowed: false,
     },
@@ -127,7 +127,7 @@ const getTestDataConsentResponses = (): ConsentResponse[] => {
       dataHolderName: 'Red Australia Bank',
       dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
       useCase: {
-        ...getTestDataBudgetingTookUseCase(),
+        ...getTestDataBudgetingToolUseCase(),
         accessFrequency: AccessFrequency.ONGOING,
       },
       postUsageAction: PostUsageAction.DELETION,
@@ -209,7 +209,7 @@ const generateTestDataConsent = (createConsent: CreateConsent): ConsentResponse 
 };
 
 // Data Holder
-const getTestDataYellowBankBrand = (): DataHolder => {
+const getTestDataYellowBankDataHolder = (): DataHolder => {
   return {
     dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
     brandName: 'Yellow Bank of Australia',
@@ -217,7 +217,7 @@ const getTestDataYellowBankBrand = (): DataHolder => {
   };
 };
 
-const getTestDataRedBankBrand = (): DataHolder => {
+const getTestDataRedBankDataHolder = (): DataHolder => {
   return {
     dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
     brandName: 'Red Australia Bank',
@@ -225,8 +225,8 @@ const getTestDataRedBankBrand = (): DataHolder => {
   };
 };
 
-const getTestDataDataHolder = (): DataHolder[] => {
-  return [getTestDataRedBankBrand(), getTestDataYellowBankBrand()];
+const getTestDataAllDataHolders = (): DataHolder[] => {
+  return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
 const getTestUuidV4 = () => {
@@ -249,15 +249,15 @@ const getTestUuidV4 = () => {
 export const TestUtil = {
   generateTestDataConsent,
   getTestDataBankAccountScope,
-  getTestDataBudgetingTookUseCase,
+  getTestDataBudgetingToolUseCase,
   getTestDataConsentResponse,
   getTestDataConsentResponses,
   getTestDataCreateConsent,
-  getTestDataDataHolder,
+  getTestDataAllDataHolders,
   getTestDataHomeUseCase,
   getTestDataPersonalInformationScope,
-  getTestDataRedBankBrand,
+  getTestDataRedBankDataHolder,
   getTestDataScopeResponse,
-  getTestDataYellowBankBrand,
+  getTestDataYellowBankDataHolder,
   suspendLogger,
 };

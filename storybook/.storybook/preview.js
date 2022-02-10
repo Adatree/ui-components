@@ -1,10 +1,12 @@
-import { ThemeProvider } from '../src/lib';
+import { ThemeProvider, ConsentFormProvider } from '../src/lib';
 
 export const decorators = [
   (Story) => {
     return (
       <ThemeProvider>
-        <Story />
+        <ConsentFormProvider>
+          <Story />
+        </ConsentFormProvider>
       </ThemeProvider>
     );
   },
