@@ -1,6 +1,7 @@
 // Atoms
 export { AutocompleteDropdown } from './atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
+export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
