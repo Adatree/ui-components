@@ -21,16 +21,22 @@ const useConsentForm = () => {
   return context;
 };
 
-const ConsentFormProvider: React.FC = (props) => {
-  const [consent, setConsent] = React.useState<ConsentForm>({
-    accessFrequency: undefined,
-    checkedScopes: [],
-    dataHolder: undefined,
-    postUsageAction: undefined,
-    sharingEndDate: new Date(),
-  });
+type ConsentFormProviderProps = {
+  children: React.ReactNode;
+  initialValues?: ConsentForm;
+};
 
-  return <ConsentFormContext.Provider value={[consent, setConsent]} {...props} />;
+const ConsentFormDefaultValues: ConsentForm = {
+  accessFrequency: undefined,
+  checkedScopes: [],
+  dataHolder: undefined,
+  postUsageAction: undefined,
+  sharingEndDate: new Date(),
+};
+
+const ConsentFormProvider = ({ children, initialValues = ConsentFormDefaultValues }: ConsentFormProviderProps) => {
+  const [consent, setConsent] = React.useState<ConsentForm>(initialValues);
+  return <ConsentFormContext.Provider value={[consent, setConsent]}>{children}</ConsentFormContext.Provider>;
 };
 
 export { ConsentFormProvider, useConsentForm };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ReviewStep, TestUtil } from '../../lib';
+import { ConsentFormProvider, PostUsageAction, ReviewStep, TestUtil } from '../../lib';
+import { AccessFrequency } from '../../lib';
 
 export default {
   title: 'Atomic Components/Organisms/Consent steps/Review step',
@@ -12,7 +13,46 @@ export default {
 
 const Template: ComponentStory<typeof ReviewStep> = (args) => <ReviewStep {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+const ConsentFormValues = {
+  accessFrequency: AccessFrequency.ONCEOFF,
+  checkedScopes: [],
+  dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  postUsageAction: PostUsageAction.DEIDENTIFICATION,
+  sharingEndDate: new Date(),
+};
+
+export const WithConsentFormValues = Template.bind({});
+WithConsentFormValues.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={ConsentFormValues}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+WithConsentFormValues.args = {
   useCase: TestUtil.getTestDataHomeUseCase(),
+};
+
+const DifferntConsentFormValues = {
+  accessFrequency: AccessFrequency.ONGOING,
+  checkedScopes: [],
+  dataHolder: TestUtil.getTestDataYellowBankDataHolder(),
+  postUsageAction: PostUsageAction.DELETION,
+  sharingEndDate: new Date(),
+};
+
+export const WithDifferentConsentFormValues = Template.bind({});
+WithDifferentConsentFormValues.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={DifferntConsentFormValues}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+WithDifferentConsentFormValues.args = {
+  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
 };

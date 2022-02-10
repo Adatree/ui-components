@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { DataAccessStep, TestUtil } from '../../lib';
+import { AccessFrequency, ConsentFormProvider, DataAccessStep, PostUsageAction, TestUtil } from '../../lib';
 
 export default {
   title: 'Atomic Components/Organisms/Consent steps/Data access step',
@@ -12,8 +12,17 @@ export default {
 
 const Template: ComponentStory<typeof DataAccessStep> = (args) => <DataAccessStep {...args} />;
 
-export const WithHomeUseCase = Template.bind({});
-WithHomeUseCase.args = {
+export const WithValuesUnselected = Template.bind({});
+WithValuesUnselected.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+WithValuesUnselected.args = {
   companyName: 'Adatree',
   useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid) => {
@@ -21,10 +30,29 @@ WithHomeUseCase.args = {
   },
 };
 
-export const WithBudgetingToolUseCase = Template.bind({});
-WithBudgetingToolUseCase.args = {
+const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];
+
+const ConsentFormValues = {
+  accessFrequency: AccessFrequency.ONCEOFF,
+  checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
+  dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  postUsageAction: PostUsageAction.DEIDENTIFICATION,
+  sharingEndDate: new Date(),
+};
+
+export const WithValuesSelected = Template.bind({});
+WithValuesSelected.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={ConsentFormValues}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+WithValuesSelected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
+  useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid) => {
     alert(`This step is ${isValid ? '' : 'not '}valid`);
   },

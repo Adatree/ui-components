@@ -4,9 +4,7 @@ export const decorators = [
   (Story) => {
     return (
       <ThemeProvider>
-        <ConsentFormProvider>
-          <Story />
-        </ConsentFormProvider>
+        <Story />
       </ThemeProvider>
     );
   },
