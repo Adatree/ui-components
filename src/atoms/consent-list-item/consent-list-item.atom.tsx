@@ -30,7 +30,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   }
 
   return (
-    <ListItem key={consent.consentId} secondaryAction={<ChevronRight />} disablePadding>
+    <ListItem secondaryAction={<ChevronRight />} disablePadding>
       <ListItemButton
         component="a"
         href={`/consents/${consent.consentId}`}
