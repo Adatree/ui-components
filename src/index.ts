@@ -25,6 +25,9 @@ export * from './context/consentForm.context';
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
 
+// Themes
+export { adatreeTheme } from './providers/themes/adatree.theme';
+
 // Utils
 export { Debugger } from './utils/debug/debug';
 export { Formatter } from './utils/formatter/formater';

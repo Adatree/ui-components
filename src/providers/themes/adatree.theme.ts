@@ -1,7 +1,17 @@
+// MUI colour generator https://material.io/resources/color/
+
 export const adatreeTheme = {
   colour: {
-    primary: '#021C55',
-    secondary: '#3FDAC9',
+    primary: {
+      light: '#3b4282',
+      main: '#021C55',
+      dark: '#00002c',
+    },
+    secondary: {
+      light: '#85ffff',
+      main: '#48DFD2',
+      dark: '#00ada1',
+    },
     highlight: {
       light: '#f2f2f2',
       main: '#e6e6e6',

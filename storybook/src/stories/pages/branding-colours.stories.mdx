@@ -1,0 +1,64 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
+import { adatreeTheme } from  '../../lib';
+
+<Meta title="Branding/Colours" />
+
+# Colours
+
+<br/>
+<br/>
+<br/>
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    colors={[adatreeTheme.colour.primary.main]}
+  />
+  <ColorItem
+    title="Secondary"
+    colors={[adatreeTheme.colour.secondary.main]}
+  />
+</ColorPalette>
+
+<br/>
+<br/>
+<br/>
+
+<ColorPalette>
+  <ColorItem
+    title="theme.colour.primary"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.primary.light, adatreeTheme.colour.primary.main, adatreeTheme.colour.primary.dark]}
+  />
+  <ColorItem
+    title="theme.colour.secondary"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.secondary.light, adatreeTheme.colour.secondary.main, adatreeTheme.colour.secondary.dark]}
+  />
+  <ColorItem
+    title="theme.colour.highlight"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.highlight.light, adatreeTheme.colour.highlight.main, adatreeTheme.colour.highlight.dark]}
+  />
+  <ColorItem
+    title="theme.colour.shadow"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.shadow.light, adatreeTheme.colour.shadow.main, adatreeTheme.colour.shadow.dark]}
+  />
+  <ColorItem
+    title="theme.colour.monochrome"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.monochrome.light, adatreeTheme.colour.monochrome.main, adatreeTheme.colour.monochrome.dark]}
+  />
+  <ColorItem
+    title="theme.colour.neutral"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.neutral.light, adatreeTheme.colour.neutral.main, adatreeTheme.colour.neutral.dark]}
+  />
+  <ColorItem
+    title="theme.colour.typography"
+    subtitle='Light - Main - Dark'
+    colors={[adatreeTheme.colour.typography.light, adatreeTheme.colour.typography.main, adatreeTheme.colour.typography.dark]}
+  />
+
+</ColorPalette>

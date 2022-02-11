@@ -21,10 +21,10 @@ const appTheme = adatreeTheme;
 
 const palette: PaletteOptions = {
   primary: {
-    main: appTheme.colour.primary,
+    main: appTheme.colour.primary.main,
   },
   secondary: {
-    main: appTheme.colour.secondary,
+    main: appTheme.colour.secondary.main,
   },
   success: {
     main: appTheme.colour.success,
@@ -92,7 +92,7 @@ export const theme: Theme = createTheme({
       lineHeight: '1.4',
     },
     button: {
-      color: appTheme.colour.secondary,
+      color: appTheme.colour.secondary.main,
     },
   },
 
