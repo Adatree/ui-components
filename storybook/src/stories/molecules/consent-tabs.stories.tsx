@@ -12,7 +12,12 @@ export default {
 
 const Template: ComponentStory<typeof ConsentTabs> = (args) => <ConsentTabs {...args} />;
 
-export const Tabs = Template.bind({});
-Tabs.args = {
+export const WithConsentItems = Template.bind({});
+WithConsentItems.args = {
   consents: TestUtil.getTestDataConsentResponses(),
+};
+
+export const WithNoConsentItems = Template.bind({});
+WithNoConsentItems.args = {
+  consents: undefined,
 };

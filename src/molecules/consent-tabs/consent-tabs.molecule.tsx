@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Tabs, Tab, Box } from '@mui/material';
+import { AppBar, Tabs, Tab, Box, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { List } from '../../utils/list/list';
@@ -30,6 +30,14 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
     }
   };
 
+  const noConsentItems = (status: string) => {
+    return (
+      <Typography variant="h5" sx={{ py: 5, textAlign: 'center' }}>
+        You do not have any {status.toLocaleLowerCase()} consents.
+      </Typography>
+    );
+  };
+
   return (
     <Box>
       <AppBar position="static" color="secondary">
@@ -47,13 +55,16 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ConsentList consents={activeConsents} />
+        {activeConsents.length > 0 && <ConsentList consents={activeConsents} />}
+        {activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ConsentList consents={expiredConsents} />
+        {expiredConsents.length > 0 && <ConsentList consents={expiredConsents} />}
+        {expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ConsentList consents={revokedConsents} />
+        {revokedConsents.length > 0 && <ConsentList consents={revokedConsents} />}
+        {revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
       </TabPanel>
     </Box>
   );
