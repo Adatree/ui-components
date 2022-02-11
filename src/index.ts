@@ -9,6 +9,7 @@ export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button
 export { SectionCard } from './atoms/section-card/section-card.atom';
 
 // Molecules
+export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
 export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope-list.molecule';
 
