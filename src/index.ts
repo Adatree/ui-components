@@ -27,6 +27,7 @@ export { ThemeProvider } from './providers/theme.provider';
 // Utils
 export { Debugger } from './utils/debug/debug';
 export { Formatter } from './utils/formatter/formater';
+export { List } from './utils/list/list';
 export { Logger } from './utils/logger/logger';
 export { TestUtil } from './utils/test/test.util';
 
