@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { IconWithText } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Icon with text',
+  title: 'Components/Atoms/Icon with text',
   component: IconWithText,
   argTypes: {
     backgroundColor: { control: 'color' },

@@ -4,7 +4,7 @@ import { AutocompleteDropdown, DataHolder } from '../../lib';
 import { TestUtil } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Autocomplete Dropdown',
+  title: 'Components/Atoms/Autocomplete Dropdown',
   component: AutocompleteDropdown,
   argTypes: {
     backgroundColor: { control: 'color' },

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentFormProvider, DataHolderStep, TestUtil } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Organisms/Consent steps/Data holders step',
+  title: 'Components/Organisms/Consent steps/Data holders step',
   component: DataHolderStep,
   decorators: [
     (Story) => {

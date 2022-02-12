@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { InfoHowItWorksStep } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Organisms/Consent steps/How it works info step',
+  title: 'Components/Organisms/Consent steps/How it works info step',
   component: InfoHowItWorksStep,
   argTypes: {
     backgroundColor: { control: 'color' },

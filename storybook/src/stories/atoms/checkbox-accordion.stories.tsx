@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CheckboxAccordion } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Checkbox Accordion',
+  title: 'Components/Atoms/Checkbox Accordion',
   component: CheckboxAccordion,
   argTypes: {
     backgroundColor: { control: 'color' },

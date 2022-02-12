@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentList, TestUtil } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Consent list',
+  title: 'Components/Atoms/Consent list',
   component: ConsentList,
   argTypes: {
     backgroundColor: { control: 'color' },

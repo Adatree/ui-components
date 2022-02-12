@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SectionCard } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Section card',
+  title: 'Components/Atoms/Section card',
   component: SectionCard,
   argTypes: {
     backgroundColor: { control: 'color' },

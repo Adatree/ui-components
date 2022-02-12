@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AccessFrequency, ConsentFormProvider, DataAccessStep, PostUsageAction, TestUtil } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Organisms/Consent steps/Data access step',
+  title: 'Components/Organisms/Consent steps/Data access step',
   component: DataAccessStep,
   argTypes: {
     backgroundColor: { control: 'color' },

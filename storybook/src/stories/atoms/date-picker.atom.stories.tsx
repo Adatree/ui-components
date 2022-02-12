@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { DatePicker } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Date picker',
+  title: 'Components/Atoms/Date picker',
   component: DatePicker,
   argTypes: {
     backgroundColor: { control: 'color' },

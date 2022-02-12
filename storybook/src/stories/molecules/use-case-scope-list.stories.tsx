@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { UseCaseScopeList, TestUtil } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Molecules/Use Case Scope List',
+  title: 'Components/Molecules/Use Case Scope List',
   component: UseCaseScopeList,
   argTypes: {
     backgroundColor: { control: 'color' },

@@ -4,7 +4,7 @@ import { ConsentFormProvider, PostUsageAction, ReviewStep, TestUtil } from '../.
 import { AccessFrequency } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Organisms/Consent steps/Review step',
+  title: 'Components/Organisms/Consent steps/Review step',
   component: ReviewStep,
   argTypes: {
     backgroundColor: { control: 'color' },

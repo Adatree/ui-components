@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { RadioButtonWithText } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Atoms/Radio button with text',
+  title: 'Components/Atoms/Radio button with text',
   component: RadioButtonWithText,
   argTypes: {
     backgroundColor: { control: 'color' },

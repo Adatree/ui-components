@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { InfoCdrStep } from '../../lib';
 
 export default {
-  title: 'Atomic Components/Organisms/Consent steps/CDR info step',
+  title: 'Components/Organisms/Consent steps/CDR info step',
   component: InfoCdrStep,
   argTypes: {
     backgroundColor: { control: 'color' },

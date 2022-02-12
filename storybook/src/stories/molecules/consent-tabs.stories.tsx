@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentTabs, TestUtil } from '../../lib';
 
 export default {
-  title: 'Consent/Tabs',
+  title: 'Full examples/Tabs',
   component: ConsentTabs,
   argTypes: {
     backgroundColor: { control: 'color' },
