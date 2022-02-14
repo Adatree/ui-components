@@ -4,6 +4,7 @@ export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
 export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
+export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
 export { SectionCard } from './atoms/section-card/section-card.atom';
