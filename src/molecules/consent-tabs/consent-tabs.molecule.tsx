@@ -1,11 +1,12 @@
 import React from 'react';
-import { AppBar, Tabs, Tab, Box, Typography } from '@mui/material';
+import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { List } from '../../utils/list/list';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
+  isLoading?: boolean;
 };
 
 type TabPanelProps = {
@@ -15,7 +16,7 @@ type TabPanelProps = {
 };
 
 export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
-  const { consents = [] } = props;
+  const { consents = [], isLoading = false } = props;
   const [value, setValue] = React.useState(0);
 
   const activeConsents = List.sortListbyDate(List.filterListbyStatus(consents, Status.ACTIVE));
@@ -55,16 +56,19 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {activeConsents.length > 0 && <ConsentList consents={activeConsents} />}
-        {activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
+        {isLoading && renderLoading()}
+        {!isLoading && activeConsents.length > 0 && <ConsentList consents={activeConsents} />}
+        {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {expiredConsents.length > 0 && <ConsentList consents={expiredConsents} />}
-        {expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
+        {isLoading && renderLoading()}
+        {!isLoading && expiredConsents.length > 0 && <ConsentList consents={expiredConsents} />}
+        {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {revokedConsents.length > 0 && <ConsentList consents={revokedConsents} />}
-        {revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
+        {isLoading && renderLoading()}
+        {!isLoading && revokedConsents.length > 0 && <ConsentList consents={revokedConsents} />}
+        {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
       </TabPanel>
     </Box>
   );
@@ -91,4 +95,12 @@ const a11yProps = (index: number) => {
     id: `Consent-tab-${index}`,
     'aria-controls': `Consent-tabpanel-${index}`,
   };
+};
+
+const renderLoading = () => {
+  return (
+    <>
+      <Skeleton height="80px" /> <Skeleton height="80px" />
+    </>
+  );
 };

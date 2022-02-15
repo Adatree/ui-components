@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentTabs, TestUtil } from '../../lib';
 
 export default {
-  title: 'Full examples/Tabs',
+  title: 'Components/Molecules/Consent Tabs',
   component: ConsentTabs,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -20,4 +20,10 @@ WithConsentItems.args = {
 export const WithNoConsentItems = Template.bind({});
 WithNoConsentItems.args = {
   consents: undefined,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  consents: [],
+  isLoading: true,
 };
