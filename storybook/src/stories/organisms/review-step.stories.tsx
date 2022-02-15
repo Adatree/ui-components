@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentFormProvider, PostUsageAction, ReviewStep, TestUtil } from '../../lib';
-import { AccessFrequency } from '../../lib';
+import { AccessFrequency, ConsentFormProvider, PostUsageAction, ReviewStep, TestUtil } from '../../lib';
 
 export default {
   title: 'Components/Organisms/Consent steps/Review step',
