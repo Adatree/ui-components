@@ -1,4 +1,5 @@
 // Atoms
+export { Accordion } from './atoms/accordion/accordion.molecule';
 export { AutocompleteDropdown } from './atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
