@@ -12,6 +12,7 @@ export { SectionCard } from './atoms/section-card/section-card.atom';
 // Molecules
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
+export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope-list.molecule';
 
 // Organisms
