@@ -52,3 +52,25 @@ DaysMonthsYears.args = {
     alert(`The computed date is ${date.toISOString()}`);
   },
 };
+
+export const WithValueSelected = Template.bind({});
+WithValueSelected.args = {
+  dateOptions: [
+    {
+      unit: 'm',
+      value: 1,
+    },
+    {
+      unit: 'm',
+      value: 3,
+      isSelected: true,
+    },
+    {
+      unit: 'm',
+      value: 6,
+    },
+  ],
+  onClick: (date) => {
+    alert(`The computed date is ${date.toISOString()}`);
+  },
+};

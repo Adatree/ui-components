@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 
 type DateOption = {
   unit: 'd' | 'w' | 'm' | 'y';
   value: number;
-  isChecked?: boolean;
+  isSelected?: boolean;
 };
 
 export type DateButtonProps = {
@@ -32,19 +32,28 @@ const getDateString = (dateOption: DateOption): string => {
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
   const { dateOptions, onClick } = props;
+  const [options, setOptions] = useState(dateOptions);
 
-  const handleClick = (dateOption: DateOption) => {
+  const handleClick = (option: DateOption, index: number) => {
+    // Clear and hightlight the new date button
+    const clearedOption = options.map((option) => {
+      return { ...option, isSelected: false };
+    });
+    clearedOption[index].isSelected = true;
+    setOptions([...clearedOption]);
+
+    // Return the new date
     const curDate = new Date();
     let newDate = new Date();
 
-    if (dateOption.unit === 'd') {
-      newDate = addDays(curDate, dateOption.value);
-    } else if (dateOption.unit === 'w') {
-      newDate = addWeeks(curDate, dateOption.value);
-    } else if (dateOption.unit === 'm') {
-      newDate = addMonths(curDate, dateOption.value);
-    } else if (dateOption.unit === 'y') {
-      newDate = addYears(curDate, dateOption.value);
+    if (option.unit === 'd') {
+      newDate = addDays(curDate, option.value);
+    } else if (option.unit === 'w') {
+      newDate = addWeeks(curDate, option.value);
+    } else if (option.unit === 'm') {
+      newDate = addMonths(curDate, option.value);
+    } else if (option.unit === 'y') {
+      newDate = addYears(curDate, option.value);
     }
 
     onClick(newDate);
@@ -52,15 +61,16 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
 
   return (
     <Box sx={{ flexWrap: 'wrap', display: 'inline-flex' }}>
-      {dateOptions.map((dateOption) => {
+      {options.map((option, index) => {
         return (
           <Button
-            onClick={() => handleClick(dateOption)}
-            variant="outlined"
-            key={`${dateOption.unit}-${dateOption.value}`}
+            onClick={() => handleClick(option, index)}
+            variant={option.isSelected ? 'contained' : 'outlined'}
+            key={`${option.unit}-${option.value}`}
+            color={option.isSelected ? 'secondary' : 'inherit'}
             sx={{ mr: 1, mb: 1 }}
           >
-            {getDateString(dateOption)}
+            {getDateString(option)}
           </Button>
         );
       })}
