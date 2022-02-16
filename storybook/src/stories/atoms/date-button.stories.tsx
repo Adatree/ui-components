@@ -23,22 +23,26 @@ DaysMonthsYears.args = {
       unit: 'd',
       value: 3,
     },
-
+    {
+      unit: 'w',
+      value: 1,
+    },
+    {
+      unit: 'w',
+      value: 3,
+    },
     {
       unit: 'm',
       value: 1,
     },
-
     {
       unit: 'm',
       value: 3,
     },
-
     {
       unit: 'y',
       value: 1,
     },
-
     {
       unit: 'y',
       value: 3,

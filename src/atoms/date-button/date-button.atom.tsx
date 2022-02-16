@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { addDays, addMonths, addYears } from 'date-fns';
+import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 
 type DateOption = {
-  unit: 'd' | 'm' | 'y';
+  unit: 'd' | 'w' | 'm' | 'y';
   value: number;
+  isChecked?: boolean;
 };
 
 export type DateButtonProps = {
@@ -18,6 +19,8 @@ const getDateString = (dateOption: DateOption): string => {
 
   if (dateOption.unit === 'd') {
     dateString = 'day';
+  } else if (dateOption.unit === 'w') {
+    dateString = 'week';
   } else if (dateOption.unit === 'm') {
     dateString = 'month';
   } else if (dateOption.unit === 'y') {
@@ -36,6 +39,8 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
 
     if (dateOption.unit === 'd') {
       newDate = addDays(curDate, dateOption.value);
+    } else if (dateOption.unit === 'w') {
+      newDate = addWeeks(curDate, dateOption.value);
     } else if (dateOption.unit === 'm') {
       newDate = addMonths(curDate, dateOption.value);
     } else if (dateOption.unit === 'y') {
