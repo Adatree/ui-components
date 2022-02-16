@@ -30,6 +30,7 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <MobileDatePicker
         label={label}
+        minDate={new Date()}
         inputFormat={inputFormat}
         value={value}
         disabled={disabled}
