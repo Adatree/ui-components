@@ -65,13 +65,19 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   };
 
   const handleDatePickerChange = (date: Date) => {
-    setDateOptions([...Helper.clearDateOptions(dateOptions)]);
+    updateDateOptions([...Helper.clearDateOptions(dateOptions)]);
     handleSharingEndDateChange(date);
   };
 
   const handleDateButtonClick = (date: Date, dateOptions: DateOption[]) => {
-    setDateOptions([...dateOptions]);
+    updateDateOptions(dateOptions);
     handleSharingEndDateChange(date);
+  };
+
+  const updateDateOptions = (dateOptions: DateOption[]) => {
+    consentForm.dateOptions = dateOptions;
+    setConsentForm({ ...consentForm });
+    setDateOptions([...dateOptions]);
   };
 
   const handleSharingEndDateChange = (date: Date) => {
