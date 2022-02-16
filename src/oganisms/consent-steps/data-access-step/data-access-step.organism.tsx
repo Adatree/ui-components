@@ -139,7 +139,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 ]}
                 onChange={handleAccessFrequencyRadioChange}
               />
-              {dateOptions && (
+              {dateOptions.length > 0 && (
                 <>
                   <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
                     <DateButton
