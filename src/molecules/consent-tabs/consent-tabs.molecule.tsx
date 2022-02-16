@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
-import { Helper } from '../../utils/list/list';
+import { Helper } from '../../utils/helper/helper';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
