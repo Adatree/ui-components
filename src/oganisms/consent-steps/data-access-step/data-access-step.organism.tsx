@@ -139,13 +139,40 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 ]}
                 onChange={handleAccessFrequencyRadioChange}
               />
-              <Box sx={{ mt: 2 }}>
-                <DateButton dateOptions={dateOptions} disabled={disableDatePicker} onClick={handleDateButtonClick} />
-              </Box>
-              <Box sx={{ mt: 2 }}>
+              {dateOptions && (
+                <>
+                  <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
+                    <DateButton
+                      dateOptions={dateOptions}
+                      disabled={disableDatePicker}
+                      onClick={handleDateButtonClick}
+                    />
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    color="GrayText"
+                    sx={{
+                      mt: 1,
+                      mr: { xs: 0, sm: 12 },
+                      display: 'flex',
+                      justifyContent: { xs: 'center', sm: 'end' },
+                    }}
+                  >
+                    or
+                  </Typography>
+                </>
+              )}
+              <Box
+                sx={{
+                  mt: 2,
+                  display: 'flex',
+                  width: { xs: '100%', sm: 'inherit' },
+                  justifyContent: { xs: 'center', sm: 'end' },
+                }}
+              >
                 <DatePicker
                   date={sharingEndDate}
-                  label="Expiry date"
+                  label="Expire on"
                   disabled={disableDatePicker}
                   onChange={handleDatePickerChange}
                 />

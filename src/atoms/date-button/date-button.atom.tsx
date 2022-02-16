@@ -58,7 +58,7 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
   };
 
   return (
-    <Box sx={{ flexWrap: 'wrap', display: 'inline-flex' }}>
+    <Box sx={{ flexWrap: 'wrap', display: 'inline-flex', width: { xs: '100%', sm: 'inherit' } }}>
       {dateOptions.map((option, index) => {
         return (
           <Button
@@ -67,7 +67,7 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
             disabled={disabled}
             key={`${option.unit}-${option.value}`}
             color={option.isSelected ? 'secondary' : 'inherit'}
-            sx={{ mr: 1, mb: 1 }}
+            sx={{ mr: '4px', mb: 1, width: { xs: 'calc(50% - 4px)', sm: 'inherit' } }}
           >
             {getDateString(option)}
           </Button>
