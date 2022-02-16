@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Button } from '@mui/material';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
+import { Helper } from '../../utils/helper/helper';
 
 export type DateOption = {
   unit: 'd' | 'w' | 'm' | 'y';
@@ -11,7 +12,7 @@ export type DateOption = {
 export type DateButtonProps = {
   dateOptions: DateOption[];
   disabled?: boolean;
-  onClick: (date: Date) => void;
+  onClick: (date: Date, dateOptions: DateOption[]) => void;
 };
 
 const getDateString = (dateOption: DateOption): string => {
@@ -33,19 +34,11 @@ const getDateString = (dateOption: DateOption): string => {
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
   const { dateOptions, disabled = false, onClick } = props;
-  const [options, setOptions] = useState(dateOptions);
-
-  useEffect(() => {
-    setOptions(dateOptions);
-  }, [props.dateOptions, setOptions]);
 
   const handleClick = (option: DateOption, index: number) => {
     // Clear and hightlight the new date button
-    const clearedOption = options.map((option) => {
-      return { ...option, isSelected: false };
-    });
-    clearedOption[index].isSelected = true;
-    setOptions([...clearedOption]);
+    const newOptions = Helper.clearDateOptions(dateOptions);
+    newOptions[index].isSelected = true;
 
     // Return the new date
     const curDate = new Date();
@@ -61,12 +54,12 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
       newDate = addYears(curDate, option.value);
     }
 
-    onClick(newDate);
+    onClick(newDate, newOptions);
   };
 
   return (
     <Box sx={{ flexWrap: 'wrap', display: 'inline-flex' }}>
-      {options.map((option, index) => {
+      {dateOptions.map((option, index) => {
         return (
           <Button
             onClick={() => handleClick(option, index)}

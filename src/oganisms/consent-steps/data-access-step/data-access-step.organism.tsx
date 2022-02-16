@@ -8,13 +8,7 @@ import { SectionCard } from '../../../atoms/section-card/section-card.atom';
 import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
 import { DateButton, DateOption } from '../../../atoms/date-button/date-button.atom';
-
-const initialDateOptions: DateOption[] = [
-  { unit: 'm', value: 1, isSelected: false },
-  { unit: 'm', value: 3, isSelected: false },
-  { unit: 'm', value: 6, isSelected: false },
-  { unit: 'y', value: 1, isSelected: false },
-];
+import { Helper } from '../../../utils/helper/helper';
 
 export type DataAccessStepProps = {
   companyName: string;
@@ -29,7 +23,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   const [accessFrequencyDefault] = useState(consentForm.accessFrequency);
   const [postUsageActionDefault] = useState(consentForm.postUsageAction);
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
-  const [dateOptions, setDateOptions] = useState(initialDateOptions);
+  const [dateOptions, setDateOptions] = useState(consentForm.dateOptions);
 
   const handleUseCaseScopeListChange = (isChecked: boolean, value: string) => {
     if (isChecked) {
@@ -71,7 +65,12 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   };
 
   const handleDatePickerChange = (date: Date) => {
-    setDateOptions([...initialDateOptions]);
+    setDateOptions([...Helper.clearDateOptions(dateOptions)]);
+    handleSharingEndDateChange(date);
+  };
+
+  const handleDateButtonClick = (date: Date, dateOptions: DateOption[]) => {
+    setDateOptions([...dateOptions]);
     handleSharingEndDateChange(date);
   };
 
@@ -141,11 +140,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 onChange={handleAccessFrequencyRadioChange}
               />
               <Box sx={{ mt: 2 }}>
-                <DateButton
-                  dateOptions={dateOptions}
-                  disabled={disableDatePicker}
-                  onClick={handleSharingEndDateChange}
-                />
+                <DateButton dateOptions={dateOptions} disabled={disableDatePicker} onClick={handleDateButtonClick} />
               </Box>
               <Box sx={{ mt: 2 }}>
                 <DatePicker

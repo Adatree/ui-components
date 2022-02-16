@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { AccessFrequency, DataHolder, PostUsageAction } from '..';
+import { DateOption } from '../atoms/date-button/date-button.atom';
+import { AccessFrequency, PostUsageAction } from '../generated/consent';
+import { DataHolder } from '../generated/dcr';
 
 type ConsentForm = {
   accessFrequency: AccessFrequency | undefined;
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
+  dateOptions: DateOption[];
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date;
 };
@@ -30,6 +33,7 @@ const ConsentFormDefaultValues: ConsentForm = {
   accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: undefined,
+  dateOptions: [],
   postUsageAction: undefined,
   sharingEndDate: new Date(),
 };

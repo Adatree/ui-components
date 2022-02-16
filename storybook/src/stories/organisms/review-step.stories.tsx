@@ -16,6 +16,7 @@ const ConsentFormValues = {
   accessFrequency: AccessFrequency.ONCEOFF,
   checkedScopes: [],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  dateOptions: [],
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
 };
@@ -38,6 +39,7 @@ const DifferntConsentFormValues = {
   accessFrequency: AccessFrequency.ONGOING,
   checkedScopes: [],
   dataHolder: TestUtil.getTestDataYellowBankDataHolder(),
+  dateOptions: [],
   postUsageAction: PostUsageAction.DELETION,
   sharingEndDate: new Date(),
 };
