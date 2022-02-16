@@ -5,17 +5,17 @@ import { DateOption } from '../../lib/atoms/date-button/date-button.atom';
 import { addMonths } from 'date-fns';
 
 const testDateOptions: DateOption[] = [
-  { unit: 'm', value: 1, isSelected: false },
-  { unit: 'm', value: 3, isSelected: false },
-  { unit: 'm', value: 6, isSelected: false },
-  { unit: 'y', value: 1, isSelected: false },
+  { unit: 'm', value: 1 },
+  { unit: 'm', value: 3 },
+  { unit: 'm', value: 6 },
+  { unit: 'y', value: 1 },
 ];
 
 const testDateOptionsWithSelectedValue: DateOption[] = [
-  { unit: 'm', value: 1, isSelected: false },
-  { unit: 'm', value: 3, isSelected: false },
+  { unit: 'm', value: 1 },
+  { unit: 'm', value: 3 },
   { unit: 'm', value: 6, isSelected: true },
-  { unit: 'y', value: 1, isSelected: false },
+  { unit: 'y', value: 1 },
 ];
 
 const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];
