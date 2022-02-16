@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 
-type DateOption = {
+export type DateOption = {
   unit: 'd' | 'w' | 'm' | 'y';
   value: number;
   isSelected?: boolean;
@@ -34,6 +34,10 @@ const getDateString = (dateOption: DateOption): string => {
 export const DateButton: React.FC<DateButtonProps> = (props) => {
   const { dateOptions, disabled = false, onClick } = props;
   const [options, setOptions] = useState(dateOptions);
+
+  useEffect(() => {
+    setOptions(dateOptions);
+  }, [props.dateOptions, setOptions]);
 
   const handleClick = (option: DateOption, index: number) => {
     // Clear and hightlight the new date button

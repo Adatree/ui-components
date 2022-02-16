@@ -7,7 +7,14 @@ import { UseCaseScopeList } from '../../../molecules/use-case-scope-list/use-cas
 import { SectionCard } from '../../../atoms/section-card/section-card.atom';
 import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
-import { DateButton } from '../../../atoms/date-button/date-button.atom';
+import { DateButton, DateOption } from '../../../atoms/date-button/date-button.atom';
+
+const initialDateOptions: DateOption[] = [
+  { unit: 'm', value: 1, isSelected: false },
+  { unit: 'm', value: 3, isSelected: false },
+  { unit: 'm', value: 6, isSelected: false },
+  { unit: 'y', value: 1, isSelected: false },
+];
 
 export type DataAccessStepProps = {
   companyName: string;
@@ -21,7 +28,8 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   const [disableDatePicker, setDisableDatePicker] = useState(consentForm.accessFrequency !== AccessFrequency.ONGOING);
   const [accessFrequencyDefault] = useState(consentForm.accessFrequency);
   const [postUsageActionDefault] = useState(consentForm.postUsageAction);
-  const [sharingEndDate] = useState(consentForm.sharingEndDate);
+  const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
+  const [dateOptions, setDateOptions] = useState(initialDateOptions);
 
   const handleUseCaseScopeListChange = (isChecked: boolean, value: string) => {
     if (isChecked) {
@@ -62,9 +70,15 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
     isStepValid();
   };
 
+  const handleDatePickerChange = (date: Date) => {
+    setDateOptions([...initialDateOptions]);
+    handleSharingEndDateChange(date);
+  };
+
   const handleSharingEndDateChange = (date: Date) => {
     consentForm.sharingEndDate = date;
     setConsentForm({ ...consentForm });
+    setSharingEndDate(date);
   };
 
   const isStepValid = () => {
@@ -128,12 +142,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
               />
               <Box sx={{ mt: 2 }}>
                 <DateButton
-                  dateOptions={[
-                    { unit: 'm', value: 1 },
-                    { unit: 'm', value: 3 },
-                    { unit: 'm', value: 6 },
-                    { unit: 'y', value: 1 },
-                  ]}
+                  dateOptions={dateOptions}
                   disabled={disableDatePicker}
                   onClick={handleSharingEndDateChange}
                 />
@@ -143,7 +152,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                   date={sharingEndDate}
                   label="Expiry date"
                   disabled={disableDatePicker}
-                  onChange={handleSharingEndDateChange}
+                  onChange={handleDatePickerChange}
                 />
               </Box>
             </>
