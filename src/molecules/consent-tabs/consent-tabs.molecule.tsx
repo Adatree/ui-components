@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
-import { List } from '../../utils/list/list';
+import { Helper } from '../../utils/list/list';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
@@ -19,11 +19,11 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
   const { consents = [], isLoading = false } = props;
   const [value, setValue] = React.useState(0);
 
-  const activeConsents = List.sortListbyDate(List.filterListbyStatus(consents, Status.ACTIVE));
-  const expiredConsents = List.sortListbyDate(List.filterListbyStatus(consents, Status.EXPIRED));
-  const revokedConsents = List.sortListbyDate(List.filterListbyStatus(consents, Status.REVOKED));
+  const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.ACTIVE));
+  const expiredConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.EXPIRED));
+  const revokedConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.REVOKED));
 
-  List.filterListbyStatus(consents, Status.ACTIVE);
+  Helper.filterListbyStatus(consents, Status.ACTIVE);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (event) {

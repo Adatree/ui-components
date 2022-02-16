@@ -36,7 +36,7 @@ export { adatreeTheme } from './providers/themes/adatree.theme';
 // Utils
 export { Debugger } from './utils/debug/debug';
 export { Formatter } from './utils/formatter/formater';
-export { List } from './utils/list/list';
+export { Helper } from './utils/helper/helper';
 export { Logger } from './utils/logger/logger';
 export { TestUtil } from './utils/test/test.util';
 

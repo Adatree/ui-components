@@ -1,3 +1,4 @@
+import { DateOption } from '../../atoms/date-button/date-button.atom';
 import { ConsentResponse, Status } from '../../generated/consent';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
@@ -29,7 +30,14 @@ const filterListbyStatus = (list: ConsentResponse[], filterBy: Status): ConsentR
   return list.filter((consent: ConsentResponse) => consent.status === filterBy);
 };
 
-export const List = {
+const clearDateOptions = (options: DateOption[]): DateOption[] => {
+  return options.map((option) => {
+    return { ...option, isSelected: false };
+  });
+};
+
+export const Helper = {
+  clearDateOptions,
   filterListbyStatus,
   sortListbyDate,
 };

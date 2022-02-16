@@ -1,4 +1,4 @@
-import { List } from './list';
+import { Helper } from './list';
 import { TestUtil } from '../test/test.util';
 import { Status } from '../../generated/consent';
 
@@ -8,7 +8,7 @@ describe('List Utils', () => {
   it('should sort a list of Consents by date', () => {
     const list = TestUtil.getTestDataConsentResponses();
 
-    const sortedList = List.sortListbyDate(list);
+    const sortedList = Helper.sortListbyDate(list);
 
     expect(sortedList[0].consentId).toEqual('b89ce648-1589-470c-8829-9955379fc5fc');
     expect(sortedList[1].consentId).toEqual('550b2d5a-2c52-4213-a9eb-3abe467d99a9');
@@ -21,10 +21,10 @@ describe('List Utils', () => {
   it('should format date string into a human readable format', () => {
     const list = TestUtil.getTestDataConsentResponses();
 
-    const activeList = List.filterListbyStatus(list, Status.ACTIVE);
-    const expiredList = List.filterListbyStatus(list, Status.EXPIRED);
-    const requestedList = List.filterListbyStatus(list, Status.REQUESTED);
-    const revokedList = List.filterListbyStatus(list, Status.REVOKED);
+    const activeList = Helper.filterListbyStatus(list, Status.ACTIVE);
+    const expiredList = Helper.filterListbyStatus(list, Status.EXPIRED);
+    const requestedList = Helper.filterListbyStatus(list, Status.REQUESTED);
+    const revokedList = Helper.filterListbyStatus(list, Status.REVOKED);
 
     expect(activeList.length).toEqual(2);
     expect(activeList[0].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
