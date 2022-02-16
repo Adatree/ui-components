@@ -1,4 +1,4 @@
-import { Helper } from './list';
+import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
 import { Status } from '../../generated/consent';
 
