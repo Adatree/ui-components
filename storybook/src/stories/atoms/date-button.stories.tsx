@@ -74,3 +74,25 @@ WithValueSelected.args = {
     alert(`The computed date is ${date.toISOString()}`);
   },
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  dateOptions: [
+    {
+      unit: 'm',
+      value: 1,
+    },
+    {
+      unit: 'm',
+      value: 3,
+    },
+    {
+      unit: 'm',
+      value: 6,
+    },
+  ],
+  disabled: true,
+  onClick: (date) => {
+    alert(`The computed date is ${date.toISOString()}`);
+  },
+};

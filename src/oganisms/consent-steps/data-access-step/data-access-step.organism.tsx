@@ -7,6 +7,7 @@ import { UseCaseScopeList } from '../../../molecules/use-case-scope-list/use-cas
 import { SectionCard } from '../../../atoms/section-card/section-card.atom';
 import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
+import { DateButton } from '../../../atoms/date-button/date-button.atom';
 
 export type DataAccessStepProps = {
   companyName: string;
@@ -125,6 +126,18 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 ]}
                 onChange={handleAccessFrequencyRadioChange}
               />
+              <Box sx={{ mt: 2 }}>
+                <DateButton
+                  dateOptions={[
+                    { unit: 'm', value: 1 },
+                    { unit: 'm', value: 3 },
+                    { unit: 'm', value: 6 },
+                    { unit: 'y', value: 1 },
+                  ]}
+                  disabled={disableDatePicker}
+                  onClick={handleSharingEndDateChange}
+                />
+              </Box>
               <Box sx={{ mt: 2 }}>
                 <DatePicker
                   date={sharingEndDate}

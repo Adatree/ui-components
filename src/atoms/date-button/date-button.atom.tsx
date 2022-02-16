@@ -10,6 +10,7 @@ type DateOption = {
 
 export type DateButtonProps = {
   dateOptions: DateOption[];
+  disabled?: boolean;
   onClick: (date: Date) => void;
 };
 
@@ -31,7 +32,7 @@ const getDateString = (dateOption: DateOption): string => {
 };
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
-  const { dateOptions, onClick } = props;
+  const { dateOptions, disabled = false, onClick } = props;
   const [options, setOptions] = useState(dateOptions);
 
   const handleClick = (option: DateOption, index: number) => {
@@ -66,6 +67,7 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
           <Button
             onClick={() => handleClick(option, index)}
             variant={option.isSelected ? 'contained' : 'outlined'}
+            disabled={disabled}
             key={`${option.unit}-${option.value}`}
             color={option.isSelected ? 'secondary' : 'inherit'}
             sx={{ mr: 1, mb: 1 }}
