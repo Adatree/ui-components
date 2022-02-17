@@ -9,6 +9,7 @@ import {
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { DataHolder } from '../../generated/dcr/api';
+import { DateOption } from '../../atoms/date-button/date-button.atom';
 
 const suspendLogger = (): void => {
   Logger.debug = jest.fn();
@@ -229,6 +230,25 @@ const getTestDataAllDataHolders = (): DataHolder[] => {
   return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
+const getTestDataDateOptions = (): DateOption[] => {
+  return [
+    { unit: 'd', value: 1 },
+    { unit: 'd', value: 2 },
+    { unit: 'w', value: 1 },
+    { unit: 'w', value: 2 },
+    { unit: 'm', value: 1 },
+    { unit: 'm', value: 2 },
+    { unit: 'y', value: 1 },
+    { unit: 'y', value: 2 },
+  ];
+};
+
+const getTestDataDateOptionsWithOptionalProperties = (): DateOption[] => {
+  return getTestDataDateOptions().map((option) => {
+    return { ...option, isSelected: false };
+  });
+};
+
 const getTestUuidV4 = () => {
   const getRandomSymbol = (symbol: string) => {
     var array;
@@ -248,12 +268,14 @@ const getTestUuidV4 = () => {
 
 export const TestUtil = {
   generateTestDataConsent,
+  getTestDataAllDataHolders,
   getTestDataBankAccountScope,
   getTestDataBudgetingToolUseCase,
   getTestDataConsentResponse,
   getTestDataConsentResponses,
   getTestDataCreateConsent,
-  getTestDataAllDataHolders,
+  getTestDataDateOptions,
+  getTestDataDateOptionsWithOptionalProperties,
   getTestDataHomeUseCase,
   getTestDataPersonalInformationScope,
   getTestDataRedBankDataHolder,
