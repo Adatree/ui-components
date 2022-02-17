@@ -53,7 +53,7 @@ describe('Helper Utils', () => {
       const filteredByHomeUseCase = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, homeUseCase);
 
       expect(filteredByHomeUseCase.length).toEqual(1);
-      expect(filteredByHomeUseCase[0].brandName).toEqual('Yellow Bank of Australia');
+      expect(filteredByHomeUseCase[0].brandName).toEqual('Red Australia Bank');
 
       const filteredByBudgetingToolUseCase = Helper.filterDataHoldersByConsentsAndUseCase(
         dataHolders,
@@ -62,7 +62,14 @@ describe('Helper Utils', () => {
       );
 
       expect(filteredByBudgetingToolUseCase.length).toEqual(1);
-      expect(filteredByBudgetingToolUseCase[0].brandName).toEqual('Red Australia Bank');
+      expect(filteredByBudgetingToolUseCase[0].brandName).toEqual('Yellow Bank of Australia');
+
+      const emptyfilteredDataholders = Helper.filterDataHoldersByConsentsAndUseCase(
+        [TestUtil.getTestDataYellowBankDataHolder()],
+        [TestUtil.getTestDataConsentResponse()],
+        homeUseCase,
+      );
+      expect(emptyfilteredDataholders.length).toEqual(0);
     });
 
     it('should not filter DataHolders if use case is invalid', () => {

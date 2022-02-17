@@ -24,6 +24,8 @@ const Template: ComponentStory<typeof DataHolderStep> = (args) => <DataHolderSte
 export const WithOneDataHolder = Template.bind({});
 WithOneDataHolder.args = {
   dataHolders: [TestUtil.getTestDataRedBankDataHolder()],
+  existingConsents: [],
+  useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
     alert(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -32,6 +34,28 @@ WithOneDataHolder.args = {
 export const WithTwoDataHolders = Template.bind({});
 WithTwoDataHolders.args = {
   dataHolders: TestUtil.getTestDataAllDataHolders(),
+  existingConsents: [],
+  useCase: TestUtil.getTestDataHomeUseCase(),
+  isValid: (isValid: boolean) => {
+    alert(`This step is ${isValid ? '' : 'not '}valid`);
+  },
+};
+
+export const WithFilteredDataHolders = Template.bind({});
+WithFilteredDataHolders.args = {
+  dataHolders: TestUtil.getTestDataAllDataHolders(),
+  existingConsents: [TestUtil.getTestDataConsentResponse()],
+  useCase: TestUtil.getTestDataHomeUseCase(),
+  isValid: (isValid: boolean) => {
+    alert(`This step is ${isValid ? '' : 'not '}valid`);
+  },
+};
+
+export const WithNoDataHolders = Template.bind({});
+WithNoDataHolders.args = {
+  dataHolders: [TestUtil.getTestDataYellowBankDataHolder()],
+  existingConsents: TestUtil.getTestDataConsentResponses(),
+  useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
     alert(`This step is ${isValid ? '' : 'not '}valid`);
   },

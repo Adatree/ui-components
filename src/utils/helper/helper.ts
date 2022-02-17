@@ -37,10 +37,10 @@ const filterDataHoldersByConsentsAndUseCase = (
   useCase: UseCaseResponse,
 ): DataHolder[] => {
   const filteredDataHolders = dataHolders.filter((dataHolder) => {
-    return doesConsentExistForDataHolderAndUseCase(dataHolder, consents, useCase);
+    return !doesConsentExistForDataHolderAndUseCase(dataHolder, consents, useCase);
   });
 
-  return filteredDataHolders.length > 0 ? filteredDataHolders : dataHolders;
+  return filteredDataHolders;
 };
 
 const doesConsentExistForDataHolderAndUseCase = (
@@ -48,15 +48,14 @@ const doesConsentExistForDataHolderAndUseCase = (
   consents: ConsentResponse[],
   useCase: UseCaseResponse,
 ): boolean => {
-  return (
-    consents.filter((consent) => {
-      return (
-        consent.status === Status.ACTIVE &&
-        consent.useCase?.id === useCase.id &&
-        consent.dataHolderBrandId === dataHolder.dataHolderBrandId
-      );
-    }).length > 0
-  );
+  const alreadyExists = consents.filter((consent) => {
+    return (
+      consent.status === Status.ACTIVE &&
+      consent.useCase?.id === useCase.id &&
+      consent.dataHolderBrandId === dataHolder.dataHolderBrandId
+    );
+  });
+  return alreadyExists.length > 0;
 };
 
 const clearDateOptions = (options: DateOption[]): DateOption[] => {
