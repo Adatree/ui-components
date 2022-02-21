@@ -132,7 +132,7 @@ describe('Helper Utils', () => {
   describe('accessFrequencyToString', () => {
     it('should return the correct access frequency string', () => {
       expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
-      expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once off');
+      expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once-off');
     });
   });
 });

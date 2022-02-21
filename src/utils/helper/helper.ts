@@ -66,7 +66,7 @@ const clearDateOptions = (options: DateOption[]): DateOption[] => {
 
 const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   if (accessFrequency === AccessFrequency.ONCEOFF) {
-    return 'Once off';
+    return 'Once-off';
   }
 
   return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
