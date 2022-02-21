@@ -13,6 +13,7 @@ export { SectionCard } from './atoms/section-card/section-card.atom';
 
 // Molecules
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
+export { ConsentDetails } from './molecules/consent-details/consent-details.molecule';
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
