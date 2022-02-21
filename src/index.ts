@@ -16,6 +16,7 @@ export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope-list.molecule';
+export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
 // Organisms
 export { DataAccessStep } from './oganisms/consent-steps/data-access-step/data-access-step.organism';
