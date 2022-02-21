@@ -10,6 +10,6 @@ export default {
   },
 } as ComponentMeta<typeof InfoHowItWorksStep>;
 
-const Template: ComponentStory<typeof InfoHowItWorksStep> = (args) => <InfoHowItWorksStep />;
+const Template: ComponentStory<typeof InfoHowItWorksStep> = () => <InfoHowItWorksStep />;
 
 export const Default = Template.bind({});
