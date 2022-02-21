@@ -1,6 +1,6 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import { Status } from '../../generated/consent';
+import { AccessFrequency, Status } from '../../generated/consent';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -126,6 +126,13 @@ describe('Helper Utils', () => {
       dirtyDateOptions[3].isSelected = true;
       clearedDateOptions = Helper.clearDateOptions(dirtyDateOptions);
       expect(clearedDateOptions).toEqual(dateOptionsWithOptionalProperties);
+    });
+  });
+
+  describe('accessFrequencyToString', () => {
+    it('should return the correct access frequency string', () => {
+      expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
+      expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once off');
     });
   });
 });

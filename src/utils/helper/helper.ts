@@ -1,6 +1,6 @@
 import { DataHolder } from '../..';
 import { DateOption } from '../../atoms/date-button/date-button.atom';
-import { ConsentResponse, CreateConsent, Status, UseCaseResponse } from '../../generated/consent';
+import { AccessFrequency, ConsentResponse, CreateConsent, Status, UseCaseResponse } from '../../generated/consent';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -64,7 +64,16 @@ const clearDateOptions = (options: DateOption[]): DateOption[] => {
   });
 };
 
+const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
+  if (accessFrequency === AccessFrequency.ONCEOFF) {
+    return 'Once off';
+  }
+
+  return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
+};
+
 export const Helper = {
+  accessFrequencyToString,
   clearDateOptions,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
