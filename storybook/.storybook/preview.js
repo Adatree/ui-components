@@ -1,4 +1,4 @@
-import { ThemeProvider, ConsentFormProvider } from '../src/lib';
+import { ThemeProvider } from '../src/lib';
 
 export const decorators = [
   (Story) => {
