@@ -7,10 +7,11 @@ import Bank from 'mdi-material-ui/Bank';
 
 export type ListItemProps = {
   consent: ConsentResponse;
+  url: string;
 };
 
 export const ConsentListItem: React.FC<ListItemProps> = (props) => {
-  const { consent } = props;
+  const { consent, url } = props;
 
   let textDate = '';
 
@@ -36,7 +37,6 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
         href={`/consents/${consent.consentId}`}
         sx={{ '&:link, &:visited': { color: 'inherit' } }}
       >
-        <Avatar alt={consent.dataHolderName} src={`/consent.dataHolderBrandId.png`} component={'span'} sx={{ mr: 2 }}>
           <Bank />
         </Avatar>
         <Box>
