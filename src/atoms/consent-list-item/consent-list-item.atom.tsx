@@ -37,6 +37,12 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
         href={`/consents/${consent.consentId}`}
         sx={{ '&:link, &:visited': { color: 'inherit' } }}
       >
+        <Avatar
+          alt={consent.dataHolderName}
+          src={`/${consent.dataHolderBrandId}.png`}
+          component={'span'}
+          sx={{ mr: 2 }}
+        >
           <Bank />
         </Avatar>
         <Box>
