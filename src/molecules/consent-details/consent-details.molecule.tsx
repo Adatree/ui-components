@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
-import { DateSummary, UseCaseSummary } from '../..';
+
 import { ConsentResponse } from '../../generated/consent/api';
 import { DataHolderHeader } from '../data-holder-header/data-holder-header.molecule';
+import { UseCaseSummary } from '../use-case-summary/use-case-summary.molecule';
+import { DateSummary } from '../date-summary/date-summary.molecule';
 
 export type ConsentDetailsProps = {
   consent: ConsentResponse;
