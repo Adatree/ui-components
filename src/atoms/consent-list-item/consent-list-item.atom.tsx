@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Avatar, ListItemButton, ListItem } from '@mui/material';
+import { Typography, Box, Avatar, Link, ListItem, Button } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import ChevronRight from 'mdi-material-ui/ChevronRight';
@@ -32,10 +32,14 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
 
   return (
     <ListItem secondaryAction={<ChevronRight />} disablePadding>
-      <ListItemButton
-        component="a"
-        href={`/consents/${consent.consentId}`}
-        sx={{ '&:link, &:visited': { color: 'inherit' } }}
+      <Button
+        href={url}
+        sx={{
+          justifyContent: 'start',
+          textTransform: 'inherit',
+          width: '100%',
+          '&:link, &:visited': { color: 'inherit' },
+        }}
       >
         <Avatar
           alt={consent.dataHolderName}
@@ -51,7 +55,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
             <span>Consent {textDate}</span>
           </Typography>
         </Box>
-      </ListItemButton>
+      </Button>
     </ListItem>
   );
 };
