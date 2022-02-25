@@ -753,6 +753,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@openapitools/openapi-generator-cli@^1.0.10-4.2.3":
+  version "1.0.10-4.3.1"
+  resolved "https://registry.yarnpkg.com/@openapitools/openapi-generator-cli/-/openapi-generator-cli-1.0.10-4.3.1.tgz#e5d80a021cd70e582abb3205a74f40b6f1be6f23"
+  integrity sha512-Fdln3BAwKbIXKdO00YbRWPy3sPK2fWwSyXG+oDLEAHN/9AUNOsxoXP9O2UP5aNkQtep66VJOZ6zHVsbbS9jJOQ==
+
 "@popperjs/core@^2.4.4":
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.2.tgz#830beaec4b4091a9e9398ac50f865ddea52186b9"

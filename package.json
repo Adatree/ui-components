@@ -15,6 +15,7 @@
     "lint": "eslint './src/**/*.{tsx,ts}'",
     "package": "yarn build && npm publish",
     "storybook": "yarn --cwd ./storybook/ storybook",
+    "generate-openapi-consent-client": "openapi-generator generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
     "test": "jest"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "@types/styled-components": "^5.1.19",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
+    "@openapitools/openapi-generator-cli": "^1.0.10-4.2.3",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
