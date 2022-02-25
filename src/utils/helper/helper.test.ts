@@ -1,6 +1,7 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
 import { AccessFrequency, Status } from '../../generated/consent';
+import { SharingDuration } from '../../enums/sharingDuration.enum';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -133,6 +134,21 @@ describe('Helper Utils', () => {
     it('should return the correct access frequency string', () => {
       expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
       expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once-off');
+    });
+  });
+
+  describe('sharingDurationToDateDuration', () => {
+    it('should return the correct date duration object', () => {
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.CUSTOM)).toEqual(undefined);
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.ONCE_OFF)).toEqual(undefined);
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.ONE_DAY)).toEqual({ unit: 'd', value: 1 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.ONE_WEEK)).toEqual({ unit: 'w', value: 1 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.TWO_WEEKS)).toEqual({ unit: 'w', value: 2 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.ONE_MONTH)).toEqual({ unit: 'm', value: 1 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.THREE_MONTHS)).toEqual({ unit: 'm', value: 3 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.SIX_MONTHS)).toEqual({ unit: 'm', value: 6 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.NINE_MONTHS)).toEqual({ unit: 'm', value: 9 });
+      expect(Helper.sharingDurationToDateDuration(SharingDuration.ONE_YEAR)).toEqual({ unit: 'y', value: 1 });
     });
   });
 });
