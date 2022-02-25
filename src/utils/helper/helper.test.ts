@@ -1,7 +1,6 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
 import { AccessFrequency, Status } from '../../generated/consent';
-import { SharingDuration } from '../../consts/duration.const';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();

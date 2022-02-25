@@ -1,16 +1,3 @@
-export enum SharingDuration {
-  ONE_DAY = 'ONE_DAY',
-  ONE_WEEK = 'ONE_WEEK',
-  TWO_WEEKS = 'TWO_WEEKS',
-  ONE_MONTH = 'ONE_MONTH',
-  THREE_MONTHS = 'THREE_MONTHS',
-  SIX_MONTHS = 'SIX_MONTHS',
-  NINE_MONTHS = 'NINE_MONTHS',
-  ONE_YEAR = 'ONE_YEAR',
-  CUSTOM = 'CUSTOM',
-  ONCE_OFF = 'ONCE_OFF',
-}
-
 export type DateDuration = {
   unit: 'd' | 'w' | 'm' | 'y';
   value: number;
