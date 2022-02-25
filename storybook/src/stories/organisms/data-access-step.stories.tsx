@@ -1,21 +1,50 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { AccessFrequency, ConsentFormProvider, DataAccessStep, PostUsageAction, TestUtil } from '../../lib';
+import {
+  AccessFrequency,
+  ConsentFormProvider,
+  DataAccessStep,
+  DateDuration,
+  PostUsageAction,
+  TestUtil,
+} from '../../lib';
 import { addMonths } from 'date-fns';
-import { DateDuration } from '../../lib/atoms/date-button/date-button.atom';
 
 const testDateDurations: DateDuration[] = [
-  { unit: 'm', value: 1 },
-  { unit: 'm', value: 3 },
-  { unit: 'm', value: 6 },
-  { unit: 'y', value: 1 },
+  {
+    text: '1 month',
+    unit: 'm',
+    value: 1,
+  },
+  {
+    text: '3 months',
+    unit: 'm',
+    value: 3,
+  },
+  {
+    text: '6 months',
+    unit: 'm',
+    value: 6,
+  },
 ];
 
 const testDateDurationsWithSelectedValue: DateDuration[] = [
-  { unit: 'm', value: 1 },
-  { unit: 'm', value: 3 },
-  { unit: 'm', value: 6, isSelected: true },
-  { unit: 'y', value: 1 },
+  {
+    text: '1 month',
+    unit: 'm',
+    value: 1,
+  },
+  {
+    text: '3 months',
+    unit: 'm',
+    value: 3,
+    isSelected: true,
+  },
+  {
+    text: '6 months',
+    unit: 'm',
+    value: 6,
+  },
 ];
 
 const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];

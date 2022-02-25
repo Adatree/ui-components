@@ -9,7 +9,7 @@ import {
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { DataHolder } from '../../generated/dcr/api';
-import { DateDuration } from '../../atoms/date-button/date-button.atom';
+import { DateDuration, DateDurationList, DateDurationsType } from '../../consts/duration.const';
 
 const suspendLogger = (): void => {
   Logger.debug = jest.fn();
@@ -230,23 +230,18 @@ const getTestDataAllDataHolders = (): DataHolder[] => {
   return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
-const getTestDataDateDurations = (): DateDuration[] => {
-  return [
-    { unit: 'd', value: 1 },
-    { unit: 'd', value: 2 },
-    { unit: 'w', value: 1 },
-    { unit: 'w', value: 2 },
-    { unit: 'm', value: 1 },
-    { unit: 'm', value: 2 },
-    { unit: 'y', value: 1 },
-    { unit: 'y', value: 2 },
-  ];
+const getTestDataDateDurations = (): DateDurationsType => {
+  return DateDurationList;
 };
 
-const getTestDataDateDurationsWithOptionalProperties = (): DateDuration[] => {
-  return getTestDataDateDurations().map((option) => {
-    return { ...option, isSelected: false };
-  });
+const getTestDataDateDurationsWithOptionalProperties = (): DateDurationsType => {
+  const durations = getTestDataDateDurations();
+
+  for (const key in durations) {
+    durations[key].isSelected = false;
+  }
+
+  return durations;
 };
 
 const getTestUuidV4 = () => {

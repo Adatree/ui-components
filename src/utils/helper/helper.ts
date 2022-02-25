@@ -1,7 +1,6 @@
-import { DataHolder } from '../..';
-import { DateDuration } from '../../atoms/date-button/date-button.atom';
-import { SharingDuration } from '../../enums/sharingDuration.enum';
+import { DateDuration } from '../../consts/duration.const';
 import { AccessFrequency, ConsentResponse, Status, UseCaseResponse } from '../../generated/consent';
+import { DataHolder } from '../../generated/dcr/api';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -73,47 +72,10 @@ const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
 };
 
-const sharingDurationToDateDuration = (sharingDuration: SharingDuration): DateDuration | undefined => {
-  console.log(sharingDuration);
-  if (sharingDuration === SharingDuration.CUSTOM || sharingDuration === SharingDuration.ONCE_OFF) {
-    return undefined;
-  }
-
-  let unit: 'd' | 'w' | 'm' | 'y' = 'd';
-  let value = 0;
-
-  const sharingDurationParts = sharingDuration.toString().split('_');
-
-  if (sharingDurationParts[1].startsWith('DAY')) {
-    unit = 'd';
-  } else if (sharingDurationParts[1].startsWith('WEEK')) {
-    unit = 'w';
-  } else if (sharingDurationParts[1].startsWith('MONTH')) {
-    unit = 'm';
-  } else if (sharingDurationParts[1].startsWith('YEAR')) {
-    unit = 'y';
-  }
-
-  if (sharingDurationParts[0] === 'ONE') {
-    value = 1;
-  } else if (sharingDurationParts[0] === 'TWO') {
-    value = 2;
-  } else if (sharingDurationParts[0] === 'THREE') {
-    value = 3;
-  } else if (sharingDurationParts[0] === 'SIX') {
-    value = 6;
-  } else if (sharingDurationParts[0] === 'NINE') {
-    value = 9;
-  }
-
-  return { unit, value };
-};
-
 export const Helper = {
   accessFrequencyToString,
   unselectDateDurations,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
-  sharingDurationToDateDuration,
   sortListbyDate,
 };

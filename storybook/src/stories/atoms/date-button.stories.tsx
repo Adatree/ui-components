@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { DateButton } from '../../lib';
+import { DateButton, DateDurationList } from '../../lib';
 
 export default {
   title: 'Components/Atoms/Date button',
@@ -14,40 +14,7 @@ const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...ar
 
 export const DaysMonthsYears = Template.bind({});
 DaysMonthsYears.args = {
-  dateDurations: [
-    {
-      unit: 'd',
-      value: 1,
-    },
-    {
-      unit: 'd',
-      value: 3,
-    },
-    {
-      unit: 'w',
-      value: 1,
-    },
-    {
-      unit: 'w',
-      value: 3,
-    },
-    {
-      unit: 'm',
-      value: 1,
-    },
-    {
-      unit: 'm',
-      value: 3,
-    },
-    {
-      unit: 'y',
-      value: 1,
-    },
-    {
-      unit: 'y',
-      value: 3,
-    },
-  ],
+  dateDurations: Object.values(DateDurationList),
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -57,15 +24,18 @@ export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
   dateDurations: [
     {
+      text: '1 month',
       unit: 'm',
       value: 1,
     },
     {
+      text: '3 months',
       unit: 'm',
       value: 3,
       isSelected: true,
     },
     {
+      text: '6 months',
       unit: 'm',
       value: 6,
     },
@@ -77,20 +47,7 @@ WithValueSelected.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  dateDurations: [
-    {
-      unit: 'm',
-      value: 1,
-    },
-    {
-      unit: 'm',
-      value: 3,
-    },
-    {
-      unit: 'm',
-      value: 6,
-    },
-  ],
+  dateDurations: Object.values(DateDurationList),
   disabled: true,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);

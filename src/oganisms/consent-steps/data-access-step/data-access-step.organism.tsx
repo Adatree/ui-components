@@ -7,8 +7,9 @@ import { UseCaseScopeList } from '../../../molecules/use-case-scope-list/use-cas
 import { SectionCard } from '../../../atoms/section-card/section-card.atom';
 import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
-import { DateButton, DateDuration } from '../../../atoms/date-button/date-button.atom';
+import { DateButton } from '../../../atoms/date-button/date-button.atom';
 import { Helper } from '../../../utils/helper/helper';
+import { DateDuration } from '../../../consts/duration.const';
 
 export type DataAccessStepProps = {
   companyName: string;

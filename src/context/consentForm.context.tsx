@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DateDuration } from '../atoms/date-button/date-button.atom';
+import { DateDuration } from '../consts/duration.const';
 import { AccessFrequency, PostUsageAction } from '../generated/consent';
 import { DataHolder } from '../generated/dcr';
 
