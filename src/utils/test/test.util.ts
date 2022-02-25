@@ -230,7 +230,7 @@ const getTestDataAllDataHolders = (): DataHolder[] => {
   return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
-const getTestDataDateOptions = (): DateDuration[] => {
+const getTestDataDateDurations = (): DateDuration[] => {
   return [
     { unit: 'd', value: 1 },
     { unit: 'd', value: 2 },
@@ -243,8 +243,8 @@ const getTestDataDateOptions = (): DateDuration[] => {
   ];
 };
 
-const getTestDataDateOptionsWithOptionalProperties = (): DateDuration[] => {
-  return getTestDataDateOptions().map((option) => {
+const getTestDataDateDurationsWithOptionalProperties = (): DateDuration[] => {
+  return getTestDataDateDurations().map((option) => {
     return { ...option, isSelected: false };
   });
 };
@@ -274,8 +274,8 @@ export const TestUtil = {
   getTestDataConsentResponse,
   getTestDataConsentResponses,
   getTestDataCreateConsent,
-  getTestDataDateOptions,
-  getTestDataDateOptionsWithOptionalProperties,
+  getTestDataDateDurations,
+  getTestDataDateDurationsWithOptionalProperties,
   getTestDataHomeUseCase,
   getTestDataPersonalInformationScope,
   getTestDataRedBankDataHolder,

@@ -23,7 +23,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   const [accessFrequencyDefault] = useState(consentForm.accessFrequency);
   const [postUsageActionDefault] = useState(consentForm.postUsageAction);
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
-  const [dateOptions, setDateOptions] = useState(consentForm.dateOptions);
+  const [dateDurations, setDateDurations] = useState(consentForm.dateDurations);
 
   const handleUseCaseScopeListChange = (isChecked: boolean, value: string) => {
     if (isChecked) {
@@ -65,19 +65,19 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   };
 
   const handleDatePickerChange = (date: Date) => {
-    updateDateOptions([...Helper.unselectDateDurations(dateOptions)]);
+    updateDateDurations([...Helper.unselectDateDurations(dateDurations)]);
     handleSharingEndDateChange(date);
   };
 
-  const handleDateButtonClick = (date: Date, dateOptions: DateDuration[]) => {
-    updateDateOptions(dateOptions);
+  const handleDateButtonClick = (date: Date, dateDurations: DateDuration[]) => {
+    updateDateDurations(dateDurations);
     handleSharingEndDateChange(date);
   };
 
-  const updateDateOptions = (dateOptions: DateDuration[]) => {
-    consentForm.dateOptions = dateOptions;
+  const updateDateDurations = (dateDurations: DateDuration[]) => {
+    consentForm.dateDurations = dateDurations;
     setConsentForm({ ...consentForm });
-    setDateOptions([...dateOptions]);
+    setDateDurations([...dateDurations]);
   };
 
   const handleSharingEndDateChange = (date: Date) => {
@@ -145,11 +145,11 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 ]}
                 onChange={handleAccessFrequencyRadioChange}
               />
-              {dateOptions.length > 0 && (
+              {dateDurations.length > 0 && (
                 <>
                   <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
                     <DateButton
-                      sharingDurations={dateOptions}
+                      dateDurations={dateDurations}
                       disabled={disableDatePicker}
                       onClick={handleDateButtonClick}
                     />

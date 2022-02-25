@@ -1,17 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AccessFrequency, ConsentFormProvider, DataAccessStep, PostUsageAction, TestUtil } from '../../lib';
-import { DateOption } from '../../lib/atoms/date-button/date-button.atom';
 import { addMonths } from 'date-fns';
+import { DateDuration } from '../../lib/atoms/date-button/date-button.atom';
 
-const testDateOptions: DateOption[] = [
+const testDateDurations: DateDuration[] = [
   { unit: 'm', value: 1 },
   { unit: 'm', value: 3 },
   { unit: 'm', value: 6 },
   { unit: 'y', value: 1 },
 ];
 
-const testDateOptionsWithSelectedValue: DateOption[] = [
+const testDateDurationsWithSelectedValue: DateDuration[] = [
   { unit: 'm', value: 1 },
   { unit: 'm', value: 3 },
   { unit: 'm', value: 6, isSelected: true },
@@ -24,7 +24,7 @@ const testConsentFormWithUnselectedValues = {
   accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: undefined,
-  dateOptions: testDateOptions,
+  dateDurations: testDateDurations,
   postUsageAction: undefined,
   sharingEndDate: new Date(),
 };
@@ -33,7 +33,7 @@ const testConsentFormWithSelectedValues = {
   accessFrequency: AccessFrequency.ONCEOFF,
   checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
-  dateOptions: testDateOptions,
+  dateDurations: testDateDurations,
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
 };
@@ -91,7 +91,7 @@ WithValuesSelected.decorators = [
       <ConsentFormProvider
         initialValues={{
           ...testConsentFormWithSelectedValues,
-          dateOptions: testDateOptionsWithSelectedValue,
+          dateDurations: testDateDurationsWithSelectedValue,
           sharingEndDate: addMonths(new Date(), 6),
         }}
       >

@@ -116,17 +116,17 @@ describe('Helper Utils', () => {
   });
 
   describe('unselectDateDurations', () => {
-    it('should return the DateOptions with all of their isSelected properties set to false', () => {
-      const dateOptions = TestUtil.getTestDataDateOptions();
-      const dateOptionsWithOptionalProperties = TestUtil.getTestDataDateOptionsWithOptionalProperties();
-      const dirtyDateOptions = TestUtil.getTestDataDateOptionsWithOptionalProperties();
+    it('should return the DateDurations with all of their isSelected properties set to false', () => {
+      const dateDurations = TestUtil.getTestDataDateDurations();
+      const dateDurationsWithOptionalProperties = TestUtil.getTestDataDateDurationsWithOptionalProperties();
+      const dirtyDateDurations = TestUtil.getTestDataDateDurationsWithOptionalProperties();
 
-      let clearedDateOptions = Helper.unselectDateDurations(dateOptions);
-      expect(clearedDateOptions).toEqual(dateOptionsWithOptionalProperties);
+      let clearedDateDurations = Helper.unselectDateDurations(dateDurations);
+      expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
 
-      dirtyDateOptions[3].isSelected = true;
-      clearedDateOptions = Helper.unselectDateDurations(dirtyDateOptions);
-      expect(clearedDateOptions).toEqual(dateOptionsWithOptionalProperties);
+      dirtyDateDurations[3].isSelected = true;
+      clearedDateDurations = Helper.unselectDateDurations(dirtyDateDurations);
+      expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
     });
   });
 

@@ -7,7 +7,7 @@ type ConsentForm = {
   accessFrequency: AccessFrequency | undefined;
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
-  dateOptions: DateDuration[];
+  dateDurations: DateDuration[];
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date;
 };
@@ -33,7 +33,7 @@ const ConsentFormDefaultValues: ConsentForm = {
   accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: undefined,
-  dateOptions: [],
+  dateDurations: [],
   postUsageAction: undefined,
   sharingEndDate: new Date(),
 };

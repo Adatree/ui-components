@@ -31,6 +31,9 @@ export { ReviewStep } from './oganisms/consent-steps/review-step/review-step.org
 // Contest
 export * from './context/consentForm.context';
 
+// Enums
+export { SharingDuration } from './enums/sharingDuration.enum';
+
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
 

@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...ar
 
 export const DaysMonthsYears = Template.bind({});
 DaysMonthsYears.args = {
-  dateOptions: [
+  dateDurations: [
     {
       unit: 'd',
       value: 1,
@@ -55,7 +55,7 @@ DaysMonthsYears.args = {
 
 export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
-  dateOptions: [
+  dateDurations: [
     {
       unit: 'm',
       value: 1,
@@ -77,7 +77,7 @@ WithValueSelected.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  dateOptions: [
+  dateDurations: [
     {
       unit: 'm',
       value: 1,
