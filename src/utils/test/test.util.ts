@@ -9,7 +9,7 @@ import {
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { DataHolder } from '../../generated/dcr/api';
-import { DateOption } from '../../atoms/date-button/date-button.atom';
+import { DateDuration } from '../../atoms/date-button/date-button.atom';
 
 const suspendLogger = (): void => {
   Logger.debug = jest.fn();
@@ -230,7 +230,7 @@ const getTestDataAllDataHolders = (): DataHolder[] => {
   return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
-const getTestDataDateOptions = (): DateOption[] => {
+const getTestDataDateOptions = (): DateDuration[] => {
   return [
     { unit: 'd', value: 1 },
     { unit: 'd', value: 2 },
@@ -243,7 +243,7 @@ const getTestDataDateOptions = (): DateOption[] => {
   ];
 };
 
-const getTestDataDateOptionsWithOptionalProperties = (): DateOption[] => {
+const getTestDataDateOptionsWithOptionalProperties = (): DateDuration[] => {
   return getTestDataDateOptions().map((option) => {
     return { ...option, isSelected: false };
   });

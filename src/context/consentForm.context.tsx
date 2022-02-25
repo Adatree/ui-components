@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DateOption } from '../atoms/date-button/date-button.atom';
+import { DateDuration } from '../atoms/date-button/date-button.atom';
 import { AccessFrequency, PostUsageAction } from '../generated/consent';
 import { DataHolder } from '../generated/dcr';
 
@@ -7,7 +7,7 @@ type ConsentForm = {
   accessFrequency: AccessFrequency | undefined;
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
-  dateOptions: DateOption[];
+  dateOptions: DateDuration[];
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date;
 };

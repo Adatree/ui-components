@@ -1,5 +1,5 @@
 import { DataHolder } from '../..';
-import { DateOption } from '../../atoms/date-button/date-button.atom';
+import { DateDuration } from '../../atoms/date-button/date-button.atom';
 import { SharingDuration } from '../../enums/sharingDuration.enum';
 import { AccessFrequency, ConsentResponse, CreateConsent, Status, UseCaseResponse } from '../../generated/consent';
 
@@ -59,7 +59,7 @@ const doesConsentExistForDataHolderAndUseCase = (
   return alreadyExists.length > 0;
 };
 
-const clearDateOptions = (options: DateOption[]): DateOption[] => {
+const clearDateOptions = (options: DateDuration[]): DateDuration[] => {
   return options.map((option) => {
     return { ...option, isSelected: false };
   });
@@ -73,7 +73,7 @@ const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
 };
 
-const sharingDurationToDateDuration = (sharingDuration: SharingDuration): DateOption | undefined => {
+const sharingDurationToDateDuration = (sharingDuration: SharingDuration): DateDuration | undefined => {
   console.log(sharingDuration);
   if (sharingDuration === SharingDuration.CUSTOM || sharingDuration === SharingDuration.ONCE_OFF) {
     return undefined;

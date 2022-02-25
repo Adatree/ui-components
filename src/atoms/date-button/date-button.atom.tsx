@@ -3,19 +3,19 @@ import { Box, Button } from '@mui/material';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import { Helper } from '../../utils/helper/helper';
 
-export type DateOption = {
+export type DateDuration = {
   unit: 'd' | 'w' | 'm' | 'y';
   value: number;
   isSelected?: boolean;
 };
 
 export type DateButtonProps = {
-  dateOptions: DateOption[];
+  dateOptions: DateDuration[];
   disabled?: boolean;
-  onClick: (date: Date, dateOptions: DateOption[]) => void;
+  onClick: (date: Date, dateOptions: DateDuration[]) => void;
 };
 
-const getDateString = (dateOption: DateOption): string => {
+const getDateString = (dateOption: DateDuration): string => {
   const pural = dateOption.value > 1 ? 's' : '';
   let dateString = '';
 
@@ -35,7 +35,7 @@ const getDateString = (dateOption: DateOption): string => {
 export const DateButton: React.FC<DateButtonProps> = (props) => {
   const { dateOptions, disabled = false, onClick } = props;
 
-  const handleClick = (option: DateOption, index: number) => {
+  const handleClick = (option: DateDuration, index: number) => {
     // Clear and hightlight the new date button
     const newOptions = Helper.clearDateOptions(dateOptions);
     newOptions[index].isSelected = true;

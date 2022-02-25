@@ -7,7 +7,7 @@ import { UseCaseScopeList } from '../../../molecules/use-case-scope-list/use-cas
 import { SectionCard } from '../../../atoms/section-card/section-card.atom';
 import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
-import { DateButton, DateOption } from '../../../atoms/date-button/date-button.atom';
+import { DateButton, DateDuration } from '../../../atoms/date-button/date-button.atom';
 import { Helper } from '../../../utils/helper/helper';
 
 export type DataAccessStepProps = {
@@ -69,12 +69,12 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
     handleSharingEndDateChange(date);
   };
 
-  const handleDateButtonClick = (date: Date, dateOptions: DateOption[]) => {
+  const handleDateButtonClick = (date: Date, dateOptions: DateDuration[]) => {
     updateDateOptions(dateOptions);
     handleSharingEndDateChange(date);
   };
 
-  const updateDateOptions = (dateOptions: DateOption[]) => {
+  const updateDateOptions = (dateOptions: DateDuration[]) => {
     consentForm.dateOptions = dateOptions;
     setConsentForm({ ...consentForm });
     setDateOptions([...dateOptions]);
