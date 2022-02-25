@@ -10,66 +10,66 @@ export type DateDuration = {
 };
 
 export type DateButtonProps = {
-  dateOptions: DateDuration[];
+  dateDurations: DateDuration[];
   disabled?: boolean;
-  onClick: (date: Date, dateOptions: DateDuration[]) => void;
+  onClick: (date: Date, dateDurations: DateDuration[]) => void;
 };
 
-const getDateString = (dateOption: DateDuration): string => {
-  const pural = dateOption.value > 1 ? 's' : '';
+const getDateString = (dateDuration: DateDuration): string => {
+  const pural = dateDuration.value > 1 ? 's' : '';
   let dateString = '';
 
-  if (dateOption.unit === 'd') {
+  if (dateDuration.unit === 'd') {
     dateString = 'day';
-  } else if (dateOption.unit === 'w') {
+  } else if (dateDuration.unit === 'w') {
     dateString = 'week';
-  } else if (dateOption.unit === 'm') {
+  } else if (dateDuration.unit === 'm') {
     dateString = 'month';
-  } else if (dateOption.unit === 'y') {
+  } else if (dateDuration.unit === 'y') {
     dateString = 'year';
   }
 
-  return `${dateOption.value} ${dateString}${pural}`;
+  return `${dateDuration.value} ${dateString}${pural}`;
 };
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
-  const { dateOptions, disabled = false, onClick } = props;
+  const { dateDurations, disabled = false, onClick } = props;
 
-  const handleClick = (option: DateDuration, index: number) => {
+  const handleClick = (duration: DateDuration, index: number) => {
     // Clear and hightlight the new date button
-    const newOptions = Helper.clearDateOptions(dateOptions);
-    newOptions[index].isSelected = true;
+    const newDuration = Helper.unselectDateDurations(dateDurations);
+    newDuration[index].isSelected = true;
 
     // Return the new date
     const curDate = new Date();
     let newDate = new Date();
 
-    if (option.unit === 'd') {
-      newDate = addDays(curDate, option.value);
-    } else if (option.unit === 'w') {
-      newDate = addWeeks(curDate, option.value);
-    } else if (option.unit === 'm') {
-      newDate = addMonths(curDate, option.value);
-    } else if (option.unit === 'y') {
-      newDate = addYears(curDate, option.value);
+    if (duration.unit === 'd') {
+      newDate = addDays(curDate, duration.value);
+    } else if (duration.unit === 'w') {
+      newDate = addWeeks(curDate, duration.value);
+    } else if (duration.unit === 'm') {
+      newDate = addMonths(curDate, duration.value);
+    } else if (duration.unit === 'y') {
+      newDate = addYears(curDate, duration.value);
     }
 
-    onClick(newDate, newOptions);
+    onClick(newDate, newDuration);
   };
 
   return (
     <Box sx={{ flexWrap: 'wrap', display: 'inline-flex', width: { xs: '100%', sm: 'inherit' } }}>
-      {dateOptions.map((option, index) => {
+      {dateDurations.map((duration, index) => {
         return (
           <Button
-            onClick={() => handleClick(option, index)}
-            variant={option.isSelected ? 'contained' : 'outlined'}
+            onClick={() => handleClick(duration, index)}
+            variant={duration.isSelected ? 'contained' : 'outlined'}
             disabled={disabled}
-            key={`${option.unit}-${option.value}`}
-            color={option.isSelected ? 'secondary' : 'inherit'}
+            key={`${duration.unit}-${duration.value}`}
+            color={duration.isSelected ? 'secondary' : 'inherit'}
             sx={{ mr: '4px', mb: 1, width: { xs: 'calc(50% - 4px)', sm: 'inherit' } }}
           >
-            {getDateString(option)}
+            {getDateString(duration)}
           </Button>
         );
       })}

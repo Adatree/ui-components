@@ -65,7 +65,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
   };
 
   const handleDatePickerChange = (date: Date) => {
-    updateDateOptions([...Helper.clearDateOptions(dateOptions)]);
+    updateDateOptions([...Helper.unselectDateDurations(dateOptions)]);
     handleSharingEndDateChange(date);
   };
 
@@ -149,7 +149,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
                 <>
                   <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
                     <DateButton
-                      dateOptions={dateOptions}
+                      sharingDurations={dateOptions}
                       disabled={disableDatePicker}
                       onClick={handleDateButtonClick}
                     />

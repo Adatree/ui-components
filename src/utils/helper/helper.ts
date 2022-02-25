@@ -1,7 +1,7 @@
 import { DataHolder } from '../..';
 import { DateDuration } from '../../atoms/date-button/date-button.atom';
 import { SharingDuration } from '../../enums/sharingDuration.enum';
-import { AccessFrequency, ConsentResponse, CreateConsent, Status, UseCaseResponse } from '../../generated/consent';
+import { AccessFrequency, ConsentResponse, Status, UseCaseResponse } from '../../generated/consent';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -59,9 +59,9 @@ const doesConsentExistForDataHolderAndUseCase = (
   return alreadyExists.length > 0;
 };
 
-const clearDateOptions = (options: DateDuration[]): DateDuration[] => {
-  return options.map((option) => {
-    return { ...option, isSelected: false };
+const unselectDateDurations = (duration: DateDuration[]): DateDuration[] => {
+  return duration.map((duration) => {
+    return { ...duration, isSelected: false };
   });
 };
 
@@ -111,7 +111,7 @@ const sharingDurationToDateDuration = (sharingDuration: SharingDuration): DateDu
 
 export const Helper = {
   accessFrequencyToString,
-  clearDateOptions,
+  unselectDateDurations,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
   sharingDurationToDateDuration,
