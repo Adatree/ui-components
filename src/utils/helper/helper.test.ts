@@ -1,6 +1,7 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import { AccessFrequency, Status } from '../../generated/consent';
+import { AccessFrequency, SharingDuration, Status } from '../../generated/consent';
+import { DateDurationList } from '../../consts/duration.const';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -114,25 +115,31 @@ describe('Helper Utils', () => {
     });
   });
 
-  describe('unselectDateDurations', () => {
-    it('should return the DateDurations with all of their isSelected properties set to false', () => {
-      const dateDurations = TestUtil.getTestDataDateDurations();
-      const dateDurationsWithOptionalProperties = TestUtil.getTestDataDateDurationsWithOptionalProperties();
-      const dirtyDateDurations = TestUtil.getTestDataDateDurationsWithOptionalProperties();
+  // describe('unselectDateDurations', () => {
+  //   it('should return the DateDurations with all of their isSelected properties set to false', () => {
+  //     const dateDurations = TestUtil.getTestDataDateDurations();
+  //     const dateDurationsWithOptionalProperties = TestUtil.getTestDataDateDurationsWithOptionalProperties();
+  //     const dirtyDateDurations = TestUtil.getTestDataDateDurationsWithOptionalProperties();
 
-      let clearedDateDurations = Helper.unselectDateDurations(dateDurations);
-      expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
+  //     let clearedDateDurations = Helper.unselectDateDurations(dateDurations);
+  //     expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
 
-      dirtyDateDurations[3].isSelected = true;
-      clearedDateDurations = Helper.unselectDateDurations(dirtyDateDurations);
-      expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
-    });
-  });
+  //     dirtyDateDurations[3].isSelected = true;
+  //     clearedDateDurations = Helper.unselectDateDurations(dirtyDateDurations);
+  //     expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
+  //   });
+  // });
 
   describe('accessFrequencyToString', () => {
     it('should return the correct access frequency string', () => {
       expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
       expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once-off');
+    });
+  });
+
+  describe('parseSharingDuration', () => {
+    it('should parse the SharingDuration array amd retunr the correct DateDuration array', () => {
+      expect(Helper.parseSharingDuration([SharingDuration.ONEDAY])).toEqual(DateDurationList['ONE_DAY']);
     });
   });
 });

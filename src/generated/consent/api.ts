@@ -1,8 +1,8 @@
 // @ts-nocheck
 // tslint:disable
 /**
- * Adatree ADR Platform Consent API
- * A Consent API for ADRs. This allows ADRs to query for consents granted by their customers to access CDR consumer data. It also provides a mechanism to configure scopes and use-cases which are then made available in the consent dashboard.
+ * Consent Dashboard API Overview
+ * Consent Dashboard REST API for ADRs. This allows consumers to directly create records of consent granted to access their consumer data.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: engineering@adatree.com.au
@@ -11,6 +11,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+
 
 import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
@@ -25,157 +26,34 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  * @enum {string}
  */
 export enum AccessFrequency {
-  ONCEOFF = 'ONCE_OFF',
-  ONGOING = 'ONGOING',
+    ONCEOFF = 'ONCE_OFF',
+    ONGOING = 'ONGOING'
 }
 
 /**
  *
  * @export
- * @interface AdrUpdateConsent
+ * @interface Authorization
  */
-export interface AdrUpdateConsent {
-  /**
-   *
-   * @type {string}
-   * @memberof AdrUpdateConsent
-   */
-  externalId?: string;
-}
-/**
- *
- * @export
- * @interface ConsentEvent
- */
-export interface ConsentEvent {
-  /**
-   * a UUID of the event that could be used for idempotent event processing
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  eventId?: string;
-  /**
-   * This identifies the different types of events through a consent\'s lifecycle. <br/> A consent becomes GRANTED after consumer consent with Data Holder<br/> it can be revoked by a consumer via ADR or Data Holder<br/> an ongoing consent will expire on (if it is not revoked prior to) sharing end date a once_off consent will expire within 24 hours after the consent is GRANTED
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  eventType: ConsentEventEventTypeEnum;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  timestamp: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  cdrArrangementId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  consentId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  consumerId: string;
-  /**
-   *
-   * @type {PostUsageAction}
-   * @memberof ConsentEvent
-   */
-  postUsageAction: PostUsageAction;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  externalId?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  sharingEndDate?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  consumerEmail?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  consumerMobileNumber?: string;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum ConsentEventEventTypeEnum {
-  GRANTED = 'GRANTED',
-  REVOKED = 'REVOKED',
-  EXPIRED = 'EXPIRED',
-}
-
-/**
- *
- * @export
- * @interface ConsentEventData
- */
-export interface ConsentEventData {
-  /**
-   *
-   * @type {Array<ConsentEvent>}
-   * @memberof ConsentEventData
-   */
-  events?: Array<ConsentEvent>;
-}
-/**
- *
- * @export
- * @interface ConsentEventList
- */
-export interface ConsentEventList {
-  /**
-   *
-   * @type {ConsentEventData}
-   * @memberof ConsentEventList
-   */
-  data: ConsentEventData;
-  /**
-   *
-   * @type {LinksPaginated}
-   * @memberof ConsentEventList
-   */
-  links: LinksPaginated;
-  /**
-   *
-   * @type {MetaPaginated}
-   * @memberof ConsentEventList
-   */
-  meta: MetaPaginated;
-}
-/**
- *
- * @export
- * @interface ConsentHistoryResponse
- */
-export interface ConsentHistoryResponse {
-  /**
-   *
-   * @type {Array<ConsentResponse>}
-   * @memberof ConsentHistoryResponse
-   */
-  consents?: Array<ConsentResponse>;
+export interface Authorization {
+    /**
+     * Authorization code returned from the data holder that will be used as part of token request validation.
+     * @type {string}
+     * @memberof Authorization
+     */
+    code?: string;
+    /**
+     * The state is a parameter returned by the data holder that is used to prevent CSRF attacks. Must be unique per authorization request.
+     * @type {string}
+     * @memberof Authorization
+     */
+    state?: string;
+    /**
+     * ID Token value associated with the authenticated session that is returned from the data holder.
+     * @type {string}
+     * @memberof Authorization
+     */
+    id_token?: string;
 }
 /**
  *
@@ -183,170 +61,206 @@ export interface ConsentHistoryResponse {
  * @interface ConsentResponse
  */
 export interface ConsentResponse {
-  /**
-   *
-   * @type {number}
-   * @memberof ConsentResponse
-   */
-  version?: number;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  created?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  revoked?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  lastNotificationSentAt?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  firstDataCollection?: string;
-  /**
-   *
-   * @type {Status}
-   * @memberof ConsentResponse
-   */
-  status?: Status;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  sharingEndDate?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  consumerEmail?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  dataHolderName?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  dataHolderBrandId?: string;
-  /**
-   *
-   * @type {UseCaseResponse}
-   * @memberof ConsentResponse
-   */
-  useCase?: UseCaseResponse;
-  /**
-   *
-   * @type {PostUsageAction}
-   * @memberof ConsentResponse
-   */
-  postUsageAction?: PostUsageAction;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  consumerId?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  cdrArrangementId?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  consentId?: string;
-  /**
-   *
-   * @type {boolean}
-   * @memberof ConsentResponse
-   */
-  directMarketingAllowed?: boolean;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  consumerMobileNumber?: string;
-  /**
-   * Adatree\'s customer can supply an externalId when creating consents to associate with records in its own system
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  externalId?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof ConsentResponse
+     */
+    version?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    created?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    revoked?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    lastNotificationSentAt?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    firstDataCollection?: string;
+    /**
+     *
+     * @type {Status}
+     * @memberof ConsentResponse
+     */
+    status?: Status;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    sharingEndDate?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    consumerEmail?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    dataHolderName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    dataHolderBrandId?: string;
+    /**
+     *
+     * @type {UseCaseResponse}
+     * @memberof ConsentResponse
+     */
+    useCase?: UseCaseResponse;
+    /**
+     *
+     * @type {PostUsageAction}
+     * @memberof ConsentResponse
+     */
+    postUsageAction?: PostUsageAction;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    consumerId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    cdrArrangementId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    consentId?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ConsentResponse
+     */
+    directMarketingAllowed?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    consumerMobileNumber?: string;
+    /**
+     * Adatree\'s customer can supply an externalId when creating consents to associate with records in its own system
+     * @type {string}
+     * @memberof ConsentResponse
+     */
+    externalId?: string;
 }
 /**
  *
  * @export
- * @interface LinksPaginated
+ * @interface CreateConsent
  */
-export interface LinksPaginated {
-  /**
-   * Fully qualified link that generated the current response document. https://self.example.com.au will be converted to https://self.example.com.au?page=1&page-size=25
-   * @type {string}
-   * @memberof LinksPaginated
-   */
-  self: string;
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page
-   * @type {string}
-   * @memberof LinksPaginated
-   */
-  first?: string;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page
-   * @type {string}
-   * @memberof LinksPaginated
-   */
-  prev?: string;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page
-   * @type {string}
-   * @memberof LinksPaginated
-   */
-  next?: string;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page
-   * @type {string}
-   * @memberof LinksPaginated
-   */
-  last?: string;
+export interface CreateConsent {
+    /**
+     *
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    consumerEmail?: string;
+    /**
+     * sharing end date, will be rounded to the end of specified date and validated against sharing duration options defined in chosen Use Case
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    sharingEndDate?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    dataHolderBrandId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    useCaseId?: string;
+    /**
+     *
+     * @type {PostUsageAction}
+     * @memberof CreateConsent
+     */
+    postUsageAction?: PostUsageAction;
+    /**
+     *
+     * @type {boolean}
+     * @memberof CreateConsent
+     */
+    directMarketingAllowed?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    consumerMobileNumber?: string;
+    /**
+     * Adatree\'s customer can supply an externalId when creating consents to associate with records in its own system
+     * @type {string}
+     * @memberof CreateConsent
+     */
+    externalId?: string;
 }
 /**
  *
  * @export
- * @interface MetaPaginated
+ * @interface DataHolder
  */
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set.
-   * @type {number}
-   * @memberof MetaPaginated
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set.
-   * @type {number}
-   * @memberof MetaPaginated
-   */
-  totalRecords: number;
+export interface DataHolder {
+    /**
+     * The ideintifier of the data holder you wish the consumer to authenitcate with.
+     * @type {string}
+     * @memberof DataHolder
+     */
+    dataHolderBrandId: string;
+    /**
+     * The brand name of the data holder you wish the consumer to authenitcate with.
+     * @type {string}
+     * @memberof DataHolder
+     */
+    brandName: string;
+    /**
+     * The logo URI of the data holder you wish the consumer to authenitcate with.
+     * @type {string}
+     * @memberof DataHolder
+     */
+    logoUri: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DataHolder
+     */
+    sector?: string;
+    /**
+     * a list of Authorisation Scopes supported by data holder
+     * @type {Array<string>}
+     * @memberof DataHolder
+     */
+    scopesSupported?: Array<string>;
 }
 /**
  *
@@ -354,8 +268,8 @@ export interface MetaPaginated {
  * @enum {string}
  */
 export enum NotificationType {
-  EMAIL = 'EMAIL',
-  SMS = 'SMS',
+    EMAIL = 'EMAIL',
+    SMS = 'SMS'
 }
 
 /**
@@ -364,8 +278,8 @@ export enum NotificationType {
  * @enum {string}
  */
 export enum PostUsageAction {
-  DELETION = 'DELETION',
-  DEIDENTIFICATION = 'DE_IDENTIFICATION',
+    DELETION = 'DELETION',
+    DEIDENTIFICATION = 'DE_IDENTIFICATION'
 }
 
 /**
@@ -374,12 +288,12 @@ export enum PostUsageAction {
  * @interface ResponseErrorList
  */
 export interface ResponseErrorList {
-  /**
-   *
-   * @type {Array<ResponseErrorListErrors>}
-   * @memberof ResponseErrorList
-   */
-  errors: Array<ResponseErrorListErrors>;
+    /**
+     *
+     * @type {Array<ResponseErrorListErrors>}
+     * @memberof ResponseErrorList
+     */
+    errors: Array<ResponseErrorListErrors>;
 }
 /**
  *
@@ -387,30 +301,30 @@ export interface ResponseErrorList {
  * @interface ResponseErrorListErrors
  */
 export interface ResponseErrorListErrors {
-  /**
-   * Error code
-   * @type {string}
-   * @memberof ResponseErrorListErrors
-   */
-  code: string;
-  /**
-   * Title of invalid parameter or payload property
-   * @type {string}
-   * @memberof ResponseErrorListErrors
-   */
-  title: string;
-  /**
-   * detailed error message
-   * @type {string}
-   * @memberof ResponseErrorListErrors
-   */
-  detail: string;
-  /**
-   * Optional additional data for specific error types
-   * @type {object}
-   * @memberof ResponseErrorListErrors
-   */
-  meta?: object;
+    /**
+     * Error code
+     * @type {string}
+     * @memberof ResponseErrorListErrors
+     */
+    code: string;
+    /**
+     * Title of invalid parameter or payload property
+     * @type {string}
+     * @memberof ResponseErrorListErrors
+     */
+    title: string;
+    /**
+     * detailed error message
+     * @type {string}
+     * @memberof ResponseErrorListErrors
+     */
+    detail: string;
+    /**
+     * Optional additional data for specific error types
+     * @type {object}
+     * @memberof ResponseErrorListErrors
+     */
+    meta?: object;
 }
 /**
  *
@@ -418,42 +332,42 @@ export interface ResponseErrorListErrors {
  * @interface ScopeResponse
  */
 export interface ScopeResponse {
-  /**
-   *
-   * @type {string}
-   * @memberof ScopeResponse
-   */
-  name?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ScopeResponse
-   */
-  id?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ScopeResponse
-   */
-  purpose?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ScopeResponse
-   */
-  description?: string;
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof ScopeResponse
-   */
-  claims?: Array<string>;
-  /**
-   *
-   * @type {number}
-   * @memberof ScopeResponse
-   */
-  priority?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ScopeResponse
+     */
+    name?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ScopeResponse
+     */
+    id?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ScopeResponse
+     */
+    purpose?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ScopeResponse
+     */
+    description?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ScopeResponse
+     */
+    claims?: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof ScopeResponse
+     */
+    priority?: number;
 }
 /**
  * sharingDuration for Once_off consent can only be \"ONCE_OFF\" <br/> sharingDuration for Ongoing consent could be one of predefined sharing durations or \"CUSTOM\" <br/> \"CUSTOM\" (Ongoing consent) means a consumer is free to choose a sharingEndDate
@@ -461,16 +375,16 @@ export interface ScopeResponse {
  * @enum {string}
  */
 export enum SharingDuration {
-  ONEDAY = 'ONE_DAY',
-  ONEWEEK = 'ONE_WEEK',
-  TWOWEEKS = 'TWO_WEEKS',
-  ONEMONTH = 'ONE_MONTH',
-  THREEMONTHS = 'THREE_MONTHS',
-  SIXMONTHS = 'SIX_MONTHS',
-  NINEMONTHS = 'NINE_MONTHS',
-  ONEYEAR = 'ONE_YEAR',
-  CUSTOM = 'CUSTOM',
-  ONCEOFF = 'ONCE_OFF',
+    ONEDAY = 'ONE_DAY',
+    ONEWEEK = 'ONE_WEEK',
+    TWOWEEKS = 'TWO_WEEKS',
+    ONEMONTH = 'ONE_MONTH',
+    THREEMONTHS = 'THREE_MONTHS',
+    SIXMONTHS = 'SIX_MONTHS',
+    NINEMONTHS = 'NINE_MONTHS',
+    ONEYEAR = 'ONE_YEAR',
+    CUSTOM = 'CUSTOM',
+    ONCEOFF = 'ONCE_OFF'
 }
 
 /**
@@ -479,982 +393,1078 @@ export enum SharingDuration {
  * @enum {string}
  */
 export enum Status {
-  REQUESTED = 'REQUESTED',
-  ACTIVE = 'ACTIVE',
-  EXPIRED = 'EXPIRED',
-  REVOKED = 'REVOKED',
+    REQUESTED = 'REQUESTED',
+    ACTIVE = 'ACTIVE',
+    EXPIRED = 'EXPIRED',
+    REVOKED = 'REVOKED'
 }
 
+/**
+ *
+ * @export
+ * @interface TokenCreatedResponse
+ */
+export interface TokenCreatedResponse {
+    /**
+     * Identifier of the consent which has now been activated by the completion of the Authorization flow.
+     * @type {string}
+     * @memberof TokenCreatedResponse
+     */
+    activeConsentId?: string;
+}
+/**
+ *
+ * @export
+ * @interface UpdateConsent
+ */
+export interface UpdateConsent {
+    /**
+     *
+     * @type {PostUsageAction}
+     * @memberof UpdateConsent
+     */
+    postUsageAction?: PostUsageAction;
+    /**
+     *
+     * @type {boolean}
+     * @memberof UpdateConsent
+     */
+    directMarketingAllowed?: boolean;
+    /**
+     * new sharing end date, will be rounded to the end of specified date and validated against sharing duration options defined in chosen Use Case
+     * @type {string}
+     * @memberof UpdateConsent
+     */
+    sharingEndDate?: string;
+}
 /**
  *
  * @export
  * @interface UseCaseResponse
  */
 export interface UseCaseResponse {
-  /**
-   *
-   * @type {string}
-   * @memberof UseCaseResponse
-   */
-  id?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof UseCaseResponse
-   */
-  name?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof UseCaseResponse
-   */
-  description?: string;
-  /**
-   *
-   * @type {number}
-   * @memberof UseCaseResponse
-   */
-  priority?: number;
-  /**
-   *
-   * @type {number}
-   * @memberof UseCaseResponse
-   */
-  historicalCollectionPeriodInDays?: number;
-  /**
-   *
-   * @type {NotificationType}
-   * @memberof UseCaseResponse
-   */
-  notificationType?: NotificationType;
-  /**
-   *
-   * @type {Array<ScopeResponse>}
-   * @memberof UseCaseResponse
-   */
-  scopes?: Array<ScopeResponse>;
-  /**
-   *
-   * @type {AccessFrequency}
-   * @memberof UseCaseResponse
-   */
-  accessFrequency?: AccessFrequency;
-  /**
-   * default to [\"CUSTOM\"] for Ongoing consent; default to [\"ONCE_OFF\"] for Once_off consent if not supplied
-   * @type {Array<SharingDuration>}
-   * @memberof UseCaseResponse
-   */
-  sharingDurations?: Array<SharingDuration>;
+    /**
+     *
+     * @type {string}
+     * @memberof UseCaseResponse
+     */
+    id?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof UseCaseResponse
+     */
+    name?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof UseCaseResponse
+     */
+    description?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof UseCaseResponse
+     */
+    priority?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof UseCaseResponse
+     */
+    historicalCollectionPeriodInDays?: number;
+    /**
+     *
+     * @type {NotificationType}
+     * @memberof UseCaseResponse
+     */
+    notificationType?: NotificationType;
+    /**
+     *
+     * @type {Array<ScopeResponse>}
+     * @memberof UseCaseResponse
+     */
+    scopes?: Array<ScopeResponse>;
+    /**
+     *
+     * @type {AccessFrequency}
+     * @memberof UseCaseResponse
+     */
+    accessFrequency?: AccessFrequency;
+    /**
+     * default to [\"CUSTOM\"] for Ongoing consent; default to [\"ONCE_OFF\"] for Once_off consent if not supplied
+     * @type {Array<SharingDuration>}
+     * @memberof UseCaseResponse
+     */
+    sharingDurations?: Array<SharingDuration>;
 }
 
 /**
- * ConsentEventsApi - axios parameter creator
+ * AuthorizationApi - axios parameter creator
  * @export
  */
-export const ConsentEventsApiAxiosParamCreator = function (configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary Retrieve consent events
-     * @param {string} [oldest] Constrain the consent event result list with timestamp at or after this date/time. Format is aligned to DateTimeString common type
-     * @param {string} [newest] Constrain the consent event result list with timestamp at or before this date/time. Format is aligned to DateTimeString common type
-     * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getConsentEvents: async (
-      oldest?: string,
-      newest?: string,
-      page?: number,
-      pageSize?: number,
-      options: any = {},
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/consent-mgmt/consents/events`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+export const AuthorizationApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get the authorization redirect URL to send the consumer to the data holder
+         * @summary Get Authorization Redirect URL
+         * @param {string} dataHolderBrandId The ideintifier of the data holder you wish the consumer to authenitcate with.
+         * @param {string} [nonce] (deprecated) A nonce is generated by the consent user-agent (browser) and is sent in the authentication request, and is then also included in the ID Token response from the Data Holder. This allows us to correlate the ID Token response with the initial authentication request.
+         * @param {string} [state] A state is generated by the consent user-agent (browser) and is used to bind the redirection response from a Data Holder with a user session as per https://openid.net/specs/openid-financial-api-part-1-1_0-final.html#public-client. It is sent in the authentication request, and is then also included redirect from the ADH to the ADR. This allows the ADR client application prevent CSRF attacks. Must be unique per authorization request.
+         * @param {string} [cdrConsentId] (deprecated - use consentId) The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [consentId] The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [cdrArrangementId] The identifier of an existing CDR Arrangement that you wish to extend.
+         * @param {string} [softwareProductId] The identifier of the software product registered at the ACCC registry to be associated with this authentication request. If omitted the configured default software product ID is used.
+         * @param {string} [specificRedirectUri] (deprecated - use redirectUri) The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {string} [redirectUri] The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuthorization: async (dataHolderBrandId: string, nonce?: string, state?: string, cdrConsentId?: string, consentId?: string, cdrArrangementId?: string, softwareProductId?: string, specificRedirectUri?: string, redirectUri?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataHolderBrandId' is not null or undefined
+            if (dataHolderBrandId === null || dataHolderBrandId === undefined) {
+                throw new RequiredError('dataHolderBrandId','Required parameter dataHolderBrandId was null or undefined when calling getAuthorization.');
+            }
+            const localVarPath = `/infosec/authorization`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      // authentication bearerAuth required
-      // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      if (oldest !== undefined) {
-        localVarQueryParameter['oldest'] = (oldest as any) instanceof Date ? (oldest as any).toISOString() : oldest;
-      }
+            if (nonce !== undefined) {
+                localVarQueryParameter['nonce'] = nonce;
+            }
 
-      if (newest !== undefined) {
-        localVarQueryParameter['newest'] = (newest as any) instanceof Date ? (newest as any).toISOString() : newest;
-      }
+            if (state !== undefined) {
+                localVarQueryParameter['state'] = state;
+            }
 
-      if (page !== undefined) {
-        localVarQueryParameter['page'] = page;
-      }
+            if (dataHolderBrandId !== undefined) {
+                localVarQueryParameter['dataHolderBrandId'] = dataHolderBrandId;
+            }
 
-      if (pageSize !== undefined) {
-        localVarQueryParameter['page-size'] = pageSize;
-      }
+            if (cdrConsentId !== undefined) {
+                localVarQueryParameter['cdrConsentId'] = cdrConsentId;
+            }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            if (consentId !== undefined) {
+                localVarQueryParameter['consentId'] = consentId;
+            }
 
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-  };
+            if (cdrArrangementId !== undefined) {
+                localVarQueryParameter['cdrArrangementId'] = cdrArrangementId;
+            }
+
+            if (softwareProductId !== undefined) {
+                localVarQueryParameter['softwareProductId'] = softwareProductId;
+            }
+
+            if (specificRedirectUri !== undefined) {
+                localVarQueryParameter['specificRedirectUri'] = specificRedirectUri;
+            }
+
+            if (redirectUri !== undefined) {
+                localVarQueryParameter['redirectUri'] = redirectUri;
+            }
+
+
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
 };
 
 /**
- * ConsentEventsApi - functional programming interface
+ * AuthorizationApi - functional programming interface
  * @export
  */
-export const ConsentEventsApiFp = function (configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary Retrieve consent events
-     * @param {string} [oldest] Constrain the consent event result list with timestamp at or after this date/time. Format is aligned to DateTimeString common type
-     * @param {string} [newest] Constrain the consent event result list with timestamp at or before this date/time. Format is aligned to DateTimeString common type
-     * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getConsentEvents(
-      oldest?: string,
-      newest?: string,
-      page?: number,
-      pageSize?: number,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentEventList>> {
-      const localVarAxiosArgs = await ConsentEventsApiAxiosParamCreator(configuration).getConsentEvents(
-        oldest,
-        newest,
-        page,
-        pageSize,
-        options,
-      );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-  };
+export const AuthorizationApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Get the authorization redirect URL to send the consumer to the data holder
+         * @summary Get Authorization Redirect URL
+         * @param {string} dataHolderBrandId The ideintifier of the data holder you wish the consumer to authenitcate with.
+         * @param {string} [nonce] (deprecated) A nonce is generated by the consent user-agent (browser) and is sent in the authentication request, and is then also included in the ID Token response from the Data Holder. This allows us to correlate the ID Token response with the initial authentication request.
+         * @param {string} [state] A state is generated by the consent user-agent (browser) and is used to bind the redirection response from a Data Holder with a user session as per https://openid.net/specs/openid-financial-api-part-1-1_0-final.html#public-client. It is sent in the authentication request, and is then also included redirect from the ADH to the ADR. This allows the ADR client application prevent CSRF attacks. Must be unique per authorization request.
+         * @param {string} [cdrConsentId] (deprecated - use consentId) The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [consentId] The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [cdrArrangementId] The identifier of an existing CDR Arrangement that you wish to extend.
+         * @param {string} [softwareProductId] The identifier of the software product registered at the ACCC registry to be associated with this authentication request. If omitted the configured default software product ID is used.
+         * @param {string} [specificRedirectUri] (deprecated - use redirectUri) The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {string} [redirectUri] The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAuthorization(dataHolderBrandId: string, nonce?: string, state?: string, cdrConsentId?: string, consentId?: string, cdrArrangementId?: string, softwareProductId?: string, specificRedirectUri?: string, redirectUri?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await AuthorizationApiAxiosParamCreator(configuration).getAuthorization(dataHolderBrandId, nonce, state, cdrConsentId, consentId, cdrArrangementId, softwareProductId, specificRedirectUri, redirectUri, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
 };
 
 /**
- * ConsentEventsApi - factory interface
+ * AuthorizationApi - factory interface
  * @export
  */
-export const ConsentEventsApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
-  return {
-    /**
-     *
-     * @summary Retrieve consent events
-     * @param {string} [oldest] Constrain the consent event result list with timestamp at or after this date/time. Format is aligned to DateTimeString common type
-     * @param {string} [newest] Constrain the consent event result list with timestamp at or before this date/time. Format is aligned to DateTimeString common type
-     * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getConsentEvents(
-      oldest?: string,
-      newest?: string,
-      page?: number,
-      pageSize?: number,
-      options?: any,
-    ): AxiosPromise<ConsentEventList> {
-      return ConsentEventsApiFp(configuration)
-        .getConsentEvents(oldest, newest, page, pageSize, options)
-        .then((request) => request(axios, basePath));
-    },
-  };
+export const AuthorizationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Get the authorization redirect URL to send the consumer to the data holder
+         * @summary Get Authorization Redirect URL
+         * @param {string} dataHolderBrandId The ideintifier of the data holder you wish the consumer to authenitcate with.
+         * @param {string} [nonce] (deprecated) A nonce is generated by the consent user-agent (browser) and is sent in the authentication request, and is then also included in the ID Token response from the Data Holder. This allows us to correlate the ID Token response with the initial authentication request.
+         * @param {string} [state] A state is generated by the consent user-agent (browser) and is used to bind the redirection response from a Data Holder with a user session as per https://openid.net/specs/openid-financial-api-part-1-1_0-final.html#public-client. It is sent in the authentication request, and is then also included redirect from the ADH to the ADR. This allows the ADR client application prevent CSRF attacks. Must be unique per authorization request.
+         * @param {string} [cdrConsentId] (deprecated - use consentId) The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [consentId] The identifier of the consent record to be associated with this authentication request.
+         * @param {string} [cdrArrangementId] The identifier of an existing CDR Arrangement that you wish to extend.
+         * @param {string} [softwareProductId] The identifier of the software product registered at the ACCC registry to be associated with this authentication request. If omitted the configured default software product ID is used.
+         * @param {string} [specificRedirectUri] (deprecated - use redirectUri) The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {string} [redirectUri] The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuthorization(dataHolderBrandId: string, nonce?: string, state?: string, cdrConsentId?: string, consentId?: string, cdrArrangementId?: string, softwareProductId?: string, specificRedirectUri?: string, redirectUri?: string, options?: any): AxiosPromise<string> {
+            return AuthorizationApiFp(configuration).getAuthorization(dataHolderBrandId, nonce, state, cdrConsentId, consentId, cdrArrangementId, softwareProductId, specificRedirectUri, redirectUri, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
- * ConsentEventsApi - object-oriented interface
+ * AuthorizationApi - object-oriented interface
  * @export
- * @class ConsentEventsApi
+ * @class AuthorizationApi
  * @extends {BaseAPI}
  */
-export class ConsentEventsApi extends BaseAPI {
-  /**
-   *
-   * @summary Retrieve consent events
-   * @param {string} [oldest] Constrain the consent event result list with timestamp at or after this date/time. Format is aligned to DateTimeString common type
-   * @param {string} [newest] Constrain the consent event result list with timestamp at or before this date/time. Format is aligned to DateTimeString common type
-   * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentEventsApi
-   */
-  public getConsentEvents(oldest?: string, newest?: string, page?: number, pageSize?: number, options?: any) {
-    return ConsentEventsApiFp(this.configuration)
-      .getConsentEvents(oldest, newest, page, pageSize, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+export class AuthorizationApi extends BaseAPI {
+    /**
+     * Get the authorization redirect URL to send the consumer to the data holder
+     * @summary Get Authorization Redirect URL
+     * @param {string} dataHolderBrandId The ideintifier of the data holder you wish the consumer to authenitcate with.
+     * @param {string} [nonce] (deprecated) A nonce is generated by the consent user-agent (browser) and is sent in the authentication request, and is then also included in the ID Token response from the Data Holder. This allows us to correlate the ID Token response with the initial authentication request.
+     * @param {string} [state] A state is generated by the consent user-agent (browser) and is used to bind the redirection response from a Data Holder with a user session as per https://openid.net/specs/openid-financial-api-part-1-1_0-final.html#public-client. It is sent in the authentication request, and is then also included redirect from the ADH to the ADR. This allows the ADR client application prevent CSRF attacks. Must be unique per authorization request.
+     * @param {string} [cdrConsentId] (deprecated - use consentId) The identifier of the consent record to be associated with this authentication request.
+     * @param {string} [consentId] The identifier of the consent record to be associated with this authentication request.
+     * @param {string} [cdrArrangementId] The identifier of an existing CDR Arrangement that you wish to extend.
+     * @param {string} [softwareProductId] The identifier of the software product registered at the ACCC registry to be associated with this authentication request. If omitted the configured default software product ID is used.
+     * @param {string} [specificRedirectUri] (deprecated - use redirectUri) The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+     * @param {string} [redirectUri] The URI to redirect to from the data holder when the consumer has finished data holder authentication. Must be from the list of redirect URIs configured at the ACCC register.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthorizationApi
+     */
+    public getAuthorization(dataHolderBrandId: string, nonce?: string, state?: string, cdrConsentId?: string, consentId?: string, cdrArrangementId?: string, softwareProductId?: string, specificRedirectUri?: string, redirectUri?: string, options?: any) {
+        return AuthorizationApiFp(this.configuration).getAuthorization(dataHolderBrandId, nonce, state, cdrConsentId, consentId, cdrArrangementId, softwareProductId, specificRedirectUri, redirectUri, options).then((request) => request(this.axios, this.basePath));
+    }
+
 }
 
+
 /**
- * ConsentsApi - axios parameter creator
+ * ConsentApi - axios parameter creator
  * @export
  */
-export const ConsentsApiAxiosParamCreator = function (configuration?: Configuration) {
-  return {
-    /**
-     * Retrieve consent record
-     * @summary Get Consents
-     * @param {string} [consumerId] consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \&#39;|\&#39;, which need be encoded as \&#39;%7c\&#39;
-     * @param {string} [consentId]
-     * @param {string} [cdrArrangementId]
-     * @param {'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED'} [status]
-     * @param {'ONCE_OFF' | 'ONGOING'} [accessFrequency]
-     * @param {'DELETION' | 'DE_IDENTIFICATION'} [postUsageAction]
-     * @param {boolean} [directMarketingAllowed]
-     * @param {Array<string>} [useCases] UseCase ids
-     * @param {string} [dataHolderBrandId]
-     * @param {string} [oldestCreated] Constrain the consent with created time at or after this date/time. If absent defaults to newestCreated minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestCreated] Constrain the consent with created time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestRevoked] Constrain the consent with revoked time at or after this date/time. If absent defaults to newestRevoked minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestRevoked] Constrain the consent with revoked time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestSharingEndDate] Constrain the consent with sharingEndDate time at or after this date/time. If absent defaults to newestSharingEndDate minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestSharingEndDate] Constrain the consent with sharingEndDate time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [externalId] Constrain the consent by externalId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    findConsents: async (
-      consumerId?: string,
-      consentId?: string,
-      cdrArrangementId?: string,
-      status?: 'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED',
-      accessFrequency?: 'ONCE_OFF' | 'ONGOING',
-      postUsageAction?: 'DELETION' | 'DE_IDENTIFICATION',
-      directMarketingAllowed?: boolean,
-      useCases?: Array<string>,
-      dataHolderBrandId?: string,
-      oldestCreated?: string,
-      newestCreated?: string,
-      oldestRevoked?: string,
-      newestRevoked?: string,
-      oldestSharingEndDate?: string,
-      newestSharingEndDate?: string,
-      externalId?: string,
-      options: any = {},
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/adr/consents`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+export const ConsentApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a consent record for consumer
+         * @summary Create Consent
+         * @param {CreateConsent} [createConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConsent: async (createConsent?: CreateConsent, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/consent-mgmt/consents`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      // authentication bearerAuth required
-      // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      if (consumerId !== undefined) {
-        localVarQueryParameter['consumerId'] = consumerId;
-      }
 
-      if (consentId !== undefined) {
-        localVarQueryParameter['consentId'] = consentId;
-      }
 
-      if (cdrArrangementId !== undefined) {
-        localVarQueryParameter['cdrArrangementId'] = cdrArrangementId;
-      }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
-      if (status !== undefined) {
-        localVarQueryParameter['status'] = status;
-      }
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof createConsent !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(createConsent !== undefined ? createConsent : {}) : (createConsent || "");
 
-      if (accessFrequency !== undefined) {
-        localVarQueryParameter['accessFrequency'] = accessFrequency;
-      }
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all consent records for this consumer
+         * @summary Get Consents
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllConsents: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/consent-mgmt/consents`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      if (postUsageAction !== undefined) {
-        localVarQueryParameter['postUsageAction'] = postUsageAction;
-      }
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      if (directMarketingAllowed !== undefined) {
-        localVarQueryParameter['directMarketingAllowed'] = directMarketingAllowed;
-      }
 
-      if (useCases) {
-        localVarQueryParameter['useCases'] = useCases;
-      }
 
-      if (dataHolderBrandId !== undefined) {
-        localVarQueryParameter['dataHolderBrandId'] = dataHolderBrandId;
-      }
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-      if (oldestCreated !== undefined) {
-        localVarQueryParameter['oldestCreated'] =
-          (oldestCreated as any) instanceof Date ? (oldestCreated as any).toISOString() : oldestCreated;
-      }
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retreive a single consent record for this consumer
+         * @summary Get Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'consentId' is not null or undefined
+            if (consentId === null || consentId === undefined) {
+                throw new RequiredError('consentId','Required parameter consentId was null or undefined when calling findConsent.');
+            }
+            const localVarPath = `/consent-mgmt/consents/{consentId}`
+                .replace(`{${"consentId"}}`, encodeURIComponent(String(consentId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      if (newestCreated !== undefined) {
-        localVarQueryParameter['newestCreated'] =
-          (newestCreated as any) instanceof Date ? (newestCreated as any).toISOString() : newestCreated;
-      }
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      if (oldestRevoked !== undefined) {
-        localVarQueryParameter['oldestRevoked'] =
-          (oldestRevoked as any) instanceof Date ? (oldestRevoked as any).toISOString() : oldestRevoked;
-      }
 
-      if (newestRevoked !== undefined) {
-        localVarQueryParameter['newestRevoked'] =
-          (newestRevoked as any) instanceof Date ? (newestRevoked as any).toISOString() : newestRevoked;
-      }
 
-      if (oldestSharingEndDate !== undefined) {
-        localVarQueryParameter['oldestSharingEndDate'] =
-          (oldestSharingEndDate as any) instanceof Date
-            ? (oldestSharingEndDate as any).toISOString()
-            : oldestSharingEndDate;
-      }
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-      if (newestSharingEndDate !== undefined) {
-        localVarQueryParameter['newestSharingEndDate'] =
-          (newestSharingEndDate as any) instanceof Date
-            ? (newestSharingEndDate as any).toISOString()
-            : newestSharingEndDate;
-      }
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Revoke a single consent record for this consumer
+         * @summary Revoke Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'consentId' is not null or undefined
+            if (consentId === null || consentId === undefined) {
+                throw new RequiredError('consentId','Required parameter consentId was null or undefined when calling revokeConsent.');
+            }
+            const localVarPath = `/consent-mgmt/consents/{consentId}`
+                .replace(`{${"consentId"}}`, encodeURIComponent(String(consentId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      if (externalId !== undefined) {
-        localVarQueryParameter['externalId'] = externalId;
-      }
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Retreive an individual consent record
-     * @summary Get Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
-      // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling getConsent.',
-        );
-      }
-      const localVarPath = `/adr/consents/{consentId}`.replace(
-        `{${'consentId'}}`,
-        encodeURIComponent(String(consentId)),
-      );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
 
-      // authentication bearerAuth required
-      // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a single consent record for this consumer
+         * @summary Update Consent
+         * @param {string} consentId
+         * @param {UpdateConsent} [updateConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConsent: async (consentId: string, updateConsent?: UpdateConsent, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'consentId' is not null or undefined
+            if (consentId === null || consentId === undefined) {
+                throw new RequiredError('consentId','Required parameter consentId was null or undefined when calling updateConsent.');
+            }
+            const localVarPath = `/consent-mgmt/consents/{consentId}`
+                .replace(`{${"consentId"}}`, encodeURIComponent(String(consentId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Retreive an individual consent record\'s change history
-     * @summary Get Consent History
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getHistory: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
-      // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling getHistory.',
-        );
-      }
-      const localVarPath = `/adr/consents/{consentId}/history`.replace(
-        `{${'consentId'}}`,
-        encodeURIComponent(String(consentId)),
-      );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
-      // authentication bearerAuth required
-      // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Allows Data Recipient to revoke a single consent record. This API is idempotent.
-     * @summary Revoke Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    revokeConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
-      // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling revokeConsent.',
-        );
-      }
-      const localVarPath = `/adr/consents/{consentId}`.replace(
-        `{${'consentId'}}`,
-        encodeURIComponent(String(consentId)),
-      );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof updateConsent !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(updateConsent !== undefined ? updateConsent : {}) : (updateConsent || "");
 
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * update externalId of a consent
-     * @summary Update Consent
-     * @param {string} consentId
-     * @param {AdrUpdateConsent} [adrUpdateConsent]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateConsentAdr: async (
-      consentId: string,
-      adrUpdateConsent?: AdrUpdateConsent,
-      options: any = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling updateConsentAdr.',
-        );
-      }
-      const localVarPath = `/adr/consents/{consentId}`.replace(
-        `{${'consentId'}}`,
-        encodeURIComponent(String(consentId)),
-      );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-      const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication bearerAuth required
-      // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      const needsSerialization =
-        typeof adrUpdateConsent !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-      localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(adrUpdateConsent !== undefined ? adrUpdateConsent : {})
-        : adrUpdateConsent || '';
-
-      return {
-        url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-  };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
 };
 
 /**
- * ConsentsApi - functional programming interface
+ * ConsentApi - functional programming interface
  * @export
  */
-export const ConsentsApiFp = function (configuration?: Configuration) {
-  return {
-    /**
-     * Retrieve consent record
-     * @summary Get Consents
-     * @param {string} [consumerId] consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \&#39;|\&#39;, which need be encoded as \&#39;%7c\&#39;
-     * @param {string} [consentId]
-     * @param {string} [cdrArrangementId]
-     * @param {'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED'} [status]
-     * @param {'ONCE_OFF' | 'ONGOING'} [accessFrequency]
-     * @param {'DELETION' | 'DE_IDENTIFICATION'} [postUsageAction]
-     * @param {boolean} [directMarketingAllowed]
-     * @param {Array<string>} [useCases] UseCase ids
-     * @param {string} [dataHolderBrandId]
-     * @param {string} [oldestCreated] Constrain the consent with created time at or after this date/time. If absent defaults to newestCreated minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestCreated] Constrain the consent with created time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestRevoked] Constrain the consent with revoked time at or after this date/time. If absent defaults to newestRevoked minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestRevoked] Constrain the consent with revoked time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestSharingEndDate] Constrain the consent with sharingEndDate time at or after this date/time. If absent defaults to newestSharingEndDate minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestSharingEndDate] Constrain the consent with sharingEndDate time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [externalId] Constrain the consent by externalId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async findConsents(
-      consumerId?: string,
-      consentId?: string,
-      cdrArrangementId?: string,
-      status?: 'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED',
-      accessFrequency?: 'ONCE_OFF' | 'ONGOING',
-      postUsageAction?: 'DELETION' | 'DE_IDENTIFICATION',
-      directMarketingAllowed?: boolean,
-      useCases?: Array<string>,
-      dataHolderBrandId?: string,
-      oldestCreated?: string,
-      newestCreated?: string,
-      oldestRevoked?: string,
-      newestRevoked?: string,
-      oldestSharingEndDate?: string,
-      newestSharingEndDate?: string,
-      externalId?: string,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConsentResponse>>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).findConsents(
-        consumerId,
-        consentId,
-        cdrArrangementId,
-        status,
-        accessFrequency,
-        postUsageAction,
-        directMarketingAllowed,
-        useCases,
-        dataHolderBrandId,
-        oldestCreated,
-        newestCreated,
-        oldestRevoked,
-        newestRevoked,
-        oldestSharingEndDate,
-        newestSharingEndDate,
-        externalId,
-        options,
-      );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-    /**
-     * Retreive an individual consent record
-     * @summary Get Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getConsent(
-      consentId: string,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).getConsent(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-    /**
-     * Retreive an individual consent record\'s change history
-     * @summary Get Consent History
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getHistory(
-      consentId: string,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentHistoryResponse>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).getHistory(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-    /**
-     * Allows Data Recipient to revoke a single consent record. This API is idempotent.
-     * @summary Revoke Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async revokeConsent(
-      consentId: string,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).revokeConsent(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-    /**
-     * update externalId of a consent
-     * @summary Update Consent
-     * @param {string} consentId
-     * @param {AdrUpdateConsent} [adrUpdateConsent]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async updateConsentAdr(
-      consentId: string,
-      adrUpdateConsent?: AdrUpdateConsent,
-      options?: any,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).updateConsentAdr(
-        consentId,
-        adrUpdateConsent,
-        options,
-      );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
-    },
-  };
+export const ConsentApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Create a consent record for consumer
+         * @summary Create Consent
+         * @param {CreateConsent} [createConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createConsent(createConsent?: CreateConsent, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
+            const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).createConsent(createConsent, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Get all consent records for this consumer
+         * @summary Get Consents
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllConsents(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConsentResponse>>> {
+            const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).findAllConsents(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Retreive a single consent record for this consumer
+         * @summary Get Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findConsent(consentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
+            const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).findConsent(consentId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Revoke a single consent record for this consumer
+         * @summary Revoke Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async revokeConsent(consentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).revokeConsent(consentId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Update a single consent record for this consumer
+         * @summary Update Consent
+         * @param {string} consentId
+         * @param {UpdateConsent} [updateConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateConsent(consentId: string, updateConsent?: UpdateConsent, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).updateConsent(consentId, updateConsent, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
 };
 
 /**
- * ConsentsApi - factory interface
+ * ConsentApi - factory interface
  * @export
  */
-export const ConsentsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-  return {
-    /**
-     * Retrieve consent record
-     * @summary Get Consents
-     * @param {string} [consumerId] consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \&#39;|\&#39;, which need be encoded as \&#39;%7c\&#39;
-     * @param {string} [consentId]
-     * @param {string} [cdrArrangementId]
-     * @param {'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED'} [status]
-     * @param {'ONCE_OFF' | 'ONGOING'} [accessFrequency]
-     * @param {'DELETION' | 'DE_IDENTIFICATION'} [postUsageAction]
-     * @param {boolean} [directMarketingAllowed]
-     * @param {Array<string>} [useCases] UseCase ids
-     * @param {string} [dataHolderBrandId]
-     * @param {string} [oldestCreated] Constrain the consent with created time at or after this date/time. If absent defaults to newestCreated minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestCreated] Constrain the consent with created time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestRevoked] Constrain the consent with revoked time at or after this date/time. If absent defaults to newestRevoked minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestRevoked] Constrain the consent with revoked time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [oldestSharingEndDate] Constrain the consent with sharingEndDate time at or after this date/time. If absent defaults to newestSharingEndDate minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestSharingEndDate] Constrain the consent with sharingEndDate time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-     * @param {string} [externalId] Constrain the consent by externalId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    findConsents(
-      consumerId?: string,
-      consentId?: string,
-      cdrArrangementId?: string,
-      status?: 'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED',
-      accessFrequency?: 'ONCE_OFF' | 'ONGOING',
-      postUsageAction?: 'DELETION' | 'DE_IDENTIFICATION',
-      directMarketingAllowed?: boolean,
-      useCases?: Array<string>,
-      dataHolderBrandId?: string,
-      oldestCreated?: string,
-      newestCreated?: string,
-      oldestRevoked?: string,
-      newestRevoked?: string,
-      oldestSharingEndDate?: string,
-      newestSharingEndDate?: string,
-      externalId?: string,
-      options?: any,
-    ): AxiosPromise<Array<ConsentResponse>> {
-      return ConsentsApiFp(configuration)
-        .findConsents(
-          consumerId,
-          consentId,
-          cdrArrangementId,
-          status,
-          accessFrequency,
-          postUsageAction,
-          directMarketingAllowed,
-          useCases,
-          dataHolderBrandId,
-          oldestCreated,
-          newestCreated,
-          oldestRevoked,
-          newestRevoked,
-          oldestSharingEndDate,
-          newestSharingEndDate,
-          externalId,
-          options,
-        )
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Retreive an individual consent record
-     * @summary Get Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getConsent(consentId: string, options?: any): AxiosPromise<ConsentResponse> {
-      return ConsentsApiFp(configuration)
-        .getConsent(consentId, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Retreive an individual consent record\'s change history
-     * @summary Get Consent History
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getHistory(consentId: string, options?: any): AxiosPromise<ConsentHistoryResponse> {
-      return ConsentsApiFp(configuration)
-        .getHistory(consentId, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Allows Data Recipient to revoke a single consent record. This API is idempotent.
-     * @summary Revoke Consent
-     * @param {string} consentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    revokeConsent(consentId: string, options?: any): AxiosPromise<void> {
-      return ConsentsApiFp(configuration)
-        .revokeConsent(consentId, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * update externalId of a consent
-     * @summary Update Consent
-     * @param {string} consentId
-     * @param {AdrUpdateConsent} [adrUpdateConsent]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateConsentAdr(consentId: string, adrUpdateConsent?: AdrUpdateConsent, options?: any): AxiosPromise<void> {
-      return ConsentsApiFp(configuration)
-        .updateConsentAdr(consentId, adrUpdateConsent, options)
-        .then((request) => request(axios, basePath));
-    },
-  };
+export const ConsentApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Create a consent record for consumer
+         * @summary Create Consent
+         * @param {CreateConsent} [createConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConsent(createConsent?: CreateConsent, options?: any): AxiosPromise<ConsentResponse> {
+            return ConsentApiFp(configuration).createConsent(createConsent, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all consent records for this consumer
+         * @summary Get Consents
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllConsents(options?: any): AxiosPromise<Array<ConsentResponse>> {
+            return ConsentApiFp(configuration).findAllConsents(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retreive a single consent record for this consumer
+         * @summary Get Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findConsent(consentId: string, options?: any): AxiosPromise<ConsentResponse> {
+            return ConsentApiFp(configuration).findConsent(consentId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Revoke a single consent record for this consumer
+         * @summary Revoke Consent
+         * @param {string} consentId
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeConsent(consentId: string, options?: any): AxiosPromise<void> {
+            return ConsentApiFp(configuration).revokeConsent(consentId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a single consent record for this consumer
+         * @summary Update Consent
+         * @param {string} consentId
+         * @param {UpdateConsent} [updateConsent]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConsent(consentId: string, updateConsent?: UpdateConsent, options?: any): AxiosPromise<void> {
+            return ConsentApiFp(configuration).updateConsent(consentId, updateConsent, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
- * ConsentsApi - object-oriented interface
+ * ConsentApi - object-oriented interface
  * @export
- * @class ConsentsApi
+ * @class ConsentApi
  * @extends {BaseAPI}
  */
-export class ConsentsApi extends BaseAPI {
-  /**
-   * Retrieve consent record
-   * @summary Get Consents
-   * @param {string} [consumerId] consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \&#39;|\&#39;, which need be encoded as \&#39;%7c\&#39;
-   * @param {string} [consentId]
-   * @param {string} [cdrArrangementId]
-   * @param {'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED'} [status]
-   * @param {'ONCE_OFF' | 'ONGOING'} [accessFrequency]
-   * @param {'DELETION' | 'DE_IDENTIFICATION'} [postUsageAction]
-   * @param {boolean} [directMarketingAllowed]
-   * @param {Array<string>} [useCases] UseCase ids
-   * @param {string} [dataHolderBrandId]
-   * @param {string} [oldestCreated] Constrain the consent with created time at or after this date/time. If absent defaults to newestCreated minus 90 days.  Format is aligned to DateTimeString common type
-   * @param {string} [newestCreated] Constrain the consent with created time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-   * @param {string} [oldestRevoked] Constrain the consent with revoked time at or after this date/time. If absent defaults to newestRevoked minus 90 days.  Format is aligned to DateTimeString common type
-   * @param {string} [newestRevoked] Constrain the consent with revoked time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-   * @param {string} [oldestSharingEndDate] Constrain the consent with sharingEndDate time at or after this date/time. If absent defaults to newestSharingEndDate minus 90 days.  Format is aligned to DateTimeString common type
-   * @param {string} [newestSharingEndDate] Constrain the consent with sharingEndDate time at or before this date/time. If absent defaults to today. Format is aligned to DateTimeString common type
-   * @param {string} [externalId] Constrain the consent by externalId
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentsApi
-   */
-  public findConsents(
-    consumerId?: string,
-    consentId?: string,
-    cdrArrangementId?: string,
-    status?: 'REQUESTED' | 'ACTIVE' | 'REVOKED' | 'EXPIRED',
-    accessFrequency?: 'ONCE_OFF' | 'ONGOING',
-    postUsageAction?: 'DELETION' | 'DE_IDENTIFICATION',
-    directMarketingAllowed?: boolean,
-    useCases?: Array<string>,
-    dataHolderBrandId?: string,
-    oldestCreated?: string,
-    newestCreated?: string,
-    oldestRevoked?: string,
-    newestRevoked?: string,
-    oldestSharingEndDate?: string,
-    newestSharingEndDate?: string,
-    externalId?: string,
-    options?: any,
-  ) {
-    return ConsentsApiFp(this.configuration)
-      .findConsents(
-        consumerId,
-        consentId,
-        cdrArrangementId,
-        status,
-        accessFrequency,
-        postUsageAction,
-        directMarketingAllowed,
-        useCases,
-        dataHolderBrandId,
-        oldestCreated,
-        newestCreated,
-        oldestRevoked,
-        newestRevoked,
-        oldestSharingEndDate,
-        newestSharingEndDate,
-        externalId,
-        options,
-      )
-      .then((request) => request(this.axios, this.basePath));
-  }
+export class ConsentApi extends BaseAPI {
+    /**
+     * Create a consent record for consumer
+     * @summary Create Consent
+     * @param {CreateConsent} [createConsent]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConsentApi
+     */
+    public createConsent(createConsent?: CreateConsent, options?: any) {
+        return ConsentApiFp(this.configuration).createConsent(createConsent, options).then((request) => request(this.axios, this.basePath));
+    }
 
-  /**
-   * Retreive an individual consent record
-   * @summary Get Consent
-   * @param {string} consentId
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentsApi
-   */
-  public getConsent(consentId: string, options?: any) {
-    return ConsentsApiFp(this.configuration)
-      .getConsent(consentId, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * Get all consent records for this consumer
+     * @summary Get Consents
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConsentApi
+     */
+    public findAllConsents(options?: any) {
+        return ConsentApiFp(this.configuration).findAllConsents(options).then((request) => request(this.axios, this.basePath));
+    }
 
-  /**
-   * Retreive an individual consent record\'s change history
-   * @summary Get Consent History
-   * @param {string} consentId
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentsApi
-   */
-  public getHistory(consentId: string, options?: any) {
-    return ConsentsApiFp(this.configuration)
-      .getHistory(consentId, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * Retreive a single consent record for this consumer
+     * @summary Get Consent
+     * @param {string} consentId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConsentApi
+     */
+    public findConsent(consentId: string, options?: any) {
+        return ConsentApiFp(this.configuration).findConsent(consentId, options).then((request) => request(this.axios, this.basePath));
+    }
 
-  /**
-   * Allows Data Recipient to revoke a single consent record. This API is idempotent.
-   * @summary Revoke Consent
-   * @param {string} consentId
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentsApi
-   */
-  public revokeConsent(consentId: string, options?: any) {
-    return ConsentsApiFp(this.configuration)
-      .revokeConsent(consentId, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * Revoke a single consent record for this consumer
+     * @summary Revoke Consent
+     * @param {string} consentId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConsentApi
+     */
+    public revokeConsent(consentId: string, options?: any) {
+        return ConsentApiFp(this.configuration).revokeConsent(consentId, options).then((request) => request(this.axios, this.basePath));
+    }
 
-  /**
-   * update externalId of a consent
-   * @summary Update Consent
-   * @param {string} consentId
-   * @param {AdrUpdateConsent} [adrUpdateConsent]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof ConsentsApi
-   */
-  public updateConsentAdr(consentId: string, adrUpdateConsent?: AdrUpdateConsent, options?: any) {
-    return ConsentsApiFp(this.configuration)
-      .updateConsentAdr(consentId, adrUpdateConsent, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * Update a single consent record for this consumer
+     * @summary Update Consent
+     * @param {string} consentId
+     * @param {UpdateConsent} [updateConsent]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConsentApi
+     */
+    public updateConsent(consentId: string, updateConsent?: UpdateConsent, options?: any) {
+        return ConsentApiFp(this.configuration).updateConsent(consentId, updateConsent, options).then((request) => request(this.axios, this.basePath));
+    }
+
 }
+
+
+/**
+ * DataHoldersApi - axios parameter creator
+ * @export
+ */
+export const DataHoldersApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get the list of available data holders for a software product
+         * @summary Get Data Holders
+         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDataHolders: async (softwareProductId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'softwareProductId' is not null or undefined
+            if (softwareProductId === null || softwareProductId === undefined) {
+                throw new RequiredError('softwareProductId','Required parameter softwareProductId was null or undefined when calling getDataHolders.');
+            }
+            const localVarPath = `/dcr/software-products/{softwareProductId}/data-holders`
+                .replace(`{${"softwareProductId"}}`, encodeURIComponent(String(softwareProductId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DataHoldersApi - functional programming interface
+ * @export
+ */
+export const DataHoldersApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Get the list of available data holders for a software product
+         * @summary Get Data Holders
+         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDataHolders(softwareProductId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataHolder>>> {
+            const localVarAxiosArgs = await DataHoldersApiAxiosParamCreator(configuration).getDataHolders(softwareProductId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * DataHoldersApi - factory interface
+ * @export
+ */
+export const DataHoldersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Get the list of available data holders for a software product
+         * @summary Get Data Holders
+         * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDataHolders(softwareProductId: string, options?: any): AxiosPromise<Array<DataHolder>> {
+            return DataHoldersApiFp(configuration).getDataHolders(softwareProductId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DataHoldersApi - object-oriented interface
+ * @export
+ * @class DataHoldersApi
+ * @extends {BaseAPI}
+ */
+export class DataHoldersApi extends BaseAPI {
+    /**
+     * Get the list of available data holders for a software product
+     * @summary Get Data Holders
+     * @param {string} softwareProductId The identifier of the software product registered at the ACCC registry. The list of data holders returned is the list where dynamic client reigstration has been peformed at each data holder for this software product.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataHoldersApi
+     */
+    public getDataHolders(softwareProductId: string, options?: any) {
+        return DataHoldersApiFp(this.configuration).getDataHolders(softwareProductId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * TokensApi - axios parameter creator
+ * @export
+ */
+export const TokensApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
+         * @summary Create Tokens
+         * @param {Authorization} [authorization]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createToken: async (authorization?: Authorization, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/infosec/tokens`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof authorization !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(authorization !== undefined ? authorization : {}) : (authorization || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TokensApi - functional programming interface
+ * @export
+ */
+export const TokensApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
+         * @summary Create Tokens
+         * @param {Authorization} [authorization]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createToken(authorization?: Authorization, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenCreatedResponse>> {
+            const localVarAxiosArgs = await TokensApiAxiosParamCreator(configuration).createToken(authorization, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * TokensApi - factory interface
+ * @export
+ */
+export const TokensApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
+         * @summary Create Tokens
+         * @param {Authorization} [authorization]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createToken(authorization?: Authorization, options?: any): AxiosPromise<TokenCreatedResponse> {
+            return TokensApiFp(configuration).createToken(authorization, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TokensApi - object-oriented interface
+ * @export
+ * @class TokensApi
+ * @extends {BaseAPI}
+ */
+export class TokensApi extends BaseAPI {
+    /**
+     * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
+     * @summary Create Tokens
+     * @param {Authorization} [authorization]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokensApi
+     */
+    public createToken(authorization?: Authorization, options?: any) {
+        return TokensApiFp(this.configuration).createToken(authorization, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * UseCaseApi - axios parameter creator
+ * @export
+ */
+export const UseCaseApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
+         * @summary Get Use-cases
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUseCases: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/consent-mgmt/use-cases`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UseCaseApi - functional programming interface
+ * @export
+ */
+export const UseCaseApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
+         * @summary Get Use-cases
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllUseCases(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UseCaseResponse>>> {
+            const localVarAxiosArgs = await UseCaseApiAxiosParamCreator(configuration).findAllUseCases(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * UseCaseApi - factory interface
+ * @export
+ */
+export const UseCaseApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
+         * @summary Get Use-cases
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUseCases(options?: any): AxiosPromise<Array<UseCaseResponse>> {
+            return UseCaseApiFp(configuration).findAllUseCases(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UseCaseApi - object-oriented interface
+ * @export
+ * @class UseCaseApi
+ * @extends {BaseAPI}
+ */
+export class UseCaseApi extends BaseAPI {
+    /**
+     * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
+     * @summary Get Use-cases
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UseCaseApi
+     */
+    public findAllUseCases(options?: any) {
+        return UseCaseApiFp(this.configuration).findAllUseCases(options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+

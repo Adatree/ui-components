@@ -9,7 +9,7 @@ import {
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { DataHolder } from '../../generated/dcr/api';
-import { DateDuration, DateDurationList, DateDurationsType } from '../../consts/duration.const';
+import { DateDurationList, DateDurationsType } from '../../consts/duration.const';
 
 const suspendLogger = (): void => {
   Logger.debug = jest.fn();
@@ -25,7 +25,6 @@ const getTestDataPersonalInformationScope = (): ScopeResponse => {
     id: 'common:customer.basic:read',
     description: 'This will allow us to access your personally identifiable information',
     claims: ['Name', 'Occupation'],
-    required: true,
     priority: 1,
   };
 };
@@ -36,7 +35,6 @@ const getTestDataBankAccountScope = (): ScopeResponse => {
     id: 'bank:accounts.basic:read',
     description: 'This will allow us to access basic information about your accounts',
     claims: ['Name of account', 'Type of account', 'Account balance'],
-    required: true,
     priority: 2,
   };
 };
@@ -73,7 +71,6 @@ const getTestDataCreateConsent = (): CreateConsent => {
   return {
     consumerEmail: 'shane+test@adatree.com.au',
     sharingEndDate: new Date().toISOString(),
-    dataHolderName: 'Yellow Bank of Australia',
     dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
     useCaseId: getTestDataHomeUseCase().id,
     postUsageAction: PostUsageAction.DEIDENTIFICATION,
@@ -202,7 +199,6 @@ const generateTestDataConsent = (createConsent: CreateConsent): ConsentResponse 
     useCase: { id: createConsent.useCaseId },
     consumerEmail: createConsent.consumerEmail,
     sharingEndDate: createConsent.sharingEndDate,
-    dataHolderName: createConsent.dataHolderName,
     dataHolderBrandId: createConsent.dataHolderBrandId,
     postUsageAction: createConsent.postUsageAction,
     directMarketingAllowed: createConsent.directMarketingAllowed,

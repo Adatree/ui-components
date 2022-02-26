@@ -1,5 +1,5 @@
-import { DateDuration } from '../../consts/duration.const';
-import { AccessFrequency, ConsentResponse, Status, UseCaseResponse } from '../../generated/consent';
+import { DateDuration, DateDurationList } from '../../consts/duration.const';
+import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { DataHolder } from '../../generated/dcr/api';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
@@ -72,10 +72,17 @@ const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
 };
 
+const parseSharingDuration = (sharingDurations: SharingDuration[]): DateDuration[] => {
+  return sharingDurations.map((sharingDuration) => {
+    return DateDurationList[sharingDuration];
+  });
+};
+
 export const Helper = {
   accessFrequencyToString,
   unselectDateDurations,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
+  parseSharingDuration,
   sortListbyDate,
 };

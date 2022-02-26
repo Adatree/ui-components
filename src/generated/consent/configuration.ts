@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Adatree ADR Platform Consent API
- * A Consent API for ADRs. This allows ADRs to query for consents granted by their customers to access CDR consumer data. It also provides a mechanism to configure scopes and use-cases which are then made available in the consent dashboard.
+ * Consent Dashboard API Overview
+ * Consent Dashboard REST API for ADRs. This allows consumers to directly create records of consent granted to access their consumer data.
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: engineering@adatree.com.au

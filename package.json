@@ -1,6 +1,6 @@
 {
   "name": "@adatree-oss/atomic-components",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "main": "dist/index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
@@ -15,7 +15,7 @@
     "lint": "eslint './src/**/*.{tsx,ts}'",
     "package": "yarn build && npm publish",
     "storybook": "yarn --cwd ./storybook/ storybook",
-    "generate-openapi-consent-client": "openapi-generator generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
+    "generate-openapi-consent-client": "openapi-generator generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/dashboard.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
     "test": "jest"
   },
   "dependencies": {
