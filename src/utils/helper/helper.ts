@@ -1,6 +1,12 @@
 import { DateDuration, DateDurationList } from '../../consts/duration.const';
-import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
-import { DataHolder } from '../../generated/dcr/api';
+import {
+  AccessFrequency,
+  ConsentResponse,
+  SharingDuration,
+  Status,
+  UseCaseResponse,
+  DataHolder,
+} from '../../generated/consent';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {

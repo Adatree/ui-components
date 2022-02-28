@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DateDuration } from '../consts/duration.const';
-import { AccessFrequency, PostUsageAction } from '../generated/consent';
-import { DataHolder } from '../generated/dcr';
+import { AccessFrequency, DataHolder, PostUsageAction } from '../generated/consent';
 
 type ConsentForm = {
   accessFrequency: AccessFrequency | undefined;

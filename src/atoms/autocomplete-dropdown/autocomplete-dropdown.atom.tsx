@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
-import { DataHolder } from '../../generated/dcr/api';
+import { DataHolder } from '../../generated/consent/api';
 import Bank from 'mdi-material-ui/Bank';
 
 export type CheckboxAccordionProps = {

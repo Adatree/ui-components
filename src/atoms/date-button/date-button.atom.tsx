@@ -38,6 +38,8 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
   return (
     <Box sx={{ flexWrap: 'wrap', display: 'inline-flex', width: { xs: '100%', sm: 'inherit' } }}>
       {dateDurations.map((duration, index) => {
+        if (duration.unit === 'na') return;
+
         return (
           <Button
             onClick={() => handleClick(duration, index)}

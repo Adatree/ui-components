@@ -1,68 +1,18 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {
-  AccessFrequency,
-  ConsentFormProvider,
-  DataAccessStep,
-  DateDuration,
-  PostUsageAction,
-  TestUtil,
-} from '../../lib';
-import { addMonths } from 'date-fns';
-
-const testDateDurations: DateDuration[] = [
-  {
-    text: '1 month',
-    unit: 'm',
-    value: 1,
-  },
-  {
-    text: '3 months',
-    unit: 'm',
-    value: 3,
-  },
-  {
-    text: '6 months',
-    unit: 'm',
-    value: 6,
-  },
-];
-
-const testDateDurationsWithSelectedValue: DateDuration[] = [
-  {
-    text: '1 month',
-    unit: 'm',
-    value: 1,
-  },
-  {
-    text: '3 months',
-    unit: 'm',
-    value: 3,
-    isSelected: true,
-  },
-  {
-    text: '6 months',
-    unit: 'm',
-    value: 6,
-  },
-];
+import { AccessFrequency, ConsentFormProvider, DataAccessStep, Helper, PostUsageAction, TestUtil } from '../../lib';
 
 const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];
+const sharingDurations = TestUtil.getTestDataHomeUseCase().sharingDurations ?? [];
 
-const testConsentFormWithUnselectedValues = {
-  accessFrequency: undefined,
-  checkedScopes: [],
-  dataHolder: undefined,
-  dateDurations: testDateDurations,
-  postUsageAction: undefined,
-  sharingEndDate: new Date(),
-};
+let dateDurationsWithSelected = Helper.parseSharingDuration(sharingDurations);
+dateDurationsWithSelected[2].isSelected = true;
 
 const testConsentFormWithSelectedValues = {
   accessFrequency: AccessFrequency.ONCEOFF,
   checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
-  dateDurations: testDateDurations,
+  dateDurations: dateDurationsWithSelected,
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
 };
@@ -95,35 +45,11 @@ WithValuesUnselected.args = {
   },
 };
 
-export const WithValuesUnselectedAndDateButtons = Template.bind({});
-WithValuesUnselectedAndDateButtons.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={testConsentFormWithUnselectedValues}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
-WithValuesUnselectedAndDateButtons.args = {
-  companyName: 'Adatree',
-  useCase: TestUtil.getTestDataHomeUseCase(),
-  isValid: (isValid) => {
-    alert(`This step is ${isValid ? '' : 'not '}valid`);
-  },
-};
-
 export const WithValuesSelected = Template.bind({});
 WithValuesSelected.decorators = [
   (Story) => {
     return (
-      <ConsentFormProvider
-        initialValues={{
-          ...testConsentFormWithSelectedValues,
-          dateDurations: testDateDurationsWithSelectedValue,
-          sharingEndDate: addMonths(new Date(), 6),
-        }}
-      >
+      <ConsentFormProvider initialValues={testConsentFormWithSelectedValues}>
         <Story />
       </ConsentFormProvider>
     );

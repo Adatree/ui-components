@@ -1,5 +1,5 @@
 export type DateDuration = {
-  unit: 'd' | 'w' | 'm' | 'y';
+  unit: 'd' | 'w' | 'm' | 'y' | 'na';
   value: number;
   text: string;
   isSelected?: boolean;
@@ -49,5 +49,15 @@ export const DateDurationList: DateDurationsType = {
     unit: 'y',
     value: 1,
     text: '1 year',
+  },
+  ONCE_OFF: {
+    unit: 'na',
+    value: 0,
+    text: 'Once off',
+  },
+  CUSTOM: {
+    unit: 'na',
+    value: 0,
+    text: 'Custom',
   },
 };

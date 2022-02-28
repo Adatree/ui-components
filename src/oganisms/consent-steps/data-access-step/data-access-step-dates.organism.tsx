@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 import { AccessFrequency, UseCaseResponse } from '../../../generated/consent';
@@ -22,6 +22,14 @@ export const DataAccessStepDates = (props: DataAccessStepProps) => {
   const [disableDatePicker, setDisableDatePicker] = useState(consentForm.accessFrequency !== AccessFrequency.ONGOING);
   const [accessFrequencyDefault] = useState(consentForm.accessFrequency);
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
+
+  useEffect(() => {
+    if (consentForm.dateDurations.length === 0 && useCase.sharingDurations) {
+      consentForm.dateDurations = Helper.parseSharingDuration(useCase.sharingDurations);
+      setConsentForm({ ...consentForm });
+    }
+  }, []);
+
   const [dateDurations, setDateDurations] = useState(consentForm.dateDurations);
 
   const handleAccessFrequencyRadioChange = (value: string) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Typography } from '@mui/material';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-import { DataHolder } from '../../../generated/dcr';
+import { DataHolder } from '../../../generated/consent/api';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { ConsentResponse, UseCaseResponse } from '../../../generated/consent';
 import { Helper } from '../../../utils/helper/helper';

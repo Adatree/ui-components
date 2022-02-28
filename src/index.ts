@@ -49,12 +49,4 @@ export { TestUtil } from './utils/test/test.util';
 
 // Open API
 export * from './generated/consent/api';
-export {
-  Configuration as ConsentConfig,
-  ConfigurationParameters as ConsentConfigParams,
-} from './generated/consent/configuration';
-export {
-  Configuration as InfosecConfig,
-  ConfigurationParameters as InfosecConfigParams,
-} from './generated/infosec/configuration';
-export { Configuration as DcrConfig, ConfigurationParameters as DcrConfigParams } from './generated/dcr/configuration';
+export { Configuration, ConfigurationParameters } from './generated/consent/configuration';

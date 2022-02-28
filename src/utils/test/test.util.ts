@@ -2,13 +2,14 @@ import { Logger } from '../logger/logger';
 import {
   ConsentResponse,
   Status,
+  DataHolder,
   AccessFrequency,
   PostUsageAction,
   CreateConsent,
+  SharingDuration,
   ScopeResponse,
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
-import { DataHolder } from '../../generated/dcr/api';
 import { DateDurationList, DateDurationsType } from '../../consts/duration.const';
 
 const suspendLogger = (): void => {
@@ -50,6 +51,13 @@ const getTestDataHomeUseCase = (): UseCaseResponse => {
     description: 'Data will be used to assess your eligibility for a home loan.',
     priority: 1,
     accessFrequency: AccessFrequency.ONGOING,
+    sharingDurations: [
+      SharingDuration.TWOWEEKS,
+      SharingDuration.THREEMONTHS,
+      SharingDuration.SIXMONTHS,
+      SharingDuration.NINEMONTHS,
+      SharingDuration.CUSTOM,
+    ],
     scopes: getTestDataScopeResponse(),
   };
 };
@@ -62,6 +70,13 @@ const getTestDataBudgetingToolUseCase = (): UseCaseResponse => {
     description: 'Data will be used to help you with your budget.',
     priority: 2,
     accessFrequency: AccessFrequency.ONCEOFF,
+    sharingDurations: [
+      SharingDuration.ONEDAY,
+      SharingDuration.ONEWEEK,
+      SharingDuration.ONEMONTH,
+      SharingDuration.ONEYEAR,
+      SharingDuration.ONCEOFF,
+    ],
     scopes: [getTestDataBankAccountScope()],
   };
 };
