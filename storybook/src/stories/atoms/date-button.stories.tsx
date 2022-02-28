@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { DateButton, DateDurationList } from '../../lib';
+import { DateButton, TestUtil } from '../../lib';
+import { SharingDuration } from '../../lib';
 
 export default {
   title: 'Components/Atoms/Date button',
@@ -12,9 +13,9 @@ export default {
 
 const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...args} />;
 
-export const DaysMonthsYears = Template.bind({});
-DaysMonthsYears.args = {
-  dateDurations: Object.values(DateDurationList),
+export const WithValueUnselected = Template.bind({});
+WithValueUnselected.args = {
+  sharingDuration: TestUtil.getTestDataHomeUseCase().sharingDurations ?? [],
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -22,24 +23,8 @@ DaysMonthsYears.args = {
 
 export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
-  dateDurations: [
-    {
-      text: '1 month',
-      unit: 'm',
-      value: 1,
-    },
-    {
-      text: '3 months',
-      unit: 'm',
-      value: 3,
-      isSelected: true,
-    },
-    {
-      text: '6 months',
-      unit: 'm',
-      value: 6,
-    },
-  ],
+  sharingDuration: TestUtil.getTestDataHomeUseCase().sharingDurations ?? [],
+  selectedSharingDuration: SharingDuration.THREEMONTHS,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -47,7 +32,7 @@ WithValueSelected.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  dateDurations: Object.values(DateDurationList),
+  sharingDuration: TestUtil.getTestDataHomeUseCase().sharingDurations ?? [],
   disabled: true,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);

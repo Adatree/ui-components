@@ -12,7 +12,7 @@ export type DatePickerProps = {
   onChange: (data: Date) => void;
 };
 export const DatePicker: React.FC<DatePickerProps> = (props) => {
-  const { label, date = new Date(), inputFormat = 'dd/MM/yyyy', disabled = false, onChange } = props;
+  const { label, date = null, inputFormat = 'dd/MM/yyyy', disabled = false, onChange } = props;
   const [value, setValue] = useState<Date | null>(date);
 
   useEffect(() => {

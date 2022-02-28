@@ -115,21 +115,6 @@ describe('Helper Utils', () => {
     });
   });
 
-  // describe('unselectDateDurations', () => {
-  //   it('should return the DateDurations with all of their isSelected properties set to false', () => {
-  //     const dateDurations = TestUtil.getTestDataDateDurations();
-  //     const dateDurationsWithOptionalProperties = TestUtil.getTestDataDateDurationsWithOptionalProperties();
-  //     const dirtyDateDurations = TestUtil.getTestDataDateDurationsWithOptionalProperties();
-
-  //     let clearedDateDurations = Helper.unselectDateDurations(dateDurations);
-  //     expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
-
-  //     dirtyDateDurations[3].isSelected = true;
-  //     clearedDateDurations = Helper.unselectDateDurations(dirtyDateDurations);
-  //     expect(clearedDateDurations).toEqual(dateDurationsWithOptionalProperties);
-  //   });
-  // });
-
   describe('accessFrequencyToString', () => {
     it('should return the correct access frequency string', () => {
       expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
@@ -138,8 +123,11 @@ describe('Helper Utils', () => {
   });
 
   describe('parseSharingDuration', () => {
-    it('should parse the SharingDuration array amd retunr the correct DateDuration array', () => {
-      expect(Helper.parseSharingDuration([SharingDuration.ONEDAY])).toEqual(DateDurationList['ONE_DAY']);
+    it('should parse the SharingDuration array amd return the correct DateDuration array', () => {
+      expect(Helper.parseSharingDuration([SharingDuration.ONEDAY])).toEqual([DateDurationList[0]]);
+      expect(Helper.parseSharingDuration([SharingDuration.ONCEOFF])).toEqual([DateDurationList[8]]);
+      expect(Helper.parseSharingDuration([SharingDuration.CUSTOM])).toEqual([DateDurationList[9]]);
+      expect(Helper.parseSharingDuration([])).toEqual([]);
     });
   });
 });

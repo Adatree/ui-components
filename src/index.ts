@@ -31,9 +31,6 @@ export { ReviewStep } from './oganisms/consent-steps/review-step/review-step.org
 // Contest
 export * from './context/consentForm.context';
 
-// Const
-export { DateDuration, DateDurationList } from './consts/duration.const';
-
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
 

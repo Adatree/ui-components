@@ -64,12 +64,6 @@ const doesConsentExistForDataHolderAndUseCase = (
   return alreadyExists.length > 0;
 };
 
-const unselectDateDurations = (duration: DateDuration[]): DateDuration[] => {
-  return duration.map((duration) => {
-    return { ...duration, isSelected: false };
-  });
-};
-
 const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   if (accessFrequency === AccessFrequency.ONCEOFF) {
     return 'Once-off';
@@ -79,14 +73,23 @@ const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
 };
 
 const parseSharingDuration = (sharingDurations: SharingDuration[]): DateDuration[] => {
-  return sharingDurations.map((sharingDuration) => {
-    return DateDurationList[sharingDuration];
+  let durations: DateDuration[] = [];
+
+  sharingDurations.forEach((sharingDuration) => {
+    const found = DateDurationList.find((duration) => {
+      return duration.type === sharingDuration;
+    });
+
+    if (found !== undefined) {
+      durations.push(found);
+    }
   });
+
+  return durations;
 };
 
 export const Helper = {
   accessFrequencyToString,
-  unselectDateDurations,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
   parseSharingDuration,

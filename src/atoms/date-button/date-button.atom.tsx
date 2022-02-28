@@ -3,21 +3,20 @@ import { Box, Button } from '@mui/material';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import { Helper } from '../../utils/helper/helper';
 import { DateDuration } from '../../consts/duration.const';
+import { SharingDuration } from '../../generated/consent/api';
 
 export type DateButtonProps = {
-  dateDurations: DateDuration[];
+  sharingDuration: SharingDuration[];
+  selectedSharingDuration?: SharingDuration;
   disabled?: boolean;
-  onClick: (date: Date, dateDurations: DateDuration[]) => void;
+  onClick: (date: Date, selected: SharingDuration) => void;
 };
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
-  const { dateDurations, disabled = false, onClick } = props;
+  const { sharingDuration, selectedSharingDuration, disabled = false, onClick } = props;
+  const dateDurations = Helper.parseSharingDuration(sharingDuration);
 
-  const handleClick = (duration: DateDuration, index: number) => {
-    // Clear and hightlight the new date button
-    const newDuration = Helper.unselectDateDurations(dateDurations);
-    newDuration[index].isSelected = true;
-
+  const handleClick = (duration: DateDuration) => {
     // Return the new date
     const curDate = new Date();
     let newDate = new Date();
@@ -32,21 +31,21 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
       newDate = addYears(curDate, duration.value);
     }
 
-    onClick(newDate, newDuration);
+    onClick(newDate, duration.type);
   };
 
   return (
     <Box sx={{ flexWrap: 'wrap', display: 'inline-flex', width: { xs: '100%', sm: 'inherit' } }}>
-      {dateDurations.map((duration, index) => {
+      {dateDurations.map((duration) => {
         if (duration.unit === 'na') return;
 
         return (
           <Button
-            onClick={() => handleClick(duration, index)}
-            variant={duration.isSelected ? 'contained' : 'outlined'}
+            onClick={() => handleClick(duration)}
+            variant={duration.type === selectedSharingDuration ? 'contained' : 'outlined'}
             disabled={disabled}
             key={`${duration.unit}-${duration.value}`}
-            color={duration.isSelected ? 'secondary' : 'inherit'}
+            color={duration.type === selectedSharingDuration ? 'secondary' : 'inherit'}
             sx={{ mr: '4px', mb: 1, width: { xs: 'calc(50% - 4px)', sm: 'inherit' } }}
           >
             {duration.text}

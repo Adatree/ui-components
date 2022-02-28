@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentFormProvider, DataHolderStep, TestUtil } from '../../lib';
+import { ConsentFormProvider, DataHolderStep, Logger, TestUtil } from '../../lib';
 
 export default {
   title: 'Components/Organisms/Consent steps/Data holders step',
@@ -27,7 +27,7 @@ WithOneDataHolder.args = {
   existingConsents: [],
   useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
-    alert(`This step is ${isValid ? '' : 'not '}valid`);
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
 };
 
@@ -37,7 +37,7 @@ WithTwoDataHolders.args = {
   existingConsents: [],
   useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
-    alert(`This step is ${isValid ? '' : 'not '}valid`);
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
 };
 
@@ -47,7 +47,7 @@ WithFilteredDataHolders.args = {
   existingConsents: [TestUtil.getTestDataConsentResponse()],
   useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
-    alert(`This step is ${isValid ? '' : 'not '}valid`);
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
 };
 
@@ -57,6 +57,6 @@ WithNoDataHolders.args = {
   existingConsents: TestUtil.getTestDataConsentResponses(),
   useCase: TestUtil.getTestDataHomeUseCase(),
   isValid: (isValid: boolean) => {
-    alert(`This step is ${isValid ? '' : 'not '}valid`);
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
 };

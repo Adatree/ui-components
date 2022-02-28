@@ -1,63 +1,71 @@
+import { SharingDuration } from '../generated/consent/api';
+
 export type DateDuration = {
+  type: SharingDuration;
   unit: 'd' | 'w' | 'm' | 'y' | 'na';
   value: number;
   text: string;
-  isSelected?: boolean;
 };
 
-export type DateDurationsType = {
-  [key: string]: DateDuration;
-};
-
-export const DateDurationList: DateDurationsType = {
-  ONE_DAY: {
+export const DateDurationList: DateDuration[] = [
+  {
+    type: SharingDuration.ONEDAY,
     unit: 'd',
     value: 1,
     text: '1 day',
   },
-  ONE_WEEK: {
+  {
+    type: SharingDuration.ONEWEEK,
     unit: 'w',
     value: 1,
     text: '1 week',
   },
-  TWO_WEEKS: {
+  {
+    type: SharingDuration.TWOWEEKS,
     unit: 'w',
     value: 2,
     text: '2 weeks',
   },
-  ONE_MONTH: {
+  {
+    type: SharingDuration.ONEMONTH,
     unit: 'm',
     value: 1,
     text: '1 month',
   },
-  THREE_MONTHS: {
+  {
+    type: SharingDuration.THREEMONTHS,
     unit: 'm',
     value: 3,
     text: '3 months',
   },
-  SIX_MONTHS: {
+  {
+    type: SharingDuration.SIXMONTHS,
     unit: 'm',
     value: 6,
     text: '6 months',
   },
-  NINE_MONTHS: {
+  {
+    type: SharingDuration.NINEMONTHS,
     unit: 'm',
     value: 9,
     text: '9 months',
   },
-  ONE_YEAR: {
+  {
+    type: SharingDuration.ONEYEAR,
     unit: 'y',
     value: 1,
     text: '1 year',
   },
-  ONCE_OFF: {
-    unit: 'na',
+  {
+    type: SharingDuration.ONCEOFF,
+    unit: 'd',
     value: 0,
     text: 'Once off',
   },
-  CUSTOM: {
+  {
+    type: SharingDuration.CUSTOM,
     unit: 'na',
     value: 0,
     text: 'Custom',
   },
-};
+];

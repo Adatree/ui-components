@@ -51,7 +51,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
     if (useCase.scopes) {
       isValid(
         consentForm.checkedScopes.length === useCase.scopes.length &&
-          !!consentForm.accessFrequency &&
+          !!consentForm.sharingEndDate &&
           !!consentForm.postUsageAction,
       );
     }

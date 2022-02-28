@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { DateDuration } from '../consts/duration.const';
-import { AccessFrequency, DataHolder, PostUsageAction } from '../generated/consent';
+import { AccessFrequency, DataHolder, PostUsageAction, SharingDuration } from '../generated/consent';
 
 type ConsentForm = {
   accessFrequency: AccessFrequency | undefined;
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
-  dateDurations: DateDuration[];
+  sharingDurations: SharingDuration[];
+  selectedSharingDurations: SharingDuration | undefined;
   postUsageAction: PostUsageAction | undefined;
-  sharingEndDate: Date;
+  sharingEndDate: Date | undefined;
 };
 
 const ConsentFormContext = React.createContext<
@@ -32,9 +32,10 @@ const ConsentFormDefaultValues: ConsentForm = {
   accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: undefined,
-  dateDurations: [],
+  sharingDurations: [],
+  selectedSharingDurations: undefined,
   postUsageAction: undefined,
-  sharingEndDate: new Date(),
+  sharingEndDate: undefined,
 };
 
 const ConsentFormProvider = ({ children, initialValues = ConsentFormDefaultValues }: ConsentFormProviderProps) => {

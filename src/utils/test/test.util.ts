@@ -10,7 +10,6 @@ import {
   ScopeResponse,
 } from '../../generated/consent/api';
 import { UseCaseResponse } from '../../generated/consent/api';
-import { DateDurationList, DateDurationsType } from '../../consts/duration.const';
 
 const suspendLogger = (): void => {
   Logger.debug = jest.fn();
@@ -52,6 +51,7 @@ const getTestDataHomeUseCase = (): UseCaseResponse => {
     priority: 1,
     accessFrequency: AccessFrequency.ONGOING,
     sharingDurations: [
+      SharingDuration.ONCEOFF,
       SharingDuration.TWOWEEKS,
       SharingDuration.THREEMONTHS,
       SharingDuration.SIXMONTHS,
@@ -75,7 +75,6 @@ const getTestDataBudgetingToolUseCase = (): UseCaseResponse => {
       SharingDuration.ONEWEEK,
       SharingDuration.ONEMONTH,
       SharingDuration.ONEYEAR,
-      SharingDuration.ONCEOFF,
     ],
     scopes: [getTestDataBankAccountScope()],
   };
@@ -241,20 +240,6 @@ const getTestDataAllDataHolders = (): DataHolder[] => {
   return [getTestDataRedBankDataHolder(), getTestDataYellowBankDataHolder()];
 };
 
-const getTestDataDateDurations = (): DateDurationsType => {
-  return DateDurationList;
-};
-
-const getTestDataDateDurationsWithOptionalProperties = (): DateDurationsType => {
-  const durations = getTestDataDateDurations();
-
-  for (const key in durations) {
-    durations[key].isSelected = false;
-  }
-
-  return durations;
-};
-
 const getTestUuidV4 = () => {
   const getRandomSymbol = (symbol: string) => {
     var array;
@@ -280,8 +265,6 @@ export const TestUtil = {
   getTestDataConsentResponse,
   getTestDataConsentResponses,
   getTestDataCreateConsent,
-  getTestDataDateDurations,
-  getTestDataDateDurationsWithOptionalProperties,
   getTestDataHomeUseCase,
   getTestDataPersonalInformationScope,
   getTestDataRedBankDataHolder,

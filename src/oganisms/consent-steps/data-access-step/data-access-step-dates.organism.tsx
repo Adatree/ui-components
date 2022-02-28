@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import { AccessFrequency, UseCaseResponse } from '../../../generated/consent';
+import { SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { SectionCard } from '../../../atoms/section-card/section-card.atom';
-import { RadioButtonWithText } from '../../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { DatePicker } from '../../../atoms/date-picker/date-picker.atom';
 import { DateButton } from '../../../atoms/date-button/date-button.atom';
-import { Helper } from '../../../utils/helper/helper';
-import { DateDuration } from '../../../consts/duration.const';
 
 export type DataAccessStepProps = {
   companyName: string;
@@ -17,53 +14,24 @@ export type DataAccessStepProps = {
 };
 
 export const DataAccessStepDates = (props: DataAccessStepProps) => {
-  const { companyName, useCase, onDateChange } = props;
+  const { companyName, onDateChange } = props;
   const [consentForm, setConsentForm] = useConsentForm();
-  const [disableDatePicker, setDisableDatePicker] = useState(consentForm.accessFrequency !== AccessFrequency.ONGOING);
-  const [accessFrequencyDefault] = useState(consentForm.accessFrequency);
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
-
-  useEffect(() => {
-    if (consentForm.dateDurations.length === 0 && useCase.sharingDurations) {
-      consentForm.dateDurations = Helper.parseSharingDuration(useCase.sharingDurations);
-      setConsentForm({ ...consentForm });
-    }
-  }, []);
-
-  const [dateDurations, setDateDurations] = useState(consentForm.dateDurations);
-
-  const handleAccessFrequencyRadioChange = (value: string) => {
-    if (value === AccessFrequency.ONCEOFF) {
-      setDisableDatePicker(true);
-      consentForm.accessFrequency = AccessFrequency.ONCEOFF;
-      setConsentForm({ ...consentForm });
-    } else if (value === AccessFrequency.ONGOING) {
-      setDisableDatePicker(false);
-      consentForm.sharingEndDate = sharingEndDate;
-      consentForm.accessFrequency = AccessFrequency.ONGOING;
-      setConsentForm({ ...consentForm });
-    }
-    onDateChange();
-  };
+  const [sharingDurations] = useState(consentForm.sharingDurations);
+  const [selectedSharingDurations, setSelectedSharingDurations] = useState(consentForm.selectedSharingDurations);
 
   const handleDatePickerChange = (date: Date) => {
-    updateDateDurations([...Helper.unselectDateDurations(dateDurations)]);
-    handleSharingEndDateChange(date);
+    handleSharingEndDateChange(date, SharingDuration.CUSTOM);
   };
 
-  const handleDateButtonClick = (date: Date, dateDurations: DateDuration[]) => {
-    updateDateDurations(dateDurations);
-    handleSharingEndDateChange(date);
+  const handleDateButtonClick = (date: Date, sharingDuration: SharingDuration) => {
+    handleSharingEndDateChange(date, sharingDuration);
   };
 
-  const updateDateDurations = (dateDurations: DateDuration[]) => {
-    consentForm.dateDurations = dateDurations;
-    setConsentForm({ ...consentForm });
-    setDateDurations([...dateDurations]);
-  };
-
-  const handleSharingEndDateChange = (date: Date) => {
+  const handleSharingEndDateChange = (date: Date, selectedSharingDuration: SharingDuration) => {
+    consentForm.selectedSharingDurations = selectedSharingDuration;
     consentForm.sharingEndDate = date;
+    setSelectedSharingDurations(selectedSharingDuration);
     setConsentForm({ ...consentForm });
     setSharingEndDate(date);
     onDateChange();
@@ -91,58 +59,42 @@ export const DataAccessStepDates = (props: DataAccessStepProps) => {
         }
         content={
           <>
-            <RadioButtonWithText
-              defaultValue={accessFrequencyDefault}
-              radioButtonItems={[
-                {
-                  label: 'Once-off',
-                  value: AccessFrequency.ONCEOFF,
-                },
-                {
-                  label: 'Ongoing',
-                  value: AccessFrequency.ONGOING,
-                },
-              ]}
-              onChange={handleAccessFrequencyRadioChange}
-            />
-            {dateDurations.length > 0 && (
-              <>
-                <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
-                  <DateButton
-                    dateDurations={dateDurations}
-                    disabled={disableDatePicker}
-                    onClick={handleDateButtonClick}
-                  />
-                </Box>
-                <Typography
-                  variant="body2"
-                  color="GrayText"
-                  sx={{
-                    mt: 1,
-                    mr: { xs: 0, sm: 12 },
-                    display: 'flex',
-                    justifyContent: { xs: 'center', sm: 'end' },
-                  }}
-                >
-                  or
-                </Typography>
-              </>
+            {((!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 0) ||
+              (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)) && (
+              <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
+                <DateButton
+                  sharingDuration={sharingDurations}
+                  selectedSharingDuration={selectedSharingDurations}
+                  onClick={handleDateButtonClick}
+                />
+              </Box>
             )}
-            <Box
-              sx={{
-                mt: 2,
-                display: 'flex',
-                width: { xs: '100%', sm: 'inherit' },
-                justifyContent: { xs: 'center', sm: 'end' },
-              }}
-            >
-              <DatePicker
-                date={sharingEndDate}
-                label="Expire on"
-                disabled={disableDatePicker}
-                onChange={handleDatePickerChange}
-              />
-            </Box>
+            {sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1 && (
+              <Typography
+                variant="body2"
+                color="GrayText"
+                sx={{
+                  mt: 1,
+                  mr: { xs: 0, sm: 12 },
+                  display: 'flex',
+                  justifyContent: { xs: 'center', sm: 'end' },
+                }}
+              >
+                or
+              </Typography>
+            )}
+            {sharingDurations.includes(SharingDuration.CUSTOM) && (
+              <Box
+                sx={{
+                  mt: 2,
+                  display: 'flex',
+                  width: { xs: '100%', sm: 'inherit' },
+                  justifyContent: { xs: 'center', sm: 'end' },
+                }}
+              >
+                <DatePicker date={sharingEndDate} label="Expire on" onChange={handleDatePickerChange} />
+              </Box>
+            )}
           </>
         }
       ></SectionCard>
