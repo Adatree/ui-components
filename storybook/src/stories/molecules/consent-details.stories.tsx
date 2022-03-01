@@ -15,6 +15,7 @@ const Template: ComponentStory<typeof ConsentDetails> = (args) => <ConsentDetail
 export const WithAllDates = Template.bind({});
 WithAllDates.args = {
   consent: TestUtil.getTestDataConsentResponse(),
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
   dateTitle: 'Key dates',
   useCasetTitle: 'Data we are currently receiving',
   onRevokeClick: () => {

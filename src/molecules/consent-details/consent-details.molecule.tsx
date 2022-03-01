@@ -8,18 +8,19 @@ import { DateSummary } from '../date-summary/date-summary.molecule';
 
 export type ConsentDetailsProps = {
   consent: ConsentResponse;
+  dataHolderLogoUrl: string;
   dateTitle: string;
   useCasetTitle: string;
   onRevokeClick: () => void;
 };
 
 export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
-  const { consent, dateTitle, useCasetTitle, onRevokeClick } = props;
+  const { consent, dataHolderLogoUrl, dateTitle, useCasetTitle, onRevokeClick } = props;
 
   return (
     <>
       <Box sx={{ mb: 4 }}>
-        <DataHolderHeader consent={consent} onRevokeClick={onRevokeClick} />
+        <DataHolderHeader consent={consent} onRevokeClick={onRevokeClick} dataHolderLogoUrl={dataHolderLogoUrl} />
       </Box>
 
       {consent.useCase && <UseCaseSummary title={useCasetTitle} useCase={consent.useCase} />}

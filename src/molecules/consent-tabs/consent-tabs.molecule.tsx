@@ -1,11 +1,12 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
-import { ConsentResponse, Status } from '../../generated/consent';
+import { ConsentResponse, DataHolder, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Helper } from '../../utils/helper/helper';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
+  dataHolders: DataHolder[];
   isLoading?: boolean;
 };
 
@@ -16,7 +17,7 @@ type TabPanelProps = {
 };
 
 export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
-  const { consents = [], isLoading = false } = props;
+  const { consents = [], dataHolders, isLoading = false } = props;
   const [value, setValue] = React.useState(0);
 
   const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.ACTIVE));
@@ -57,17 +58,21 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
       </AppBar>
       <TabPanel value={value} index={0}>
         {isLoading && renderLoading()}
-        {!isLoading && activeConsents.length > 0 && <ConsentList consents={activeConsents} />}
+        {!isLoading && activeConsents.length > 0 && <ConsentList consents={activeConsents} dataHolders={dataHolders} />}
         {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {isLoading && renderLoading()}
-        {!isLoading && expiredConsents.length > 0 && <ConsentList consents={expiredConsents} />}
+        {!isLoading && expiredConsents.length > 0 && (
+          <ConsentList consents={expiredConsents} dataHolders={dataHolders} />
+        )}
         {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {isLoading && renderLoading()}
-        {!isLoading && revokedConsents.length > 0 && <ConsentList consents={revokedConsents} />}
+        {!isLoading && revokedConsents.length > 0 && (
+          <ConsentList consents={revokedConsents} dataHolders={dataHolders} />
+        )}
         {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
       </TabPanel>
     </Box>

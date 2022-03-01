@@ -15,19 +15,22 @@ const Template: ComponentStory<typeof ConsentListItem> = (args) => <ConsentListI
 export const Active = Template.bind({});
 Active.args = {
   consent: TestUtil.getTestDataConsentResponse(),
-  url: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
 };
 
 export const Expired = Template.bind({});
 Expired.args = {
   consent: { ...TestUtil.getTestDataConsentResponse(), status: Status.EXPIRED },
-  url: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
 };
 
 export const Requested = Template.bind({});
 Requested.args = {
   consent: { ...TestUtil.getTestDataConsentResponse(), status: Status.REQUESTED },
-  url: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
 };
 
 export const Revoked = Template.bind({});
@@ -37,5 +40,6 @@ Revoked.args = {
     status: Status.REVOKED,
     revoked: new Date(2021, 10, 2).toISOString(),
   },
-  url: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
 };

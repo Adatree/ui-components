@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Avatar, Link, ListItem, Button } from '@mui/material';
+import { Typography, Box, Avatar, ListItem, Button } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import ChevronRight from 'mdi-material-ui/ChevronRight';
@@ -7,11 +7,12 @@ import Bank from 'mdi-material-ui/Bank';
 
 export type ListItemProps = {
   consent: ConsentResponse;
-  url: string;
+  consentUrl: string;
+  dataHolderLogoUrl: string;
 };
 
 export const ConsentListItem: React.FC<ListItemProps> = (props) => {
-  const { consent, url } = props;
+  const { consent, dataHolderLogoUrl, consentUrl } = props;
 
   let textDate = '';
 
@@ -33,7 +34,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   return (
     <ListItem secondaryAction={<ChevronRight />} disablePadding>
       <Button
-        href={url}
+        href={consentUrl}
         sx={{
           justifyContent: 'start',
           textTransform: 'inherit',
@@ -41,12 +42,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
           '&:link, &:visited': { color: 'inherit' },
         }}
       >
-        <Avatar
-          alt={consent.dataHolderName}
-          src={`/${consent.dataHolderBrandId}.png`}
-          component={'span'}
-          sx={{ mr: 2 }}
-        >
+        <Avatar alt={consent.dataHolderName} src={dataHolderLogoUrl} component={'span'} sx={{ mr: 2 }}>
           <Bank />
         </Avatar>
         <Box>

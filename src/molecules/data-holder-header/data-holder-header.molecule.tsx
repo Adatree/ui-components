@@ -37,13 +37,14 @@ const _Chip = styled(Chip)`
 
 export type DataHolderHeaderProps = {
   consent: ConsentResponse;
+  dataHolderLogoUrl: string;
   isExtendable?: boolean;
   extendableUrl?: string;
   onRevokeClick: () => void;
 };
 
 export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
-  const { consent, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
+  const { consent, dataHolderLogoUrl, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
 
   const handleonRevokeClick = () => {
     if (onRevokeClick) {
@@ -53,7 +54,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Avatar alt={consent.dataHolderName} src={`/consent.dataHolderBrandId.png`} component={'span'} sx={{ mr: 2 }}>
+      <Avatar alt={consent.dataHolderName} src={dataHolderLogoUrl} component={'span'} sx={{ mr: 2 }}>
         <Bank />
       </Avatar>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>

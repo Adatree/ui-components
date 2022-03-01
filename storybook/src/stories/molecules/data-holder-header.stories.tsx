@@ -15,6 +15,7 @@ const Template: ComponentStory<typeof DataHolderHeader> = (args) => <DataHolderH
 export const WithActiveStatus = Template.bind({});
 WithActiveStatus.args = {
   consent: TestUtil.getTestDataConsentResponses()[0],
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
   onRevokeClick: () => {
     alert(`The revoke button was clicked`);
   },
@@ -24,7 +25,7 @@ export const WithActiveStatusAndExtendableDate = Template.bind({});
 WithActiveStatusAndExtendableDate.args = {
   consent: TestUtil.getTestDataConsentResponses()[0],
   isExtendable: true,
-
+  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
   extendableUrl: '/?path=/story/components-molecules-data-holder-header--with-active-status-and-extendable-date',
   onRevokeClick: () => {
     alert(`The revoke button was clicked`);
@@ -34,14 +35,17 @@ WithActiveStatusAndExtendableDate.args = {
 export const WithRevokedStatus = Template.bind({});
 WithRevokedStatus.args = {
   consent: TestUtil.getTestDataConsentResponses()[2],
+  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
 };
 
 export const WithRequestedStatus = Template.bind({});
 WithRequestedStatus.args = {
   consent: TestUtil.getTestDataConsentResponses()[3],
+  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
 };
 
 export const WithExpiredStatus = Template.bind({});
 WithExpiredStatus.args = {
   consent: TestUtil.getTestDataConsentResponses()[4],
+  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
 };
