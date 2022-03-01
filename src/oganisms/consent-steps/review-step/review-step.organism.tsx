@@ -6,15 +6,18 @@ import Incognito from 'mdi-material-ui/Incognito';
 import DeleteCircle from 'mdi-material-ui/Delete';
 import CloudUpload from 'mdi-material-ui/CloudUpload';
 import { Typography, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
-import { AccessFrequency, PostUsageAction, UseCaseResponse } from '../../../generated/consent';
+import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Formatter } from '../../../utils/formatter/formater';
+import { Helper } from '../../../utils/helper/helper';
 
 export type ReviewStepProps = {
   useCase: UseCaseResponse;
 };
 
 export const ReviewStep = (props: ReviewStepProps) => {
+  let dateDurationText = '';
+
   const { useCase } = props;
   const [consentForm] = useConsentForm();
 
@@ -24,12 +27,17 @@ export const ReviewStep = (props: ReviewStepProps) => {
   const [postActionIcon] = useState(
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? <Incognito /> : <DeleteCircle />,
   );
-  const [frequencyText] = useState(consentForm.accessFrequency === AccessFrequency.ONGOING ? 'ongoing' : 'once-off');
   const [sharindEndDate] = useState(
-    consentForm.accessFrequency === AccessFrequency.ONGOING
-      ? Formatter.formatDate(consentForm.sharingEndDate)
-      : 'after first use',
+    consentForm.selectedSharingDurations === SharingDuration.ONCEOFF
+      ? 'after first use'
+      : Formatter.formatDate(consentForm.sharingEndDate),
   );
+
+  if (consentForm.selectedSharingDurations === SharingDuration.CUSTOM) {
+    dateDurationText = `ending on the ${Formatter.formatDate(consentForm.sharingEndDate)}`;
+  } else if (consentForm.selectedSharingDurations) {
+    dateDurationText = Helper.parseSharingDuration([consentForm.selectedSharingDurations])[0].text;
+  }
 
   const brandName = consentForm.dataHolder ? consentForm.dataHolder.brandName : '';
 
@@ -50,7 +58,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
           <ListItemIcon>
             <CloudUpload />
           </ListItemIcon>
-          <ListItemText primary={`Data sharing will be ${frequencyText}`} />
+          <ListItemText primary={`Data sharing will be ${dateDurationText}`} />
         </ListItem>
 
         <ListItem>
