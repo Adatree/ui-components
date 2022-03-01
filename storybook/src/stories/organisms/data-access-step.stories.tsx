@@ -1,20 +1,11 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {
-  AccessFrequency,
-  ConsentFormProvider,
-  DataAccessStep,
-  Logger,
-  PostUsageAction,
-  SharingDuration,
-  TestUtil,
-} from '../../lib';
+import { ConsentFormProvider, DataAccessStep, Logger, PostUsageAction, SharingDuration, TestUtil } from '../../lib';
 
 const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];
 const sharingDurations = TestUtil.getTestDataHomeUseCase().sharingDurations ?? [];
 
 const testConsentFormWithUnselectedValues = {
-  accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
   sharingDurations: [],
@@ -24,7 +15,6 @@ const testConsentFormWithUnselectedValues = {
 };
 
 const testConsentFormWithSelectedValues = {
-  accessFrequency: AccessFrequency.ONGOING,
   checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
   sharingDurations: sharingDurations,

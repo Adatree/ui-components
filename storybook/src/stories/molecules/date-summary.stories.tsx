@@ -12,20 +12,20 @@ export default {
 
 const Template: ComponentStory<typeof DateSummary> = (args) => <DateSummary {...args} />;
 
-export const WithAllDates = Template.bind({});
-WithAllDates.args = {
+export const WithDateDuration = Template.bind({});
+WithDateDuration.args = {
   title: 'Data we are currently receiving',
   consent: TestUtil.getTestDataConsentResponses()[2],
 };
 
-export const WithOngoingFrequency = Template.bind({});
-WithOngoingFrequency.args = {
+export const WithCustomDuration = Template.bind({});
+WithCustomDuration.args = {
   title: 'Data we are currently receiving',
   consent: TestUtil.getTestDataConsentResponse(),
 };
 
-export const WithOnceOffFrequency = Template.bind({});
-WithOnceOffFrequency.args = {
+export const WithOnceOffDuration = Template.bind({});
+WithOnceOffDuration.args = {
   title: 'Data we are currently receiving',
   consent: TestUtil.getTestDataConsentResponses()[1],
 };

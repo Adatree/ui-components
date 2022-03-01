@@ -13,6 +13,7 @@ export const DateSummary: React.FC<DateSummaryProps> = (props) => {
   const { title, consent } = props;
 
   let sharingEndDate: Date | string = 'After first use';
+
   if (consent.useCase && consent.useCase.accessFrequency === AccessFrequency.ONGOING) {
     sharingEndDate = Formatter.formatDate(consent.sharingEndDate);
   }
@@ -21,8 +22,6 @@ export const DateSummary: React.FC<DateSummaryProps> = (props) => {
   if (consent.firstDataCollection) {
     firstDataCollection = Formatter.formatDate(consent.firstDataCollection);
   }
-
-  const accessFrequency = consent.useCase ? consent.useCase.accessFrequency : '';
 
   return (
     <Box sx={{ mb: 4 }}>

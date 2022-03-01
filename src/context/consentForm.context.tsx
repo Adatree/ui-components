@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { AccessFrequency, DataHolder, PostUsageAction, SharingDuration } from '../generated/consent';
+import { DataHolder, PostUsageAction, SharingDuration } from '../generated/consent';
 
 type ConsentForm = {
-  accessFrequency: AccessFrequency | undefined;
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
   sharingDurations: SharingDuration[];
@@ -29,7 +28,6 @@ type ConsentFormProviderProps = {
 };
 
 const ConsentFormDefaultValues: ConsentForm = {
-  accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: undefined,
   sharingDurations: [],
