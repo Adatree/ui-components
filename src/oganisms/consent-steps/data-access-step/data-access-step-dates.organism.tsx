@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../../generated/consent';
@@ -14,11 +14,19 @@ export type DataAccessStepProps = {
 };
 
 export const DataAccessStepDates = (props: DataAccessStepProps) => {
-  const { companyName, onDateChange } = props;
+  const { companyName, useCase, onDateChange } = props;
   const [consentForm, setConsentForm] = useConsentForm();
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
-  const [sharingDurations] = useState(consentForm.sharingDurations);
+  const [sharingDurations, setSharingDurations] = useState(consentForm.sharingDurations);
   const [selectedSharingDurations, setSelectedSharingDurations] = useState(consentForm.selectedSharingDurations);
+
+  useEffect(() => {
+    if (consentForm.sharingDurations.length === 0 && useCase.sharingDurations) {
+      consentForm.sharingDurations = useCase.sharingDurations;
+      setConsentForm({ ...consentForm });
+      setSharingDurations(consentForm.sharingDurations);
+    }
+  }, []);
 
   const handleDatePickerChange = (date: Date) => {
     handleSharingEndDateChange(date, SharingDuration.CUSTOM);

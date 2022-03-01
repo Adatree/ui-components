@@ -17,7 +17,7 @@ const testConsentFormWithUnselectedValues = {
   accessFrequency: undefined,
   checkedScopes: [],
   dataHolder: TestUtil.getTestDataRedBankDataHolder(),
-  sharingDurations: sharingDurations,
+  sharingDurations: [],
   selectedSharingDurations: undefined,
   postUsageAction: undefined,
   sharingEndDate: undefined,
