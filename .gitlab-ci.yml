@@ -1,0 +1,74 @@
+---
+image: registry.gitlab.com/adatree-source/infra/dev-tools/adatree-build-image:latest
+
+include:
+  - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  SHARED_PATH: /builds/shared/mount
+  REACT_APP_VERSION: $CI_PIPELINE_ID
+  REACT_APP_TIMESTAMP: $CI_COMMIT_TIMESTAMP
+  AWS_ACCOUNT_ID_PROD: 509445696409 # saas-prod
+  AWS_CLOUDFRONT_ID_PROD: E3VP3T9Q388RZP
+
+services:
+  - docker:19.03.8-dind
+
+stages:
+  - deploy
+
+before_script:
+  - set -o errexit
+  - set -o pipefail
+  # - printenv | sort # debug
+
+deploy to prod:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    # inputs
+    - TARGET_ACCOUNT_ID="${AWS_ACCOUNT_ID_PROD}"
+    - PROFILE="tenant-adatree-saas-prod"
+    - FRONTEND_URL="design.adatree.com.au"
+
+    # login
+    - export AWS_PROFILE=${PROFILE} ; aws sso login
+
+    # route 53
+    - STACK_PREFIX="design-site"
+    - aws cloudformation deploy
+      --region ap-southeast-2
+      --template-file ./infra/ap-southeast-2/stage1.cfn.yaml
+      --stack-name "${STACK_PREFIX}-stage-1"
+      --parameter-overrides FrontendDnsRecord=${FRONTEND_URL}
+    - HOSTED_ZONE_ID=$(aws cloudformation describe-stacks --stack-name ${STACK_PREFIX}-stage-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendHostedZoneId'].OutputValue" --output text)
+    - aws cloudformation deploy
+      --region us-east-1
+      --template-file infra/us-east-1/stage2.cfn.yaml
+      --stack-name "${STACK_PREFIX}-stage-2"
+      --parameter-overrides FrontendDnsRecord="${FRONTEND_URL}" FrontendHostedZoneId=${HOSTED_ZONE_ID}
+    - ACM_CERTIFICATE_ARN=$(aws cloudformation describe-stacks --region us-east-1 --stack-name ${STACK_PREFIX}-stage-2 --query "Stacks[0].Outputs[?OutputKey=='AcmCertificateArn'].OutputValue" --output text)
+
+    # Cloudfront & bucket
+    - APPLICATION_BUCKET_NAME=$(echo ${FRONTEND_URL} | tr '.' '-')"-${TARGET_ACCOUNT_ID}" # max 63 characters
+    - aws cloudformation deploy
+      --region ap-southeast-2
+      --template-file infra/ap-southeast-2/stage3.cfn.yaml
+      --stack-name ${STACK_PREFIX}-stage-3
+      --parameter-overrides AcmCertificateArn=${ACM_CERTIFICATE_ARN} ApplicationBucketName=${APPLICATION_BUCKET_NAME} FrontendDnsRecord=${FRONTEND_URL} FrontendHostedZoneId=${HOSTED_ZONE_ID}
+
+    # build components
+    - apt update
+    - yarn install
+    - yarn build
+
+    # build storybook
+    - cd storybook
+    - yarn install
+    - yarn build-storybook
+
+    # deploy to s3
+    - aws s3 rm s3://${APPLICATION_BUCKET_NAME} --recursive
+    - aws s3 cp ./storybook-static s3://${APPLICATION_BUCKET_NAME} --recursive

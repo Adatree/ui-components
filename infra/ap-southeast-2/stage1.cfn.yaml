@@ -1,0 +1,20 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Hosted zone for frontend DNS
+
+Parameters:
+  FrontendDnsRecord:
+    Type: String
+
+Resources:
+  FrontendHostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      HostedZoneConfig:
+        Comment: !Join [" ", ["Public hosted zone for", !Ref FrontendDnsRecord]]
+      Name: !Ref FrontendDnsRecord
+
+Outputs:
+  FrontendHostedZoneId:
+    Value: !Ref FrontendHostedZone
+

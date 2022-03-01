@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE FILE",
   "publishConfig": {
     "@adatree-oss:registry": "https://gitlab.com/api/v4/projects/32542974/packages/npm/"
   },

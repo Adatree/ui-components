@@ -1,0 +1,24 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Frontend certificicate
+
+Parameters:
+  FrontendDnsRecord:
+    Type: String
+  FrontendHostedZoneId:
+    Type: String
+
+Resources:
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: !Ref FrontendDnsRecord
+      DomainValidationOptions:
+        - DomainName: !Ref FrontendDnsRecord
+          HostedZoneId: !Ref FrontendHostedZoneId
+      ValidationMethod: DNS
+
+Outputs:
+  AcmCertificateArn:
+    Value: !Ref ACMCertificate
+
