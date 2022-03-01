@@ -1,0 +1,123 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Main frontend stack - CloudFront, alias record, content bucket
+
+Parameters:
+  AcmCertificateArn:
+    Type: String
+  ApplicationBucketName:
+    Type: String
+  LoggingBucketName:
+    Type: String
+  DefaultRootObject:
+    Description: "The default path for the index document."
+    Type: String
+    Default: "index.html"
+  ErrorPagePath:
+    Description: "Send 403/404 error to root for SPA to handle it"
+    Type: String
+    Default: "/index.html"
+  FrontendDnsRecord:
+    Type: String
+  FrontendHostedZoneId:
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref ApplicationBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      WebsiteConfiguration:
+        ErrorDocument: "index.html"
+        IndexDocument: "index.html"
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LoggingBucketName
+        LogFilePrefix: 'design-site-logging/'
+
+  ReadPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref ApplicationBucketName
+      PolicyDocument:
+        Statement:
+          - Action: "s3:Get*"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
+            Principal:
+              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  ARecord:
+    Type: "AWS::Route53::RecordSetGroup"
+    Properties:
+      HostedZoneId: !Ref FrontendHostedZoneId
+      RecordSets:
+        - Name: !Ref FrontendDnsRecord
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2 # static cloudfront id
+            DNSName: !GetAtt
+              - WebsiteDistribution
+              - DomainName
+
+  WebsiteDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref FrontendDnsRecord
+
+        CustomErrorResponses:
+          - ErrorCode: 403 # Forbidden
+            ResponseCode: 200
+            ResponsePagePath: !Ref ErrorPagePath
+
+          - ErrorCode: 404 # Not found
+            ResponseCode: 200
+            ResponsePagePath: !Ref ErrorPagePath
+
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          Compress: true
+          DefaultTTL: 31557600 # in seconds
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          MaxTTL: 31557600 # in seconds
+          MinTTL: 31557600 # in seconds
+          TargetOriginId: s3origin
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: !Ref DefaultRootObject
+        Enabled: true
+        HttpVersion: http2
+        Comment:
+          !Join ["", ["CloudFront for S3 bucket ", !Ref ApplicationBucketName]]
+        Origins:
+          - DomainName: !GetAtt "S3Bucket.RegionalDomainName"
+            Id: s3origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+        PriceClass: "PriceClass_All"
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          MinimumProtocolVersion: TLSv1.2_2019
+          SslSupportMethod: sni-only
+
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment:
+          !Join ["", [!Ref ApplicationBucketName, "-origin-access-identity"]]
