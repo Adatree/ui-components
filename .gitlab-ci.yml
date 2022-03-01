@@ -32,6 +32,7 @@ deploy to prod:
     - TARGET_ACCOUNT_ID="${AWS_ACCOUNT_ID_PROD}"
     - PROFILE="tenant-adatree-saas-prod"
     - FRONTEND_URL="design.adatree.com.au"
+    - LOGGING_BUCKET_NAME="logging-509445696409-ap-southeast-2"
 
     # login
     - export AWS_PROFILE=${PROFILE} ; aws sso login
@@ -57,7 +58,7 @@ deploy to prod:
       --region ap-southeast-2
       --template-file infra/ap-southeast-2/stage3.cfn.yaml
       --stack-name ${STACK_PREFIX}-stage-3
-      --parameter-overrides AcmCertificateArn=${ACM_CERTIFICATE_ARN} ApplicationBucketName=${APPLICATION_BUCKET_NAME} FrontendDnsRecord=${FRONTEND_URL} FrontendHostedZoneId=${HOSTED_ZONE_ID}
+      --parameter-overrides AcmCertificateArn=${ACM_CERTIFICATE_ARN} ApplicationBucketName=${APPLICATION_BUCKET_NAME}  LoggingBucketName=${LOGGING_BUCKET_NAME} FrontendDnsRecord=${FRONTEND_URL} FrontendHostedZoneId=${HOSTED_ZONE_ID}
 
     # build components
     - apt update

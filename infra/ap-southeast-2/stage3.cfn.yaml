@@ -7,6 +7,8 @@ Parameters:
     Type: String
   ApplicationBucketName:
     Type: String
+  LoggingBucketName:
+    Type: String
   DefaultRootObject:
     Description: "The default path for the index document."
     Type: String
@@ -34,7 +36,7 @@ Resources:
         ErrorDocument: "index.html"
         IndexDocument: "index.html"
       LoggingConfiguration:
-        DestinationBucketName: !ImportValue AccountLoggingS3BucketName
+        DestinationBucketName: !Ref LoggingBucketName
         LogFilePrefix: 'design-site-logging/'
 
   ReadPolicy:
@@ -119,4 +121,3 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment:
           !Join ["", [!Ref ApplicationBucketName, "-origin-access-identity"]]
-
