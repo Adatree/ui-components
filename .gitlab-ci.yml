@@ -10,7 +10,7 @@ variables:
   REACT_APP_VERSION: $CI_PIPELINE_ID
   REACT_APP_TIMESTAMP: $CI_COMMIT_TIMESTAMP
   AWS_ACCOUNT_ID_PROD: 509445696409 # saas-prod
-  AWS_CLOUDFRONT_ID_PROD: E3VP3T9Q388RZP
+  AWS_CLOUDFRONT_ID_PROD: E1M34KAH85ULVF
 
 services:
   - docker:19.03.8-dind
@@ -73,3 +73,4 @@ deploy to prod:
     # deploy to s3
     - aws s3 rm s3://${APPLICATION_BUCKET_NAME} --recursive
     - aws s3 cp ./storybook-static s3://${APPLICATION_BUCKET_NAME} --recursive
+    - aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID_PROD --paths "/*"
