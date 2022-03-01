@@ -35,7 +35,7 @@ Resources:
         IndexDocument: "index.html"
       LoggingConfiguration:
         DestinationBucketName: !ImportValue AccountLoggingS3BucketName
-        LogFilePrefix: 'dev-portal-app-logging/'
+        LogFilePrefix: 'design-site-logging/'
 
   ReadPolicy:
     Type: "AWS::S3::BucketPolicy"
