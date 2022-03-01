@@ -28,7 +28,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
       defaultValue={defaultValue}
       renderOption={(props, option) => (
         <Typography {...props} variant="body1" key={option.dataHolderBrandId} sx={{ display: 'flex' }}>
-          <Avatar alt="Remy Sharp" src={option.logoUri} component={'span'} sx={{ mr: 2 }}>
+          <Avatar alt="Remy Sharp" src={option.logoUri} component={'span'} sx={{ mr: 2 }} variant="square">
             <Bank />
           </Avatar>
           {option.brandName}

@@ -54,7 +54,7 @@ export const IconWithText: React.FC<IconWithTextProps> = (props) => {
 
   return (
     <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
-      <Avatar alt={altText} sx={{ height: 120, width: 120, backgroundColor: 'transparent' }}>
+      <Avatar alt={altText} sx={{ height: 120, width: 120, backgroundColor: 'transparent' }} variant="square">
         {getIcon(icon)}
       </Avatar>
       {title && <Typography variant="h2">{title}</Typography>}

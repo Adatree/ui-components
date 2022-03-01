@@ -54,7 +54,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Avatar alt={consent.dataHolderName} src={dataHolderLogoUrl} component={'span'} sx={{ mr: 2 }}>
+      <Avatar alt={consent.dataHolderName} src={dataHolderLogoUrl} component={'span'} sx={{ mr: 2 }} variant="square">
         <Bank />
       </Avatar>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
