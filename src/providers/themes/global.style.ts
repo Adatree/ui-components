@@ -34,38 +34,9 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     text-decoration: none;
   }
 
-
   a:active {
     color: inherit;
   }
 
-  a:link, a:visited {
-    color: #1b0dab;
-  }
 
-  .margin-tp-xs {
-    margin-top: 0.8rem;
-  }
-  .margin-tp-sm {
-    margin-top: 1.2rem;
-  }
-  .margin-tp-md {
-    margin-top: 3.2rem;
-  }
-  .margin-tp-lg {
-    margin-top: 6rem;
-  }
-
-  .margin-bt-xs {
-    margin-top: 0.8rem;
-  }
-  .margin-bt-sm {
-    margin-bottom: 1.2rem;
-  }
-  .margin-bt-md {
-    margin-bottom: 3.2rem;
-  }
-  .margin-bt-lg {
-    margin-bottom: 6rem;
-  }
 `;
