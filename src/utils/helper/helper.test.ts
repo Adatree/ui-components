@@ -49,21 +49,21 @@ describe('Helper Utils', () => {
       const dataHolders = TestUtil.testData.dataHolder.all();
       const consents = TestUtil.testData.consent.all();
       const homeUseCase = TestUtil.testData.useCase.homeLoan();
-      const budgetingToolUseCase = TestUtil.testData.useCase.onceOffConsentMinScopes();
+      const onceOffToolUseCase = TestUtil.testData.useCase.onceOffConsentMinScopes();
 
       const filteredByHomeUseCase = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, homeUseCase);
 
       expect(filteredByHomeUseCase.length).toEqual(1);
       expect(filteredByHomeUseCase[0].brandName).toEqual('Red Australia Bank');
 
-      const filteredByBudgetingToolUseCase = Helper.filterDataHoldersByConsentsAndUseCase(
+      const filteredByonceOffUseCase = Helper.filterDataHoldersByConsentsAndUseCase(
         dataHolders,
         consents,
-        budgetingToolUseCase,
+        onceOffToolUseCase,
       );
 
-      expect(filteredByBudgetingToolUseCase.length).toEqual(1);
-      expect(filteredByBudgetingToolUseCase[0].brandName).toEqual('Yellow Bank of Australia');
+      expect(filteredByonceOffUseCase.length).toEqual(1);
+      expect(filteredByonceOffUseCase[0].brandName).toEqual('Yellow Bank of Australia');
 
       const emptyfilteredDataholders = Helper.filterDataHoldersByConsentsAndUseCase(
         [TestUtil.testData.dataHolder.yellowBank()],

@@ -19,8 +19,20 @@ HomeUseCase.args = {
   useCase: TestUtil.testData.useCase.homeLoan(),
 };
 
-export const BudgetingToolUseCase = Template.bind({});
-BudgetingToolUseCase.args = {
+export const OpenEnergyUseCase = Template.bind({});
+OpenEnergyUseCase.args = {
+  title: 'Data we are currently receiving',
+  useCase: TestUtil.testData.useCase.openEnergy(),
+};
+
+export const OnceOffUseCase = Template.bind({});
+OnceOffUseCase.args = {
   title: 'Data we are currently receiving',
   useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
+};
+
+export const OngoingUseCase = Template.bind({});
+OngoingUseCase.args = {
+  title: 'Data we are currently receiving',
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
 };

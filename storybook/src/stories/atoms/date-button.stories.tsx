@@ -11,11 +11,19 @@ export default {
   },
 } as ComponentMeta<typeof DateButton>;
 
+const sharingDurations = [
+  SharingDuration.ONCEOFF,
+  SharingDuration.ONEDAY,
+  SharingDuration.ONEWEEK,
+  SharingDuration.ONEMONTH,
+  SharingDuration.SIXMONTHS,
+  SharingDuration.ONEYEAR,
+];
 const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...args} />;
 
 export const WithValueUnselected = Template.bind({});
 WithValueUnselected.args = {
-  sharingDuration: TestUtil.testData.useCase.homeLoan().sharingDurations ?? [],
+  sharingDuration: sharingDurations,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -23,8 +31,8 @@ WithValueUnselected.args = {
 
 export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
-  sharingDuration: TestUtil.testData.useCase.homeLoan().sharingDurations ?? [],
-  selectedSharingDuration: SharingDuration.THREEMONTHS,
+  sharingDuration: sharingDurations,
+  selectedSharingDuration: SharingDuration.ONEMONTH,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -32,7 +40,7 @@ WithValueSelected.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  sharingDuration: TestUtil.testData.useCase.homeLoan().sharingDurations ?? [],
+  sharingDuration: sharingDurations,
   disabled: true,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);

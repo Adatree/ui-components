@@ -46,6 +46,22 @@ export type DataHolderHeaderProps = {
 export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   const { consent, dataHolderLogoUrl, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
 
+  let textDate = '';
+
+  switch (consent.status) {
+    case Status.ACTIVE:
+      textDate = `Consent granted ${Formatter.formatDate(consent.created)}`;
+      break;
+    case Status.REQUESTED:
+      textDate = `Consent requested ${Formatter.formatDate(consent.created)}`;
+      break;
+    case Status.EXPIRED:
+      textDate = `Consent expired ${Formatter.formatDate(consent.sharingEndDate)}`;
+      break;
+    case Status.REVOKED:
+      textDate = `Consent revoked ${Formatter.formatDate(consent.revoked)}`;
+      break;
+  }
   const handleonRevokeClick = () => {
     if (onRevokeClick) {
       onRevokeClick();
@@ -59,11 +75,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
       </Avatar>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h2">{consent.dataHolderName}</Typography>
-        <Typography>
-          {consent.status === Status.REVOKED
-            ? `Revoked at ${Formatter.formatDate(consent.revoked)}`
-            : `Consent granted at ${Formatter.formatDate(consent.created)}`}
-        </Typography>
+        <Typography>{textDate}</Typography>
       </Box>
 
       <Box sx={{ ml: 'auto' }}>

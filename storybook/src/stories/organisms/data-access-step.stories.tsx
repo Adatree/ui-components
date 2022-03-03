@@ -2,8 +2,8 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentFormProvider, DataAccessStep, Logger, PostUsageAction, SharingDuration, TestUtil } from '../../lib';
 
-const scopes = TestUtil.testData.useCase.homeLoan().scopes ?? [];
-const sharingDurations = TestUtil.testData.useCase.homeLoan().sharingDurations ?? [];
+const scopes = TestUtil.testData.useCase.ongoingConsentMinScopes().scopes ?? [];
+const sharingDurations = [SharingDuration.ONEWEEK, SharingDuration.THREEMONTHS, SharingDuration.CUSTOM];
 
 const testConsentFormWithUnselectedValues = {
   checkedScopes: [],
@@ -15,10 +15,10 @@ const testConsentFormWithUnselectedValues = {
 };
 
 const testConsentFormWithSelectedValues = {
-  checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
+  checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? '', scopes[2].id ?? '', scopes[3].id ?? ''],
   dataHolder: TestUtil.testData.dataHolder.redBank(),
   sharingDurations: sharingDurations,
-  selectedSharingDurations: sharingDurations[2],
+  selectedSharingDurations: SharingDuration.THREEMONTHS,
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
 };
@@ -47,7 +47,7 @@ WithValuesUnselected.decorators = [
 ];
 WithValuesUnselected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.homeLoan(),
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -67,7 +67,7 @@ WithValuesSelected.decorators = [
 ];
 WithValuesSelected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.homeLoan(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -89,7 +89,7 @@ WithOnceOffSharingDurationOnly.decorators = [
 ];
 WithOnceOffSharingDurationOnly.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.homeLoan(),
+  useCase: TestUtil.testData.useCase.openEnergyLite(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
