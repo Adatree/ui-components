@@ -27,6 +27,7 @@ export { InfoCdrStep } from './oganisms/consent-steps/info-cdr-step/info-cdr-ste
 export { InfoHowItWorksStep } from './oganisms/consent-steps/info-how-it-works-step/info-how-it-works-step.organism';
 export { InfoExtendDateStep } from './oganisms/consent-steps/info-extend-date-step/info-extend-date-step.organism';
 export { ReviewStep } from './oganisms/consent-steps/review-step/review-step.organism';
+export { UseCaseStep } from './oganisms/consent-steps/use-case-step/use-case-step.organism';
 
 // Contest
 export * from './context/consentForm.context';

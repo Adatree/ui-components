@@ -27,6 +27,7 @@ const baseConsentFormValues = {
   selectedSharingDurations: SharingDuration.ONCEOFF,
   postUsageAction: PostUsageAction.DELETION,
   sharingEndDate: new Date(),
+  useCaseId: TestUtil.testData.useCase.homeLoan().id,
 };
 
 // #######################################################################################

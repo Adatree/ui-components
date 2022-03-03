@@ -8,6 +8,7 @@ type ConsentForm = {
   selectedSharingDurations: SharingDuration | undefined;
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date | undefined;
+  useCaseId: string | undefined;
 };
 
 const ConsentFormContext = React.createContext<
@@ -34,6 +35,7 @@ const ConsentFormDefaultValues: ConsentForm = {
   selectedSharingDurations: undefined,
   postUsageAction: undefined,
   sharingEndDate: undefined,
+  useCaseId: undefined,
 };
 
 const ConsentFormProvider = ({ children, initialValues = ConsentFormDefaultValues }: ConsentFormProviderProps) => {

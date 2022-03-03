@@ -12,6 +12,7 @@ const testConsentFormWithUnselectedValues = {
   selectedSharingDurations: undefined,
   postUsageAction: undefined,
   sharingEndDate: undefined,
+  useCaseId: undefined,
 };
 
 const testConsentFormWithSelectedValues = {
@@ -21,6 +22,7 @@ const testConsentFormWithSelectedValues = {
   selectedSharingDurations: SharingDuration.THREEMONTHS,
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
+  useCaseId: TestUtil.testData.useCase.homeLoan().id,
 };
 
 export default {
