@@ -21,25 +21,21 @@ Active.args = {
 
 export const Expired = Template.bind({});
 Expired.args = {
-  consent: { ...TestUtil.testData.consent.active(), status: Status.EXPIRED },
+  consent: TestUtil.testData.consent.expired(),
   consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
   dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };
 
 export const Requested = Template.bind({});
 Requested.args = {
-  consent: { ...TestUtil.testData.consent.active(), status: Status.REQUESTED },
+  consent: TestUtil.testData.consent.requested(),
   consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
-  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.redBank().logoUri,
 };
 
 export const Revoked = Template.bind({});
 Revoked.args = {
-  consent: {
-    ...TestUtil.testData.consent.active(),
-    status: Status.REVOKED,
-    revoked: new Date(2021, 10, 2).toISOString(),
-  },
+  consent: TestUtil.testData.consent.revoked(),
   consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
-  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.redBank().logoUri,
 };
