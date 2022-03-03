@@ -1,9 +1,11 @@
 import React from 'react';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
+import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { flexbox } from '@mui/system';
 
 type RadioButtonItem = {
   label: string;
   value: string;
+  description?: string;
   disable?: boolean;
 };
 
@@ -32,14 +34,22 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
         {radioButtonItems.map((item) => {
           const disabled = item.disable ? true : false;
           return (
-            <FormControlLabel
-              sx={{ m: 0, pl: 1, justifyContent: 'space-between', '&:hover': { backgroundColor: 'highlight.light' } }}
-              key={item.value}
-              value={item.value}
-              control={<Radio disabled={disabled} color="secondary" />}
-              label={item.label}
-              labelPlacement="start"
-            />
+            <span key={item.value}>
+              <FormControlLabel
+                sx={{
+                  m: 0,
+                  pl: 1,
+                  justifyContent: 'space-between',
+                  '&:hover': { backgroundColor: 'highlight.light' },
+                  width: '100%',
+                }}
+                value={item.value}
+                control={<Radio disabled={disabled} color="secondary" />}
+                label={item.label}
+                labelPlacement="start"
+              />
+              {item.description && <Typography sx={{ pl: 1, mb: 1.5 }}>{item.description}</Typography>}
+            </span>
           );
         })}
       </RadioGroup>
