@@ -80,8 +80,8 @@ const expired = (): ConsentResponse => {
     status: Status.EXPIRED,
     sharingEndDate: '2020-12-18T10:20:21.889Z',
     consumerEmail: 'john+sample@adatree.com.au',
-    dataHolderName: 'Red Australia Bank',
-    dataHolderBrandId: '7ddd80f1-82dc-4dfb-8b3f-7415f9691ac9',
+    dataHolderName: dataHolder.yellowBank().brandName,
+    dataHolderBrandId: dataHolder.yellowBank().dataHolderBrandId,
     useCase: useCase.onceOffConsentMinScopes(),
     postUsageAction: PostUsageAction.DEIDENTIFICATION,
     consumerId: 'auth0|5f899e393c3f960069a81555',
@@ -111,8 +111,6 @@ const all = (): ConsentResponse[] => {
       postUsageAction: PostUsageAction.DELETION,
       directMarketingAllowed: false,
     },
-    {},
-
     {
       version: undefined,
       created: '2020-12-18T10:52:14.35377Z',
