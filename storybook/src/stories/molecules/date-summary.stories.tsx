@@ -15,17 +15,17 @@ const Template: ComponentStory<typeof DateSummary> = (args) => <DateSummary {...
 export const WithDateDuration = Template.bind({});
 WithDateDuration.args = {
   title: 'Data we are currently receiving',
-  consent: TestUtil.getTestDataConsentResponses()[2],
+  consent: TestUtil.testData.consent.all()[2],
 };
 
 export const WithCustomDuration = Template.bind({});
 WithCustomDuration.args = {
   title: 'Data we are currently receiving',
-  consent: TestUtil.getTestDataConsentResponse(),
+  consent: TestUtil.testData.consent.active(),
 };
 
 export const WithOnceOffDuration = Template.bind({});
 WithOnceOffDuration.args = {
   title: 'Data we are currently receiving',
-  consent: TestUtil.getTestDataConsentResponses()[1],
+  consent: TestUtil.testData.consent.all()[1],
 };

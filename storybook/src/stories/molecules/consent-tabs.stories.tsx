@@ -14,14 +14,14 @@ const Template: ComponentStory<typeof ConsentTabs> = (args) => <ConsentTabs {...
 
 export const WithConsentItems = Template.bind({});
 WithConsentItems.args = {
-  consents: TestUtil.getTestDataConsentResponses(),
-  dataHolders: TestUtil.getTestDataAllDataHolders(),
+  consents: TestUtil.testData.consent.all(),
+  dataHolders: TestUtil.testData.dataHolder.all(),
 };
 
 export const WithNoConsentItems = Template.bind({});
 WithNoConsentItems.args = {
   consents: undefined,
-  dataHolders: TestUtil.getTestDataAllDataHolders(),
+  dataHolders: TestUtil.testData.dataHolder.all(),
 };
 
 export const Loading = Template.bind({});

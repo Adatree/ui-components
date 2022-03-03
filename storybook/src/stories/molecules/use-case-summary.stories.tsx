@@ -10,17 +10,17 @@ export default {
   },
 } as ComponentMeta<typeof UseCaseSummary>;
 
-const homeUseCase = TestUtil.getTestDataHomeUseCase();
+const homeUseCase = TestUtil.testData.useCase.homeLoan();
 const Template: ComponentStory<typeof UseCaseSummary> = (args) => <UseCaseSummary {...args} />;
 
 export const HomeUseCase = Template.bind({});
 HomeUseCase.args = {
   title: 'Data we are currently receiving',
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
 };
 
 export const BudgetingToolUseCase = Template.bind({});
 BudgetingToolUseCase.args = {
   title: 'Data we are currently receiving',
-  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
 };

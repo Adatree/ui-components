@@ -10,7 +10,7 @@ export default {
   },
 } as ComponentMeta<typeof UseCaseScopeList>;
 
-const homeUseCase = TestUtil.getTestDataHomeUseCase();
+const homeUseCase = TestUtil.testData.useCase.homeLoan();
 const Template: ComponentStory<typeof UseCaseScopeList> = (args) => <UseCaseScopeList {...args} />;
 
 export const ScopeList = Template.bind({});

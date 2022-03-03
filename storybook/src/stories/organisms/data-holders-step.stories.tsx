@@ -23,9 +23,9 @@ const Template: ComponentStory<typeof DataHolderStep> = (args) => <DataHolderSte
 
 export const WithOneDataHolder = Template.bind({});
 WithOneDataHolder.args = {
-  dataHolders: [TestUtil.getTestDataRedBankDataHolder()],
+  dataHolders: [TestUtil.testData.dataHolder.redBank()],
   existingConsents: [],
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid: boolean) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -33,9 +33,9 @@ WithOneDataHolder.args = {
 
 export const WithTwoDataHolders = Template.bind({});
 WithTwoDataHolders.args = {
-  dataHolders: TestUtil.getTestDataAllDataHolders(),
+  dataHolders: TestUtil.testData.dataHolder.all(),
   existingConsents: [],
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid: boolean) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -43,9 +43,9 @@ WithTwoDataHolders.args = {
 
 export const WithFilteredDataHolders = Template.bind({});
 WithFilteredDataHolders.args = {
-  dataHolders: TestUtil.getTestDataAllDataHolders(),
-  existingConsents: [TestUtil.getTestDataConsentResponse()],
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  dataHolders: TestUtil.testData.dataHolder.all(),
+  existingConsents: [TestUtil.testData.consent.active()],
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid: boolean) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -53,9 +53,9 @@ WithFilteredDataHolders.args = {
 
 export const WithNoDataHolders = Template.bind({});
 WithNoDataHolders.args = {
-  dataHolders: [TestUtil.getTestDataYellowBankDataHolder()],
-  existingConsents: TestUtil.getTestDataConsentResponses(),
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  dataHolders: [TestUtil.testData.dataHolder.yellowBank()],
+  existingConsents: TestUtil.testData.consent.all(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid: boolean) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },

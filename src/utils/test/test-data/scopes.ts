@@ -1,0 +1,227 @@
+import { ScopeResponse } from '../../../generated/consent/api';
+
+const bankAccountsBasicRead = (): ScopeResponse => {
+  return {
+    name: 'Account name, type and balance',
+    id: 'bank:accounts.basic:read',
+    purpose: '',
+    description: 'This will allow us to access basic account information including the account balance.',
+    claims: ['Name of account', 'Type of account', 'Account balance'],
+    priority: 2,
+  };
+};
+
+const bankAccountsDetailRead = (): ScopeResponse => {
+  return {
+    name: 'Account numbers and features',
+    id: 'bank:accounts.detail:read',
+    purpose: '',
+    description:
+      'This will allow us to access detailed bank account information including basic account information plus account identifiers and product information.',
+    claims: ['Account number', 'Interest rates', 'Fees', 'Discounts', 'Account terms', 'Account mail address'],
+    priority: 3,
+  };
+};
+
+const bankTransactionsRead = (): ScopeResponse => {
+  return {
+    name: 'Transaction details',
+    id: 'bank:transactions:read',
+    purpose: '',
+    description: 'This will allow us to access bank account transaction data.',
+    claims: [
+      'Incoming and outgoing transactions',
+      'Amounts',
+      'Dates',
+      'Descriptions of transactions',
+      'Who you have sent money to and received money from (e.g. their name)',
+    ],
+    priority: 4,
+  };
+};
+
+const commonCustomerBasicRead = (): ScopeResponse => {
+  return {
+    name: 'Name and occupation',
+    id: 'common:customer.basic:read',
+    purpose: '',
+    description:
+      'This will allow us to access personally identifiable information about the customer. For retail customers this would be information about the customer. For businesses it would be the name of the specific user and information about the business.',
+    claims: ['Name', 'Occupation'],
+    priority: 0,
+  };
+};
+
+const commonCustomerDetailRead = (): ScopeResponse => {
+  return {
+    name: 'Contact details',
+    id: 'common:customer.detail:read',
+    purpose: '[Placeholder] We need your personal details to...',
+    description: 'This will allow us to access more detailed customer information such as contact details.',
+    claims: ['Phone', 'Email address', 'Mail address', 'Residential address'],
+    priority: 1,
+  };
+};
+
+const energyAccountsBasicRead = (): ScopeResponse => {
+  return {
+    name: 'Accounts and plans',
+    id: 'energy:accounts.basic:read',
+    purpose: '[Placeholder] We need your basic account information to...',
+    description: '',
+    claims: ['Account and plan information', 'National Meter Identifier (NMI)'],
+    priority: 7,
+  };
+};
+
+const energyBillingRead = (): ScopeResponse => {
+  return {
+    name: 'Billing payments and history',
+    id: 'energy:billing:read',
+    purpose: '[Placeholder] We need your billing information to...',
+    description: '',
+    claims: [
+      'Account balance',
+      'National Meter Identifier (NMI)',
+      'Payment method',
+      'Payment status',
+      'Charges, discounts, credits',
+      'Billing date',
+      'Usage for billing period',
+      'Payment date',
+      'Invoice number',
+    ],
+    priority: 11,
+  };
+};
+
+const energyElectricityUsageRead = (): ScopeResponse => {
+  return {
+    name: 'Electricity usage',
+    id: 'energy:electricity.usage:read',
+    purpose: '[Placeholder] We need your usage information to...',
+    description: '',
+    claims: ['Usage', 'Meter details'],
+    priority: 15,
+  };
+};
+
+const energyAccountsDetailRead = (): ScopeResponse => {
+  return {
+    name: 'Account and plan details',
+    id: 'energy:accounts.detail:read',
+    purpose: '[Placeholder] We need your detailed account information to...',
+    description: '',
+    claims: [
+      'Account and plan information',
+      'National Meter Identifier (NMI)',
+      'Account type',
+      'Fees, features, rates, and discounts',
+      'Additional account users',
+    ],
+    priority: 8,
+  };
+};
+
+const energyAccountsConcessionsRead = (): ScopeResponse => {
+  return {
+    name: 'Concessions and assistance',
+    id: 'energy:accounts.concessions:read',
+    purpose: '[Placeholder] We need your concession information to...',
+    description: '',
+    claims: ['Concession type', 'Concession information'],
+    priority: 9,
+  };
+};
+
+const energyAccountsPaymentscheduleRead = (): ScopeResponse => {
+  return {
+    name: 'Stored payment information',
+    id: 'energy:accounts.paymentschedule:read',
+    purpose: '[Placeholder] We need your payments information to...',
+    description: '',
+    claims: ['Payment details', 'Scheduled payment amount'],
+    priority: 10,
+  };
+};
+
+const energyElectricityServicepointsBasicRead = (): ScopeResponse => {
+  return {
+    name: 'Electricity connection',
+    id: 'energy:electricity.servicepoints.basic:read',
+    purpose: '[Placeholder] We need your basic service point information to...',
+    description: '',
+    claims: ['National Meter Identifier (NMI)', 'Customer type', 'Connection point details'],
+    priority: 12,
+  };
+};
+
+const energyElectricityServicepointsDetailRead = (): ScopeResponse => {
+  return {
+    name: 'Electricity connection and meter',
+    id: 'energy:electricity.servicepoints.detail:read',
+    purpose: '[Placeholder] We need your detailed service point information to...',
+    description: '',
+    claims: [
+      'National Meter Identifier (NMI)',
+      'Supply address',
+      'Customer type',
+      'Connection point details',
+      'Meter details',
+      'Associated service providers',
+    ],
+    priority: 13,
+  };
+};
+
+const energyElectricityDerRead = (): ScopeResponse => {
+  return {
+    name: 'Energy generation and storage',
+    id: 'energy:electricity.der:read',
+    purpose: '[Placeholder] We need your energy generation information to...',
+    description: '',
+    claims: [
+      'Generation information',
+      'Generation or storage device type',
+      'Device characteristics',
+      'Devices that can operate without the grid',
+      'Energy conversion information',
+    ],
+    priority: 14,
+  };
+};
+
+const all = (): ScopeResponse[] => [
+  bankAccountsBasicRead(),
+  bankAccountsDetailRead(),
+  bankTransactionsRead(),
+  commonCustomerBasicRead(),
+  commonCustomerDetailRead(),
+  energyAccountsBasicRead(),
+  energyBillingRead(),
+  energyElectricityUsageRead(),
+  energyAccountsDetailRead(),
+  energyAccountsConcessionsRead(),
+  energyAccountsPaymentscheduleRead(),
+  energyElectricityServicepointsBasicRead(),
+  energyElectricityServicepointsDetailRead(),
+  energyElectricityDerRead(),
+];
+
+export const scope = {
+  all,
+  bankAccountsBasicRead,
+  bankAccountsDetailRead,
+  bankTransactionsRead,
+  commonCustomerBasicRead,
+  commonCustomerDetailRead,
+  energyAccountsBasicRead,
+  energyBillingRead,
+  energyElectricityUsageRead,
+  energyAccountsDetailRead,
+  energyAccountsConcessionsRead,
+  energyAccountsPaymentscheduleRead,
+  energyElectricityServicepointsBasicRead,
+  energyElectricityServicepointsDetailRead,
+  energyElectricityDerRead,
+};

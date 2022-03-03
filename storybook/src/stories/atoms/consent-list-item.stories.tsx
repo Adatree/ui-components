@@ -14,32 +14,32 @@ const Template: ComponentStory<typeof ConsentListItem> = (args) => <ConsentListI
 
 export const Active = Template.bind({});
 Active.args = {
-  consent: TestUtil.getTestDataConsentResponse(),
-  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  consent: TestUtil.testData.consent.active(),
+  consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };
 
 export const Expired = Template.bind({});
 Expired.args = {
-  consent: { ...TestUtil.getTestDataConsentResponse(), status: Status.EXPIRED },
-  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  consent: { ...TestUtil.testData.consent.active(), status: Status.EXPIRED },
+  consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };
 
 export const Requested = Template.bind({});
 Requested.args = {
-  consent: { ...TestUtil.getTestDataConsentResponse(), status: Status.REQUESTED },
-  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  consent: { ...TestUtil.testData.consent.active(), status: Status.REQUESTED },
+  consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };
 
 export const Revoked = Template.bind({});
 Revoked.args = {
   consent: {
-    ...TestUtil.getTestDataConsentResponse(),
+    ...TestUtil.testData.consent.active(),
     status: Status.REVOKED,
     revoked: new Date(2021, 10, 2).toISOString(),
   },
-  consentUrl: `/some-url/${TestUtil.getTestDataConsentResponse().consentId}`,
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };

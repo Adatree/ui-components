@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof ReviewStep> = (args) => <ReviewStep {...ar
 const baseConsentFormValues = {
   accessFrequency: AccessFrequency.ONCEOFF,
   checkedScopes: [],
-  dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  dataHolder: TestUtil.testData.dataHolder.redBank(),
   sharingDurations: [],
   selectedSharingDurations: SharingDuration.ONCEOFF,
   postUsageAction: PostUsageAction.DELETION,
@@ -44,7 +44,7 @@ WithOnceOffDuration.decorators = [
   },
 ];
 WithOnceOffDuration.args = {
-  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
 };
 
 // #######################################################################################
@@ -62,7 +62,7 @@ WithCustomDuration.decorators = [
   },
 ];
 WithCustomDuration.args = {
-  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
 };
 
 // #######################################################################################
@@ -80,7 +80,7 @@ WithDateDuration.decorators = [
   },
 ];
 WithDateDuration.args = {
-  useCase: TestUtil.getTestDataBudgetingToolUseCase(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
 };
 
 // #######################################################################################
@@ -96,7 +96,7 @@ WithDeletion.decorators = [
   },
 ];
 WithDeletion.args = {
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
 };
 
 // #######################################################################################
@@ -114,5 +114,5 @@ WithDeidentification.decorators = [
   },
 ];
 WithDeidentification.args = {
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
 };

@@ -14,8 +14,8 @@ const Template: ComponentStory<typeof DataHolderHeader> = (args) => <DataHolderH
 
 export const WithActiveStatus = Template.bind({});
 WithActiveStatus.args = {
-  consent: TestUtil.getTestDataConsentResponses()[0],
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  consent: TestUtil.testData.consent.all()[0],
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
   onRevokeClick: () => {
     alert(`The revoke button was clicked`);
   },
@@ -23,9 +23,9 @@ WithActiveStatus.args = {
 
 export const WithActiveStatusAndExtendableDate = Template.bind({});
 WithActiveStatusAndExtendableDate.args = {
-  consent: TestUtil.getTestDataConsentResponses()[0],
+  consent: TestUtil.testData.consent.all()[0],
   isExtendable: true,
-  dataHolderLogoUrl: TestUtil.getTestDataYellowBankDataHolder().logoUri,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
   extendableUrl: '/?path=/story/components-molecules-data-holder-header--with-active-status-and-extendable-date',
   onRevokeClick: () => {
     alert(`The revoke button was clicked`);
@@ -34,18 +34,18 @@ WithActiveStatusAndExtendableDate.args = {
 
 export const WithRevokedStatus = Template.bind({});
 WithRevokedStatus.args = {
-  consent: TestUtil.getTestDataConsentResponses()[2],
-  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
+  consent: TestUtil.testData.consent.all()[2],
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.redBank().logoUri,
 };
 
 export const WithRequestedStatus = Template.bind({});
 WithRequestedStatus.args = {
-  consent: TestUtil.getTestDataConsentResponses()[3],
-  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
+  consent: TestUtil.testData.consent.all()[3],
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.redBank().logoUri,
 };
 
 export const WithExpiredStatus = Template.bind({});
 WithExpiredStatus.args = {
-  consent: TestUtil.getTestDataConsentResponses()[4],
-  dataHolderLogoUrl: TestUtil.getTestDataRedBankDataHolder().logoUri,
+  consent: TestUtil.testData.consent.all()[4],
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.redBank().logoUri,
 };

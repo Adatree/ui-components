@@ -2,12 +2,12 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentFormProvider, DataAccessStep, Logger, PostUsageAction, SharingDuration, TestUtil } from '../../lib';
 
-const scopes = TestUtil.getTestDataHomeUseCase().scopes ?? [];
-const sharingDurations = TestUtil.getTestDataHomeUseCase().sharingDurations ?? [];
+const scopes = TestUtil.testData.useCase.homeLoan().scopes ?? [];
+const sharingDurations = TestUtil.testData.useCase.homeLoan().sharingDurations ?? [];
 
 const testConsentFormWithUnselectedValues = {
   checkedScopes: [],
-  dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  dataHolder: TestUtil.testData.dataHolder.redBank(),
   sharingDurations: [],
   selectedSharingDurations: undefined,
   postUsageAction: undefined,
@@ -16,7 +16,7 @@ const testConsentFormWithUnselectedValues = {
 
 const testConsentFormWithSelectedValues = {
   checkedScopes: [scopes[0].id ?? '', scopes[1].id ?? ''],
-  dataHolder: TestUtil.getTestDataRedBankDataHolder(),
+  dataHolder: TestUtil.testData.dataHolder.redBank(),
   sharingDurations: sharingDurations,
   selectedSharingDurations: sharingDurations[2],
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
@@ -47,7 +47,7 @@ WithValuesUnselected.decorators = [
 ];
 WithValuesUnselected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -67,7 +67,7 @@ WithValuesSelected.decorators = [
 ];
 WithValuesSelected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -89,7 +89,7 @@ WithOnceOffSharingDurationOnly.decorators = [
 ];
 WithOnceOffSharingDurationOnly.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -111,7 +111,7 @@ WithCustomSharingDurationOnly.decorators = [
 ];
 WithCustomSharingDurationOnly.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.getTestDataHomeUseCase(),
+  useCase: TestUtil.testData.useCase.homeLoan(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
