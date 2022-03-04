@@ -24,7 +24,11 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
 
   return (
     <FormControl sx={{ width: '100%' }}>
-      {label && <FormLabel id="radio-buttons-group-label">{label}</FormLabel>}
+      {label && (
+        <FormLabel id="radio-buttons-group-label">
+          <Typography variant="h2">{label}</Typography>
+        </FormLabel>
+      )}
       <RadioGroup
         aria-labelledby="radio-buttons-group-label"
         defaultValue={defaultValue}
@@ -45,7 +49,7 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
                 }}
                 value={item.value}
                 control={<Radio disabled={disabled} color="secondary" />}
-                label={item.label}
+                label={<Typography variant="h3">{item.label}</Typography>}
                 labelPlacement="start"
               />
               {item.description && <Typography sx={{ pl: 1, mb: 1.5 }}>{item.description}</Typography>}
