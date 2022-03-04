@@ -55,8 +55,8 @@ const homeLoan = (): UseCaseResponse => {
 const openEnergyLite = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY_LITE',
-    name: '[Placeholder] Open Energy Lite',
-    description: '[Placeholder] Your data will be used to assess the best energy provider for you',
+    name: 'Open Energy Lite',
+    description: 'Your data will be used to assess the best energy provider for you',
     priority: 101,
     historicalCollectionPeriodInDays: 365,
     notificationType: NotificationType.EMAIL,
@@ -74,8 +74,8 @@ const openEnergyLite = (): UseCaseResponse => {
 const openEnergy = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY',
-    name: '[Placeholder] Open Energy',
-    description: '[Placeholder] Your data will be used to assess the best energy provider for you',
+    name: 'Open Energy',
+    description: 'Your data will be used to assess the best energy provider for you',
     priority: 100,
     historicalCollectionPeriodInDays: 365,
     notificationType: NotificationType.EMAIL,
