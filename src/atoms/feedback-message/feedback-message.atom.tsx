@@ -1,4 +1,4 @@
-import { Box, CircularProgress, SvgIcon, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
 
 export type FeedbackMessageProps = {

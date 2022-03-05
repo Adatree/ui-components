@@ -17,6 +17,7 @@ export { ConsentDetails } from './molecules/consent-details/consent-details.mole
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
+export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
 export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope-list.molecule';
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
