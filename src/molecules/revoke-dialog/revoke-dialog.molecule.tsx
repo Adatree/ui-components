@@ -9,21 +9,20 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { useState } from 'react';
 
 export type RevokeDialogProps = {
   isOpen: boolean;
   isLoading: boolean;
   dataHolderName: string;
+  onCancelClick: () => void;
   onRevokeClick: () => void;
 };
 
 export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
-  const { isOpen, isLoading, dataHolderName, onRevokeClick } = props;
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(isOpen);
+  const { isOpen, isLoading, dataHolderName, onCancelClick, onRevokeClick } = props;
 
   const handleRevokeDialogClose = () => {
-    setIsDialogOpen(false);
+    onCancelClick();
   };
 
   const handleRevokeDialogButtonClick = () => {
@@ -32,7 +31,7 @@ export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
 
   return (
     <Dialog
-      open={isDialogOpen}
+      open={isOpen}
       onClose={handleRevokeDialogClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"

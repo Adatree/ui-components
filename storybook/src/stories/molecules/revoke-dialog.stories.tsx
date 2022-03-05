@@ -17,6 +17,9 @@ Open.args = {
   dataHolderName: TestUtil.testData.dataHolder.yellowBank().brandName,
   isOpen: true,
   isLoading: false,
+  onCancelClick: () => {
+    alert('The cancel button has been clicked');
+  },
   onRevokeClick: () => {
     alert('The revoke button has been clicked');
   },
@@ -27,6 +30,9 @@ Loading.args = {
   dataHolderName: TestUtil.testData.dataHolder.yellowBank().brandName,
   isOpen: true,
   isLoading: true,
+  onCancelClick: () => {
+    alert('The cancel button has been clicked');
+  },
   onRevokeClick: () => {
     alert('The revoke button has been clicked');
   },
