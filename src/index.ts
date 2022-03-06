@@ -15,6 +15,7 @@ export { SectionCard } from './atoms/section-card/section-card.atom';
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentDetails } from './molecules/consent-details/consent-details.molecule';
 export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/consent-stepper-desktop.molecule';
+export { ConsentStepperMobile } from './molecules/consent-stepper/mobile/consent-stepper-mobile.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
 export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
