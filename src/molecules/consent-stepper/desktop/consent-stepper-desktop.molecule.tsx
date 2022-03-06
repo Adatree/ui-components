@@ -53,7 +53,26 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
       <Stepper activeStep={activeStep} color="secondary" sx={{ mb: 6 }}>
         {steps.map((step) => {
           return (
-            <Step key={step.label}>
+            <Step
+              key={step.label}
+              sx={{
+                '& .MuiStepLabel-root .Mui-active': {
+                  color: 'secondary.main',
+                },
+                '& .MuiStepLabel-root .Mui-completed': {
+                  color: 'secondary.main',
+                },
+                '& .Mui-active .MuiStepIcon-text': {
+                  fill: 'black',
+                },
+                '& .MuiStepLabel-label.Mui-active': {
+                  color: 'black',
+                },
+                '& .MuiStepLabel-label.Mui-completed': {
+                  color: 'black',
+                },
+              }}
+            >
               <StepLabel>{step.label}</StepLabel>
             </Step>
           );
