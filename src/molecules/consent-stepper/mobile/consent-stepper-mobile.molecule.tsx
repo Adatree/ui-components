@@ -52,7 +52,7 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
         activeStep={activeStep}
         color="secondary"
         sx={{
-          mb: 6,
+          mb: 1,
           '& .MuiLinearProgress-root .MuiLinearProgress-bar ': {
             backgroundColor: 'secondary.main',
           },
