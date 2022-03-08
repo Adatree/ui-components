@@ -19,7 +19,15 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
   const { steps } = props;
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
+
   const handleOnPrevious = (step: Step) => {
+    scrollToTop();
+
     if (step.onPrevious) {
       step.onPrevious();
     }
@@ -30,6 +38,8 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
   };
 
   const handleOnNext = (step: Step) => {
+    scrollToTop();
+
     if (step.onNext) {
       step.onNext();
     }

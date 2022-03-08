@@ -21,8 +21,30 @@ const mockStepConent = (
       consectetur eleifend eros. Nullam aliquam egestas consequat. Sed efficitur sit amet nulla vel eleifend. Maecenas
       et eros eu quam porttitor auctor. In molestie viverra commodo.
     </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu mauris id sem imperdiet maximus. Nullam eros
+      neque, hendrerit ut ipsum sit amet, blandit cursus nulla. Vivamus augue felis, egestas congue finibus a,
+      consectetur eleifend eros. Nullam aliquam egestas consequat. Sed efficitur sit amet nulla vel eleifend. Maecenas
+      et eros eu quam porttitor auctor. In molestie viverra commodo.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu mauris id sem imperdiet maximus. Nullam eros
+      neque, hendrerit ut ipsum sit amet, blandit cursus nulla. Vivamus augue felis, egestas congue finibus a,
+      consectetur eleifend eros. Nullam aliquam egestas consequat. Sed efficitur sit amet nulla vel eleifend. Maecenas
+      et eros eu quam porttitor auctor. In molestie viverra commodo.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu mauris id sem imperdiet maximus. Nullam eros
+      neque, hendrerit ut ipsum sit amet, blandit cursus nulla. Vivamus augue felis, egestas congue finibus a,
+      consectetur eleifend eros. Nullam aliquam egestas consequat. Sed efficitur sit amet nulla vel eleifend. Maecenas
+      et eros eu quam porttitor auctor. In molestie viverra commodo.
+    </p>
   </>
 );
+
 export const Mobile = Template.bind({});
 Mobile.args = {
   steps: [

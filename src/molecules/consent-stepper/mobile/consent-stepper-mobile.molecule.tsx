@@ -19,7 +19,15 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
   const { steps } = props;
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
+
   const handleOnPrevious = (step: Step) => {
+    scrollToTop();
+
     if (step.onPrevious) {
       step.onPrevious();
     }
@@ -30,6 +38,8 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
   };
 
   const handleOnNext = (step: Step) => {
+    scrollToTop();
+
     if (step.onNext) {
       step.onNext();
     }
@@ -46,13 +56,12 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
   };
 
   return (
-    <Box>
+    <Box sx={{ mb: 6 }}>
       <MobileStepper
         variant="progress"
         activeStep={activeStep}
         color="secondary"
         sx={{
-          mb: 1,
           '& .MuiLinearProgress-root .MuiLinearProgress-bar ': {
             backgroundColor: 'secondary.main',
           },
