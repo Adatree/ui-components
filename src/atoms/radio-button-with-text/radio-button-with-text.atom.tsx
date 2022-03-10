@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material';
-import { flexbox } from '@mui/system';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material';
 
-type RadioButtonItem = {
+export type RadioButtonItem = {
   label: string;
   value: string;
   description?: string;

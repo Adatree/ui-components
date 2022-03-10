@@ -25,6 +25,28 @@ Default.decorators = [
 
 Default.args = {
   useCases: TestUtil.testData.useCase.all(),
+  isLoading: false,
+  isValid: (isValid: boolean) => {
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
+  },
+};
+
+// #######################################################################################
+
+export const Loading = Template.bind({});
+Loading.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+Loading.args = {
+  useCases: [],
+  isLoading: true,
   isValid: (isValid: boolean) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
