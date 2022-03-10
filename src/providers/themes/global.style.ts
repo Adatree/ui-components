@@ -17,11 +17,9 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     font-family: sans-serif;
     font-size: 62.5%;
     box-sizing: border-box;
-    background-color: #ffffff;
   }
 
   body {
-    background-color: #ffffff;
     font-size: 1.6rem;
   }
 
@@ -37,6 +35,4 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   a:active {
     color: inherit;
   }
-
-
 `;
