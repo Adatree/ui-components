@@ -48,7 +48,13 @@ export const UseCaseStep = (props: UseCaseStepProps) => {
           <Skeleton height="80px" />
         </>
       )}
-      {!isLoading && <RadioButtonWithText radioButtonItems={radioButtonItems} onChange={handleRadioCheck} />}
+      {!isLoading && (
+        <RadioButtonWithText
+          radioButtonItems={radioButtonItems}
+          onChange={handleRadioCheck}
+          defaultValue={consentForm.useCaseId}
+        />
+      )}
     </Box>
   );
 };

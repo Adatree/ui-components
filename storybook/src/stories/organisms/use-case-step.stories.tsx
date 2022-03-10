@@ -12,8 +12,18 @@ export default {
 
 const Template: ComponentStory<typeof UseCaseStep> = (args) => <UseCaseStep {...args} />;
 
-export const Default = Template.bind({});
-Default.decorators = [
+const testConsentFormWithSelectedValues = {
+  checkedScopes: [],
+  dataHolder: undefined,
+  sharingDurations: [],
+  selectedSharingDurations: undefined,
+  postUsageAction: undefined,
+  sharingEndDate: new Date(),
+  useCaseId: TestUtil.testData.useCase.homeLoan().id,
+};
+
+export const WithValuesUnselected = Template.bind({});
+WithValuesUnselected.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider>
@@ -23,7 +33,28 @@ Default.decorators = [
   },
 ];
 
-Default.args = {
+WithValuesUnselected.args = {
+  useCases: TestUtil.testData.useCase.all(),
+  isLoading: false,
+  isValid: (isValid: boolean) => {
+    Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
+  },
+};
+
+// #######################################################################################
+
+export const WithValuesSelected = Template.bind({});
+WithValuesSelected.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={testConsentFormWithSelectedValues}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithValuesSelected.args = {
   useCases: TestUtil.testData.useCase.all(),
   isLoading: false,
   isValid: (isValid: boolean) => {
