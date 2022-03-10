@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
-import React from 'react';
 import {
   RadioButtonItem,
   RadioButtonWithText,
@@ -16,6 +16,7 @@ export type UseCaseStepProps = {
 export const UseCaseStep = (props: UseCaseStepProps) => {
   const { useCases, isLoading, isValid } = props;
   const [consentForm, setConsentForm] = useConsentForm();
+  const [useCaseId] = useState(consentForm.useCaseId);
   let radioButtonItems: RadioButtonItem[] = [];
 
   if (useCases) {
@@ -29,9 +30,19 @@ export const UseCaseStep = (props: UseCaseStepProps) => {
   };
 
   const handleRadioCheck = (value: string) => {
+    resetConsentForm();
     consentForm.useCaseId = value;
     setConsentForm({ ...consentForm });
     isStepValid();
+  };
+
+  const resetConsentForm = () => {
+    consentForm.checkedScopes = [];
+    consentForm.dataHolder = undefined;
+    consentForm.postUsageAction = undefined;
+    consentForm.selectedSharingDurations = undefined;
+    consentForm.sharingEndDate = undefined;
+    consentForm.useCaseId = undefined;
   };
 
   return (
@@ -49,11 +60,7 @@ export const UseCaseStep = (props: UseCaseStepProps) => {
         </>
       )}
       {!isLoading && (
-        <RadioButtonWithText
-          radioButtonItems={radioButtonItems}
-          onChange={handleRadioCheck}
-          defaultValue={consentForm.useCaseId}
-        />
+        <RadioButtonWithText radioButtonItems={radioButtonItems} onChange={handleRadioCheck} defaultValue={useCaseId} />
       )}
     </Box>
   );
