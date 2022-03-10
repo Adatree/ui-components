@@ -23,7 +23,6 @@ const baseConsentFormValues = {
   accessFrequency: AccessFrequency.ONCEOFF,
   checkedScopes: [],
   dataHolder: TestUtil.testData.dataHolder.redBank(),
-  sharingDurations: [],
   selectedSharingDurations: SharingDuration.ONCEOFF,
   postUsageAction: PostUsageAction.DELETION,
   sharingEndDate: new Date(),

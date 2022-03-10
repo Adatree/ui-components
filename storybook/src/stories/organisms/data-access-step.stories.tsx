@@ -22,7 +22,7 @@ const testConsentFormWithSelectedValues = {
   selectedSharingDurations: SharingDuration.THREEMONTHS,
   postUsageAction: PostUsageAction.DEIDENTIFICATION,
   sharingEndDate: new Date(),
-  useCaseId: TestUtil.testData.useCase.homeLoan().id,
+  useCaseId: TestUtil.testData.useCase.ongoingConsentMinScopes().id,
 };
 
 export default {
@@ -69,7 +69,7 @@ WithValuesSelected.decorators = [
 ];
 WithValuesSelected.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -81,9 +81,7 @@ export const WithOnceOffSharingDurationOnly = Template.bind({});
 WithOnceOffSharingDurationOnly.decorators = [
   (Story) => {
     return (
-      <ConsentFormProvider
-        initialValues={{ ...testConsentFormWithUnselectedValues, sharingDurations: [SharingDuration.ONCEOFF] }}
-      >
+      <ConsentFormProvider>
         <Story />
       </ConsentFormProvider>
     );
@@ -91,7 +89,7 @@ WithOnceOffSharingDurationOnly.decorators = [
 ];
 WithOnceOffSharingDurationOnly.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.openEnergyLite(),
+  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },
@@ -103,9 +101,7 @@ export const WithCustomSharingDurationOnly = Template.bind({});
 WithCustomSharingDurationOnly.decorators = [
   (Story) => {
     return (
-      <ConsentFormProvider
-        initialValues={{ ...testConsentFormWithUnselectedValues, sharingDurations: [SharingDuration.CUSTOM] }}
-      >
+      <ConsentFormProvider>
         <Story />
       </ConsentFormProvider>
     );
@@ -113,7 +109,7 @@ WithCustomSharingDurationOnly.decorators = [
 ];
 WithCustomSharingDurationOnly.args = {
   companyName: 'Adatree',
-  useCase: TestUtil.testData.useCase.homeLoan(),
+  useCase: TestUtil.testData.useCase.openEnergyLite(),
   isValid: (isValid) => {
     Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
   },

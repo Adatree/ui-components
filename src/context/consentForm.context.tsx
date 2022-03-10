@@ -4,7 +4,6 @@ import { DataHolder, PostUsageAction, SharingDuration } from '../generated/conse
 type ConsentForm = {
   checkedScopes: string[];
   dataHolder: DataHolder | undefined;
-  sharingDurations: SharingDuration[];
   selectedSharingDurations: SharingDuration | undefined;
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date | undefined;
@@ -31,7 +30,6 @@ type ConsentFormProviderProps = {
 const ConsentFormDefaultValues: ConsentForm = {
   checkedScopes: [],
   dataHolder: undefined,
-  sharingDurations: [],
   selectedSharingDurations: undefined,
   postUsageAction: undefined,
   sharingEndDate: undefined,
