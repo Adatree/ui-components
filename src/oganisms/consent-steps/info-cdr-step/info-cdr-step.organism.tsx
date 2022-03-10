@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Div = styled('div')({
@@ -25,9 +25,9 @@ export const InfoCdrStep = (props: InfoCDRProps) => {
 
       <Typography sx={{ mb: 2 }}>
         You can connect us with your bank via the{' '}
-        <Link sx={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
+        <a style={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
           Consumer Data Right
-        </Link>
+        </a>
         . It's quick, safe, accurate and Government regulated.
       </Typography>
 
@@ -48,9 +48,9 @@ export const InfoCdrStep = (props: InfoCDRProps) => {
       </Typography>
       <Typography className="margin-bt-md">
         Learn more about this on{' '}
-        <Link style={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
+        <a style={{ textDecoration: 'underline' }} href="https://www.cdr.gov.au/">
           cdr.gov.au
-        </Link>
+        </a>
       </Typography>
     </section>
   );
