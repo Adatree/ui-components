@@ -33,7 +33,7 @@ export const InfoCdrStep = (props: InfoCDRProps) => {
 
       <Div sx={{ mb: 2, gridGap: { xs: '0 10px', md: '0 20px', lg: '0 50px' } }}>
         <img
-          src="https://adatree-prod.dashboard.adatree.com.au/images/consumer-data-right.png"
+          src="https://design.adatree.com.au/assets/images/consumer-data-right.png"
           style={{ width: '100%' }}
           alt="Consumer Data Right Adatree Pty Ltd Accredited Data Recipient ADRBNK000071"
         />
