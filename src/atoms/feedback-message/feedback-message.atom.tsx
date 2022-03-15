@@ -12,7 +12,7 @@ export const FeedbackMessage: React.FC<FeedbackMessageProps> = (props: FeedbackM
   const { message, icon, children, showSpinner = false } = props;
   return (
     <Box sx={{ p: 2, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      {showSpinner && <CircularProgress sx={{ m: 1, color: 'secondary.main' }} aria-label="Loading" />}
+      {showSpinner && <CircularProgress sx={{ m: 1, color: 'primary.main' }} aria-label="Loading" />}
       {!showSpinner && icon}
       <Typography variant="body1" sx={{ m: 3 }}>
         {message}

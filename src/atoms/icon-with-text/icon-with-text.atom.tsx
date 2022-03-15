@@ -30,25 +30,25 @@ export const IconWithText: React.FC<IconWithTextProps> = (props) => {
     switch (icon) {
       case 'CheckboxMultipleMarked':
         altText = 'Multiple checkboxes marked icon';
-        return <CheckboxMultipleMarked color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <CheckboxMultipleMarked color="primary" style={{ fontSize: iconFontSize }} />;
       case 'BankCheck':
         altText = 'Bank checked icon';
-        return <BankCheck color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <BankCheck color="primary" style={{ fontSize: iconFontSize }} />;
       case 'Connection':
         altText = 'Plug connection icon';
-        return <Connection color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <Connection color="primary" style={{ fontSize: iconFontSize }} />;
       case 'CloudLock':
         altText = 'Secure cloud icon';
-        return <CloudLock color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <CloudLock color="primary" style={{ fontSize: iconFontSize }} />;
       case 'Tablet':
         altText = 'Tablet icon';
-        return <Tablet color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <Tablet color="primary" style={{ fontSize: iconFontSize }} />;
       case 'BankRemove':
         altText = 'BankRemove';
-        return <BankRemove color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <BankRemove color="primary" style={{ fontSize: iconFontSize }} />;
       case 'BankTransferOut':
         altText = 'BankTransferOut';
-        return <BankTransferOut color="secondary" style={{ fontSize: iconFontSize }} />;
+        return <BankTransferOut color="primary" style={{ fontSize: iconFontSize }} />;
     }
   };
 

@@ -47,7 +47,7 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
                   width: '100%',
                 }}
                 value={item.value}
-                control={<Radio disabled={disabled} color="secondary" />}
+                control={<Radio disabled={disabled} color="primary" />}
                 label={<Typography variant="h3">{item.label}</Typography>}
                 labelPlacement="start"
               />

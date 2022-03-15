@@ -55,7 +55,6 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
                 checked={isChecked}
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
-                color="secondary"
               />
             }
           />
@@ -69,7 +68,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
 
         {items && items.length > 0 && (
           <Box sx={{ pl: 1 }}>
-            <Link href="#" onClick={toggleAccordion} sx={{ display: 'block', mt: 3 }}>
+            <Link href="#" onClick={toggleAccordion} sx={{ display: 'block', mt: 3 }} color="inherit">
               {isOpen ? closeLabel : openLabel}
             </Link>
             {isOpen && (

@@ -19,7 +19,7 @@ const iconFontSize = '56px';
 
 export const IconOnly = Template.bind({});
 IconOnly.args = {
-  icon: <Check sx={{ fontSize: iconFontSize, color: 'secondary.main' }} />,
+  icon: <Check sx={{ fontSize: iconFontSize, color: 'primary.main' }} />,
 };
 
 export const MessageOnly = Template.bind({});
@@ -36,7 +36,7 @@ MessageWithSpinner.args = {
 export const MessageWithIcon = Template.bind({});
 MessageWithIcon.args = {
   message: 'Congratulation the process was successful',
-  icon: <Check sx={{ fontSize: iconFontSize, color: 'secondary.main' }} />,
+  icon: <Check sx={{ fontSize: iconFontSize, color: 'primary.main' }} />,
 };
 
 export const MessageWithErrorIcon = Template.bind({});
@@ -48,6 +48,6 @@ MessageWithErrorIcon.args = {
 export const MessageWithChildren = Template.bind({});
 MessageWithChildren.args = {
   message: 'Congratulation the process was successful',
-  icon: <Check sx={{ fontSize: iconFontSize, color: 'secondary.main' }} />,
+  icon: <Check sx={{ fontSize: iconFontSize, color: 'primary.main' }} />,
   children: <Typography>This is some extra information to display.</Typography>,
 };

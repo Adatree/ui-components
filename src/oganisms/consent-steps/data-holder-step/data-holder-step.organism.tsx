@@ -66,8 +66,11 @@ export const DataHolderStep = (props: DataHolderStepProps) => {
         <>
           {dataHolders.map((dataHolder) => (
             <Typography sx={{ m: 2 }} key={dataHolder.dataHolderBrandId}>
-              You already have an active <Link href={`${consentUrl}`}>{useCase.name}</Link> consent with{' '}
-              {dataHolder.brandName}.
+              You already have an active{' '}
+              <Link href={`${consentUrl}`} color="inherit">
+                {useCase.name}
+              </Link>{' '}
+              consent with {dataHolder.brandName}.
             </Typography>
           ))}
         </>

@@ -41,7 +41,7 @@ export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
         <DialogContent>
           {isLoading && (
             <Box sx={{ top: 'calc(50% - 30px)', position: 'absolute', left: 'calc(50% - 30px)' }}>
-              <CircularProgress sx={{ m: 1, color: 'secondary.main' }} aria-label="Loading" size={60} />
+              <CircularProgress sx={{ m: 1, color: 'primary.main' }} aria-label="Loading" size={60} />
             </Box>
           )}
 
@@ -58,14 +58,14 @@ export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
       </>
 
       <DialogActions sx={{ p: 2 }}>
-        <Button onClick={handleRevokeDialogClose} disabled={isLoading}>
+        <Button onClick={handleRevokeDialogClose} disabled={isLoading} color="inherit">
           Cancel
         </Button>
         <Button
           onClick={handleRevokeDialogButtonClick}
           autoFocus
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={isLoading}
         >
           Revoke

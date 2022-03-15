@@ -42,11 +42,11 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
 
   return (
     <Box>
-      <AppBar position="static" color="secondary">
+      <AppBar position="static" color="primary">
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
+          indicatorColor="secondary"
           textColor="inherit"
           variant="fullWidth"
           aria-label="Consent tabs"

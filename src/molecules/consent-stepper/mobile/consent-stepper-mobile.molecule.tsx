@@ -60,17 +60,17 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
       <MobileStepper
         variant="progress"
         activeStep={activeStep}
-        color="secondary"
+        color="primary"
         sx={{
           '& .MuiLinearProgress-root .MuiLinearProgress-bar ': {
-            backgroundColor: 'secondary.main',
+            backgroundColor: 'primary.main',
           },
         }}
         steps={steps.length}
         nextButton={
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             size="small"
             onClick={() => {
               handleOnNext(steps[activeStep]);
@@ -86,6 +86,7 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
             onClick={() => {
               handleOnPrevious(steps[activeStep]);
             }}
+            color="inherit"
             disabled={activeStep === 0}
           >
             Back

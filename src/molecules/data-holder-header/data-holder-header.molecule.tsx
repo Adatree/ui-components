@@ -90,13 +90,13 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
             {isExtendable && (
               <Tooltip title="Extend Data Sharing Period">
                 <IconButton href={extendableUrl} sx={{ mr: 1 }}>
-                  <Calendar color="secondary" />
+                  <Calendar color="primary" />
                 </IconButton>
               </Tooltip>
             )}
             <Tooltip title="Revoke Data Access">
               <IconButton onClick={handleonRevokeClick} sx={{ mr: 1 }}>
-                <Delete color="secondary" />
+                <Delete color="primary" />
               </IconButton>
             </Tooltip>
           </>
