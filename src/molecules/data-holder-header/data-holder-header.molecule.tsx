@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Chip, IconButton, styled, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Chip, IconButton, Link, styled, Tooltip, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import Bank from 'mdi-material-ui/Bank';
@@ -89,9 +89,11 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
           <>
             {isExtendable && (
               <Tooltip title="Extend Data Sharing Period">
-                <IconButton href={extendableUrl} sx={{ mr: 1 }}>
-                  <Calendar color="primary" />
-                </IconButton>
+                <Link href={extendableUrl}>
+                  <IconButton sx={{ mr: 1 }}>
+                    <Calendar color="primary" />
+                  </IconButton>
+                </Link>
               </Tooltip>
             )}
             <Tooltip title="Revoke Data Access">
