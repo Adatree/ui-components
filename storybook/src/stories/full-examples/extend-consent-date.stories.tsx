@@ -6,6 +6,7 @@ import {
   ExtendConsentDateStep,
   InfoExtendDateStep,
   InfoCdrStep,
+  Logger,
   PostUsageAction,
   SharingDuration,
   TestUtil,
@@ -14,7 +15,7 @@ import {
 } from '../../lib';
 
 export default {
-  title: 'Full examples/Extend date',
+  title: 'Full examples/Extend consent date',
   component: ConsentStepperResponsive,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -63,7 +64,9 @@ ExtendDate.args = {
           <ExtendConsentDateStep
             companyName={'Adatree'}
             useCase={TestUtil.testData.useCase.homeLoan()}
-            onDateChange={(): void => {}}
+            isValid={(isValid) => {
+              Logger.info(`This step is ${isValid ? '' : 'not '}valid`);
+            }}
           />
         </>
       ),

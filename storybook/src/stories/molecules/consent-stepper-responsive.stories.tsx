@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentStepperResponsive } from '../../lib';
 
 export default {
-  title: 'Full examples/Stepper',
+  title: 'Components/Molecules/Stepper',
   component: ConsentStepperResponsive,
   argTypes: {
     backgroundColor: { control: 'color' },

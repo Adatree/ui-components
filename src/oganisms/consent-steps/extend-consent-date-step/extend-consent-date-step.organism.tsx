@@ -10,11 +10,11 @@ import { DateButton } from '../../../atoms/date-button/date-button.atom';
 export type ExtendConsentDateStepProps = {
   companyName: string;
   useCase: UseCaseResponse;
-  onDateChange: () => void;
+  isValid: (isValid: boolean) => void;
 };
 
 export const ExtendConsentDateStep = (props: ExtendConsentDateStepProps) => {
-  const { companyName, useCase, onDateChange } = props;
+  const { companyName, useCase, isValid } = props;
   const [consentForm, setConsentForm] = useConsentForm();
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
   const [sharingDurations] = useState(useCase.sharingDurations ?? []);
@@ -34,7 +34,11 @@ export const ExtendConsentDateStep = (props: ExtendConsentDateStepProps) => {
     setSelectedSharingDurations(selectedSharingDuration);
     setConsentForm({ ...consentForm });
     setSharingEndDate(date);
-    onDateChange();
+    isStepValid();
+  };
+
+  const isStepValid = () => {
+    isValid(!!consentForm.selectedSharingDurations);
   };
 
   return (

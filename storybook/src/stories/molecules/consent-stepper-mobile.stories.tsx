@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentStepperMobile } from '../../lib';
 
 export default {
-  title: 'Full examples/Stepper',
+  title: 'Components/Molecules/Stepper',
   component: ConsentStepperMobile,
   argTypes: {
     backgroundColor: { control: 'color' },
