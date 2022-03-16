@@ -11,16 +11,32 @@ export type ConsentDetailsProps = {
   dataHolderLogoUrl: string;
   dateTitle: string;
   useCasetTitle: string;
+  isExtendable?: boolean;
+  extendableUrl?: string;
   onRevokeClick: () => void;
 };
 
 export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
-  const { consent, dataHolderLogoUrl, dateTitle, useCasetTitle, onRevokeClick } = props;
+  const {
+    consent,
+    dataHolderLogoUrl,
+    dateTitle,
+    useCasetTitle,
+    isExtendable = false,
+    extendableUrl,
+    onRevokeClick,
+  } = props;
 
   return (
     <>
       <Box sx={{ mb: 4 }}>
-        <DataHolderHeader consent={consent} onRevokeClick={onRevokeClick} dataHolderLogoUrl={dataHolderLogoUrl} />
+        <DataHolderHeader
+          consent={consent}
+          onRevokeClick={onRevokeClick}
+          dataHolderLogoUrl={dataHolderLogoUrl}
+          isExtendable={isExtendable}
+          extendableUrl={extendableUrl}
+        />
       </Box>
 
       {consent.useCase && <UseCaseSummary title={useCasetTitle} useCase={consent.useCase} />}
