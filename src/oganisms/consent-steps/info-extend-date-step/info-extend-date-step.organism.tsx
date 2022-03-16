@@ -16,6 +16,10 @@ export const InfoExtendDateStep = () => {
 
   return (
     <section>
+      <Typography variant="h2" sx={{ mb: 3 }}>
+        How it works
+      </Typography>
+
       <Typography variant="body1" sx={{ mb: 3 }}>
         To extend your data sharing period, we'll ask you to:
       </Typography>

@@ -25,6 +25,7 @@ export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.mo
 
 // Organisms
 export { DataAccessStep } from './oganisms/consent-steps/data-access-step/data-access-step.organism';
+export { ExtendConsentDateStep } from './oganisms/consent-steps/extend-consent-date-step/extend-consent-date-step-dates.organism';
 export { DataHolderStep } from './oganisms/consent-steps/data-holder-step/data-holder-step.organism';
 export { InfoCdrStep } from './oganisms/consent-steps/info-cdr-step/info-cdr-step.organism';
 export { InfoHowItWorksStep } from './oganisms/consent-steps/info-how-it-works-step/info-how-it-works-step.organism';
