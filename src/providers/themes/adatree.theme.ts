@@ -12,35 +12,14 @@ export const adatreeTheme = {
       main: '#021C55',
       dark: '#00002c',
     },
-    highlight: {
-      light: '#f2f2f2',
-      main: '#e6e6e6',
-      dark: '#d9d9d9',
-    },
-    shadow: {
-      light: '#404040',
-      main: '#262626',
-      dark: '#0d0d0d',
-    },
-    monochrome: {
-      light: '#ffffff',
-      main: '#808080',
-      dark: '#000000',
-    },
-    neutral: {
-      light: '#efefef',
-      main: '#bdbdbd',
-      dark: '#8d8d8d',
+    hover: {
+      main: '#E8E8E8',
     },
     typography: {
-      light: '#757575',
-      main: '#3D3D3D',
-      dark: '#292929',
+      light: '#f7f7f7',
+      main: '#212121',
+      dark: '#212121',
     },
-    active: {
-      main: '#4CAF50',
-    },
-    success: '#37863D',
   },
   font: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',

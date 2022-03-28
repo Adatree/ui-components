@@ -8,7 +8,7 @@ import Calendar from 'mdi-material-ui/Calendar';
 
 const _Chip = styled(Chip)`
   ${({ theme }) => `
-    color: ${theme.palette.highlight.light};
+    color: ${theme.palette.typography.light};
     font-weight: 600;
     text-transform: lowercase;
 

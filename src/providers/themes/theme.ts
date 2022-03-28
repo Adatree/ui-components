@@ -4,15 +4,11 @@ import { createTheme as MuiCreateTheme, PaletteOptions, Theme, ThemeOptions } fr
 
 declare module '@mui/material/styles/createPalette' {
   interface Palette {
-    highlight: Palette['primary'];
-    shadow: Palette['primary'];
-    monochrome: Palette['primary'];
+    hover: Palette['primary'];
     typography: Palette['primary'];
   }
   interface PaletteOptions {
-    highlight: PaletteOptions['primary'];
-    shadow: PaletteOptions['primary'];
-    monochrome: PaletteOptions['primary'];
+    hover: PaletteOptions['primary'];
     typography: PaletteOptions['primary'];
   }
 }
@@ -26,12 +22,7 @@ const palette: PaletteOptions = {
   secondary: {
     main: appTheme.colour.secondary.main,
   },
-  success: {
-    main: appTheme.colour.success,
-  },
-  highlight: appTheme.colour.highlight,
-  shadow: appTheme.colour.shadow,
-  monochrome: appTheme.colour.monochrome,
+  hover: appTheme.colour.hover,
   typography: appTheme.colour.typography,
 };
 
@@ -47,6 +38,10 @@ export const createTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
       // Useful to set the 10px simplification, remember to set "font-size:62.5%" on the html element
       // https://www.sitepoint.com/understanding-and-using-rem-units-in-css/
       htmlFontSize: appTheme.font.baseHtmlFontSize,
+
+      allVariants: {
+        color: appTheme.colour.typography.main,
+      },
 
       h1: {
         fontSize: '3rem',
@@ -91,9 +86,6 @@ export const createTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
         fontSize: '1.6rem',
         letterSpacing: '0.1px',
         lineHeight: '1.4',
-      },
-      button: {
-        color: appTheme.colour.secondary.main,
       },
     },
 

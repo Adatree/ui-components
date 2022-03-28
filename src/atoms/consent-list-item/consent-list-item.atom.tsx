@@ -32,7 +32,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   }
 
   return (
-    <ListItem secondaryAction={<ChevronRight />} disablePadding>
+    <ListItem secondaryAction={<ChevronRight />} disablePadding sx={{ '&:hover': { backgroundColor: 'hover.main' } }}>
       <Button
         href={consentUrl}
         sx={{

@@ -26,7 +26,7 @@ export const SectionCard: React.FC<SectionCardProps> = (props) => {
               componentsProps={{
                 tooltip: {
                   sx: {
-                    color: 'typography.dark',
+                    color: 'typography.light',
                     backgroundColor: 'highlight.light',
                     border: '1px solid',
                     borderColor: 'shadow.light',

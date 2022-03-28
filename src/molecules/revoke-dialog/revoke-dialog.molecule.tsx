@@ -47,7 +47,7 @@ export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
 
           <DialogContentText
             id="alert-dialog-description"
-            sx={{ visibility: isLoading === true ? 'hidden' : 'visible' }}
+            sx={{ visibility: isLoading === true ? 'hidden' : 'visible', color: 'typography.dark' }}
           >
             {`Revoking access will ensure that we are no longer able to receive your data from ${dataHolderName}.
     Any revocation will take impact immediately. If you revoke consent, our service to you may be impacted. If

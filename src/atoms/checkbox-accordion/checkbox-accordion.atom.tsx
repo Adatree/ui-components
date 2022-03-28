@@ -47,7 +47,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
               justifyContent: 'space-between',
               ml: 0,
               pl: 1,
-              '&:hover': { backgroundColor: 'highlight.light' },
+              '&:hover': { backgroundColor: 'hover.main' },
             }}
             control={
               <Checkbox
