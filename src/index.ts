@@ -10,6 +10,7 @@ export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom'
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
 export { SectionCard } from './atoms/section-card/section-card.atom';
+export { Tooltip } from './atoms/tooltip/tooltip.atom';
 
 // Molecules
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
