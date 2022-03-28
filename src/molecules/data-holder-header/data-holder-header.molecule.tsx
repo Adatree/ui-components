@@ -1,10 +1,11 @@
 import React from 'react';
-import { Avatar, Box, Chip, IconButton, Link, styled, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Chip, IconButton, Link, styled, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import Bank from 'mdi-material-ui/Bank';
 import Delete from 'mdi-material-ui/Delete';
 import Calendar from 'mdi-material-ui/Calendar';
+import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 
 const _Chip = styled(Chip)`
   ${({ theme }) => `
@@ -88,19 +89,25 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
         {consent.status === Status.ACTIVE && (
           <>
             {isExtendable && (
-              <Tooltip title="Extend Data Sharing Period">
-                <Link href={extendableUrl}>
-                  <IconButton sx={{ mr: 1 }}>
-                    <Calendar color="primary" />
-                  </IconButton>
-                </Link>
-              </Tooltip>
+              <Tooltip
+                content="Extend Data Sharing Period"
+                title={
+                  <Link href={extendableUrl} sx={{ display: 'inline-block' }}>
+                    <IconButton sx={{ mr: 1 }}>
+                      <Calendar color="primary" />
+                    </IconButton>
+                  </Link>
+                }
+              />
             )}
-            <Tooltip title="Revoke Data Access">
-              <IconButton onClick={handleonRevokeClick} sx={{ mr: 1 }}>
-                <Delete color="primary" />
-              </IconButton>
-            </Tooltip>
+            <Tooltip
+              content="Revoke Data Access"
+              title={
+                <IconButton onClick={handleonRevokeClick} sx={{ mr: 1 }}>
+                  <Delete color="primary" />
+                </IconButton>
+              }
+            />
           </>
         )}
         <_Chip label={consent.status} size="small" className={consent.status?.toLowerCase()} />

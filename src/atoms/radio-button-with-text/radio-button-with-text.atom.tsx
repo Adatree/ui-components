@@ -43,7 +43,7 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
                   m: 0,
                   pl: 1,
                   justifyContent: 'space-between',
-                  '&:hover': { backgroundColor: 'highlight.light' },
+                  '&:hover': { backgroundColor: 'hover.main' },
                   width: '100%',
                 }}
                 value={item.value}

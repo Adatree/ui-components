@@ -14,19 +14,16 @@ const Template: ComponentStory<typeof Tooltip> = (args) => <Tooltip {...args} />
 
 export const WithInfoIconTitle = Template.bind({});
 WithInfoIconTitle.args = {
-  content: (
-    <>
-      <p>This Tooltip uses the Info Icon</p>
-    </>
-  ),
+  content: 'This Tooltip uses the Info Icon',
+};
+
+export const WithCustomContent = Template.bind({});
+WithCustomContent.args = {
+  content: <h1>This Tooltip content is a H1</h1>,
 };
 
 export const WithCustomTitle = Template.bind({});
 WithCustomTitle.args = {
-  content: (
-    <>
-      <p>This Tooltip uses the a custom title</p>
-    </>
-  ),
+  content: 'This Tooltip uses the a custom title',
   title: <span>This is a custom tooltip title</span>,
 };

@@ -81,13 +81,13 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
           subtitle={`What should ${companyName} do with your redundant data at consent expiry or withdrawal?`}
           tooltip={
             <>
-              <Typography sx={{ mb: 1 }}>
+              <Typography sx={{ mb: 1, color: 'inherit' }}>
                 This option determines what {companyName} will do with your data at consent expiry or withdrawal.
               </Typography>
-              <Typography sx={{ mb: 1 }}>
+              <Typography sx={{ mb: 1, color: 'inherit' }}>
                 <strong>Delete</strong>: We will Delete your data at consent expiry or withdrawal.
               </Typography>
-              <Typography sx={{ mb: 1 }}>
+              <Typography sx={{ mb: 1, color: 'inherit' }}>
                 <strong>De-identify</strong>: We will De-identify your data at consent expiry or withdrawal.
               </Typography>
             </>

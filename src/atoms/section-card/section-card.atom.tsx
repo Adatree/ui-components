@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
-import { Box, Card, CardContent, Skeleton, Tooltip, Typography } from '@mui/material';
-import InfoIcon from 'mdi-material-ui/InformationOutline';
+import { Box, Card, CardContent, Skeleton, Typography } from '@mui/material';
+import { Tooltip } from '../tooltip/tooltip.atom';
 
 export type SectionCardProps = {
   title: string;
   subtitle: string;
   content: ReactElement;
-  tooltip?: ReactElement;
+  tooltip?: ReactElement | string;
 };
 export const SectionCard: React.FC<SectionCardProps> = (props) => {
   const { title, subtitle, content, tooltip } = props;
@@ -20,23 +20,7 @@ export const SectionCard: React.FC<SectionCardProps> = (props) => {
       {subtitle ? (
         <Box sx={{ mb: 4, display: 'flex' }}>
           <Typography>{subtitle}</Typography>
-          {tooltip && (
-            <Tooltip
-              title={<>{tooltip}</>}
-              componentsProps={{
-                tooltip: {
-                  sx: {
-                    color: 'typography.light',
-                    backgroundColor: 'highlight.light',
-                    border: '1px solid',
-                    borderColor: 'shadow.light',
-                  },
-                },
-              }}
-            >
-              <InfoIcon sx={{ ml: 1, pb: '2px', cursor: 'pointer', color: '#08A4E4' }} />
-            </Tooltip>
-          )}
+          {tooltip && <Tooltip content={tooltip} />}
         </Box>
       ) : (
         <Skeleton sx={{ mb: 4 }} variant="text" />

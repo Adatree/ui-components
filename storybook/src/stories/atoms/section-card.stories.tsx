@@ -27,11 +27,7 @@ export const WithTooltip = Template.bind({});
 WithTooltip.args = {
   title: 'Data retention',
   subtitle: 'What should Adatree do with your redundant data at consent expiry or withdrawal?',
-  tooltip: (
-    <>
-      <p>Some tooltip</p>
-    </>
-  ),
+  tooltip: 'Some tooltip',
   content: (
     <>
       <p>Some content</p>

@@ -48,14 +48,14 @@ export const ExtendConsentDateStep = (props: ExtendConsentDateStepProps) => {
         subtitle={`How long do you want ${companyName} to be able to access your data?`}
         tooltip={
           <>
-            <Typography sx={{ mb: 1 }}>
+            <Typography sx={{ mb: 1, color: 'inherit' }}>
               This option determines how long {companyName} will be able to request and use your data
             </Typography>
-            <Typography sx={{ mb: 1 }}>
+            <Typography sx={{ mb: 1, color: 'inherit' }}>
               <strong>Once-off</strong>: {companyName} will be able to request and use your data only once. After the
               initial load of your data {companyName} will not be able to request fresh data from your bank.
             </Typography>
-            <Typography sx={{ mb: 1 }}>
+            <Typography sx={{ mb: 1, color: 'inherit' }}>
               <strong>Ongoing</strong>: {companyName} will be able to request and use your data up to a period of 12
               months. During this period we may access your data multiple times per day.
             </Typography>
