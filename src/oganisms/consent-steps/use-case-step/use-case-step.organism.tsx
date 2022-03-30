@@ -48,9 +48,8 @@ export const UseCaseStep = (props: UseCaseStepProps) => {
   return (
     <Box>
       <Typography variant="h2" sx={{ mb: 3 }}>
-        Choose a service
+        Choose a use case
       </Typography>
-      <Typography sx={{ mb: 2 }}>Which service would you like to use?</Typography>
 
       {isLoading && (
         <>
