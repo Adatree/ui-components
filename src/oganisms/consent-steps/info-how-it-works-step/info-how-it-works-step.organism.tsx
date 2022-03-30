@@ -44,7 +44,7 @@ export const InfoHowItWorksStep = (props: InfoHowItWorksStepProps) => {
             <ListItemIcon>
               <Connection color="primary" />
             </ListItemIcon>
-            <ListItemText primary="We securely connect to your bank securely using Open Banking." />
+            <ListItemText primary="We securely connect to your bank and retrieve your data." />
           </ListItem>
         </List>
       </section>
