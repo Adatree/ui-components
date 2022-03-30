@@ -94,12 +94,6 @@ export const ReviewStep = (props: ReviewStepProps) => {
       <Typography sx={{ mt: 3 }}>
         When you consent you will be taken to {brandName} to confirm you want to share your data with us.
       </Typography>
-
-      <Typography variant="body2" sx={{ mt: 2 }}>
-        Consent may be revoked at any time for us to receive your data, either through our consent dashboard, from{' '}
-        {brandName}&apos;s consent dashboard, or in writing to either party. If you revoke consent, the services we
-        offer may cease to provide you with benefits.
-      </Typography>
     </Box>
   );
 };

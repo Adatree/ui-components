@@ -22,7 +22,7 @@ export const InfoHowItWorksStep = (props: InfoHowItWorksStepProps) => {
   return (
     <>
       <section>
-        <Typography variant="h2" sx={{ mb: 3 }}>
+        <Typography variant="h2" sx={{ mb: 2 }}>
           How data sharing works
         </Typography>
         <List>
@@ -49,7 +49,7 @@ export const InfoHowItWorksStep = (props: InfoHowItWorksStepProps) => {
         </List>
       </section>
       <section>
-        <Typography variant="h2" sx={{ mb: 3, mt: 3 }}>
+        <Typography variant="h2" sx={{ mb: 2, mt: 2 }}>
           Key things you should know
         </Typography>
         <List>
@@ -76,7 +76,7 @@ export const InfoHowItWorksStep = (props: InfoHowItWorksStepProps) => {
                 <Typography>
                   You can stop sharing data at any time by clicking the revoke button in the consent record. You can
                   also write to us at{' '}
-                  <Link href={`mailto:${dataSharingRevocationEmail}`}>{dataSharingRevocationEmail}</Link>. 
+                  <a target="_blank" href={`mailto:${dataSharingRevocationEmail}`}>{dataSharingRevocationEmail}</a>. 
                 </Typography>
               }
             />
@@ -104,7 +104,7 @@ export const InfoHowItWorksStep = (props: InfoHowItWorksStepProps) => {
               primary={
                 <Typography>
                   Find out more information on how we handle your data in our easy to read{' '}
-                  <Link href={`${cdrPolicyUrl}`}>CDR Policy</Link>.
+                  <a target="_blank" href={`${cdrPolicyUrl}`}>CDR Policy</a>.
                 </Typography>
               }
             />
