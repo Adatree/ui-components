@@ -25,7 +25,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
   );
   const [postActionIcon] = useState(
-    consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? <Incognito /> : <DeleteCircle />,
+    consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? <Incognito color="primary" /> : <DeleteCircle color="primary" />,
   );
   const [sharindEndDate] = useState(
     consentForm.selectedSharingDurations === SharingDuration.ONCEOFF
@@ -49,21 +49,21 @@ export const ReviewStep = (props: ReviewStepProps) => {
       <List>
         <ListItem>
           <ListItemIcon>
-            <Bank />
+            <Bank color="primary" />
           </ListItemIcon>
           <ListItemText primary={`Your bank is ${brandName}`} />
         </ListItem>
 
         <ListItem>
           <ListItemIcon>
-            <CloudUpload />
+            <CloudUpload color="primary" />
           </ListItemIcon>
           <ListItemText primary={`Data sharing will be ${dateDurationText}`} />
         </ListItem>
 
         <ListItem>
           <ListItemIcon>
-            <Calendar />
+            <Calendar color="primary" />
           </ListItemIcon>
           <ListItemText primary={`Sharing ends ${sharindEndDate}`} />
         </ListItem>
@@ -75,7 +75,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
 
         <ListItem alignItems="flex-start">
           <ListItemIcon>
-            <CheckboxMultipleMarked />
+            <CheckboxMultipleMarked color="primary" />
           </ListItemIcon>
           <Box>
             <ListItemText primary="You are sharing:" />
@@ -92,12 +92,12 @@ export const ReviewStep = (props: ReviewStepProps) => {
       </List>
 
       <Typography sx={{ mt: 3 }}>
-        When you consent you will be taken to {brandName} to confirm you want to share your bank information with us.
+        When you consent you will be taken to {brandName} to confirm you want to share your data with us.
       </Typography>
 
       <Typography variant="body2" sx={{ mt: 2 }}>
-        Consent may be withdrawn at any time for us to receive your data, either through our consent dashboard, from{' '}
-        {brandName}&apos;s consent dashboard, or in writing to either party. If you withdraw consent, the services we
+        Consent may be revoked at any time for us to receive your data, either through our consent dashboard, from{' '}
+        {brandName}&apos;s consent dashboard, or in writing to either party. If you revoke consent, the services we
         offer may cease to provide you with benefits.
       </Typography>
     </Box>

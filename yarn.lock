@@ -2998,10 +2998,10 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-mdi-material-ui@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-7.1.0.tgz#58213ccf7d5a9175e4135e831b8aa5987ce593ab"
-  integrity sha512-mm0oFn1kwi64s4EZ8IDAg4TGE2BGu57KyOKe5j0+7zKAFBpm4UyAE43lffsyh0OOMyqskd7PMvIN2fNgft3Z7w==
+mdi-material-ui@7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-7.2.0.tgz#e4746b123fd3a438b1cde39eb44329a4c761162d"
+  integrity sha512-tJnT4fY+gJmlq/wt4GYCV5qezOs/cuSysg6N3KRkl2/8dSpyZsL/P5lN4UWZ2ayViwhoRUHns/FCKFnMngJd0g==
 
 merge-stream@^2.0.0:
   version "2.0.0"
