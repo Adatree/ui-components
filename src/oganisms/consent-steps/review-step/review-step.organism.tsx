@@ -5,11 +5,12 @@ import CheckboxMultipleMarked from 'mdi-material-ui/CheckboxMultipleMarked';
 import Incognito from 'mdi-material-ui/Incognito';
 import DeleteCircle from 'mdi-material-ui/Delete';
 import CloudUpload from 'mdi-material-ui/CloudUpload';
-import { Typography, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
+import { Typography, List, Box } from '@mui/material';
 import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Formatter } from '../../../utils/formatter/formater';
 import { Helper } from '../../../utils/helper/helper';
+import { IconListItem } from '../../../atoms/icon-list-item/icon-list-item.atom';
 
 export type ReviewStepProps = {
   useCase: UseCaseResponse;
@@ -25,7 +26,11 @@ export const ReviewStep = (props: ReviewStepProps) => {
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
   );
   const [postActionIcon] = useState(
-    consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? <Incognito color="primary" /> : <DeleteCircle color="primary" />,
+    consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? (
+      <Incognito color="primary" />
+    ) : (
+      <DeleteCircle color="primary" />
+    ),
   );
   const [sharindEndDate] = useState(
     consentForm.selectedSharingDurations === SharingDuration.ONCEOFF
@@ -46,49 +51,32 @@ export const ReviewStep = (props: ReviewStepProps) => {
       <Typography variant="h2" sx={{ mb: 3 }}>
         Summary
       </Typography>
+
       <List>
-        <ListItem>
-          <ListItemIcon>
-            <Bank color="primary" />
-          </ListItemIcon>
-          <ListItemText primary={`Your bank is ${brandName}`} />
-        </ListItem>
-
-        <ListItem>
-          <ListItemIcon>
-            <CloudUpload color="primary" />
-          </ListItemIcon>
-          <ListItemText primary={`Data sharing will be ${dateDurationText}`} />
-        </ListItem>
-
-        <ListItem>
-          <ListItemIcon>
-            <Calendar color="primary" />
-          </ListItemIcon>
-          <ListItemText primary={`Sharing ends ${sharindEndDate}`} />
-        </ListItem>
-
-        <ListItem>
-          <ListItemIcon>{postActionIcon}</ListItemIcon>
-          <ListItemText primary={`The data you share will be ${postActionText} when we're finished`} />
-        </ListItem>
-
-        <ListItem alignItems="flex-start">
-          <ListItemIcon>
-            <CheckboxMultipleMarked color="primary" />
-          </ListItemIcon>
-          <Box>
-            <ListItemText primary="You are sharing:" />
-            <ul className="list">
-              {useCase.scopes &&
-                useCase.scopes.map((scope) => (
-                  <li key={scope.id}>
-                    <Typography variant="body2">{scope.name}</Typography>
-                  </li>
-                ))}
-            </ul>
-          </Box>
-        </ListItem>
+        <IconListItem icon={<Bank color="primary" />} content={`Your bank is ${brandName}`} />
+        <IconListItem icon={<CloudUpload color="primary" />} content={`Data sharing will be ${dateDurationText}`} />
+        <IconListItem icon={<Calendar color="primary" />} content={`Sharing ends ${sharindEndDate}`} />
+        <IconListItem
+          icon={postActionIcon}
+          content={`The data you share will be ${postActionText} when we're finished`}
+        />
+        <IconListItem
+          alignIcon="flex-start"
+          icon={<CheckboxMultipleMarked color="primary" />}
+          content={
+            <>
+              <Typography sx={{ mb: 0.5 }}>You are sharing:</Typography>
+              <ul className="list">
+                {useCase.scopes &&
+                  useCase.scopes.map((scope) => (
+                    <li key={scope.id}>
+                      <Typography variant="body2">{scope.name}</Typography>
+                    </li>
+                  ))}
+              </ul>
+            </>
+          }
+        />
       </List>
 
       <Typography sx={{ mt: 3 }}>
