@@ -34,3 +34,17 @@ IconAndHtml.args = {
     </>
   ),
 };
+
+export const IconAlignTopAndHtml = Template.bind({});
+IconAlignTopAndHtml.args = {
+  alignIcon: 'flex-start',
+  icon: <Information />,
+  content: (
+    <>
+      <p>The icon is aligned to the top.</p>
+      <p>Lorem ipsum dolor sit amet.</p>
+      <p>Consectetur adipiscing elit.</p>
+      <p>Aliquam dolor metus.</p>
+    </>
+  ),
+};
