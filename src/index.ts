@@ -7,6 +7,7 @@ export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.ato
 export { DateButton } from './atoms/date-button/date-button.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
 export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom';
+export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
 export { SectionCard } from './atoms/section-card/section-card.atom';
