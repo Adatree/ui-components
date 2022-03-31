@@ -3,4 +3,5 @@ import Adatree from './theme';
 
 addons.setConfig({
   theme: Adatree,
+  showPanel: false,
 });
