@@ -11,17 +11,22 @@ import { useConsentForm } from '../../../context/consentForm.context';
 import { Formatter } from '../../../utils/formatter/formater';
 import { Helper } from '../../../utils/helper/helper';
 import { IconListItem } from '../../../atoms/icon-list-item/icon-list-item.atom';
+import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
 
 export type ReviewStepProps = {
   useCase: UseCaseResponse;
+  supportingParties?: {
+    id: number;
+    name: string;
+    accreditedId: string;
+    service: string;
+    cdrPolicyUrl: string;
+  }[];
 };
 
 export const ReviewStep = (props: ReviewStepProps) => {
-  let dateDurationText = '';
-
-  const { useCase } = props;
+  const { useCase, supportingParties } = props;
   const [consentForm] = useConsentForm();
-
   const [postActionText] = useState(
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
   );
@@ -37,6 +42,8 @@ export const ReviewStep = (props: ReviewStepProps) => {
       ? 'after first use'
       : Formatter.formatDate(consentForm.sharingEndDate),
   );
+
+  let dateDurationText = '';
 
   if (consentForm.selectedSharingDurations === SharingDuration.CUSTOM) {
     dateDurationText = `ending on the ${Formatter.formatDate(consentForm.sharingEndDate)}`;
@@ -79,9 +86,19 @@ export const ReviewStep = (props: ReviewStepProps) => {
         />
       </List>
 
-      <Typography sx={{ mt: 3 }}>
+      <Typography sx={{ mt: 2, mb: 4 }}>
         When you consent you will be taken to {brandName} to confirm you want to share your data with us.
       </Typography>
+
+      {supportingParties && (
+        <>
+          <Typography variant="h3" sx={{ mb: 2 }}>
+            Key things to know before you consent
+          </Typography>
+
+          <SupportingParties title={'Supporting parties'} useCase={useCase} />
+        </>
+      )}
     </Box>
   );
 };
