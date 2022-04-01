@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentDetails, TestUtil } from '../../lib';
 
 export default {
-  title: 'Experimental/Consent Details with Supporting parties',
+  title: 'Experimental/Supporting parties/Consent Details',
   component: ConsentDetails,
   argTypes: {
     backgroundColor: { control: 'color' },

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SupportingParties, TestUtil } from '../../lib';
 
 export default {
-  title: 'Experimental/Supporting parties',
+  title: 'Experimental/Supporting parties/Supporting parties',
   component: SupportingParties,
   argTypes: {
     backgroundColor: { control: 'color' },
