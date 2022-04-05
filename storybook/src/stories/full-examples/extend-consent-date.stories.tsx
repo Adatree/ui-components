@@ -76,7 +76,11 @@ ExtendDate.args = {
       label: 'Review',
       content: (
         <>
-          <ReviewStep useCase={TestUtil.testData.useCase.homeLoan()} />
+          <ReviewStep
+            useCase={TestUtil.testData.useCase.homeLoan()}
+            cdrPolicyUrl={'https://example.com'}
+            dataSharingRevocationEmail={'data.sharing.revocation@email.com'}
+          />
         </>
       ),
       disableNextButton: false,

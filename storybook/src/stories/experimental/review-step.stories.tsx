@@ -45,5 +45,7 @@ WithSupportingParties.decorators = [
 ];
 WithSupportingParties.args = {
   useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
+  cdrPolicyUrl: 'https://example.com',
+  dataSharingRevocationEmail: 'data.sharing.revocation@email.com',
   supportingParties: TestUtil.testData.outsourcedServiceProvider.all(),
 };

@@ -12,9 +12,12 @@ import { Formatter } from '../../../utils/formatter/formater';
 import { Helper } from '../../../utils/helper/helper';
 import { IconListItem } from '../../../atoms/icon-list-item/icon-list-item.atom';
 import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
+import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
 
 export type ReviewStepProps = {
   useCase: UseCaseResponse;
+  cdrPolicyUrl: string;
+  dataSharingRevocationEmail: string;
   supportingParties?: {
     id: number;
     name: string;
@@ -25,7 +28,7 @@ export type ReviewStepProps = {
 };
 
 export const ReviewStep = (props: ReviewStepProps) => {
-  const { useCase, supportingParties } = props;
+  const { useCase, cdrPolicyUrl, dataSharingRevocationEmail, supportingParties } = props;
   const [consentForm] = useConsentForm();
   const [postActionText] = useState(
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
@@ -90,12 +93,14 @@ export const ReviewStep = (props: ReviewStepProps) => {
         When you consent you will be taken to {brandName} to confirm you want to share your data with us.
       </Typography>
 
+      <Typography variant="h3" sx={{ mb: 2 }}>
+        Key things to know before you consent
+      </Typography>
+
+      <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
+
       {supportingParties && (
         <>
-          <Typography variant="h3" sx={{ mb: 2 }}>
-            Key things to know before you consent
-          </Typography>
-
           <SupportingParties title={'Supporting parties'} useCase={useCase} />
         </>
       )}
