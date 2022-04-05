@@ -42,12 +42,7 @@ CreateConsent.args = {
     },
     {
       label: 'How it works',
-      content: (
-        <InfoHowItWorksStep
-          dataSharingRevocationEmail="datasharing@adatree.com.au"
-          cdrPolicyUrl="https://adatree.com.au/cdrpolicy"
-        />
-      ),
+      content: <InfoHowItWorksStep />,
       disableNextButton: false,
     },
     {

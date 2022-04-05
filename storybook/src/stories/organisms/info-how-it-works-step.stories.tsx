@@ -10,10 +10,6 @@ export default {
   },
 } as ComponentMeta<typeof InfoHowItWorksStep>;
 
-const Template: ComponentStory<typeof InfoHowItWorksStep> = (args) => <InfoHowItWorksStep {...args} />;
+const Template: ComponentStory<typeof InfoHowItWorksStep> = (args) => <InfoHowItWorksStep />;
 
 export const Default = Template.bind({});
-Default.args = {
-  dataSharingRevocationEmail: 'datasharing@adatree.com.au',
-  cdrPolicyUrl: 'https://adatree.com.au/cdrpolicy'
-};
