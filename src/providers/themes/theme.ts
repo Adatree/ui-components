@@ -1,32 +1,20 @@
 import * as React from 'react';
 import { adatreeTheme } from './adatree.theme';
-import { createTheme as MuiCreateTheme, PaletteOptions, Theme, ThemeOptions } from '@mui/material/styles';
-
-declare module '@mui/material/styles/createPalette' {
-  interface Palette {
-    cta: Palette['primary'];
-    hover: Palette['primary'];
-    tooltip: Palette['primary'];
-    typography: Palette['primary'];
-  }
-  interface PaletteOptions {
-    cta: PaletteOptions['primary'];
-    hover: PaletteOptions['primary'];
-    tooltip: PaletteOptions['primary'];
-    typography: PaletteOptions['primary'];
-  }
-}
+import { createTheme as MuiCreateTheme, Theme, ThemeOptions } from '@mui/material/styles';
 
 const appTheme = adatreeTheme;
 
-const palette: PaletteOptions = {
+const palette = {
   primary: {
     main: appTheme.colour.primary.main,
   },
   secondary: {
     main: appTheme.colour.secondary.main,
   },
-  cta: appTheme.colour.cta,
+  cta: {
+    main: appTheme.colour.cta.main,
+    contrastText: appTheme.colour.cta.text,
+  },
   hover: appTheme.colour.hover,
   tooltip: {
     light: appTheme.colour.tooltip.background,
@@ -116,3 +104,43 @@ export const createTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
 
   return MuiCreateTheme(theme);
 };
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    cta: Palette['primary'];
+    hover: Palette['primary'];
+    tooltip: Palette['primary'];
+    typography: Palette['primary'];
+  }
+  interface PaletteOptions {
+    cta?: PaletteOptions['primary'];
+    hover?: PaletteOptions['primary'];
+    tooltip?: PaletteOptions['primary'];
+    typography?: PaletteOptions['primary'];
+  }
+}
+
+// Update the element's color prop options
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    cta: true;
+  }
+}
+
+declare module '@mui/material/Checkbox' {
+  interface CheckboxPropsColorOverrides {
+    cta: true;
+  }
+}
+
+declare module '@mui/material/Radio' {
+  interface RadioPropsColorOverrides {
+    cta: true;
+  }
+}
+
+declare module '@mui/material/SvgIcon' {
+  interface SvgIconPropsColorOverrides {
+    cta: true;
+  }
+}

@@ -55,6 +55,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
                 checked={isChecked}
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
+                color="cta"
               />
             }
           />

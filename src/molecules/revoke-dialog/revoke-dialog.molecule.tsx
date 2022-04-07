@@ -59,13 +59,7 @@ export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
         <Button onClick={handleRevokeDialogClose} disabled={isLoading} color="inherit">
           Cancel
         </Button>
-        <Button
-          onClick={handleRevokeDialogButtonClick}
-          autoFocus
-          variant="contained"
-          color="primary"
-          disabled={isLoading}
-        >
+        <Button onClick={handleRevokeDialogButtonClick} autoFocus variant="contained" color="cta" disabled={isLoading}>
           Revoke
         </Button>
       </DialogActions>

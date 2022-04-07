@@ -70,7 +70,7 @@ export const ConsentStepperMobile: React.FC<ConsentStepperMobileProps> = (props)
         nextButton={
           <Button
             variant="contained"
-            color="primary"
+            color="cta"
             size="small"
             onClick={() => {
               handleOnNext(steps[activeStep]);

@@ -10,6 +10,7 @@ export const adatreeTheme = {
     },
     cta: {
       main: '#48DFD2',
+      text: '#000',
     },
     hover: {
       main: '#E8E8E8',

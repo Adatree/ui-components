@@ -70,7 +70,7 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
                   color: 'primary.main',
                 },
                 '& .Mui-active .MuiStepIcon-text': {
-                  fill: 'black',
+                  fill: 'primary.contrastText',
                 },
                 '& .MuiStepLabel-label.Mui-active': {
                   color: 'black',
@@ -101,7 +101,7 @@ export const ConsentStepperDesktop: React.FC<ConsentStepperDesktopProps> = (prop
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="cta"
           disabled={steps[activeStep].disableNextButton}
           onClick={() => {
             handleOnNext(steps[activeStep]);
