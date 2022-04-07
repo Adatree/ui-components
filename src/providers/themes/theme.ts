@@ -4,11 +4,13 @@ import { createTheme as MuiCreateTheme, PaletteOptions, Theme, ThemeOptions } fr
 
 declare module '@mui/material/styles/createPalette' {
   interface Palette {
+    cta: Palette['primary'];
     hover: Palette['primary'];
     tooltip: Palette['primary'];
     typography: Palette['primary'];
   }
   interface PaletteOptions {
+    cta: PaletteOptions['primary'];
     hover: PaletteOptions['primary'];
     tooltip: PaletteOptions['primary'];
     typography: PaletteOptions['primary'];
@@ -24,6 +26,7 @@ const palette: PaletteOptions = {
   secondary: {
     main: appTheme.colour.secondary.main,
   },
+  cta: appTheme.colour.cta,
   hover: appTheme.colour.hover,
   tooltip: {
     light: appTheme.colour.tooltip.background,

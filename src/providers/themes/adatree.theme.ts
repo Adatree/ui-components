@@ -8,6 +8,9 @@ export const adatreeTheme = {
     secondary: {
       main: '#021C55',
     },
+    cta: {
+      main: '#48DFD2',
+    },
     hover: {
       main: '#E8E8E8',
     },
