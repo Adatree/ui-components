@@ -24,7 +24,7 @@ const palette = {
   typography: appTheme.colour.typography,
 };
 
-export const createTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
+export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
   const baseTheme: ThemeOptions = {
     palette: {
       ...palette,

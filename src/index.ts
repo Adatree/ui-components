@@ -44,6 +44,7 @@ export * from './context/consentForm.context';
 export { ThemeProvider } from './providers/theme.provider';
 
 // Themes
+export { CreateTheme } from './providers/themes/theme';
 export { adatreeTheme } from './providers/themes/adatree.theme';
 
 // Utils

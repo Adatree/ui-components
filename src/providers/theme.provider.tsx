@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { CssBaseline } from '@mui/material/index';
 import { ThemeProvider as MuiThemeProvider, ThemeOptions } from '@mui/material/styles';
-import { createTheme } from './themes/theme';
+import { CreateTheme } from './themes/theme';
 import { GlobalStyles } from './themes/global.style';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 export const ThemeProvider: React.FC<Props> = ({ children, extendTheme }: Props) => {
   return (
-    <MuiThemeProvider theme={createTheme(extendTheme)}>
+    <MuiThemeProvider theme={CreateTheme(extendTheme)}>
       <CssBaseline />
       <GlobalStyles />
       {children}
