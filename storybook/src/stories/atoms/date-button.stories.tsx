@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { DateButton, TestUtil } from '../../lib';
+import { DateButton } from '../../lib';
 import { SharingDuration } from '../../lib';
 
 export default {
