@@ -22,6 +22,7 @@ export { ConsentStepperMobile } from './molecules/consent-stepper/mobile/consent
 export { ConsentStepperResponsive } from './molecules/consent-stepper/responsive/consent-stepper-responsive.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
+export { ErrorMessage } from './molecules/error-message/error-message.molecule';
 export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
 export { SupportingParties } from './molecules/supporting-parties/supporting-parties.molecule';
 export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope-list.molecule';
