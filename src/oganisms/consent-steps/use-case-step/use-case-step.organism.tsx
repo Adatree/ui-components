@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 import {
   RadioButtonItem,
@@ -16,7 +16,6 @@ export type UseCaseStepProps = {
 export const UseCaseStep = (props: UseCaseStepProps) => {
   const { useCases, isLoading, isValid } = props;
   const [consentForm, setConsentForm] = useConsentForm();
-  const [useCaseId] = useState(consentForm.useCaseId);
   let radioButtonItems: RadioButtonItem[] = [];
 
   if (useCases) {
@@ -58,9 +57,7 @@ export const UseCaseStep = (props: UseCaseStepProps) => {
           <Skeleton height="80px" />
         </>
       )}
-      {!isLoading && (
-        <RadioButtonWithText radioButtonItems={radioButtonItems} onChange={handleRadioCheck} defaultValue={useCaseId} />
-      )}
+      {!isLoading && <RadioButtonWithText radioButtonItems={radioButtonItems} onChange={handleRadioCheck} />}
     </Box>
   );
 };
