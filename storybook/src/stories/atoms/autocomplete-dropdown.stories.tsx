@@ -37,3 +37,16 @@ WithValueSet.args = {
     }
   },
 };
+
+export const WithDisabledOptions = Template.bind({});
+WithDisabledOptions.args = {
+  dataHolders: TestUtil.testData.dataHolder.all(),
+  disableDataHolders: [TestUtil.testData.dataHolder.yellowBank()],
+  onChange: (dataHolder: DataHolder | null) => {
+    if (dataHolder) {
+      alert(`You have selected ${dataHolder.brandName} with ID ${dataHolder.dataHolderBrandId}.`);
+    } else {
+      alert(`You have cleared the selector.`);
+    }
+  },
+};

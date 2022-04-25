@@ -7,11 +7,12 @@ export type CheckboxAccordionProps = {
   dataHolders: DataHolder[];
   defaultValue?: DataHolder;
   label?: string;
+  disableDataHolders?: DataHolder[];
   onChange: (value: DataHolder | null) => void;
 };
 
 export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) => {
-  const { dataHolders, label = 'Choose your bank', defaultValue = null, onChange } = props;
+  const { dataHolders, label = 'Choose your bank', defaultValue = null, disableDataHolders = [], onChange } = props;
 
   const handleChange = (event: SyntheticEvent<Element, Event>, value: DataHolder | null) => {
     if (event) {
@@ -19,11 +20,28 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
     }
   };
 
+  const isDisabled = (option: DataHolder): boolean => {
+    if (disableDataHolders.some((dataHolder) => dataHolder.dataHolderBrandId === option.dataHolderBrandId)) {
+      return true;
+    }
+    return false;
+  };
+
+  const getLabel = (option: DataHolder): string => {
+    if (isDisabled(option)) {
+      return `${option.brandName}  ( Consent active  )`;
+    }
+    return option.brandName;
+  };
+
   return (
     <Autocomplete
       disablePortal
       options={dataHolders}
       getOptionLabel={(option) => option.brandName}
+      getOptionDisabled={(option) => {
+        return isDisabled(option);
+      }}
       isOptionEqualToValue={(option, value) => option.dataHolderBrandId === value.dataHolderBrandId}
       defaultValue={defaultValue}
       renderOption={(props, option) => (
@@ -37,7 +55,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
           >
             <Bank />
           </Avatar>
-          {option.brandName}
+          {getLabel(option)}
         </Typography>
       )}
       renderInput={(params) => <TextField {...params} label={label} />}
