@@ -11,7 +11,7 @@ import { Formatter } from '../../utils/formatter/formater';
 export type ErrorMessageProps = {
   message: string;
   code?: string;
-  data?: object;
+  data?: object | string;
   type?: string;
   timeStamp?: Date;
   url?: string;
@@ -21,6 +21,13 @@ export type ErrorMessageProps = {
 export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessageProps) => {
   const { message, code, data, type = 'UNKNOWN', timeStamp = new Date(), url, supportContact } = props;
   const iconFontSize = '56px';
+  let parsedData = undefined;
+
+  if (typeof data === 'string') {
+    parsedData = data;
+  } else {
+    parsedData = JSON.stringify(data);
+  }
 
   const errorDetails = (
     <>
@@ -54,12 +61,14 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
         <Typography sx={{ mb: 2 }}>{Formatter.formatDateTime(timeStamp)}</Typography>
       </>
 
-      {data && (
+      {parsedData && (
         <>
           <Typography variant="h3">Extra information</Typography>
-          <SyntaxHighlighter language="javascript" style={docco}>
-            {JSON.stringify(data)}
-          </SyntaxHighlighter>
+          <Box sx={{ code: { display: 'block', width: '100px' } }}>
+            <SyntaxHighlighter language="JSON" style={docco}>
+              {parsedData}
+            </SyntaxHighlighter>
+          </Box>
         </>
       )}
     </>
