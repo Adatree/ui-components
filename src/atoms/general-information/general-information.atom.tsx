@@ -36,9 +36,12 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
       title="General information"
       content={
         <List>
-          {generalInfoList.map((item) => {
+          {generalInfoList.map((item, index) => {
             return (
-              <ListItem sx={{ paddingLeft: '8px', display: 'list-item', marginLeft: '32px', listStyle: 'disc' }}>
+              <ListItem
+                sx={{ paddingLeft: '8px', display: 'list-item', marginLeft: '32px', listStyle: 'disc' }}
+                key={index}
+              >
                 <ListItemText primary={item} />
               </ListItem>
             );

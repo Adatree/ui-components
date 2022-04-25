@@ -69,7 +69,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
     <>
       <Typography>Please try reloading the page.</Typography>
       {supportContact && (
-        <Typography sx={{ mt: 1 }}>
+        <Typography sx={{ mt: 2 }}>
           If the problem continues please contact the support team: {supportContact}
         </Typography>
       )}

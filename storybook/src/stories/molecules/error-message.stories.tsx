@@ -24,7 +24,7 @@ ApiError.args = {
   },
   message: 'Server encountered an error.',
   timeStamp: new Date(),
-  type: 'API',
+  type: 'API Error',
   url: 'api.adatree.com.au/information',
 };
 
