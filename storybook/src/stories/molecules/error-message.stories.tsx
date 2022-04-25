@@ -33,3 +33,10 @@ GenericError.args = {
   code: 'ERR_001',
   message: 'This is a generic error.',
 };
+
+export const WithSupportContact = Template.bind({});
+WithSupportContact.args = {
+  code: 'ERR_001',
+  message: 'This is a generic error.',
+  supportContact: 'support@yourcompany.com',
+};

@@ -11,40 +11,70 @@ import { Formatter } from '../../utils/formatter/formater';
 export type ErrorMessageProps = {
   message: string;
   code?: string;
-  data?: {};
-  type?: 'API' | 'GENERIC';
+  data?: object;
+  type?: string;
   timeStamp?: Date;
   url?: string;
+  supportContact?: string;
 };
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessageProps) => {
-  const { message, code, data, type = 'GENERIC', timeStamp = new Date(), url } = props;
+  const { message, code, data, type = 'UNKNOWN', timeStamp = new Date(), url, supportContact } = props;
   const iconFontSize = '56px';
 
   const errorDetails = (
     <>
-      <Typography sx={{ mb: 2 }} variant="h3">
+      <Typography sx={{ mb: 2 }} variant="h2">
         Error: {message}
       </Typography>
-      {code && <Typography sx={{ mb: 1 }}>Status code: {code}</Typography>}
-      {url && type === 'API' && <Typography sx={{ mb: 1 }}>API Url: {url}</Typography>}
-      <Typography sx={{ mb: 1 }}>Time: {Formatter.formatDateTime(timeStamp)}</Typography>
+
+      {type && (
+        <>
+          <Typography variant="h3">Type</Typography>
+          <Typography sx={{ mb: 2 }}>{type}</Typography>
+        </>
+      )}
+
+      {code && (
+        <>
+          <Typography variant="h3">Code</Typography>
+          <Typography sx={{ mb: 2 }}>{code}</Typography>
+        </>
+      )}
+
+      {url && (
+        <>
+          <Typography variant="h3">URL</Typography>
+          <Typography sx={{ mb: 2, wordBreak: 'break-all' }}>{url}</Typography>
+        </>
+      )}
+
+      <>
+        <Typography variant="h3">Time</Typography>
+        <Typography sx={{ mb: 2 }}>{Formatter.formatDateTime(timeStamp)}</Typography>
+      </>
+
       {data && (
         <>
-          <Typography sx={{ mb: 1 }}>Extra information</Typography>
-          <Box sx={{ width: '100%' }}>
-            <SyntaxHighlighter language="javascript" style={docco}>
-              {JSON.stringify(data)}
-            </SyntaxHighlighter>
-          </Box>
+          <Typography variant="h3">Extra information</Typography>
+          <SyntaxHighlighter language="javascript" style={docco}>
+            {JSON.stringify(data)}
+          </SyntaxHighlighter>
         </>
       )}
     </>
   );
 
-  const accordion = (
+  const body = (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Typography>Please try reloading the page.</Typography>
+      {supportContact && (
+        <Typography sx={{ mt: 1 }}>
+          If the problem continues please contact the support team: {supportContact}
+        </Typography>
+      )}
+
+      <Box sx={{ mt: 4, width: '100%' }}>
         <Accordion title={'Show error details'} content={errorDetails} />
       </Box>
     </>
@@ -53,9 +83,9 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
   return (
     <>
       <FeedbackMessage
-        message={'An error has occurred'}
+        message={'We are sorry but it looks like an error has occurred.'}
         icon={<AlertCircle sx={{ fontSize: iconFontSize, color: 'error.main' }} />}
-        children={accordion}
+        children={body}
       ></FeedbackMessage>
     </>
   );
