@@ -43,13 +43,13 @@ export const ReviewStep = (props: ReviewStepProps) => {
   const [sharindEndDate] = useState(
     consentForm.selectedSharingDurations === SharingDuration.ONCEOFF
       ? 'after first use'
-      : Formatter.formatDate(consentForm.sharingEndDate),
+      : Formatter.formatDateTime(consentForm.sharingEndDate),
   );
 
   let dateDurationText = '';
 
   if (consentForm.selectedSharingDurations === SharingDuration.CUSTOM) {
-    dateDurationText = `ending on the ${Formatter.formatDate(consentForm.sharingEndDate)}`;
+    dateDurationText = `ending on the ${Formatter.formatDateTime(consentForm.sharingEndDate)}`;
   } else if (consentForm.selectedSharingDurations) {
     dateDurationText = Helper.parseSharingDuration([consentForm.selectedSharingDurations])[0].text;
   }

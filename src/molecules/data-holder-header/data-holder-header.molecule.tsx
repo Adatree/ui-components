@@ -51,16 +51,16 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
 
   switch (consent.status) {
     case Status.ACTIVE:
-      textDate = `Consent granted ${Formatter.formatDate(consent.created)}`;
+      textDate = `Consent granted ${Formatter.formatDateTime(consent.created)}`;
       break;
     case Status.REQUESTED:
-      textDate = `Consent requested ${Formatter.formatDate(consent.created)}`;
+      textDate = `Consent requested ${Formatter.formatDateTime(consent.created)}`;
       break;
     case Status.EXPIRED:
-      textDate = `Consent expired ${Formatter.formatDate(consent.sharingEndDate)}`;
+      textDate = `Consent expired ${Formatter.formatDateTime(consent.sharingEndDate)}`;
       break;
     case Status.REVOKED:
-      textDate = `Consent revoked ${Formatter.formatDate(consent.revoked)}`;
+      textDate = `Consent revoked ${Formatter.formatDateTime(consent.revoked)}`;
       break;
   }
   const handleonRevokeClick = () => {

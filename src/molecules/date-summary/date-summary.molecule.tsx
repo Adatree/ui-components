@@ -15,12 +15,12 @@ export const DateSummary: React.FC<DateSummaryProps> = (props) => {
   let sharingEndDate: Date | string = 'After first use';
 
   if (consent.useCase && consent.useCase.accessFrequency === AccessFrequency.ONGOING) {
-    sharingEndDate = Formatter.formatDate(consent.sharingEndDate);
+    sharingEndDate = Formatter.formatDateTime(consent.sharingEndDate);
   }
 
   let firstDataCollection = 'Not yet';
   if (consent.firstDataCollection) {
-    firstDataCollection = Formatter.formatDate(consent.firstDataCollection);
+    firstDataCollection = Formatter.formatDateTime(consent.firstDataCollection);
   }
 
   return (
@@ -33,7 +33,7 @@ export const DateSummary: React.FC<DateSummaryProps> = (props) => {
           <Typography variant="h4" sx={{ mb: 0.5 }} variantMapping={{ h4: 'h3' }}>
             When you gave consent
           </Typography>
-          <Typography sx={{ mb: 2 }}>{Formatter.formatDate(consent.created)}</Typography>
+          <Typography sx={{ mb: 2 }}>{Formatter.formatDateTime(consent.created)}</Typography>
 
           <Typography variant="h4" sx={{ mb: 0.5 }} variantMapping={{ h4: 'h3' }}>
             When we first collected your data
