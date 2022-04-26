@@ -43,7 +43,7 @@ const filterDataHoldersByConsentsAndUseCase = (
   useCase: UseCaseResponse,
 ): DataHolder[] => {
   const filteredDataHolders = dataHolders.filter((dataHolder) => {
-    return !doesConsentExistForDataHolderAndUseCase(dataHolder, consents, useCase);
+    return doesConsentExistForDataHolderAndUseCase(dataHolder, consents, useCase);
   });
 
   return filteredDataHolders;

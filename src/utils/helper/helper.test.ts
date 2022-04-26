@@ -45,7 +45,7 @@ describe('Helper Utils', () => {
   });
 
   describe('filterDataHoldersByConsentsAndUseCase', () => {
-    it('should filter DataHolders if a consent exist with that dataholder and use case', () => {
+    it('should return DataHolder if a consent exist with that dataholder and use case', () => {
       const dataHolders = TestUtil.testData.dataHolder.all();
       const consents = TestUtil.testData.consent.all();
       const homeUseCase = TestUtil.testData.useCase.homeLoan();
@@ -54,7 +54,7 @@ describe('Helper Utils', () => {
       const filteredByHomeUseCase = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, homeUseCase);
 
       expect(filteredByHomeUseCase.length).toEqual(1);
-      expect(filteredByHomeUseCase[0].brandName).toEqual('Red Australia Bank');
+      expect(filteredByHomeUseCase[0].brandName).toEqual('Yellow Bank of Australia');
 
       const filteredByonceOffUseCase = Helper.filterDataHoldersByConsentsAndUseCase(
         dataHolders,
@@ -63,55 +63,55 @@ describe('Helper Utils', () => {
       );
 
       expect(filteredByonceOffUseCase.length).toEqual(1);
-      expect(filteredByonceOffUseCase[0].brandName).toEqual('Yellow Bank of Australia');
+      expect(filteredByonceOffUseCase[0].brandName).toEqual('Red Australia Bank');
 
       const emptyfilteredDataholders = Helper.filterDataHoldersByConsentsAndUseCase(
-        [TestUtil.testData.dataHolder.yellowBank()],
+        [TestUtil.testData.dataHolder.redBank()],
         [TestUtil.testData.consent.active()],
         homeUseCase,
       );
       expect(emptyfilteredDataholders.length).toEqual(0);
     });
 
-    it('should not filter DataHolders if use case is invalid', () => {
+    it('should not return DataHolders if use case is invalid', () => {
       const dataHolders = TestUtil.testData.dataHolder.all();
       const consents = TestUtil.testData.consent.all();
       const useCase = TestUtil.testData.useCase.homeLoan();
       useCase.id = undefined;
 
       const filteredDataHolders01 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, useCase);
-      expect(filteredDataHolders01).toEqual(dataHolders);
+      expect(filteredDataHolders01.length).toEqual(0);
 
       const filteredDataHolders02 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, {});
-      expect(filteredDataHolders02).toEqual(dataHolders);
+      expect(filteredDataHolders02.length).toEqual(0);
     });
 
-    it('should not filter DataHolders if consents are invalid', () => {
+    it('should not return DataHolders if consents are invalid', () => {
       const dataHolders = TestUtil.testData.dataHolder.all();
       const useCase = TestUtil.testData.useCase.homeLoan();
 
       let consent = TestUtil.testData.consent.active();
       consent.status = undefined;
       const filteredDataHolders01 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [consent], useCase);
-      expect(filteredDataHolders01).toEqual(dataHolders);
+      expect(filteredDataHolders01.length).toEqual(0);
 
       consent = TestUtil.testData.consent.active();
       consent.dataHolderBrandId = undefined;
       const filteredDataHolders02 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [consent], useCase);
-      expect(filteredDataHolders02).toEqual(dataHolders);
+      expect(filteredDataHolders02.length).toEqual(0);
 
       consent = TestUtil.testData.consent.active();
       consent.useCase = undefined;
       const filteredDataHolders03 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [consent], useCase);
-      expect(filteredDataHolders03).toEqual(dataHolders);
+      expect(filteredDataHolders03.length).toEqual(0);
 
       consent = TestUtil.testData.consent.active();
       consent.useCase = { ...consent.useCase, id: undefined };
       const filteredDataHolders04 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [consent], useCase);
-      expect(filteredDataHolders04).toEqual(dataHolders);
+      expect(filteredDataHolders04.length).toEqual(0);
 
       const filteredDataHolders05 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [], useCase);
-      expect(filteredDataHolders05).toEqual(dataHolders);
+      expect(filteredDataHolders05.length).toEqual(0);
     });
   });
 

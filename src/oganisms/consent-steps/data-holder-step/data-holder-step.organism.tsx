@@ -19,7 +19,7 @@ export const DataHolderStep = (props: DataHolderStepProps) => {
   const [consentForm, setConsentForm] = useConsentForm();
   const [dataHolder] = useState(consentForm.dataHolder);
 
-  const filteredDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, existingConsents, useCase);
+  const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, existingConsents, useCase);
 
   const handleDataHoldersChange = (dataHolder: DataHolder | null) => {
     if (dataHolder) {
@@ -43,10 +43,11 @@ export const DataHolderStep = (props: DataHolderStepProps) => {
         Connect your bank
       </Typography>
 
-      {filteredDataHolders.length > 0 && (
+      {dataHolders.length > disableDataHolders.length && (
         <>
           <AutocompleteDropdown
-            dataHolders={filteredDataHolders}
+            dataHolders={dataHolders}
+            disableDataHolders={disableDataHolders}
             onChange={handleDataHoldersChange}
             defaultValue={dataHolder}
           />
@@ -62,7 +63,7 @@ export const DataHolderStep = (props: DataHolderStepProps) => {
           </Typography>
         </>
       )}
-      {filteredDataHolders.length === 0 && (
+      {dataHolders.length === disableDataHolders.length && (
         <>
           {dataHolders.map((dataHolder) => (
             <Typography sx={{ m: 2 }} key={dataHolder.dataHolderBrandId}>
