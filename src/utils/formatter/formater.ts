@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns';
 import { Logger } from '../logger/logger';
 
 const DATE_FORMAT = 'dd/MM/yyyy';
-const DATE_TIME_FORMAT = 'dd/MM/yyyy HH:mm';
+const DATE_TIME_FORMAT = 'dd/MM/yyyy hh:mm aaa';
 const DATE_TIME_TZ_FORMAT = 'dd/MM/yyyy HH:mm:ss xx';
 /*
  * We use date-fns format that returns the

@@ -46,7 +46,7 @@ describe('Formatter Utils', () => {
     it('should format date object into a human readable format', () => {
       const date = new Date(1607105280278);
       const expectedInvalidFormat = '';
-      const expectedValidFormat = '04/12/2020 18:08';
+      const expectedValidFormat = '04/12/2020 06:08 pm';
 
       expect(Formatter.formatDateTime(undefined)).toEqual(expectedInvalidFormat);
       expect(Formatter.formatDateTime(date)).toEqual(expectedValidFormat);
@@ -59,10 +59,10 @@ describe('Formatter Utils', () => {
       const date4 = '2021-01-30T04:19:00Z';
 
       const expectedInvalidFormat = '';
-      const expectedValidFormat1 = '05/01/2021 12:52';
-      const expectedValidFormat2 = '15/06/2022 04:01';
-      const expectedValidFormat3 = '23/12/2020 00:00';
-      const expectedValidFormat4 = '30/01/2021 04:19';
+      const expectedValidFormat1 = '05/01/2021 12:52 pm';
+      const expectedValidFormat2 = '15/06/2022 04:01 am';
+      const expectedValidFormat3 = '23/12/2020 12:00 am';
+      const expectedValidFormat4 = '30/01/2021 04:19 am';
 
       expect(Formatter.formatDateTime('')).toEqual(expectedInvalidFormat);
       expect(Formatter.formatDateTime('invalid')).toEqual(expectedInvalidFormat);
