@@ -45,7 +45,7 @@ export const WithLogErrorData = Template.bind({});
 WithLogErrorData.args = {
   code: 'ERR_001',
   message: 'This is a long data error.',
-  data: `Error: JK error
+  data: `Error: React error
   at ConsentList (consent-list.organism.tsx:25:1)
   at renderWithHooks (react-dom.development.js:14985:1)
   at mountIndeterminateComponent (react-dom.development.js:17811:1)

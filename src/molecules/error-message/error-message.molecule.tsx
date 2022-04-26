@@ -58,7 +58,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
 
       <>
         <Typography variant="h3">Time</Typography>
-        <Typography sx={{ mb: 2 }}>{Formatter.formatDateTime(timeStamp)}</Typography>
+        <Typography sx={{ mb: 2 }}>{Formatter.formatDateTimeTz(timeStamp)}</Typography>
       </>
 
       {parsedData && (
