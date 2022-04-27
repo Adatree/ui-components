@@ -31,26 +31,24 @@ const baseConsentFormValues = {
 
 // #######################################################################################
 
-export const WithOnceOffDuration = Template.bind({});
-WithOnceOffDuration.decorators = [
+export const WithOnceOffDataAccess = Template.bind({});
+WithOnceOffDataAccess.decorators = [
   (Story) => {
     return (
-      <ConsentFormProvider
-        initialValues={{ ...baseConsentFormValues, selectedSharingDurations: SharingDuration.ONCEOFF }}
-      >
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
       </ConsentFormProvider>
     );
   },
 ];
-WithOnceOffDuration.args = {
+WithOnceOffDataAccess.args = {
   useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
 };
 
 // #######################################################################################
 
-export const WithCustomDuration = Template.bind({});
-WithCustomDuration.decorators = [
+export const WithOngoingDataAccess = Template.bind({});
+WithOngoingDataAccess.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider
@@ -61,8 +59,8 @@ WithCustomDuration.decorators = [
     );
   },
 ];
-WithCustomDuration.args = {
-  useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
+WithOngoingDataAccess.args = {
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
 };
 
 // #######################################################################################

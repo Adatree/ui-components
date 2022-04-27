@@ -6,10 +6,9 @@ import Incognito from 'mdi-material-ui/Incognito';
 import DeleteCircle from 'mdi-material-ui/Delete';
 import CloudUpload from 'mdi-material-ui/CloudUpload';
 import { Typography, List, Box } from '@mui/material';
-import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../../generated/consent';
+import { AccessFrequency, PostUsageAction, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Formatter } from '../../../utils/formatter/formater';
-import { Helper } from '../../../utils/helper/helper';
 import { IconListItem } from '../../../atoms/icon-list-item/icon-list-item.atom';
 import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
@@ -30,6 +29,9 @@ export type ReviewStepProps = {
 export const ReviewStep = (props: ReviewStepProps) => {
   const { useCase, cdrPolicyUrl, dataSharingRevocationEmail, supportingParties } = props;
   const [consentForm] = useConsentForm();
+  const [dataAccessText] = useState(
+    useCase.accessFrequency === AccessFrequency.ONGOING ? 'occur multiple times per day' : 'be once off',
+  );
   const [postActionText] = useState(
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
   );
@@ -46,14 +48,6 @@ export const ReviewStep = (props: ReviewStepProps) => {
       : Formatter.formatDateTime(consentForm.sharingEndDate),
   );
 
-  let dateDurationText = '';
-
-  if (consentForm.selectedSharingDurations === SharingDuration.CUSTOM) {
-    dateDurationText = `ending on the ${Formatter.formatDateTime(consentForm.sharingEndDate)}`;
-  } else if (consentForm.selectedSharingDurations) {
-    dateDurationText = Helper.parseSharingDuration([consentForm.selectedSharingDurations])[0].text;
-  }
-
   const brandName = consentForm.dataHolder ? consentForm.dataHolder.brandName : '';
 
   return (
@@ -64,7 +58,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
 
       <List>
         <IconListItem icon={<Bank color="primary" />} content={`Your bank is ${brandName}`} />
-        <IconListItem icon={<CloudUpload color="primary" />} content={`Data sharing will be ${dateDurationText}`} />
+        <IconListItem icon={<CloudUpload color="primary" />} content={`Data access will ${dataAccessText}`} />
         <IconListItem icon={<Calendar color="primary" />} content={`Sharing ends ${sharindEndDate}`} />
         <IconListItem
           icon={postActionIcon}
