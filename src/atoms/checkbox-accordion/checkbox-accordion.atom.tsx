@@ -62,7 +62,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
         </FormGroup>
 
         {subtitle && (
-          <Typography sx={{ pl: 1 }} variant="h4">
+          <Typography sx={{ pl: 1, opacity: 0.7 }} variant="h4">
             {subtitle}
           </Typography>
         )}

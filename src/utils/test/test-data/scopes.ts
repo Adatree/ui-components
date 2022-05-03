@@ -4,7 +4,7 @@ const bankAccountsBasicRead = (): ScopeResponse => {
   return {
     name: 'Account name, type and balance',
     id: 'bank:accounts.basic:read',
-    purpose: '',
+    purpose: 'We need your account name, type and balance for...',
     description: 'This will allow us to access basic account information including the account balance.',
     claims: ['Name of account', 'Type of account', 'Account balance'],
     priority: 2,
@@ -15,7 +15,7 @@ const bankAccountsDetailRead = (): ScopeResponse => {
   return {
     name: 'Account numbers and features',
     id: 'bank:accounts.detail:read',
-    purpose: '',
+    purpose: 'We need your account numbers and features for...',
     description:
       'This will allow us to access detailed bank account information including basic account information plus account identifiers and product information.',
     claims: ['Account number', 'Interest rates', 'Fees', 'Discounts', 'Account terms', 'Account mail address'],
@@ -27,7 +27,7 @@ const bankTransactionsRead = (): ScopeResponse => {
   return {
     name: 'Transaction details',
     id: 'bank:transactions:read',
-    purpose: '',
+    purpose: 'We need your transaction details for...',
     description: 'This will allow us to access bank account transaction data.',
     claims: [
       'Incoming and outgoing transactions',
@@ -44,7 +44,7 @@ const commonCustomerBasicRead = (): ScopeResponse => {
   return {
     name: 'Name and occupation',
     id: 'common:customer.basic:read',
-    purpose: '',
+    purpose: 'We need your name and occupation for...',
     description:
       'This will allow us to access personally identifiable information about the customer. For retail customers this would be information about the customer. For businesses it would be the name of the specific user and information about the business.',
     claims: ['Name', 'Occupation'],

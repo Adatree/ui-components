@@ -39,6 +39,7 @@ export const UseCaseScopeList = (props: UseCaseScopeListProps) => {
               <CheckboxAccordion
                 key={index}
                 title={scope.name ? scope.name : 'Scope name not provided'}
+                subtitle={scope.purpose ? scope.purpose : ''}
                 checkboxValue={scope.id ? scope.id : 'Scope ID not provided'}
                 checked={isChecked(scope.id)}
                 items={scope.claims}
