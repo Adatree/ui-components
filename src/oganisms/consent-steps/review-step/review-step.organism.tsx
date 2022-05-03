@@ -30,7 +30,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
   const { useCase, cdrPolicyUrl, dataSharingRevocationEmail, supportingParties } = props;
   const [consentForm] = useConsentForm();
   const [dataAccessText] = useState(
-    useCase.accessFrequency === AccessFrequency.ONGOING ? 'occur multiple times per day' : 'be once off',
+    useCase.accessFrequency === AccessFrequency.ONGOING ? 'may occur multiple times per day' : 'will be once off',
   );
   const [postActionText] = useState(
     consentForm.postUsageAction === PostUsageAction.DEIDENTIFICATION ? 'de-identifed' : 'deleted',
@@ -58,7 +58,7 @@ export const ReviewStep = (props: ReviewStepProps) => {
 
       <List>
         <IconListItem icon={<Bank color="primary" />} content={`Your bank is ${brandName}`} />
-        <IconListItem icon={<CloudUpload color="primary" />} content={`Data access will ${dataAccessText}`} />
+        <IconListItem icon={<CloudUpload color="primary" />} content={`Data access ${dataAccessText}`} />
         <IconListItem icon={<Calendar color="primary" />} content={`Sharing ends ${sharindEndDate}`} />
         <IconListItem
           icon={postActionIcon}
