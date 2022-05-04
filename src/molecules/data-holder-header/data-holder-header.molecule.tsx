@@ -1,40 +1,11 @@
 import React from 'react';
-import { Avatar, Box, Chip, IconButton, Link, styled, Typography } from '@mui/material';
+import { Avatar, Box, Chip, IconButton, Link, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import Bank from 'mdi-material-ui/Bank';
 import Delete from 'mdi-material-ui/Delete';
 import Calendar from 'mdi-material-ui/Calendar';
 import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
-
-const _Chip = styled(Chip)`
-  ${({ theme }) => `
-    color: ${theme.palette.typography.light};
-    font-weight: 600;
-    text-transform: lowercase;
-
-
-    & span:first-letter {
-      text-transform: capitalize;
-    }
-
-    &.active {
-      background-color: ${theme.palette.success.main};
-    }
-
-    &.revoked {
-      background-color: ${theme.palette.error.main};
-    }
-
-    &.requested {
-      background-color: ${theme.palette.info.main};
-    }
-
-    &.expired {
-      background-color: ${theme.palette.warning.main};
-    }
-  `}
-`;
 
 export type DataHolderHeaderProps = {
   consent: ConsentResponse;
@@ -110,7 +81,30 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
             />
           </>
         )}
-        <_Chip label={consent.status} size="small" className={consent.status?.toLowerCase()} />
+        <Chip
+          label={consent.status}
+          size="small"
+          sx={{
+            color: 'typography.light',
+            fontWeight: 600,
+            textTransform: 'lowercase',
+            '& span:first-letter': {
+              textTransform: 'capitalize',
+            },
+            ...(consent.status === Status.ACTIVE && {
+              backgroundColor: 'success.main',
+            }),
+            ...(consent.status === Status.EXPIRED && {
+              backgroundColor: 'warning.main',
+            }),
+            ...(consent.status === Status.REQUESTED && {
+              backgroundColor: 'info.main',
+            }),
+            ...(consent.status === Status.REVOKED && {
+              backgroundColor: 'error.main',
+            }),
+          }}
+        />
       </Box>
     </Box>
   );
