@@ -8,6 +8,7 @@ export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
   dataHolders: DataHolder[];
   isLoading?: boolean;
+  urlPrefix?: string;
 };
 
 type TabPanelProps = {
@@ -17,7 +18,7 @@ type TabPanelProps = {
 };
 
 export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
-  const { consents = [], dataHolders, isLoading = false } = props;
+  const { consents = [], dataHolders, isLoading = false, urlPrefix = '/consent/' } = props;
   const [value, setValue] = React.useState(0);
 
   const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.ACTIVE));
@@ -58,20 +59,22 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
       </AppBar>
       <TabPanel value={value} index={0}>
         {isLoading && renderLoading()}
-        {!isLoading && activeConsents.length > 0 && <ConsentList consents={activeConsents} dataHolders={dataHolders} />}
+        {!isLoading && activeConsents.length > 0 && (
+          <ConsentList consents={activeConsents} dataHolders={dataHolders} url={urlPrefix} />
+        )}
         {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {isLoading && renderLoading()}
         {!isLoading && expiredConsents.length > 0 && (
-          <ConsentList consents={expiredConsents} dataHolders={dataHolders} />
+          <ConsentList consents={expiredConsents} dataHolders={dataHolders} url={urlPrefix} />
         )}
         {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {isLoading && renderLoading()}
         {!isLoading && revokedConsents.length > 0 && (
-          <ConsentList consents={revokedConsents} dataHolders={dataHolders} />
+          <ConsentList consents={revokedConsents} dataHolders={dataHolders} url={urlPrefix} />
         )}
         {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
       </TabPanel>
