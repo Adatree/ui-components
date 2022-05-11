@@ -72,8 +72,8 @@ export const ReviewStep = (props: ReviewStepProps) => {
               <Typography sx={{ mb: 0.5 }}>You are sharing:</Typography>
               <ul className="list">
                 {useCase.scopes &&
-                  useCase.scopes.map((scope) => (
-                    <li key={scope.id}>
+                  useCase.scopes.map((scope, index) => (
+                    <li key={index}>
                       <Typography variant="body2">{scope.name}</Typography>
                     </li>
                   ))}
