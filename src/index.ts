@@ -38,7 +38,10 @@ export { InfoExtendDateStep } from './oganisms/consent-steps/info-extend-date-st
 export { ReviewStep } from './oganisms/consent-steps/review-step/review-step.organism';
 export { UseCaseStep } from './oganisms/consent-steps/use-case-step/use-case-step.organism';
 
-// Contest
+// Icons
+export { ApiCogIcon } from './atoms/icons/api-cog.icon';
+
+// Context
 export * from './context/consentForm.context';
 
 // Providers
