@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { ApiCogIcon } from '../../lib';
 
 export default {
-  title: 'Components/Icons',
+  title: 'Assets/Icons',
   component: Box,
   argTypes: {
     backgroundColor: { control: 'color' },
