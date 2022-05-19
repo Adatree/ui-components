@@ -10,24 +10,21 @@ import { AccessFrequency, PostUsageAction, SharingDuration, UseCaseResponse } fr
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Formatter } from '../../../utils/formatter/formater';
 import { IconListItem } from '../../../atoms/icon-list-item/icon-list-item.atom';
-import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
+import {
+  OutsourcedServiceProvider,
+  SupportingParties,
+} from '../../../molecules/supporting-parties/supporting-parties.molecule';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
 
 export type ReviewStepProps = {
   useCase: UseCaseResponse;
   cdrPolicyUrl: string;
   dataSharingRevocationEmail: string;
-  supportingParties?: {
-    id: number;
-    name: string;
-    accreditedId: string;
-    service: string;
-    cdrPolicyUrl: string;
-  }[];
+  outsourcedServiceProvider?: OutsourcedServiceProvider[];
 };
 
 export const ReviewStep = (props: ReviewStepProps) => {
-  const { useCase, cdrPolicyUrl, dataSharingRevocationEmail, supportingParties } = props;
+  const { useCase, cdrPolicyUrl, dataSharingRevocationEmail, outsourcedServiceProvider } = props;
   const [consentForm] = useConsentForm();
   const [dataAccessText] = useState(
     useCase.accessFrequency === AccessFrequency.ONGOING ? 'may occur multiple times per day' : 'will be once off',
@@ -93,9 +90,13 @@ export const ReviewStep = (props: ReviewStepProps) => {
 
       <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
 
-      {supportingParties && (
+      {outsourcedServiceProvider && (
         <>
-          <SupportingParties title={'Supporting parties'} useCase={useCase} />
+          <SupportingParties
+            title={'Supporting parties'}
+            useCase={useCase}
+            outsourcedServiceProvider={outsourcedServiceProvider}
+          />
         </>
       )}
     </Box>

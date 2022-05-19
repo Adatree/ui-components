@@ -16,4 +16,5 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Supporting parties',
   useCase: TestUtil.testData.useCase.homeLoan(),
+  outsourcedServiceProvider: TestUtil.testData.outsourcedServiceProvider.all(),
 };

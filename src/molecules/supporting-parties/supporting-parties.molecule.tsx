@@ -1,18 +1,26 @@
 import * as React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import { UseCaseResponse } from '../../generated/consent/api';
-import { TestUtil } from '../../utils/test/test.util';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
+
+// This type will be part of the Use Case Response
+export type OutsourcedServiceProvider = {
+  id: number;
+  name: string;
+  cdrPolicyUrl: string;
+  accreditedId?: string;
+  description?: string;
+  service?: string;
+};
 
 export type SupportingPartiesProps = {
   title: string;
   useCase: UseCaseResponse;
+  outsourcedServiceProvider: OutsourcedServiceProvider[];
 };
 
 export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
-  const { title, useCase } = props;
-
-  const outsourcedServiceProvider = TestUtil.testData.outsourcedServiceProvider.all();
+  const { title, useCase, outsourcedServiceProvider } = props;
 
   return (
     <Accordion
@@ -30,10 +38,13 @@ export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
             return (
               <Box sx={{ mb: 3 }} key={osp.id}>
                 <Typography variant="h3">{osp.name}</Typography>
-                <Typography sx={{ mb: 1 }} variant="body2">
-                  Accredited ID: {osp.accreditedId}
-                </Typography>
-                <Typography sx={{ mb: 1 }}>{osp.service}</Typography>
+                {osp.accreditedId && (
+                  <Typography sx={{ mb: 1 }} variant="body2">
+                    Accredited ID: {osp.accreditedId}
+                  </Typography>
+                )}
+                {osp.service && <Typography sx={{ mb: 1 }}>{osp.service}</Typography>}
+                {osp.description && <Typography sx={{ mb: 1 }}>{osp.description}</Typography>}
                 <Typography sx={{ mb: 1 }}>
                   Learn more about how they do this in their <Link href={osp.cdrPolicyUrl}>CDR Policy.</Link>
                 </Typography>
