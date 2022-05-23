@@ -46,7 +46,7 @@ export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
                 {osp.service && <Typography sx={{ mb: 1 }}>{osp.service}</Typography>}
                 {osp.description && <Typography sx={{ mb: 1 }}>{osp.description}</Typography>}
                 <Typography sx={{ mb: 1 }}>
-                  Learn more about how they do this in their <Link href={osp.cdrPolicyUrl}>CDR Policy.</Link>
+                  Learn more about how they do this in our <Link href={osp.cdrPolicyUrl}>CDR Policy.</Link>
                 </Typography>
               </Box>
             );
