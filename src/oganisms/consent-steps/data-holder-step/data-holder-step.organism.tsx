@@ -51,16 +51,6 @@ export const DataHolderStep = (props: DataHolderStepProps) => {
             onChange={handleDataHoldersChange}
             defaultValue={dataHolder}
           />
-
-          <Typography variant="h3" sx={{ mt: 5 }}>
-            Why is my bank not listed?
-          </Typography>
-
-          <Typography variant="body1" sx={{ mt: 2 }}>
-            Every bank in Australia must eventually join the Consumer Data Right but not every bank has their systems
-            ready to connect. New banks are joining all the time. If your bank is not listed you have the right to
-            enquire with them as to when they will be ready.
-          </Typography>
         </>
       )}
       {dataHolders.length === disableDataHolders.length && (
