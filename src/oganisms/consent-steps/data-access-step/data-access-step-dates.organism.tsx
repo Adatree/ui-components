@@ -19,6 +19,7 @@ export const DataAccessStepDates = (props: DataAccessStepProps) => {
   const [sharingEndDate, setSharingEndDate] = useState(consentForm.sharingEndDate);
   const [sharingDurations] = useState(useCase.sharingDurations ?? []);
   const [selectedSharingDurations, setSelectedSharingDurations] = useState(consentForm.selectedSharingDurations);
+  const [subtitle, setSubtitle] = useState(`How long do you want ${companyName} to be able to access your data?`);
 
   const handleDatePickerChange = (date: Date) => {
     handleSharingEndDateChange(date, SharingDuration.CUSTOM);
@@ -37,52 +38,60 @@ export const DataAccessStepDates = (props: DataAccessStepProps) => {
     onDateChange();
   };
 
+  const getDateRender = () => {
+    let render = undefined;
+
+    if (!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length === 1) {
+      return render;
+    } else if (
+      (!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 0) ||
+      (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)
+    ) {
+      render = (
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
+          <DateButton
+            sharingDuration={sharingDurations}
+            selectedSharingDuration={selectedSharingDurations}
+            onClick={handleDateButtonClick}
+          />
+        </Box>
+      );
+    } else if (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1) {
+      render = (
+        <Typography
+          variant="body2"
+          color="GrayText"
+          sx={{
+            mt: 1,
+            mr: { xs: 0, sm: 12 },
+            display: 'flex',
+            justifyContent: { xs: 'center', sm: 'end' },
+          }}
+        >
+          or
+        </Typography>
+      );
+    } else if (sharingDurations.includes(SharingDuration.CUSTOM)) {
+      render = (
+        <Box
+          sx={{
+            mt: 2,
+            display: 'flex',
+            width: { xs: '100%', sm: 'inherit' },
+            justifyContent: { xs: 'center', sm: 'end' },
+          }}
+        >
+          <DatePicker date={sharingEndDate} label="Expire on" onChange={handleDatePickerChange} />
+        </Box>
+      );
+    }
+
+    return render;
+  };
+
   return (
     <>
-      <SectionCard
-        title="Sharing expiration date"
-        subtitle={`How long do you want ${companyName} to be able to access your data?`}
-        content={
-          <>
-            {((!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 0) ||
-              (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)) && (
-              <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
-                <DateButton
-                  sharingDuration={sharingDurations}
-                  selectedSharingDuration={selectedSharingDurations}
-                  onClick={handleDateButtonClick}
-                />
-              </Box>
-            )}
-            {sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1 && (
-              <Typography
-                variant="body2"
-                color="GrayText"
-                sx={{
-                  mt: 1,
-                  mr: { xs: 0, sm: 12 },
-                  display: 'flex',
-                  justifyContent: { xs: 'center', sm: 'end' },
-                }}
-              >
-                or
-              </Typography>
-            )}
-            {sharingDurations.includes(SharingDuration.CUSTOM) && (
-              <Box
-                sx={{
-                  mt: 2,
-                  display: 'flex',
-                  width: { xs: '100%', sm: 'inherit' },
-                  justifyContent: { xs: 'center', sm: 'end' },
-                }}
-              >
-                <DatePicker date={sharingEndDate} label="Expire on" onChange={handleDatePickerChange} />
-              </Box>
-            )}
-          </>
-        }
-      ></SectionCard>
+      <SectionCard title="Sharing expiration date" subtitle={subtitle} content={getDateRender()}></SectionCard>
     </>
   );
 };

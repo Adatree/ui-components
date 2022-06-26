@@ -5,7 +5,7 @@ import { Tooltip } from '../tooltip/tooltip.atom';
 export type SectionCardProps = {
   title: string;
   subtitle: string;
-  content: ReactElement;
+  content?: ReactElement;
   tooltip?: ReactElement | string;
 };
 export const SectionCard: React.FC<SectionCardProps> = (props) => {
@@ -26,12 +26,10 @@ export const SectionCard: React.FC<SectionCardProps> = (props) => {
         <Skeleton sx={{ mb: 4 }} variant="text" />
       )}
 
-      {content ? (
+      {content && (
         <Card>
           <CardContent>{content}</CardContent>
         </Card>
-      ) : (
-        <Skeleton variant="rectangular" height={200} />
       )}
     </>
   );

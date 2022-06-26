@@ -60,7 +60,7 @@ export const DateDurationList: DateDuration[] = [
     type: SharingDuration.ONCEOFF,
     unit: 'd',
     value: 0,
-    text: 'Once off',
+    text: 'once',
   },
   {
     type: SharingDuration.CUSTOM,
