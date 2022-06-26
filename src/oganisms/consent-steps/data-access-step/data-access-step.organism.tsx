@@ -43,7 +43,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
         <UseCaseScopeList
           title="Your data"
           subtitle={
-            useCase ? `We need to collect the below information in order to provide you with ${useCase.name}.` : ''
+            useCase ? `${useCase.description}` : ''
           }
           useCase={useCase}
           checkedValues={consentForm.checkedScopes}
