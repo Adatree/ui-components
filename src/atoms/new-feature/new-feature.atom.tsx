@@ -58,6 +58,7 @@ export const NewFeature: React.FC<NewFeatureProps> = (props) => {
         open={open}
         onClose={handleClose}
         arrow
+        disableHoverListener
         componentsProps={{
           tooltip: {
             sx: {
