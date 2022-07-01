@@ -1,6 +1,6 @@
 {
   "name": "@adatree-oss/atomic-components",
-  "version": "2.5.2",
+  "version": "2.5.4",
   "main": "dist/index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
@@ -28,7 +28,8 @@
     "date-fns": "^2.28.0",
     "mdi-material-ui": "7.2.0",
     "react-syntax-highlighter": "^15.5.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "uuid": "^8.3.2"
   },
   "resolutions": {
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
@@ -39,6 +40,7 @@
     "@types/react": "^17.0.38",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/styled-components": "^5.1.19",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
