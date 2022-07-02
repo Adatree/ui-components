@@ -93,7 +93,7 @@ const TabPanel = (props: TabPanelProps) => {
       aria-labelledby={`Consent-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ px: { xs: 0, sm: 1, md: 3 }, py: { xs: 1, sm: 2, md: 3 } }}>{children}</Box>}
     </div>
   );
 };
