@@ -14,7 +14,7 @@ export const ScopeAccordion: React.FC<ScopeAccordionProps> = (props) => {
     <>
       {scopes.map((scope: ScopeResponse) => {
         return (
-          <Accordion key={scope.id}>
+          <Accordion sx={{ boxShadow: 'none', '&:before': { background: 'none' } }} key={scope.id}>
             <AccordionSummary
               expandIcon={<ChevronDown />}
               aria-controls={`panel-content-${scope.name?.replace(' ', '-')}`}
