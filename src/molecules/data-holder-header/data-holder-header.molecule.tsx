@@ -41,22 +41,42 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Avatar
-        alt={consent.dataHolderName}
-        src={dataHolderLogoUrl}
-        component={'span'}
-        sx={{ mr: 2, img: { height: 'auto' } }}
-        variant="square"
+    <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+      <Box sx={{ order: 1 }}>
+        <Avatar
+          alt={consent.dataHolderName}
+          src={dataHolderLogoUrl}
+          component={'span'}
+          sx={{ mr: 2, img: { height: 'auto' } }}
+          variant="square"
+        >
+          <Bank />
+        </Avatar>
+      </Box>
+
+      <Box
+        sx={{
+          order: { xs: 3, sm: 2 },
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'column',
+          flexBasis: { xs: '100%', sm: 0 },
+          pt: { xs: 1, sm: 0 },
+        }}
       >
-        <Bank />
-      </Avatar>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h2">{consent.dataHolderName}</Typography>
         <Typography>{textDate}</Typography>
       </Box>
 
-      <Box sx={{ ml: 'auto' }}>
+      <Box
+        sx={{
+          order: { xs: 2, sm: 3 },
+          display: 'flex',
+          flex: { xs: 1, sm: 'inherit' },
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
+      >
         {consent.status === Status.ACTIVE && (
           <>
             {isExtendable && (
