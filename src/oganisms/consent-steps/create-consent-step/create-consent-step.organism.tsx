@@ -28,12 +28,12 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Typography variant="h6" component="h2" sx={{ mb: 1 }}>
+          <Typography variant="body1" component="h2" sx={{ mb: 1, fontWeight: 'bold' }}>
             Choose your bank
           </Typography>
           <AutocompleteDropdown dataHolders={useCase.dataHolders} disableDataHolders={undefined} onChange={() => {}} />
 
-          <Typography variant="h6" component="h2" sx={{ mt: 3, mb: 1 }}>
+          <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
             Confirm that you allow {companyName} to access the following information:
           </Typography>
           <Paper>
@@ -45,7 +45,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             <Typography>{companyName} may access your data multiple times per day.</Typography>
           </Paper>
 
-          <Typography variant="h6" component="h2" sx={{ mt: 3, mb: 1 }}>
+          <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
             Key things to know before you consent
           </Typography>
           <Box sx={{ position: 'relative' }}>
@@ -56,12 +56,12 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              mt: 6,
+              mt: 4,
               flexDirection: { xs: 'column-reverse', sm: 'row' },
             }}
           >
             <Button
-              sx={{ mb: 3, width: { xs: '100%', sm: '20rem' } }}
+              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="outlined"
               color="inherit"
               onClick={() => handleCancel}
@@ -69,7 +69,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
               Cancel
             </Button>
             <Button
-              sx={{ mb: 3, width: { xs: '100%', sm: '20rem' } }}
+              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
               color="cta"
               disabled={!canConsent}
@@ -78,7 +78,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             </Button>
           </Box>
 
-          <Box sx={{ p: 2, mt: 3, mb: 1 }}>
+          <Box sx={{ p: 2, my: 1 }}>
             <Accreditation
               accreditationNumber={accreditationNumber}
               cdrPolicyUrl={cdrPolicyUrl}

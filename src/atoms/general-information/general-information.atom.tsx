@@ -39,7 +39,13 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           {generalInfoList.map((item, index) => {
             return (
               <ListItem
-                sx={{ paddingLeft: '8px', display: 'list-item', marginLeft: '32px', listStyle: 'disc' }}
+                sx={{
+                  paddingLeft: '0.5rem',
+                  display: 'list-item',
+                  marginLeft: '2rem',
+                  listStyle: 'disc',
+                  width: 'calc(100% - 2rem)',
+                }}
                 key={index}
               >
                 <ListItemText primary={item} />

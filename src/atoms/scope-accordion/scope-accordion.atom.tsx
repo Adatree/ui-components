@@ -105,7 +105,16 @@ export const ScopeAccordion: React.FC<ScopeAccordionProps> = (props) => {
           <Typography sx={{ mb: 0.75 }}>{companyName} will receive access to the following information:</Typography>
           <ul>
             {scope?.claims?.map((claim) => (
-              <li key={claim} style={{ listStyle: 'disc', marginLeft: '2rem' }}>
+              <li
+                key={claim}
+                style={{
+                  paddingLeft: '0.5rem',
+                  display: 'list-item',
+                  marginLeft: '2rem',
+                  marginBottom: '0.5rem',
+                  listStyle: 'disc',
+                }}
+              >
                 {claim}
               </li>
             ))}
