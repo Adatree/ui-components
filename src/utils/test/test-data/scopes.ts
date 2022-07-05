@@ -4,7 +4,7 @@ const bankAccountsBasicRead = (): ScopeResponse => {
   return {
     name: 'Account name, type and balance',
     id: 'bank:accounts.basic:read',
-    purpose: 'We need your account name, type and balance for...',
+    purpose: 'We need your account name, type and balance for X reason.',
     description: 'This will allow us to access basic account information including the account balance.',
     claims: ['Name of account', 'Type of account', 'Account balance'],
     priority: 2,
@@ -15,7 +15,7 @@ const bankAccountsDetailRead = (): ScopeResponse => {
   return {
     name: 'Account numbers and features',
     id: 'bank:accounts.detail:read',
-    purpose: 'We need your account numbers and features for...',
+    purpose: 'We need your account numbers and features for X reason.',
     description:
       'This will allow us to access detailed bank account information including basic account information plus account identifiers and product information.',
     claims: ['Account number', 'Interest rates', 'Fees', 'Discounts', 'Account terms', 'Account mail address'],
@@ -27,7 +27,7 @@ const bankTransactionsRead = (): ScopeResponse => {
   return {
     name: 'Transaction details',
     id: 'bank:transactions:read',
-    purpose: 'We need your transaction details for...',
+    purpose: 'We need your transaction details for X reason.',
     description: 'This will allow us to access bank account transaction data.',
     claims: [
       'Incoming and outgoing transactions',
@@ -44,7 +44,7 @@ const commonCustomerBasicRead = (): ScopeResponse => {
   return {
     name: 'Name and occupation',
     id: 'common:customer.basic:read',
-    purpose: 'We need your name and occupation for...',
+    purpose: 'We need your name and occupation for X reason.',
     description:
       'This will allow us to access personally identifiable information about the customer. For retail customers this would be information about the customer. For businesses it would be the name of the specific user and information about the business.',
     claims: ['Name', 'Occupation'],
@@ -56,7 +56,7 @@ const commonCustomerDetailRead = (): ScopeResponse => {
   return {
     name: 'Contact details',
     id: 'common:customer.detail:read',
-    purpose: 'We need your personal details to...',
+    purpose: 'We need your personal details to X reason.',
     description: 'This will allow us to access more detailed customer information such as contact details.',
     claims: ['Phone', 'Email address', 'Mail address', 'Residential address'],
     priority: 1,
@@ -67,7 +67,7 @@ const energyAccountsBasicRead = (): ScopeResponse => {
   return {
     name: 'Accounts and plans',
     id: 'energy:accounts.basic:read',
-    purpose: 'We need your basic account information to...',
+    purpose: 'We need your basic account information to X reason.',
     description: '',
     claims: ['Account and plan information', 'National Meter Identifier (NMI)'],
     priority: 7,
@@ -78,7 +78,7 @@ const energyBillingRead = (): ScopeResponse => {
   return {
     name: 'Billing payments and history',
     id: 'energy:billing:read',
-    purpose: 'We need your billing information to...',
+    purpose: 'We need your billing information to X reason.',
     description: '',
     claims: [
       'Account balance',
@@ -99,7 +99,7 @@ const energyElectricityUsageRead = (): ScopeResponse => {
   return {
     name: 'Electricity usage',
     id: 'energy:electricity.usage:read',
-    purpose: 'We need your usage information to...',
+    purpose: 'We need your usage information to X reason.',
     description: '',
     claims: ['Usage', 'Meter details'],
     priority: 15,
@@ -110,7 +110,7 @@ const energyAccountsDetailRead = (): ScopeResponse => {
   return {
     name: 'Account and plan details',
     id: 'energy:accounts.detail:read',
-    purpose: 'We need your detailed account information to...',
+    purpose: 'We need your detailed account information to X reason.',
     description: '',
     claims: [
       'Account and plan information',
@@ -127,7 +127,7 @@ const energyAccountsConcessionsRead = (): ScopeResponse => {
   return {
     name: 'Concessions and assistance',
     id: 'energy:accounts.concessions:read',
-    purpose: 'We need your concession information to...',
+    purpose: 'We need your concession information to X reason.',
     description: '',
     claims: ['Concession type', 'Concession information'],
     priority: 9,
@@ -138,7 +138,7 @@ const energyAccountsPaymentscheduleRead = (): ScopeResponse => {
   return {
     name: 'Stored payment information',
     id: 'energy:accounts.paymentschedule:read',
-    purpose: 'We need your payments information to...',
+    purpose: 'We need your payments information to X reason.',
     description: '',
     claims: ['Payment details', 'Scheduled payment amount'],
     priority: 10,
@@ -149,7 +149,7 @@ const energyElectricityServicepointsBasicRead = (): ScopeResponse => {
   return {
     name: 'Electricity connection',
     id: 'energy:electricity.servicepoints.basic:read',
-    purpose: 'We need your basic service point information to...',
+    purpose: 'We need your basic service point information to X reason.',
     description: '',
     claims: ['National Meter Identifier (NMI)', 'Customer type', 'Connection point details'],
     priority: 12,
@@ -160,7 +160,7 @@ const energyElectricityServicepointsDetailRead = (): ScopeResponse => {
   return {
     name: 'Electricity connection and meter',
     id: 'energy:electricity.servicepoints.detail:read',
-    purpose: 'We need your detailed service point information to...',
+    purpose: 'We need your detailed service point information to X reason.',
     description: '',
     claims: [
       'National Meter Identifier (NMI)',
@@ -178,7 +178,7 @@ const energyElectricityDerRead = (): ScopeResponse => {
   return {
     name: 'Energy generation and storage',
     id: 'energy:electricity.der:read',
-    purpose: 'We need your energy generation information to...',
+    purpose: 'We need your energy generation information to X reason.',
     description: '',
     claims: [
       'Generation information',

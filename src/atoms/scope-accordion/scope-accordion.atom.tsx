@@ -102,7 +102,7 @@ export const ScopeAccordion: React.FC<ScopeAccordionProps> = (props) => {
         </DialogTitle>
         <DialogContent>
           <Typography sx={{ mb: 1.5 }}>{scope?.purpose}</Typography>
-          <Typography sx={{ mb: 0.75 }}>{companyName} will receive access to the following information</Typography>
+          <Typography sx={{ mb: 0.75 }}>{companyName} will receive access to the following information:</Typography>
           <ul>
             {scope?.claims?.map((claim) => (
               <li key={claim} style={{ listStyle: 'disc', marginLeft: '2rem' }}>

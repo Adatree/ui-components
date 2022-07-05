@@ -16,5 +16,5 @@ export const Default = Template.bind({});
 Default.args = {
   accreditationNumber: '1234-5678',
   cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
-  companyName: 'Your Company',
+  companyName: 'TestCompany',
 };
