@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardContent, FormControlLabel, FormGroup, Link, Checkbox, Typography, Box } from '@mui/material';
+import { FormControlLabel, FormGroup, Checkbox, Typography, Box, Collapse } from '@mui/material';
+import ChevronRight from 'mdi-material-ui/ChevronRight';
 
 export type CheckboxAccordionProps = {
   title: string;
@@ -13,16 +14,7 @@ export type CheckboxAccordionProps = {
 };
 
 export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
-  const {
-    title,
-    subtitle,
-    checkboxValue,
-    checked = false,
-    items,
-    openLabel = `See what's included`,
-    closeLabel = 'Hide',
-    onChange,
-  } = props;
+  const { title, subtitle, checkboxValue, checked = false, items, onChange } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 
@@ -37,55 +29,71 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
   };
 
   return (
-    <Card>
-      <CardContent sx={{ pl: 1 }}>
-        <FormGroup>
-          <FormControlLabel
-            label={<Typography variant="h3">{title}</Typography>}
-            labelPlacement="start"
-            sx={{
-              justifyContent: 'space-between',
-              ml: 0,
-              pl: 1,
-              '&:hover': { backgroundColor: 'hover.main' },
-            }}
-            control={
-              <Checkbox
-                value={checkboxValue}
-                checked={isChecked}
-                onChange={handleChange}
-                inputProps={{ 'aria-label': 'controlled' }}
-                color="cta"
-              />
-            }
-          />
-        </FormGroup>
-
-        {subtitle && (
-          <Typography sx={{ pl: 1, opacity: 0.7 }} variant="h4">
-            {subtitle}
-          </Typography>
-        )}
-
-        {items && items.length > 0 && (
-          <Box sx={{ pl: 1 }}>
-            <Link href="#" onClick={toggleAccordion} sx={{ display: 'block', mt: 3 }} color="inherit">
-              {isOpen ? closeLabel : openLabel}
-            </Link>
-            {isOpen && (
-              <Box sx={{ pt: 2 }}>
-                <ul>
-                  {items.map((item: string, i: number) => (
-                    <li key={i} style={{ listStyle: 'inside', paddingLeft: '12px' }}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </Box>
+    <>
+      <FormGroup>
+        <FormControlLabel
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {items && items.length > 0 && (
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', width: '3.4rem', height: '4.2rem' }}
+                  onClick={toggleAccordion}
+                >
+                  <ChevronRight
+                    className={isOpen ? 'open' : 'close'}
+                    sx={{
+                      '&.open': {
+                        transform: 'rotate(90deg)',
+                        transition: 'transform 0.2s',
+                      },
+                      '&.close': {
+                        transform: 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      },
+                    }}
+                  />
+                </Box>
+              )}
+              <Typography variant="h3">{title}</Typography>
+            </Box>
+          }
+          labelPlacement="start"
+          sx={{
+            justifyContent: 'space-between',
+            ml: 0,
+            pl: 1,
+            '&:hover': { backgroundColor: 'hover.main' },
+          }}
+          control={
+            <Checkbox
+              value={checkboxValue}
+              checked={isChecked}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': 'controlled' }}
+              color="cta"
+            />
+          }
+        />
+      </FormGroup>
+      {items && items.length > 0 && (
+        <Collapse in={isOpen}>
+          <Box sx={{ p: 2 }}>
+            {subtitle && (
+              <Typography sx={{ mb: 1, opacity: 0.7 }} variant="h4">
+                {subtitle}
+              </Typography>
             )}
+
+            <ul>
+              {items.map((item: string, i: number) => (
+                <li key={i} style={{ listStyle: 'inside', paddingLeft: '2px' }}>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </Box>
-        )}
-      </CardContent>
-    </Card>
+        </Collapse>
+      )}
+    </>
   );
 };
