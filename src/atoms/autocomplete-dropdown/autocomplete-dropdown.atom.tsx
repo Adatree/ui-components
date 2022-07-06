@@ -12,7 +12,7 @@ export type CheckboxAccordionProps = {
 };
 
 export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) => {
-  const { dataHolders, label = 'Choose your bank', defaultValue = null, disableDataHolders = [], onChange } = props;
+  const { dataHolders, label = '', defaultValue = null, disableDataHolders = [], onChange } = props;
 
   const handleChange = (event: SyntheticEvent<Element, Event>, value: DataHolder | null) => {
     if (event) {
@@ -37,6 +37,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   return (
     <Autocomplete
       disablePortal
+      sx={{ backgroundColor: '#fff' }}
       options={dataHolders}
       getOptionLabel={(option) => option.brandName}
       getOptionDisabled={(option) => {
