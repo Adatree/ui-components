@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControlLabel, FormGroup, Checkbox, Typography, Box, Collapse } from '@mui/material';
+import { Checkbox, Typography, Box, Collapse } from '@mui/material';
 import ChevronRight from 'mdi-material-ui/ChevronRight';
 
 export type CheckboxAccordionProps = {
@@ -23,58 +23,55 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
     setIsOpen(!isOpen);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
-    onChange(event.target.checked, event.target.value);
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+    onChange(!isChecked, checkboxValue);
   };
 
   return (
     <>
-      <FormGroup>
-        <FormControlLabel
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {items && items.length > 0 && (
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', width: '3.4rem', height: '4.2rem' }}
-                  onClick={toggleAccordion}
-                >
-                  <ChevronRight
-                    className={isOpen ? 'open' : 'close'}
-                    sx={{
-                      '&.open': {
-                        transform: 'rotate(90deg)',
-                        transition: 'transform 0.2s',
-                      },
-                      '&.close': {
-                        transform: 'rotate(0deg)',
-                        transition: 'transform 0.2s',
-                      },
-                    }}
-                  />
-                </Box>
-              )}
-              <Typography variant="h3">{title}</Typography>
-            </Box>
-          }
-          labelPlacement="start"
+      <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+        <Box
           sx={{
-            justifyContent: 'space-between',
-            ml: 0,
-            pl: 1,
-            '&:hover': { backgroundColor: 'hover.main' },
+            flex: '0 0 auto',
+            height: '4.2rem',
+            width: '4.2rem',
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center',
           }}
-          control={
-            <Checkbox
-              value={checkboxValue}
-              checked={isChecked}
-              onChange={handleChange}
-              inputProps={{ 'aria-label': 'controlled' }}
-              color="cta"
+          onClick={toggleAccordion}
+        >
+          {items && items.length > 0 && (
+            <ChevronRight
+              className={isOpen ? 'open' : 'close'}
+              sx={{
+                '&.open': {
+                  transform: 'rotate(90deg)',
+                  transition: 'transform 0.2s',
+                },
+                '&.close': {
+                  transform: 'rotate(0deg)',
+                  transition: 'transform 0.2s',
+                },
+              }}
             />
-          }
-        />
-      </FormGroup>
+          )}
+        </Box>
+        <Box sx={{ flex: '1 1 auto' }} onClick={handleChange}>
+          <Typography variant="h3">{title}</Typography>
+        </Box>
+        <Box sx={{ flex: '0 0 auto' }}>
+          <Checkbox
+            value={checkboxValue}
+            checked={isChecked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+            color="cta"
+          />
+        </Box>
+      </Box>
+
       {items && items.length > 0 && (
         <Collapse in={isOpen}>
           <Box sx={{ p: 2 }}>
