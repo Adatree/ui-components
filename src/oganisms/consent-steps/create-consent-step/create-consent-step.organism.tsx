@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { UseCaseResponse } from '../../../generated/consent';
+import React, { useEffect, useState } from 'react';
+import { DataHolder, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeAccordion } from '../../../atoms/scope-accordion/scope-accordion.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
 import { Box, Button, Card, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
+import { useConsentForm } from '../../../context/consentForm.context';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -12,17 +13,42 @@ export type CreateConsentStepProps = {
   companyName: string;
   useCase: UseCaseResponse;
   dataSharingRevocationEmail: string;
+  onSubmit: () => void;
 };
 
 export const CreateConsentStep = (props: CreateConsentStepProps) => {
-  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail } = props;
-  const [canConsent, setCanConsent] = useState(false);
+  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit } = props;
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
+  const [consentForm, setConsentForm] = useConsentForm();
+
+  useEffect(() => {
+    if (isAllCheckboxChecked && consentForm.dataHolder) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [isAllCheckboxChecked, consentForm]);
+
+  const handleDataHolderChange = (dataHolder: DataHolder | null) => {
+    if (dataHolder === null) {
+      consentForm.dataHolder = undefined;
+    } else {
+      consentForm.dataHolder = dataHolder;
+    }
+
+    setConsentForm({ ...consentForm });
+  };
 
   const handleScopeChange = (isAllChecked: boolean) => {
-    setCanConsent(isAllChecked);
+    setIsAllCheckboxChecked(isAllChecked);
   };
 
   const handleCancel = () => {};
+
+  const handleSubmit = () => {
+    onSubmit();
+  };
 
   return (
     <section>
@@ -31,7 +57,11 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
           <Typography variant="body1" component="h2" sx={{ mb: 1, fontWeight: 'bold' }}>
             Choose your bank
           </Typography>
-          <AutocompleteDropdown dataHolders={useCase.dataHolders} disableDataHolders={undefined} onChange={() => {}} />
+          <AutocompleteDropdown
+            dataHolders={useCase.dataHolders}
+            disableDataHolders={undefined}
+            onChange={handleDataHolderChange}
+          />
 
           <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
             Confirm that you allow {companyName} to access the following information:
@@ -72,7 +102,8 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
               color="cta"
-              disabled={!canConsent}
+              disabled={!isFormValid}
+              onClick={handleSubmit}
             >
               Consent
             </Button>
