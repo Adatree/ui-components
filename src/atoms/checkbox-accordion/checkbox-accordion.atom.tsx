@@ -35,12 +35,13 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
       >
         <Box
           sx={{
-            flex: '0 0 auto',
-            height: '4.2rem',
-            width: '4.2rem',
-            alignItems: 'center',
             display: 'flex',
+            flex: '0 0 auto',
+            alignItems: 'center',
             justifyContent: 'center',
+            width: '4.2rem',
+            height: '100%',
+            minHeight: '4.2rem',
           }}
           onClick={toggleAccordion}
         >
@@ -60,17 +61,21 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
             />
           )}
         </Box>
-        <Box sx={{ flex: '1 1 auto' }} onClick={handleChange}>
-          <Typography variant="h3">{title}</Typography>
-        </Box>
-        <Box sx={{ flex: '0 0 auto' }}>
-          <Checkbox
-            value={checkboxValue}
-            checked={isChecked}
-            onChange={handleChange}
-            inputProps={{ 'aria-label': 'controlled' }}
-            color="cta"
-          />
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}
+          onClick={handleChange}
+        >
+          <Box sx={{ flex: '1 1 auto' }}>
+            <Typography variant="h3">{title}</Typography>
+          </Box>
+          <Box sx={{ flex: '0 0 auto' }}>
+            <Checkbox
+              value={checkboxValue}
+              checked={isChecked}
+              inputProps={{ 'aria-label': 'controlled' }}
+              color="cta"
+            />
+          </Box>
         </Box>
       </Box>
 
