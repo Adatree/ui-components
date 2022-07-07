@@ -30,7 +30,9 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+      <Box
+        sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', '&:hover': { backgroundColor: 'hover.main' } }}
+      >
         <Box
           sx={{
             flex: '0 0 auto',
