@@ -11,13 +11,13 @@ export const Accordion: React.FC<AccordionProps> = (props) => {
   const { title, content } = props;
 
   return (
-    <MuiAccordion>
+    <MuiAccordion elevation={0}>
       <AccordionSummary
         expandIcon={<ChevronDown />}
         aria-controls={`panel-content-${title.replace(' ', '-')}`}
         id={`panel-id-${title.replace(' ', '-')}`}
       >
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="body1">{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>{content} </AccordionDetails>
     </MuiAccordion>

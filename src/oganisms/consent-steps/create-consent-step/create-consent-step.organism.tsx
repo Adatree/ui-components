@@ -6,7 +6,6 @@ import { GeneralInformation } from '../../../atoms/general-information/general-i
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
-import { Solid } from 'mdi-material-ui';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -72,7 +71,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Typography variant="body1" component="h2" sx={{ mb: 1, fontWeight: 'bold' }}>
+          <Typography variant="h2" sx={{ mb: 1 }}>
             Choose your bank
           </Typography>
           <AutocompleteDropdown
@@ -82,25 +81,31 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             showError={showDataHolderError}
           />
 
-          <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
-            Confirm that you allow {companyName} to access the following information:
+          <Typography variant="h2" sx={{ mb: 0, mt: 1 }}>
+            Confirm access
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            Please confirm that {companyName} can have access to the following information:
           </Typography>
           <Card
             sx={{ borderRadius: '4px', py: 0, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
             className={showScopeError === true ? 'error' : ''}
+            elevation={0}
           >
             <ScopeAccordion scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please check all checkboxes.'}
+            {showScopeError && 'Please click all the boxes.'}
           </Typography>
 
-          <Card sx={{ p: 2, mt: 3, mb: 1 }}>
-            <Typography sx={{ mb: 1 }}>{companyName} can access your data for 3 months.</Typography>
-            <Typography>{companyName} may access your data multiple times per day.</Typography>
+          <Typography variant="h2" sx={{ mb: 1, mt: 1 }}>
+            Important dates
+          </Typography>
+          <Card sx={{ p: 2, mb: 1 }} elevation={0}>
+            <Typography sx={{ mb: 0 }}>{companyName} can access your data for 3 months.</Typography>
           </Card>
 
-          <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
+          <Typography variant="h2" sx={{ mb: 1, mt: 3 }}>
             Key things to know before you consent
           </Typography>
           <Box sx={{ position: 'relative' }}>
@@ -111,7 +116,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              mt: 4,
+              mt: 3,
               flexDirection: { xs: 'column', sm: 'row-reverse' },
             }}
           >

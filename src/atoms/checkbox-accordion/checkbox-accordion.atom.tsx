@@ -66,7 +66,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
           onClick={handleChange}
         >
           <Box sx={{ flex: '1 1 auto' }}>
-            <Typography variant="h3">{title}</Typography>
+            <Typography variant="body1">{title}</Typography>
           </Box>
           <Box sx={{ flex: '0 0 auto' }}>
             <Checkbox
