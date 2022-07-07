@@ -96,9 +96,18 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
               display: 'flex',
               justifyContent: 'space-between',
               mt: 4,
-              flexDirection: { xs: 'column-reverse', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row-reverse' },
             }}
           >
+            <Button
+              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
+              variant="contained"
+              color="cta"
+              disabled={!isFormValid}
+              onClick={handleSubmit}
+            >
+              Consent
+            </Button>
             <Button
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="outlined"
@@ -108,15 +117,6 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
               }}
             >
               Cancel
-            </Button>
-            <Button
-              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
-              variant="contained"
-              color="cta"
-              disabled={!isFormValid}
-              onClick={handleSubmit}
-            >
-              Consent
             </Button>
           </Box>
 
@@ -142,7 +142,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" color="inherit" onClick={handleDialogClose}>
+          <Button variant="outlined" color="inherit" onClick={handleDialogClose} autoFocus>
             No
           </Button>
           <Button variant="outlined" color="inherit" onClick={handleCancel}>
