@@ -39,6 +39,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
     if (dataHolder === null) {
       consentForm.dataHolder = undefined;
     } else {
+      setShowDataHolderError(false);
       consentForm.dataHolder = dataHolder;
     }
 
