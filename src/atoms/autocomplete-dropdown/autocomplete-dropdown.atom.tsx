@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import Bank from 'mdi-material-ui/Bank';
@@ -8,13 +8,20 @@ export type CheckboxAccordionProps = {
   defaultValue?: DataHolder;
   label?: string;
   disableDataHolders?: DataHolder[];
+  showError?: boolean;
   onChange: (value: DataHolder | null) => void;
 };
 
 export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) => {
-  const { dataHolders, label = '', defaultValue = null, disableDataHolders = [], onChange } = props;
+  const { dataHolders, label = '', defaultValue = null, disableDataHolders = [], showError = false, onChange } = props;
   const [inputValue, setInputValue] = useState<DataHolder | null>(null);
-  const [isInputError, setIsInputError] = useState(false);
+  const [error, setError] = useState(showError);
+
+  useEffect(() => {
+    if (showError) {
+      setError(inputValue === null ? true : false);
+    }
+  }, [showError]);
 
   const handleChange = (event: SyntheticEvent<Element, Event>, value: DataHolder | null) => {
     if (event) {
@@ -24,11 +31,11 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   };
 
   const handleFocus = () => {
-    setIsInputError(false);
+    setError(false);
   };
 
   const handleBlur = () => {
-    setIsInputError(inputValue === null ? true : false);
+    setError(inputValue === null ? true : false);
   };
 
   const isDisabled = (option: DataHolder): boolean => {
@@ -49,7 +56,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
     <>
       <Autocomplete
         disablePortal
-        className={isInputError === true ? 'error' : ''}
+        className={error === true ? 'error' : ''}
         sx={{ backgroundColor: '#fff', '&.error fieldset': { borderColor: 'error.main' } }}
         options={dataHolders}
         getOptionLabel={(option) => option.brandName}
@@ -77,11 +84,10 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
         onBlur={() => handleBlur()}
         onFocus={() => handleFocus()}
       />
-      {isInputError && (
-        <Typography variant="body2" color="error.main">
-          This field is required.
-        </Typography>
-      )}
+
+      <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+        {error && 'This field is required.'}
+      </Typography>
     </>
   );
 };

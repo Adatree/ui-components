@@ -6,6 +6,7 @@ import { GeneralInformation } from '../../../atoms/general-information/general-i
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
+import { Solid } from 'mdi-material-ui';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -23,6 +24,8 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [showDataHolderError, setShowDataHolderError] = useState(false);
+  const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
 
   useEffect(() => {
@@ -44,6 +47,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
   };
 
   const handleScopeChange = (isAllChecked: boolean) => {
+    setShowScopeError(false);
     setIsAllCheckboxChecked(isAllChecked);
   };
 
@@ -56,7 +60,12 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
   };
 
   const handleSubmit = () => {
-    onSubmit();
+    if (isFormValid) {
+      onSubmit();
+    } else {
+      setShowDataHolderError(!consentForm.dataHolder);
+      setShowScopeError(isAllCheckboxChecked === true ? false : true);
+    }
   };
 
   return (
@@ -70,14 +79,21 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             dataHolders={useCase.dataHolders}
             disableDataHolders={undefined}
             onChange={handleDataHolderChange}
+            showError={showDataHolderError}
           />
 
           <Typography variant="body1" component="h2" sx={{ mb: 1, mt: 3, fontWeight: 'bold' }}>
             Confirm that you allow {companyName} to access the following information:
           </Typography>
-          <Card sx={{ borderRadius: '4px', py: 0 }}>
+          <Card
+            sx={{ borderRadius: '4px', py: 0, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
+            className={showScopeError === true ? 'error' : ''}
+          >
             <ScopeAccordion scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
+          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {showScopeError && 'Please check all checkboxes.'}
+          </Typography>
 
           <Card sx={{ p: 2, mt: 3, mb: 1 }}>
             <Typography sx={{ mb: 1 }}>{companyName} can access your data for 3 months.</Typography>
@@ -102,8 +118,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             <Button
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
-              color="cta"
-              disabled={!isFormValid}
+              color={isFormValid === true ? 'cta' : 'inherit'}
               onClick={handleSubmit}
             >
               Consent
