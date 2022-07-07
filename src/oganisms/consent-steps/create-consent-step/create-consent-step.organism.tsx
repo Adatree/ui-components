@@ -3,7 +3,7 @@ import { DataHolder, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeAccordion } from '../../../atoms/scope-accordion/scope-accordion.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import { Box, Button, Card, Typography } from '@mui/material';
+import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
 
@@ -14,12 +14,15 @@ export type CreateConsentStepProps = {
   useCase: UseCaseResponse;
   dataSharingRevocationEmail: string;
   onSubmit: () => void;
+  onCancel: () => void;
 };
 
 export const CreateConsentStep = (props: CreateConsentStepProps) => {
-  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit } = props;
+  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit, onCancel } =
+    props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
 
   useEffect(() => {
@@ -44,7 +47,13 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
     setIsAllCheckboxChecked(isAllChecked);
   };
 
-  const handleCancel = () => {};
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleCancel = () => {
+    onCancel();
+  };
 
   const handleSubmit = () => {
     onSubmit();
@@ -94,7 +103,9 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="outlined"
               color="inherit"
-              onClick={() => handleCancel}
+              onClick={() => {
+                setIsDialogOpen(true);
+              }}
             >
               Cancel
             </Button>
@@ -118,6 +129,27 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
           </Box>
         </>
       )}
+
+      <Dialog
+        open={isDialogOpen}
+        onClose={handleDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to cancel this consent?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" color="inherit" onClick={handleDialogClose}>
+            No
+          </Button>
+          <Button variant="outlined" color="inherit" onClick={handleCancel}>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </section>
   );
 };

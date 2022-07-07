@@ -19,6 +19,12 @@ export default {
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
 const companyName = 'TestComapnay';
+const handleSummit = () => {
+  alert('Consent submitted');
+};
+const handleCancel = () => {
+  alert('Consent canceled');
+};
 
 const Template: ComponentStory<typeof CreateConsentStep> = (args) => <CreateConsentStep {...args} />;
 
@@ -38,6 +44,8 @@ WithShortScopes.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   useCase: TestUtil.testData.useCase.homeLoan(),
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
 };
 
 export const WithLongScopes = Template.bind({});
@@ -56,4 +64,6 @@ WithLongScopes.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   useCase: TestUtil.testData.useCase.openEnergy(),
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
 };
