@@ -71,7 +71,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Typography variant="h2" sx={{ mb: 1 }}>
+          <Typography variant="h2" sx={{ mb: 0.5 }}>
             Choose your bank
           </Typography>
           <AutocompleteDropdown
@@ -81,9 +81,7 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             showError={showDataHolderError}
           />
 
-          <Typography variant="h2" sx={{ mb: 0, mt: 1 }}>
-            Confirm access
-          </Typography>
+          <Typography variant="h2">Confirm access</Typography>
           <Typography variant="body2" sx={{ mb: 1 }}>
             Please confirm that {companyName} can have access to the following information:
           </Typography>
@@ -95,28 +93,26 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             <ScopeAccordion scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please click all the boxes.'}
+            {showScopeError && 'Please select all the boxes.'}
           </Typography>
 
-          <Typography variant="h2" sx={{ mb: 1, mt: 1 }}>
-            Important dates
-          </Typography>
-          <Card sx={{ p: 2, mb: 1 }} elevation={0}>
+          <Typography variant="h2">Important dates</Typography>
+          <Card sx={{ p: 2, mb: 2.8 }} elevation={0}>
             <Typography sx={{ mb: 0 }}>{companyName} can access your data for 3 months.</Typography>
           </Card>
 
-          <Typography variant="h2" sx={{ mb: 1, mt: 3 }}>
-            Key things to know before you consent
+          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {showDataHolderError && 'Please choose your bank above.'}
           </Typography>
-          <Box sx={{ position: 'relative' }}>
-            <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
-          </Box>
+          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {showScopeError && 'Please confirm access to your information above.'}
+          </Typography>
 
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              mt: 3,
+              mb: 4,
               flexDirection: { xs: 'column', sm: 'row-reverse' },
             }}
           >
@@ -140,7 +136,14 @@ export const CreateConsentStep = (props: CreateConsentStepProps) => {
             </Button>
           </Box>
 
-          <Box sx={{ p: 2, my: 1 }}>
+          <Typography variant="h3" sx={{ mb: 0.5 }}>
+            Important information
+          </Typography>
+          <Box sx={{ position: 'relative' }}>
+            <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
+          </Box>
+
+          <Box sx={{ p: 2, m: 1 }}>
             <Accreditation
               accreditationNumber={accreditationNumber}
               cdrPolicyUrl={cdrPolicyUrl}
