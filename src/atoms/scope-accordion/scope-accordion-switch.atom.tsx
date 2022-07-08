@@ -91,7 +91,9 @@ export const ScopeAccordionSwitch: React.FC<ScopeAccordionProps> = (props) => {
 
       <Dialog onClose={handleDialogClose} open={isDialogOpen}>
         <DialogTitle>
-          <Typography sx={{ mr: '2rem' }}>{scope?.name}</Typography>
+          <Typography variant="h3" sx={{ mr: '2rem' }}>
+            {scope?.name}
+          </Typography>
 
           <IconButton
             aria-label="close"

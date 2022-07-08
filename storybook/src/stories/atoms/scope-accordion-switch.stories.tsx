@@ -3,6 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ScopeAccordionSwitch } from '../../lib';
 import { TestUtil } from '../../lib';
 
+const companyName = 'TestCompany';
+
 const handleChange = (isAllClicked: boolean) => {
   if (isAllClicked) {
     alert('All scopes have been selected');
@@ -23,6 +25,7 @@ const Template: ComponentStory<typeof ScopeAccordionSwitch> = (args) => <ScopeAc
 export const WithOneScope = Template.bind({});
 WithOneScope.args = {
   scopes: [TestUtil.testData.scope.bankAccountsDetailRead()],
+  companyName: companyName,
   onChange: handleChange,
 };
 
@@ -33,11 +36,13 @@ WithFewScope.args = {
     TestUtil.testData.scope.commonCustomerBasicRead(),
     TestUtil.testData.scope.energyBillingRead(),
   ],
+  companyName: companyName,
   onChange: handleChange,
 };
 
 export const WithManyScopes = Template.bind({});
 WithManyScopes.args = {
   scopes: TestUtil.testData.scope.all(),
+  companyName: companyName,
   onChange: handleChange,
 };
