@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataHolder, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-import { ScopeAccordion } from '../../../atoms/scope-accordion/scope-accordion.atom';
+import { ScopeAccordionV1 } from '../../../atoms/scope-accordion/scope-accordion-v1.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
@@ -91,7 +91,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             className={showScopeError === true ? 'error' : ''}
             elevation={0}
           >
-            <ScopeAccordion scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
+            <ScopeAccordionV1 scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
             {showScopeError && 'Please select all the boxes.'}

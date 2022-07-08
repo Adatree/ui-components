@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ScopeAccordion } from '../../lib';
+import { ScopeAccordionV1 } from '../../lib';
 import { TestUtil } from '../../lib';
 
 const handleChange = (isAllClicked: boolean) => {
@@ -12,13 +12,13 @@ const handleChange = (isAllClicked: boolean) => {
 
 export default {
   title: 'Components/Atoms/Scope Accordion',
-  component: ScopeAccordion,
+  component: ScopeAccordionV1,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof ScopeAccordion>;
+} as ComponentMeta<typeof ScopeAccordionV1>;
 
-const Template: ComponentStory<typeof ScopeAccordion> = (args) => <ScopeAccordion {...args} />;
+const Template: ComponentStory<typeof ScopeAccordionV1> = (args) => <ScopeAccordionV1 {...args} />;
 
 export const WithOneScope = Template.bind({});
 WithOneScope.args = {
