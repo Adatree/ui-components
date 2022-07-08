@@ -9,7 +9,7 @@ export type ScopeAccordionProps = {
   onChange: (isAllClicked: boolean) => void;
 };
 
-export const ScopeAccordionV1: React.FC<ScopeAccordionProps> = (props) => {
+export const ScopeAccordionCheckbox: React.FC<ScopeAccordionProps> = (props) => {
   const { scopes, companyName, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
 

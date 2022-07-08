@@ -21,7 +21,7 @@ export type ScopeAccordionProps = {
   onChange: (isAllClicked: boolean) => void;
 };
 
-export const ScopeAccordionV2: React.FC<ScopeAccordionProps> = (props) => {
+export const ScopeAccordionSwitch: React.FC<ScopeAccordionProps> = (props) => {
   const { scopes, companyName, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();
