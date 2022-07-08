@@ -13,8 +13,8 @@ export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
-export { ScopeListCheckbox } from './atoms/scope-accordion/scope-list-checkbox.atom';
-export { ScopeListSwitch } from './atoms/scope-accordion/scope-list-switch.atom';
+export { ScopeListCheckbox } from './atoms/scope-list/scope-list-checkbox.atom';
+export { ScopeListSwitch } from './atoms/scope-list/scope-list-switch.atom';
 export { SectionCard } from './atoms/section-card/section-card.atom';
 export { Tooltip } from './atoms/tooltip/tooltip.atom';
 
@@ -35,6 +35,7 @@ export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.mo
 // Organisms
 export { CreateConsentStepV1 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v1.organism';
 export { CreateConsentStepV2 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v2.organism';
+export { CreateConsentStepV3 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v3.organism';
 export { DataAccessStep } from './oganisms/consent-steps/data-access-step/data-access-step.organism';
 export { ExtendConsentDateStep } from './oganisms/consent-steps/extend-consent-date-step/extend-consent-date-step.organism';
 export { DataHolderStep } from './oganisms/consent-steps/data-holder-step/data-holder-step.organism';

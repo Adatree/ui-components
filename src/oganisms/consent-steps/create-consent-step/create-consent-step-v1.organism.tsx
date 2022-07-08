@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataHolder, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-import { ScopeListCheckbox } from '../../../atoms/scope-accordion/scope-list-checkbox.atom';
+import { ScopeListCheckbox } from '../../../atoms/scope-list/scope-list-checkbox.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
