@@ -15,13 +15,13 @@ import { ScopeResponse } from '../../generated/consent';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
 
-export type ScopeAccordionProps = {
+export type ScopeListProps = {
   scopes: ScopeResponse[];
   companyName: string;
   onChange: (isAllClicked: boolean) => void;
 };
 
-export const ScopeAccordionSwitch: React.FC<ScopeAccordionProps> = (props) => {
+export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
   const { scopes, companyName, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();

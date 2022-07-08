@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ScopeAccordionCheckbox } from '../../lib';
+import { ScopeListSwitch } from '../../lib';
 import { TestUtil } from '../../lib';
 
 const companyName = 'TestCompany';
@@ -13,14 +13,14 @@ const handleChange = (isAllClicked: boolean) => {
 };
 
 export default {
-  title: 'Components/Atoms/Scope Accordion Checkbox',
-  component: ScopeAccordionCheckbox,
+  title: 'Components/Atoms/Scope Accordion Switch',
+  component: ScopeListSwitch,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof ScopeAccordionCheckbox>;
+} as ComponentMeta<typeof ScopeListSwitch>;
 
-const Template: ComponentStory<typeof ScopeAccordionCheckbox> = (args) => <ScopeAccordionCheckbox {...args} />;
+const Template: ComponentStory<typeof ScopeListSwitch> = (args) => <ScopeListSwitch {...args} />;
 
 export const WithOneScope = Template.bind({});
 WithOneScope.args = {

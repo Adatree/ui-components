@@ -13,8 +13,8 @@ export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
-export { ScopeAccordionCheckbox } from './atoms/scope-accordion/scope-accordion-checkbox.atom';
-export { ScopeAccordionSwitch } from './atoms/scope-accordion/scope-accordion-switch.atom';
+export { ScopeListCheckbox } from './atoms/scope-accordion/scope-list-checkbox.atom';
+export { ScopeListSwitch } from './atoms/scope-accordion/scope-list-switch.atom';
 export { SectionCard } from './atoms/section-card/section-card.atom';
 export { Tooltip } from './atoms/tooltip/tooltip.atom';
 

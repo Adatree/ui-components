@@ -3,13 +3,13 @@ import { List } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
 import { CheckboxAccordion } from '../checkbox-accordion/checkbox-accordion.atom';
 
-export type ScopeAccordionProps = {
+export type ScopeListProps = {
   scopes: ScopeResponse[];
   companyName: string;
   onChange: (isAllClicked: boolean) => void;
 };
 
-export const ScopeAccordionCheckbox: React.FC<ScopeAccordionProps> = (props) => {
+export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
   const { scopes, companyName, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
 
