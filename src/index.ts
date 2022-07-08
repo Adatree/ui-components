@@ -32,7 +32,8 @@ export { UseCaseScopeList } from './molecules/use-case-scope-list/use-case-scope
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
 // Organisms
-export { CreateConsentStep } from './oganisms/consent-steps/create-consent-step/create-consent-step.organism';
+export { CreateConsentStepV1 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v1.organism';
+export { CreateConsentStepV2 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v2.organism';
 export { DataAccessStep } from './oganisms/consent-steps/data-access-step/data-access-step.organism';
 export { ExtendConsentDateStep } from './oganisms/consent-steps/extend-consent-date-step/extend-consent-date-step.organism';
 export { DataHolderStep } from './oganisms/consent-steps/data-holder-step/data-holder-step.organism';

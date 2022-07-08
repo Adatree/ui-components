@@ -17,7 +17,7 @@ export type CreateConsentStepProps = {
   onCancel: () => void;
 };
 
-export const CreateConsentStep = (props: CreateConsentStepProps) => {
+export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
   const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit, onCancel } =
     props;
   const [isFormValid, setIsFormValid] = useState(false);

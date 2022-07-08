@@ -1,10 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentFormProvider, CreateConsentStep, TestUtil } from '../../lib';
+import { ConsentFormProvider, CreateConsentStepV1, TestUtil } from '../../lib';
 
 export default {
-  title: 'Full examples/Create consent single step',
-  component: CreateConsentStep,
+  title: 'Full examples/Create consent single step/version 1',
+  component: CreateConsentStepV1,
   parameters: {
     backgrounds: {
       default: 'Adatree',
@@ -14,7 +14,7 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof CreateConsentStep>;
+} as ComponentMeta<typeof CreateConsentStepV1>;
 
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
@@ -26,7 +26,7 @@ const handleCancel = () => {
   alert('Consent canceled');
 };
 
-const Template: ComponentStory<typeof CreateConsentStep> = (args) => <CreateConsentStep {...args} />;
+const Template: ComponentStory<typeof CreateConsentStepV1> = (args) => <CreateConsentStepV1 {...args} />;
 
 export const WithShortScopes = Template.bind({});
 WithShortScopes.decorators = [
