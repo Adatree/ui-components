@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, List, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
-import { Accordion } from '../accordion/accordion.molecule';
+import { AccordionBasic } from '../accordion/accordion-basic.atom';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
@@ -14,39 +14,40 @@ export const ScopeList: React.FC<ScopeListProps> = (props) => {
   const renderScopeClaims = (scope: ScopeResponse) => {
     return (
       <>
-        <Box sx={{ p: 2 }}>
-          <Typography sx={{ mb: 1, opacity: 0.7 }} variant="h4">
-            {scope.purpose}
-          </Typography>
-          <Typography sx={{ mb: 1, opacity: 0.7 }} variant="h4">
-            {`${companyName} will receive access to the following information:`}
-          </Typography>
+        <Typography sx={{ mb: 0.5, opacity: 0.8 }} variant="body2">
+          {scope.purpose}
+        </Typography>
 
-          {scope.claims && (
-            <ul>
-              {scope.claims.map((claim: string, i: number) => (
-                <li key={i} style={{ listStyle: 'inside', paddingLeft: '2px' }}>
+        <Typography sx={{ mb: 0.5, opacity: 0.8 }} variant="body2">
+          {companyName} will be able to view your
+        </Typography>
+
+        {scope.claims && (
+          <ul>
+            {scope.claims.map((claim: string, i: number) => (
+              <li key={i} style={{ listStyle: 'inside', marginRight: '4px' }}>
+                <Typography sx={{ opacity: 0.8, display: 'inline' }} variant="body2">
                   {claim}
-                </li>
-              ))}
-            </ul>
-          )}
-        </Box>
+                </Typography>
+              </li>
+            ))}
+          </ul>
+        )}
       </>
     );
   };
 
   return (
-    <>
-      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+    <Box sx={{ py: 1, px: { xs: 1, sm: 3 } }}>
+      <ul>
         {scopes.map((scope: ScopeResponse) => {
           return (
             <li key={scope.id}>
-              <Accordion title={scope.name !== undefined ? scope.name : ''} content={renderScopeClaims(scope)} />
+              {scope.name && <AccordionBasic title={scope.name}>{renderScopeClaims(scope)}</AccordionBasic>}
             </li>
           );
         })}
-      </List>
-    </>
+      </ul>
+    </Box>
   );
 };
