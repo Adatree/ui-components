@@ -34,8 +34,11 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
   const [isDataAccessConfirmed, setIsDataAccessConfirmed] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
-  const [showScopeError, setShowScopeError] = useState(false);
+  const [showConfirmError, setShowConfirmError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
+
+  const timePeriod = '3 months';
+  const accessFrequency = 'multiple times';
 
   useEffect(() => {
     if (isDataAccessConfirmed && consentForm.dataHolder) {
@@ -58,7 +61,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
 
   const handleConfirmationChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     event.stopPropagation();
-    setShowScopeError(false);
+    setShowConfirmError(false);
     setIsDataAccessConfirmed(checked);
   };
 
@@ -75,7 +78,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
       onSubmit();
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
-      setShowScopeError(isDataAccessConfirmed === true ? false : true);
+      setShowConfirmError(isDataAccessConfirmed === true ? false : true);
     }
   };
 
@@ -93,32 +96,45 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
             showError={showDataHolderError}
           />
 
-          <Card
-            sx={{ borderRadius: '4px', py: 2, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
-            className={showScopeError === true ? 'error' : ''}
-            elevation={0}
-          >
+          <Card sx={{ borderRadius: '4px', py: 2, mb: 2.8 }} elevation={0}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-              <Checkbox color="cta" onChange={handleConfirmationChange} />
-              <Typography>I confirm that {companyName} can access the following information</Typography>
+              <Typography sx={{ px: 2 }}>
+                <strong>{companyName}</strong> has requested access to the following data
+              </Typography>
             </Box>
             <ScopeList scopes={useCase.scopes} companyName={companyName} />
           </Card>
-          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please select all the options.'}
-          </Typography>
 
           <Card sx={{ p: 2, mb: 2.8 }} elevation={0}>
-            <Typography sx={{ mb: 0 }}>{companyName} can access your data for 3 months.</Typography>
+            <Typography sx={{ mb: 1.5 }}>
+              <strong>{companyName}</strong> would like to access your data for <strong>{timePeriod}</strong>.
+            </Typography>
+            <Typography sx={{ mb: 0 }}>
+              <strong>{companyName}</strong> would like to access your data <strong>{accessFrequency}</strong> during
+              this <strong>{timePeriod}</strong> period.
+            </Typography>
           </Card>
 
+          <Card
+            sx={{ p: 2, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
+            className={showConfirmError === true ? 'error' : ''}
+            elevation={0}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Checkbox color="cta" onChange={handleConfirmationChange} />
+              <Typography>
+                I confirm that I am allowing <strong>{companyName}</strong> to access my data (listed above) for a
+                period of <strong>{timePeriod}</strong>.
+              </Typography>
+            </Box>
+          </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showDataHolderError && 'Please choose your bank above.'}
-          </Typography>
-          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please confirm access to your information above.'}
+            {showConfirmError && `Please confirm you are allowing ${companyName} to access your data.`}
           </Typography>
 
+          <Typography sx={{ minHeight: '2.2rem', mt: 1 }} variant="body2" color="error.main">
+            {showDataHolderError && 'Please choose your bank above.'}
+          </Typography>
           <Box
             sx={{
               display: 'flex',
