@@ -7,6 +7,7 @@ import {
   UseCaseResponse,
   DataHolder,
 } from '../../generated/consent';
+import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -72,7 +73,15 @@ const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
   return accessFrequency.charAt(0).toUpperCase() + accessFrequency.slice(1).toLowerCase();
 };
 
-const parseSharingDuration = (sharingDurations: SharingDuration[]): DateDuration[] => {
+const parseSharingDuration = (sharingDuration: SharingDuration): DateDuration | undefined => {
+  const duration = DateDurationList.find((duration) => {
+    return duration.type === sharingDuration;
+  });
+
+  return duration;
+};
+
+const parseSharingDurations = (sharingDurations: SharingDuration[]): DateDuration[] => {
   let durations: DateDuration[] = [];
 
   sharingDurations.forEach((sharingDuration) => {
@@ -88,10 +97,63 @@ const parseSharingDuration = (sharingDurations: SharingDuration[]): DateDuration
   return durations;
 };
 
+const sharingDurationToString = (sharingDuration: SharingDuration): string | undefined => {
+  const dateDuration = DateDurationList.find((duration) => {
+    return duration.type === sharingDuration;
+  });
+
+  if (dateDuration) {
+    return dateDuration.text;
+  } else {
+    return undefined;
+  }
+};
+
+const sharingDurationToDate = (sharingDuration: SharingDuration): Date => {
+  const duration = parseSharingDuration(sharingDuration);
+  const curDate = new Date();
+  let newDate = new Date();
+
+  if (duration) {
+    if (duration.unit === 'd') {
+      newDate = addDays(curDate, duration.value);
+    } else if (duration.unit === 'w') {
+      newDate = addWeeks(curDate, duration.value);
+    } else if (duration.unit === 'm') {
+      newDate = addMonths(curDate, duration.value);
+    } else if (duration.unit === 'y') {
+      newDate = addYears(curDate, duration.value);
+    }
+  }
+
+  return newDate;
+};
+
+const dateDurationToDate = (duration: DateDuration): Date => {
+  const curDate = new Date();
+  let newDate = new Date();
+
+  if (duration.unit === 'd') {
+    newDate = addDays(curDate, duration.value);
+  } else if (duration.unit === 'w') {
+    newDate = addWeeks(curDate, duration.value);
+  } else if (duration.unit === 'm') {
+    newDate = addMonths(curDate, duration.value);
+  } else if (duration.unit === 'y') {
+    newDate = addYears(curDate, duration.value);
+  }
+
+  return newDate;
+};
+
 export const Helper = {
   accessFrequencyToString,
+  dateDurationToDate,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
   parseSharingDuration,
+  parseSharingDurations,
+  sharingDurationToDate,
+  sharingDurationToString,
   sortListbyDate,
 };
