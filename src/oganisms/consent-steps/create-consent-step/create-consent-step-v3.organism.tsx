@@ -99,7 +99,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
           <Card sx={{ borderRadius: '4px', py: 2, mb: 2.8 }} elevation={0}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
               <Typography sx={{ px: 2 }}>
-                <strong>{companyName}</strong> has requested access to the following data
+                <strong>{companyName}</strong> has requested access to see the following data
               </Typography>
             </Box>
             <ScopeList scopes={useCase.scopes} companyName={companyName} />
@@ -111,7 +111,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
             </Typography>
             <Typography sx={{ mb: 0 }}>
               <strong>{companyName}</strong> would like to access your data <strong>{accessFrequency}</strong> during
-              this <strong>{timePeriod}</strong> period.
+              this <strong>{timePeriod}</strong>.
             </Typography>
           </Card>
 
