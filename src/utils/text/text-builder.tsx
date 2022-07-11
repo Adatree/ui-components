@@ -1,9 +1,13 @@
 import React from 'react';
-import { SharingDuration } from '../../generated/consent';
+import { AccessFrequency, SharingDuration } from '../../generated/consent';
 import { Formatter } from '../formatter/formater';
 import { Helper } from '../helper/helper';
 
-const confirmation = (companyName: string, endDate: Date, sharingDuration: SharingDuration): React.ReactNode => {
+const confirmation = (
+  companyName: string,
+  endDate: Date | undefined,
+  sharingDuration: SharingDuration | undefined,
+): React.ReactNode => {
   const common = (
     <>
       I confirm that I am allowing <strong>{companyName}</strong> to access my data (listed above)
@@ -22,15 +26,42 @@ const confirmation = (companyName: string, endDate: Date, sharingDuration: Shari
         {common} <strong>once</strong>.
       </>
     );
-  } else {
+  } else if (sharingDuration) {
     return (
       <>
         {common} for a period of <strong>{Helper.sharingDurationToString(sharingDuration)}</strong>.
       </>
     );
+  } else {
+    return <>{common}.</>;
+  }
+};
+
+const accessFrequency = (companyName: string, accessFrequency: AccessFrequency | undefined): React.ReactNode => {
+  const common = (
+    <>
+      <strong>{companyName}</strong> will be able to access your data
+    </>
+  );
+
+  if (accessFrequency === AccessFrequency.ONCEOFF) {
+    return (
+      <>
+        Data sharing with <strong>{companyName}</strong> ends after <strong>first use</strong>.
+      </>
+    );
+  } else if (accessFrequency === AccessFrequency.ONGOING) {
+    return (
+      <>
+        {common} <strong>multiple times</strong> during this period.
+      </>
+    );
+  } else {
+    return <>{common}.</>;
   }
 };
 
 export const TextBuilder = {
+  accessFrequency,
   confirmation,
 };
