@@ -42,3 +42,13 @@ WithCustom.args = {
     alert(`Confirmation checkbox is ${checked === true ? 'checked' : 'unchecked'}`);
   },
 };
+
+export const WithNoDates = Template.bind({});
+WithNoDates.args = {
+  companyName: companyName,
+  sharingDuration: undefined,
+  endDate: undefined,
+  onChange: (checked: boolean) => {
+    alert(`Confirmation checkbox is ${checked === true ? 'checked' : 'unchecked'}`);
+  },
+};

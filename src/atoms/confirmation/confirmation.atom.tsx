@@ -20,10 +20,8 @@ export const Confirmation: React.FC<ConfirmationnProps> = (props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Checkbox color="cta" onChange={handleConfirmationChange} disabled={!sharingDuration || !endDate} />
-      {sharingDuration && endDate && (
-        <Typography>{TextBuilder.confirmation(companyName, endDate, sharingDuration)}</Typography>
-      )}
+      <Checkbox color="cta" onChange={handleConfirmationChange} />
+      <Typography>{TextBuilder.confirmation(companyName, endDate, sharingDuration)}</Typography>
     </Box>
   );
 };
