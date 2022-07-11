@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { DataHolder, UseCaseResponse } from '../../../generated/consent';
+import { DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeList } from '../../../atoms/scope-list/scope-list.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import {
-  Box,
-  Button,
-  Card,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
+import { DateSelector } from '../../../molecules/date-selector/date-selector.molecule';
+import { Confirmation } from '../../../atoms/confirmation/confirmation.atom';
+import { Helper } from '../../../utils/helper/helper';
+import { TextBuilder } from '../../../utils/text/text-builder';
+import { Card } from '../../../atoms/card/card.atom';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -34,14 +29,28 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
   const [isDataAccessConfirmed, setIsDataAccessConfirmed] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
+  const [showDateError, setShowDateError] = useState(false);
   const [showConfirmError, setShowConfirmError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
 
-  const timePeriod = '3 months';
-  const accessFrequency = 'multiple times';
+  useEffect(() => {
+    if (
+      useCase.sharingDurations &&
+      useCase.sharingDurations.length === 1 &&
+      !useCase.sharingDurations.includes(SharingDuration.CUSTOM)
+    ) {
+      consentForm.selectedSharingDurations = useCase.sharingDurations[0];
+      consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);
+      setConsentForm({ ...consentForm });
+    }
+  }, []);
 
   useEffect(() => {
-    if (isDataAccessConfirmed && consentForm.dataHolder) {
+    if (consentForm.selectedSharingDurations) {
+      setShowDateError(false);
+    }
+
+    if (isDataAccessConfirmed && consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -59,8 +68,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
     setConsentForm({ ...consentForm });
   };
 
-  const handleConfirmationChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    event.stopPropagation();
+  const handleConfirmationChange = (checked: boolean) => {
     setShowConfirmError(false);
     setIsDataAccessConfirmed(checked);
   };
@@ -78,6 +86,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
       onSubmit();
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
+      setShowDateError(!consentForm.selectedSharingDurations);
       setShowConfirmError(isDataAccessConfirmed === true ? false : true);
     }
   };
@@ -96,45 +105,44 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
             showError={showDataHolderError}
           />
 
-          <Card sx={{ borderRadius: '4px', py: 2, mb: 2.8 }} elevation={0}>
+          <Card sx={{ mb: 2.2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-              <Typography sx={{ px: 2 }}>
+              <Typography>
                 <strong>{companyName}</strong> has requested access to see the following data
               </Typography>
             </Box>
             <ScopeList scopes={useCase.scopes} companyName={companyName} />
           </Card>
 
-          <Card sx={{ p: 2, mb: 2.8 }} elevation={0}>
-            <Typography sx={{ mb: 1.5 }}>
-              <strong>{companyName}</strong> would like to access your data for <strong>{timePeriod}</strong>.
+          <Card error={showDateError}>
+            {useCase.sharingDurations && (
+              <DateSelector companyName={companyName} sharingDurations={useCase.sharingDurations} />
+            )}
+            <Typography sx={{ mt: 1.5, mb: 0 }}>
+              {TextBuilder.accessFrequency(companyName, useCase.accessFrequency)}
             </Typography>
-            <Typography sx={{ mb: 0 }}>
-              <strong>{companyName}</strong> would like to access your data <strong>{accessFrequency}</strong> during
-              this <strong>{timePeriod}</strong>.
-            </Typography>
+          </Card>
+          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {showDateError && `Please confirm how long you would like ${companyName} to access your data.`}
+          </Typography>
+
+          <Card error={showConfirmError}>
+            <Confirmation
+              companyName={companyName}
+              sharingDuration={consentForm.selectedSharingDurations}
+              endDate={consentForm.sharingEndDate}
+              onChange={handleConfirmationChange}
+            />
           </Card>
 
-          <Card
-            sx={{ p: 2, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
-            className={showConfirmError === true ? 'error' : ''}
-            elevation={0}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Checkbox color="cta" onChange={handleConfirmationChange} />
-              <Typography>
-                I confirm that I am allowing <strong>{companyName}</strong> to access my data (listed above) for a
-                period of <strong>{timePeriod}</strong>.
-              </Typography>
-            </Box>
-          </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
             {showConfirmError && `Please confirm you are allowing ${companyName} to access your data.`}
           </Typography>
 
-          <Typography sx={{ minHeight: '2.2rem', mt: 1 }} variant="body2" color="error.main">
-            {showDataHolderError && 'Please choose your bank above.'}
+          <Typography sx={{ minHeight: '2.2rem', mt: 1.5 }} variant="body2" color="error.main">
+            {(showConfirmError || showDataHolderError || showDateError) && 'Please fix the error above.'}
           </Typography>
+
           <Box
             sx={{
               display: 'flex',
