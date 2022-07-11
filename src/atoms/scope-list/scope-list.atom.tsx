@@ -38,7 +38,7 @@ export const ScopeList: React.FC<ScopeListProps> = (props) => {
   };
 
   return (
-    <Box sx={{ py: 1, px: { xs: 1, sm: 3 } }}>
+    <Box sx={{ py: 1, px: { xs: 0, sm: 2 } }}>
       <ul>
         {scopes.map((scope: ScopeResponse) => {
           return (

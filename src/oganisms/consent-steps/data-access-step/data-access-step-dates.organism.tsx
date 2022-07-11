@@ -48,7 +48,7 @@ export const DataAccessStepDates = (props: DataAccessStepProps) => {
               (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)) && (
               <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
                 <DateButton
-                  sharingDuration={sharingDurations}
+                  sharingDurations={sharingDurations}
                   selectedSharingDuration={selectedSharingDurations}
                   onClick={handleDateButtonClick}
                 />

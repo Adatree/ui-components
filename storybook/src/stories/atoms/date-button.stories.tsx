@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...ar
 
 export const WithValueUnselected = Template.bind({});
 WithValueUnselected.args = {
-  sharingDuration: sharingDurations,
+  sharingDurations: sharingDurations,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -31,7 +31,7 @@ WithValueUnselected.args = {
 
 export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
-  sharingDuration: sharingDurations,
+  sharingDurations: sharingDurations,
   selectedSharingDuration: SharingDuration.ONEMONTH,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
@@ -40,7 +40,7 @@ WithValueSelected.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  sharingDuration: sharingDurations,
+  sharingDurations: sharingDurations,
   disabled: true,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);

@@ -1,37 +1,22 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import { Helper } from '../../utils/helper/helper';
 import { DateDuration } from '../../consts/duration.const';
 import { SharingDuration } from '../../generated/consent/api';
 
 export type DateButtonProps = {
-  sharingDuration: SharingDuration[];
+  sharingDurations: SharingDuration[];
   selectedSharingDuration?: SharingDuration;
   disabled?: boolean;
   onClick: (date: Date, selected: SharingDuration) => void;
 };
 
 export const DateButton: React.FC<DateButtonProps> = (props) => {
-  const { sharingDuration, selectedSharingDuration, disabled = false, onClick } = props;
-  const dateDurations = Helper.parseSharingDuration(sharingDuration);
+  const { sharingDurations: sharingDuration, selectedSharingDuration, disabled = false, onClick } = props;
+  const dateDurations = Helper.parseSharingDurations(sharingDuration);
 
   const handleClick = (duration: DateDuration) => {
-    // Return the new date
-    const curDate = new Date();
-    let newDate = new Date();
-
-    if (duration.unit === 'd') {
-      newDate = addDays(curDate, duration.value);
-    } else if (duration.unit === 'w') {
-      newDate = addWeeks(curDate, duration.value);
-    } else if (duration.unit === 'm') {
-      newDate = addMonths(curDate, duration.value);
-    } else if (duration.unit === 'y') {
-      newDate = addYears(curDate, duration.value);
-    }
-
-    onClick(newDate, duration.type);
+    onClick(Helper.dateDurationToDate(duration), duration.type);
   };
 
   return (
