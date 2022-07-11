@@ -28,8 +28,8 @@ export const AccordionBasic: React.FC<AccordionBasicProps> = (props) => {
           '&:hover': { backgroundColor: 'hover.main' },
         }}
       >
-        <Typography variant="body2">
-          <Circle color={'cta'} sx={{ fontSize: '8px', mx: 1 }} />
+        <Typography variant="body2" sx={{ ml: '26px' }}>
+          <Circle color={'cta'} sx={{ fontSize: '8px', mx: 1, ml: '-16px' }} />
           {title}
         </Typography>
         <ChevronDown

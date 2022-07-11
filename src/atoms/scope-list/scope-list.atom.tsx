@@ -25,7 +25,7 @@ export const ScopeList: React.FC<ScopeListProps> = (props) => {
         {scope.claims && (
           <ul>
             {scope.claims.map((claim: string, i: number) => (
-              <li key={i} style={{ listStyle: 'inside', marginRight: '4px' }}>
+              <li key={i} style={{ listStyle: 'disc', marginRight: '4px', marginLeft: '13px' }}>
                 <Typography sx={{ opacity: 0.8, display: 'inline' }} variant="body2">
                   {claim}
                 </Typography>
