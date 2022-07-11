@@ -3,6 +3,7 @@ export { Accordion } from './atoms/accordion/accordion.molecule';
 export { Accreditation } from './atoms/accreditation/accreditation.atom';
 export { AutocompleteDropdown } from './atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
+export { Confirmation } from './atoms/confirmation/confirmation.atom';
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
 export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.atom';
 export { DateButton } from './atoms/date-button/date-button.atom';
@@ -26,6 +27,7 @@ export { ConsentStepperDesktop } from './molecules/consent-stepper/desktop/conse
 export { ConsentStepperMobile } from './molecules/consent-stepper/mobile/consent-stepper-mobile.molecule';
 export { ConsentStepperResponsive } from './molecules/consent-stepper/responsive/consent-stepper-responsive.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
+export { DateSelector } from './molecules/date-selector/date-selector.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
 export { ErrorMessage } from './molecules/error-message/error-message.molecule';
 export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
