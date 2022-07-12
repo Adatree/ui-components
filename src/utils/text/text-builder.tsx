@@ -14,7 +14,7 @@ const confirmation = (
     </>
   );
 
-  if (sharingDuration === SharingDuration.CUSTOM) {
+  if (endDate && sharingDuration === SharingDuration.CUSTOM) {
     return (
       <>
         {common} untill the <strong>{Formatter.formatDateTime(endDate)}</strong>.
@@ -26,7 +26,7 @@ const confirmation = (
         {common} <strong>once</strong>.
       </>
     );
-  } else if (sharingDuration) {
+  } else if (sharingDuration && sharingDuration !== SharingDuration.CUSTOM) {
     return (
       <>
         {common} for a period of <strong>{Helper.sharingDurationToString(sharingDuration)}</strong>.

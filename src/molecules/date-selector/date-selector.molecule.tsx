@@ -29,6 +29,7 @@ export const DateSelector = (props: DateSelectorProps) => {
 
   const handleSharingEndDateChange = (date: Date, selectedSharingDuration: SharingDuration) => {
     consentForm.selectedSharingDurations = selectedSharingDuration;
+    consentForm.sharingEndDate = date;
     setConsentForm({ ...consentForm });
     setSharingEndDate(date);
     setSharingDuration(selectedSharingDuration);
