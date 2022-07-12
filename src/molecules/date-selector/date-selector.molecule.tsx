@@ -70,7 +70,6 @@ export const DateSelector = (props: DateSelectorProps) => {
       {sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1 && (
         <Typography
           variant="body2"
-          color="GrayText"
           sx={{
             mt: 1,
             mr: { xs: 0, sm: 12 },

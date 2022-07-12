@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Checkbox } from '@mui/material';
+import { Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
 import { SharingDuration } from '../../generated/consent';
 import { TextBuilder } from '../../utils/text/text-builder';
 
@@ -20,8 +20,10 @@ export const Confirmation: React.FC<ConfirmationnProps> = (props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Checkbox color="cta" onChange={handleConfirmationChange} />
-      <Typography>{TextBuilder.confirmation(companyName, endDate, sharingDuration)}</Typography>
+      <FormControlLabel
+        control={<Checkbox color="cta" onChange={handleConfirmationChange} />}
+        label={<Typography>{TextBuilder.confirmation(companyName, endDate, sharingDuration)}</Typography>}
+      />
     </Box>
   );
 };

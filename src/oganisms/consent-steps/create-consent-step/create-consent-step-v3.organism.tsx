@@ -95,14 +95,12 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Typography variant="h2" sx={{ mb: 0.5 }}>
-            Choose your bank
-          </Typography>
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}
             disableDataHolders={undefined}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
+            label="Choose your bank"
           />
 
           <Card sx={{ mb: 2.2 }}>
