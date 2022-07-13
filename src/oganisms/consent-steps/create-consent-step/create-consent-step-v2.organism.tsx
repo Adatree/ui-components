@@ -3,9 +3,10 @@ import { DataHolder, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
+import { Card } from '../../../atoms/card/card.atom';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -73,24 +74,21 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
       {useCase.dataHolders && useCase.scopes && (
         <>
           <Typography variant="h2" sx={{ mb: 0.5 }}>
-            Choose your bank
+            Connect your account
           </Typography>
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}
             disableDataHolders={undefined}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
+            label={'Select your bank'}
           />
 
           <Typography variant="h2">Confirm access</Typography>
           <Typography variant="body2" sx={{ mb: 1 }}>
-            Please confirm that {companyName} can have access to the following information:
+            Please confirm that <strong>{companyName}</strong> can have access to the following information:
           </Typography>
-          <Card
-            sx={{ borderRadius: '4px', py: 0, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' } }}
-            className={showScopeError === true ? 'error' : ''}
-            elevation={0}
-          >
+          <Card error={showScopeError}>
             <ScopeListSwitch scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
           <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
@@ -98,7 +96,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
           </Typography>
 
           <Typography variant="h2">Important dates</Typography>
-          <Card sx={{ p: 2, mb: 2.8 }} elevation={0}>
+          <Card sx={{ p: 2, mb: 2.8 }}>
             <Typography sx={{ mb: 0 }}>{companyName} can access your data for 3 months.</Typography>
           </Card>
 

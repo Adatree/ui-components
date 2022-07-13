@@ -53,10 +53,10 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
 
   return (
     <>
-      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
         {scopes.map((scope: ScopeResponse) => {
           return (
-            <ListItem key={scope.id} sx={{ '&:hover': { backgroundColor: 'hover.main' } }}>
+            <ListItem key={scope.id} sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: 'hover.main' } }}>
               <ListItemText
                 id={`switch-list-label-${scope.id}`}
                 primary={
@@ -81,7 +81,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
                 value={scope.id}
                 onChange={handleToggle}
                 inputProps={{
-                  'aria-labelledby': 'switch-list-label-wifi',
+                  'aria-labelledby': `switch-list-label-${scope.id}`,
                 }}
               />
             </ListItem>
