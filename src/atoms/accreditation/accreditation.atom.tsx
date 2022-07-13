@@ -17,22 +17,31 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
       : `Accredited Data Recipient: ${accreditationNumber}`;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Box sx={{ mr: 3, width: { xs: '125px', sm: '175px' } }}>
-        <img
-          src="https://design.adatree.com.au/assets/images/consumer-data-right.png"
-          style={{ width: '100%' }}
-          alt={cdrText}
-        />
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ mr: 3, width: { xs: '125px', sm: '175px' } }}>
+          <img
+            src="https://design.adatree.com.au/assets/images/consumer-data-right.png"
+            style={{ width: '100%' }}
+            alt={cdrText}
+          />
+        </Box>
+        <Box>
+          <Typography variant="body2" sx={{ display: 'block', mb: { xs: 0.1, sm: 0.5 } }}>
+            {companyName}
+          </Typography>
+          <Link href={cdrPolicyUrl} color="inherit" sx={{ display: 'block' }}>
+            <Typography variant="body2">{cdrText}</Typography>
+          </Link>
+        </Box>
       </Box>
-      <Box>
-        <Typography variant="body2" sx={{ display: 'block', mb: { xs: 0.1, sm: 0.5 } }}>
-          {companyName}
-        </Typography>
-        <Link href={cdrPolicyUrl} sx={{ display: 'block' }}>
-          <Typography variant="body2">{cdrText}</Typography>
-        </Link>
-      </Box>
-    </Box>
+      <Typography variant="body2">
+        Please read our{' '}
+        <Link href={cdrPolicyUrl} color="inherit">
+          Consumer Data Right Policy
+        </Link>{' '}
+        for more information on how {companyName} handles your data.
+      </Typography>
+    </>
   );
 };
