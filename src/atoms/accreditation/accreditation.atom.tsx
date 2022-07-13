@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Link } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 export type AccreditationProps = {
   accreditationNumber: string;
@@ -30,16 +30,16 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
           <Typography variant="body2" sx={{ display: 'block', mb: { xs: 0.1, sm: 0.5 } }}>
             {companyName}
           </Typography>
-          <Link href={cdrPolicyUrl} color="inherit" sx={{ display: 'block' }}>
+          <a target="_blank" style={{ display: 'block', textDecoration: 'underline' }} href={cdrPolicyUrl}>
             <Typography variant="body2">{cdrText}</Typography>
-          </Link>
+          </a>{' '}
         </Box>
       </Box>
-      <Typography variant="body2">
+      <Typography variant="body2" sx={{ mt: 1 }}>
         Please read our{' '}
-        <Link href={cdrPolicyUrl} color="inherit">
-          Consumer Data Right Policy
-        </Link>{' '}
+        <a target="_blank" href={cdrPolicyUrl} style={{ textDecoration: 'underline' }}>
+          CDR Policy
+        </a>{' '}
         for more information on how {companyName} handles your data.
       </Typography>
     </>

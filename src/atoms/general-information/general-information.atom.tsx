@@ -25,7 +25,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
     'When you revoke consent, the services we offer may cease to provide you with benefits.',
     <Typography>
       Find out more information on how we handle your data in our easy to read{' '}
-      <a target="_blank" href={`${cdrPolicyUrl}`}>
+      <a target="_blank" href={`${cdrPolicyUrl}`} style={{ textDecoration: 'underline' }}>
         CDR Policy
       </a>
       .
