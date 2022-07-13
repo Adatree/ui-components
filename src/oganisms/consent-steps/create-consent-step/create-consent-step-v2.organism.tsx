@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DataHolder, UseCaseResponse } from '../../../generated/consent';
+import { DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
@@ -7,6 +7,9 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, T
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Card } from '../../../atoms/card/card.atom';
+import { DateSelector } from '../../../molecules/date-selector/date-selector.molecule';
+import { TextBuilder } from '../../../utils/text/text-builder';
+import { Helper } from '../../../utils/helper/helper';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -25,10 +28,27 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
+  const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
 
   useEffect(() => {
+    if (
+      useCase.sharingDurations &&
+      useCase.sharingDurations.length === 1 &&
+      !useCase.sharingDurations.includes(SharingDuration.CUSTOM)
+    ) {
+      consentForm.selectedSharingDurations = useCase.sharingDurations[0];
+      consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);
+      setConsentForm({ ...consentForm });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (consentForm.selectedSharingDurations) {
+      setShowDateError(false);
+    }
+
     if (isAllCheckboxChecked && consentForm.dataHolder) {
       setIsFormValid(true);
     } else {
@@ -65,6 +85,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
       onSubmit();
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
+      setShowDateError(!consentForm.selectedSharingDurations);
       setShowScopeError(isAllCheckboxChecked === true ? false : true);
     }
   };
@@ -73,45 +94,40 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Typography variant="h2" sx={{ mb: 0.5 }}>
-            Connect your account
-          </Typography>
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}
             disableDataHolders={undefined}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
-            label={'Select your bank'}
+            label={'Choose your bank'}
           />
 
-          <Typography variant="h2">Confirm access</Typography>
-          <Typography variant="body2" sx={{ mb: 1 }}>
-            Please confirm that <strong>{companyName}</strong> can have access to the following information:
-          </Typography>
-          <Card error={showScopeError}>
+          <Card error={showScopeError} sx={{ mt: 1 }}>
+            <Typography sx={{ mb: 1 }}>
+              Please confirm that <strong>{companyName}</strong> can have access to the following information:
+            </Typography>
             <ScopeListSwitch scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
-          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
+          <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
             {showScopeError && 'Please select all the options.'}
           </Typography>
 
-          <Typography variant="h2">Important dates</Typography>
-          <Card sx={{ p: 2, mb: 2.8 }}>
-            <Typography sx={{ mb: 0 }}>{companyName} can access your data for 3 months.</Typography>
+          <Card error={showDateError}>
+            {useCase.sharingDurations && (
+              <DateSelector companyName={companyName} sharingDurations={useCase.sharingDurations} />
+            )}
+            <Typography sx={{ mt: 1.5, mb: 0 }}>
+              {TextBuilder.accessFrequency(companyName, useCase.accessFrequency)}
+            </Typography>
           </Card>
-
-          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showDataHolderError && 'Please choose your bank above.'}
-          </Typography>
-          <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please confirm access to your information above.'}
+          <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {showDateError && `Please confirm how long you would like ${companyName} to access your data.`}
           </Typography>
 
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              mb: 4,
               flexDirection: { xs: 'column', sm: 'row-reverse' },
             }}
           >
@@ -134,10 +150,10 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               Cancel
             </Button>
           </Box>
-
-          <Typography variant="h3" sx={{ mb: 0.5 }}>
-            Important information
+          <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
+            {(showDataHolderError || showDateError || showScopeError) && 'Please fix the error(s) above.'}
           </Typography>
+
           <Box sx={{ position: 'relative' }}>
             <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
           </Box>

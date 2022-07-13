@@ -68,7 +68,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
                         justifyContent: { xs: 'space-between', sm: 'normal' },
                       }}
                     >
-                      <Typography>{scope.name}</Typography>
+                      <Typography variant="body2">{scope.name}</Typography>
                       <Box onClick={() => handleInfoClick(scope)} sx={{ display: 'flex', alignItems: 'center' }}>
                         <InfoIcon sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
                       </Box>
