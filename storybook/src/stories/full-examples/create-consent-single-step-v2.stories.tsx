@@ -139,3 +139,34 @@ WithMultiDatesAndCustom.args = {
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
+
+// ####################################
+
+export const WithNoRemainingDataHolders = Template.bind({});
+WithNoRemainingDataHolders.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithNoRemainingDataHolders.args = {
+  accreditationNumber: accreditationNumber,
+  cdrPolicyUrl: cdrPolicyUrl,
+  companyName: companyName,
+  existingConsents: [
+    ...TestUtil.testData.consent.all(),
+    ...[
+      TestUtil.testData.consent.generateConsent({
+        dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
+        useCaseId: TestUtil.testData.useCase.homeLoan().id,
+      }),
+    ],
+  ],
+  useCase: TestUtil.testData.useCase.homeLoan(),
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};

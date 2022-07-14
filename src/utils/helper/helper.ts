@@ -39,10 +39,14 @@ const filterListbyStatus = (list: ConsentResponse[], filterBy: Status): ConsentR
 };
 
 const filterDataHoldersByConsentsAndUseCase = (
-  dataHolders: DataHolder[],
+  dataHolders: DataHolder[] | undefined,
   consents: ConsentResponse[],
   useCase: UseCaseResponse,
 ): DataHolder[] => {
+  if (!dataHolders) {
+    return [];
+  }
+
   const filteredDataHolders = dataHolders.filter((dataHolder) => {
     return doesConsentExistForDataHolderAndUseCase(dataHolder, consents, useCase);
   });

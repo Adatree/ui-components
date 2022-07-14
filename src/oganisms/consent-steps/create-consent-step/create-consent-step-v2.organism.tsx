@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
+import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Card } from '../../../atoms/card/card.atom';
@@ -15,15 +15,24 @@ export type CreateConsentStepProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
-  useCase: UseCaseResponse;
   dataSharingRevocationEmail: string;
-  onSubmit: () => void;
+  existingConsents: ConsentResponse[];
+  useCase: UseCaseResponse;
   onCancel: () => void;
+  onSubmit: () => void;
 };
 
 export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
-  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit, onCancel } =
-    props;
+  const {
+    accreditationNumber,
+    cdrPolicyUrl,
+    companyName,
+    dataSharingRevocationEmail,
+    existingConsents,
+    useCase,
+    onCancel,
+    onSubmit,
+  } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -31,6 +40,12 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
+
+  const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(
+    useCase.dataHolders,
+    existingConsents,
+    useCase,
+  );
 
   useEffect(() => {
     if (
@@ -92,11 +107,11 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
   return (
     <section>
-      {useCase.dataHolders && useCase.scopes && (
+      {useCase.dataHolders && useCase.scopes && useCase.dataHolders.length > disableDataHolders.length && (
         <>
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}
-            disableDataHolders={undefined}
+            disableDataHolders={disableDataHolders}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
             label={'Choose your bank'}
@@ -164,6 +179,36 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               cdrPolicyUrl={cdrPolicyUrl}
               companyName={companyName}
             />
+          </Box>
+        </>
+      )}
+
+      {useCase.dataHolders && useCase.dataHolders.length === disableDataHolders.length && (
+        <>
+          <Box sx={{ m: 2 }}>
+            <Typography sx={{ mb: 2 }} variant={'h2'}>
+              Sorry but you are unable to create a new consent.
+            </Typography>
+            <Typography sx={{ mb: 2 }}>You have already connected all of your available accounts.</Typography>
+            <Typography>You currently have the following active consents:</Typography>
+
+            <ul style={{ padding: '1rem' }}>
+              {useCase.dataHolders.map((dataHolder) => (
+                <li style={{ listStyle: 'disc', marginLeft: '10px' }} key={dataHolder.dataHolderBrandId}>
+                  <Typography variant="body2" sx={{ m: 0.1 }}>
+                    {useCase.name} consent with {dataHolder.brandName}.
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+            <Button
+              sx={{ my: 2, width: { xs: '100%', sm: '20rem' } }}
+              variant="contained"
+              color="cta"
+              onClick={handleCancel}
+            >
+              Back
+            </Button>
           </Box>
         </>
       )}
