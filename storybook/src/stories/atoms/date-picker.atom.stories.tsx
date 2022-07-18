@@ -12,6 +12,9 @@ export default {
 
 const Template: ComponentStory<typeof DatePicker> = (args) => <DatePicker {...args} />;
 
+const futureDate = new Date();
+futureDate.setFullYear(futureDate.getFullYear() + 1);
+
 export const CurrentDate = Template.bind({});
 CurrentDate.args = {
   label: 'Current date',
@@ -24,7 +27,7 @@ CurrentDate.args = {
 export const SetDate = Template.bind({});
 SetDate.args = {
   label: 'Future date',
-  date: new Date('2032-06-18T21:11:54'),
+  date: futureDate,
   onChange: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
@@ -33,7 +36,7 @@ SetDate.args = {
 export const AmericanFormat = Template.bind({});
 AmericanFormat.args = {
   label: 'American format',
-  date: new Date('2032-01-24T21:11:54'),
+  date: new Date(),
   inputFormat: 'MM/dd/yyyy',
   onChange: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
@@ -53,6 +56,15 @@ Disabled.args = {
   label: 'Disabled',
   date: new Date(),
   disabled: true,
+  onChange: (date) => {
+    alert(`The computed date is ${date.toISOString()}`);
+  },
+};
+
+export const Error = Template.bind({});
+Error.args = {
+  label: 'Error date',
+  date: new Date('2032-06-18T21:11:54'),
   onChange: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },

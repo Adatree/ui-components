@@ -15,6 +15,9 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
   const { label, date = null, inputFormat = 'dd/MM/yyyy', disabled = false, onChange } = props;
   const [value, setValue] = useState<Date | null>(date);
 
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() + 1);
+
   useEffect(() => {
     setValue(date);
   }, [props.date, setValue]);
@@ -31,6 +34,7 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
       <MobileDatePicker
         label={label}
         minDate={new Date()}
+        maxDate={maxDate}
         inputFormat={inputFormat}
         value={value}
         disabled={disabled}
