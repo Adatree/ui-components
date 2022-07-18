@@ -10,7 +10,7 @@ import {
 } from '../../lib';
 
 export default {
-  title: 'Full examples/Create consent single step/version 3',
+  title: 'Full examples/Create consent single step/with confirmation box',
   component: CreateConsentStepV3,
   parameters: {
     backgrounds: {
