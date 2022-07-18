@@ -61,6 +61,7 @@ WithOngoingAccess.args = {
   accreditationNumber: accreditationNumber,
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -87,6 +88,7 @@ WithOnceOffAccess.args = {
   accreditationNumber: accreditationNumber,
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -113,6 +115,7 @@ WithLongScopes.args = {
   accreditationNumber: accreditationNumber,
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -135,6 +138,7 @@ WithMultiDatesAndCustom.args = {
   accreditationNumber: accreditationNumber,
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
