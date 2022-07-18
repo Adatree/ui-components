@@ -139,6 +139,10 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             {showDateError && `Please confirm how long you would like ${companyName} to access your data.`}
           </Typography>
 
+          <Box sx={{ mb: 4, position: 'relative' }}>
+            <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
+          </Box>
+
           <Box
             sx={{
               display: 'flex',
@@ -168,10 +172,6 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
           <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
             {(showDataHolderError || showDateError || showScopeError) && 'Please fix the error(s) above.'}
           </Typography>
-
-          <Box sx={{ position: 'relative' }}>
-            <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
-          </Box>
 
           <Box sx={{ p: 2, m: 1 }}>
             <Accreditation
