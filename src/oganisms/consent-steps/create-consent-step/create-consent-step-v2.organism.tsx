@@ -109,6 +109,13 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && useCase.dataHolders.length > disableDataHolders.length && (
         <>
+          <Box sx={{ mb: 3 }}>
+            <Typography sx={{ mb: 1 }} variant="h2">
+              <strong>{companyName}</strong> would like to connect to your bank and access your data.
+            </Typography>
+            <Typography>{useCase.description}</Typography>
+          </Box>
+
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}
             disableDataHolders={disableDataHolders}
@@ -119,7 +126,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
           <Card error={showScopeError} sx={{ mt: 1 }}>
             <Typography sx={{ mb: 1 }}>
-              Please confirm that <strong>{companyName}</strong> can have access to the following information:
+              Please confirm that <strong>{companyName}</strong> can have access to the following data:
             </Typography>
             <ScopeListSwitch scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
           </Card>
