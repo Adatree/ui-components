@@ -3,7 +3,7 @@ import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '.
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Link, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Card } from '../../../atoms/card/card.atom';

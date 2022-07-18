@@ -42,9 +42,7 @@ export const DataAccessStep = (props: DataAccessStepProps) => {
       <Box sx={{ mb: 4 }}>
         <UseCaseScopeList
           title="Your data"
-          subtitle={
-            useCase ? `${useCase.description}` : ''
-          }
+          subtitle={useCase ? `${useCase.description}` : ''}
           useCase={useCase}
           checkedValues={consentForm.checkedScopes}
           onChange={handleUseCaseScopeListChange}
