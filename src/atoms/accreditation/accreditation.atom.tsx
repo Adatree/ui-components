@@ -5,7 +5,7 @@ export type AccreditationProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
-  underCdrPrinciple?: boolean;
+  underCdrPrinciple: boolean;
 };
 
 export const Accreditation: React.FC<AccreditationProps> = (props) => {

@@ -16,15 +16,24 @@ export type CreateConsentStepProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
-  useCase: UseCaseResponse;
   dataSharingRevocationEmail: string;
+  underCdrPrinciple: boolean;
+  useCase: UseCaseResponse;
   onSubmit: () => void;
   onCancel: () => void;
 };
 
 export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
-  const { accreditationNumber, useCase, cdrPolicyUrl, companyName, dataSharingRevocationEmail, onSubmit, onCancel } =
-    props;
+  const {
+    accreditationNumber,
+    cdrPolicyUrl,
+    companyName,
+    dataSharingRevocationEmail,
+    underCdrPrinciple,
+    useCase,
+    onSubmit,
+    onCancel,
+  } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isDataAccessConfirmed, setIsDataAccessConfirmed] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -178,6 +187,7 @@ export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
               accreditationNumber={accreditationNumber}
               cdrPolicyUrl={cdrPolicyUrl}
               companyName={companyName}
+              underCdrPrinciple={underCdrPrinciple}
             />
           </Box>
         </>

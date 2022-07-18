@@ -62,6 +62,7 @@ WithOngoingAccess.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: false,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -89,6 +90,35 @@ WithOnceOffAccess.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: false,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    sharingDurations: [SharingDuration.ONCEOFF],
+    accessFrequency: AccessFrequency.ONCEOFF,
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithUnderCdrPrinciple = Template.bind({});
+WithUnderCdrPrinciple.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithUnderCdrPrinciple.args = {
+  accreditationNumber: accreditationNumber,
+  companyName: companyName,
+  cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: true,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -116,6 +146,7 @@ WithLongScopes.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: false,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -139,6 +170,7 @@ WithMultiDatesAndCustom.args = {
   companyName: companyName,
   cdrPolicyUrl: cdrPolicyUrl,
   existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: false,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -170,6 +202,7 @@ WithNoRemainingDataHolders.args = {
       }),
     ],
   ],
+  underCdrPrinciple: false,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,
   onSubmit: handleSummit,

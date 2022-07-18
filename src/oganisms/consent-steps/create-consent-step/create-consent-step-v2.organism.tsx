@@ -17,6 +17,7 @@ export type CreateConsentStepProps = {
   companyName: string;
   dataSharingRevocationEmail: string;
   existingConsents: ConsentResponse[];
+  underCdrPrinciple: boolean;
   useCase: UseCaseResponse;
   onCancel: () => void;
   onSubmit: () => void;
@@ -29,6 +30,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     companyName,
     dataSharingRevocationEmail,
     existingConsents,
+    underCdrPrinciple,
     useCase,
     onCancel,
     onSubmit,
@@ -185,6 +187,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               accreditationNumber={accreditationNumber}
               cdrPolicyUrl={cdrPolicyUrl}
               companyName={companyName}
+              underCdrPrinciple={underCdrPrinciple}
             />
           </Box>
         </>
