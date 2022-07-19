@@ -113,7 +113,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
         <>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
-              <strong>{companyName}</strong> would like to connect to your bank and access your data.
+              <strong>{companyName}</strong> requests access to your banking account data
             </Typography>
             <Typography>{useCase.description}</Typography>
           </Box>
