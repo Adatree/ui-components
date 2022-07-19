@@ -13,7 +13,7 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
 
   const cdrText =
     underCdrPrinciple === true
-      ? `Under CDR Principle: ${accreditationNumber}`
+      ? `Under CDR Principal: ${accreditationNumber}`
       : `Accredited Data Recipient: ${accreditationNumber}`;
 
   return (
@@ -35,13 +35,6 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
           </a>{' '}
         </Box>
       </Box>
-      <Typography variant="body2" sx={{ mt: 1 }}>
-        Please read our{' '}
-        <a target="_blank" href={cdrPolicyUrl} style={{ textDecoration: 'underline' }}>
-          CDR Policy
-        </a>{' '}
-        for more information on how {companyName} handles your data.
-      </Typography>
     </>
   );
 };
