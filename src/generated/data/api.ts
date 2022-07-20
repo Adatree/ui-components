@@ -279,10 +279,10 @@ export interface BankingAccountDetail {
   addresses?: Array<CommonPhysicalAddress>;
   /**
    *
-   * @type {Adatree}
+   * @type {BankingAccountDetailAdatree}
    * @memberof BankingAccountDetail
    */
-  adatree?: Adatree;
+  adatree?: BankingAccountDetailAdatree;
 }
 
 /**
@@ -303,6 +303,62 @@ export enum BankingAccountDetailSpecificAccountUTypeEnum {
   Loan = 'loan',
 }
 
+/**
+ * Extra data and metadata provided by Adatree for accounts
+ * @export
+ * @interface BankingAccountDetailAdatree
+ */
+export interface BankingAccountDetailAdatree {
+  /**
+   * Consent Id for related resource
+   * @type {string}
+   * @memberof BankingAccountDetailAdatree
+   */
+  consentId: string;
+  /**
+   * Consumer Id for related resource
+   * @type {string}
+   * @memberof BankingAccountDetailAdatree
+   */
+  consumerId: string;
+  /**
+   * CDR Arrangement for related resource
+   * @type {string}
+   * @memberof BankingAccountDetailAdatree
+   */
+  cdrArrangementId: string;
+  /**
+   * Data Holder Brand Id for related resource
+   * @type {string}
+   * @memberof BankingAccountDetailAdatree
+   */
+  dataHolderBrandId: string;
+  /**
+   * Use Case Id for related resource
+   * @type {string}
+   * @memberof BankingAccountDetailAdatree
+   */
+  useCaseId: string;
+  /**
+   *
+   * @type {Array<SecuredCdsDataApiError>}
+   * @memberof BankingAccountDetailAdatree
+   */
+  errors: Array<SecuredCdsDataApiError>;
+}
+/**
+ *
+ * @export
+ * @interface BankingAccountDetailAdatreeAllOf
+ */
+export interface BankingAccountDetailAdatreeAllOf {
+  /**
+   *
+   * @type {Array<SecuredCdsDataApiError>}
+   * @memberof BankingAccountDetailAdatreeAllOf
+   */
+  errors?: Array<SecuredCdsDataApiError>;
+}
 /**
  *
  * @export
@@ -401,10 +457,10 @@ export interface BankingAccountDetailAllOf {
   addresses?: Array<CommonPhysicalAddress>;
   /**
    *
-   * @type {Adatree}
+   * @type {BankingAccountDetailAdatree}
    * @memberof BankingAccountDetailAllOf
    */
-  adatree?: Adatree;
+  adatree?: BankingAccountDetailAdatree;
 }
 
 /**
@@ -615,6 +671,12 @@ export interface BankingBalance {
    * @memberof BankingBalance
    */
   purses?: Array<BankingBalancePurse>;
+  /**
+   * Most recent refresh date time stamp
+   * @type {string}
+   * @memberof BankingBalance
+   */
+  refreshDateTime?: string;
 }
 /**
  *
@@ -3502,13 +3564,19 @@ export enum EnergyBillingUsageTransactionCalculationFactorsTypeEnum {
  */
 export interface EnergyConcession {
   /**
+   * Indicator of the method of concession calculation
+   * @type {string}
+   * @memberof EnergyConcession
+   */
+  type: EnergyConcessionTypeEnum;
+  /**
    * The display name of the concession
    * @type {string}
    * @memberof EnergyConcession
    */
   displayName: string;
   /**
-   * Display text providing more information on the concession
+   * Display text providing more information on the concession Mandatory if type is VARIABLE
    * @type {string}
    * @memberof EnergyConcession
    */
@@ -3532,30 +3600,51 @@ export interface EnergyConcession {
    */
   endDate?: string;
   /**
-   * Daily discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+   * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
    * @type {string}
    * @memberof EnergyConcession
    */
-  dailyDiscount?: string;
+  discountFrequency?: string;
   /**
-   * Monthly discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+   * Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT
    * @type {string}
    * @memberof EnergyConcession
    */
-  monthlyDiscount?: string;
+  amount?: string;
   /**
-   * Annual discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+   * Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE
    * @type {string}
    * @memberof EnergyConcession
    */
-  yearlyDiscount?: string;
+  percentage?: string;
   /**
-   * Percentage of each invoice to be discounted due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
-   * @type {string}
+   * Array of ENUM\'s to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
+   * @type {Array<string>}
    * @memberof EnergyConcession
    */
-  percentageDiscount?: string;
+  appliedTo?: Array<EnergyConcessionAppliedToEnum>;
 }
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum EnergyConcessionTypeEnum {
+  FIXEDAMOUNT = 'FIXED_AMOUNT',
+  FIXEDPERCENTAGE = 'FIXED_PERCENTAGE',
+  VARIABLE = 'VARIABLE',
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum EnergyConcessionAppliedToEnum {
+  INVOICE = 'INVOICE',
+  USAGE = 'USAGE',
+  SERVICECHARGE = 'SERVICE_CHARGE',
+  CONTROLLEDLOAD = 'CONTROLLED_LOAD',
+}
+
 /**
  *
  * @export
@@ -5695,6 +5784,12 @@ export interface EnergyPlanContractTariffPeriod {
    */
   dailySupplyCharges?: string;
   /**
+   * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriod
+   */
+  timeZone?: EnergyPlanContractTariffPeriodTimeZoneEnum;
+  /**
    * Specifies the type of rate applicable to this tariff period
    * @type {string}
    * @memberof EnergyPlanContractTariffPeriod
@@ -5732,6 +5827,14 @@ export enum EnergyPlanContractTariffPeriodTypeEnum {
   RETAILSERVICE = 'RETAIL_SERVICE',
   RCTI = 'RCTI',
   OTHER = 'OTHER',
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum EnergyPlanContractTariffPeriodTimeZoneEnum {
+  LOCAL = 'LOCAL',
+  AEST = 'AEST',
 }
 /**
  * @export
@@ -6369,10 +6472,10 @@ export interface EnergyServicePointDetail {
   location: EnergyServicePointDetailLocation;
   /**
    *
-   * @type {EnergyServicePointDetailMeters}
+   * @type {Array<EnergyServicePointDetailMeters>}
    * @memberof EnergyServicePointDetail
    */
-  meters: EnergyServicePointDetailMeters;
+  meters: Array<EnergyServicePointDetailMeters>;
   /**
    *
    * @type {EnergyDerRecord}
@@ -6701,10 +6804,10 @@ export interface EnergyServicePointDetailMeters {
   specifications: EnergyServicePointDetailMetersSpecifications;
   /**
    *
-   * @type {EnergyServicePointDetailMetersRegisters}
+   * @type {Array<EnergyServicePointDetailMetersRegisters>}
    * @memberof EnergyServicePointDetailMeters
    */
-  registers: EnergyServicePointDetailMetersRegisters;
+  registers: Array<EnergyServicePointDetailMetersRegisters>;
 }
 /**
  * Usage data registers available from the meter
@@ -7277,6 +7380,45 @@ export interface MetaPaginated {
    */
   totalPages: number;
 }
+/**
+ *
+ * @export
+ * @interface SecuredCdsDataApiError
+ */
+export interface SecuredCdsDataApiError {
+  /**
+   * The code of the error encountered.
+   * @type {string}
+   * @memberof SecuredCdsDataApiError
+   */
+  code: SecuredCdsDataApiErrorCodeEnum;
+  /**
+   * A short, human-readable summary of the problem.
+   * @type {string}
+   * @memberof SecuredCdsDataApiError
+   */
+  title: string;
+  /**
+   * A human-readable explanation specific to this occurrence of the problem.
+   * @type {string}
+   * @memberof SecuredCdsDataApiError
+   */
+  detail: string;
+  /**
+   * CDR arrangement id where data fetch error occurred
+   * @type {string}
+   * @memberof SecuredCdsDataApiError
+   */
+  cdrArrangementId: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum SecuredCdsDataApiErrorCodeEnum {
+  BALANCEREFRESHERROR = 'BALANCE_REFRESH_ERROR',
+}
 
 /**
  * BankingApi - axios parameter creator
@@ -7297,7 +7439,10 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {string} [consumerAuthDate] The time when the customer last logged in.
+     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
+     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7326,6 +7471,9 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       >,
       page?: number,
       pageSize?: number,
+      consumerAuthDate?: string,
+      consumerIpAddress?: string,
+      userAgent?: string,
       options: any = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/accounts`;
@@ -7390,6 +7538,18 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
+      if (consumerAuthDate !== undefined && consumerAuthDate !== null) {
+        localVarHeaderParameter['Consumer-Auth-Date'] = String(consumerAuthDate);
+      }
+
+      if (consumerIpAddress !== undefined && consumerIpAddress !== null) {
+        localVarHeaderParameter['Consumer-Ip-Address'] = String(consumerIpAddress);
+      }
+
+      if (userAgent !== undefined && userAgent !== null) {
+        localVarHeaderParameter['User-Agent'] = String(userAgent);
+      }
+
       localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -7414,7 +7574,7 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7529,7 +7689,7 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
      * @param {Array<string>} [types] Used to filter results on the payee type field.
      * @param {Array<string>} [payeeIds] Used to filter results on the payeeId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7622,12 +7782,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
      * @param {Array<string>} [types] Used to filter results on the type field.
      * @param {number} [minimumAmount] Used to filter results on the amount field
      * @param {number} [maximumAmount] Used to filter results on the amount field
-     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. If absent defaults newest time minus 90 days. Format is aligned to DateTimeString common type.
-     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. If absent defaults to now. Format is aligned to DateTimeString common type.
+     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. Format is aligned to DateTimeString common type.
+     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {string} [oldestTime] Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type
+     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7760,7 +7920,10 @@ export const BankingApiFp = function (configuration?: Configuration) {
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {string} [consumerAuthDate] The time when the customer last logged in.
+     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
+     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7789,6 +7952,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       >,
       page?: number,
       pageSize?: number,
+      consumerAuthDate?: string,
+      consumerIpAddress?: string,
+      userAgent?: string,
       options?: any,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingAccountList>> {
       const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingAccounts(
@@ -7803,6 +7969,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
         productCategories,
         page,
         pageSize,
+        consumerAuthDate,
+        consumerIpAddress,
+        userAgent,
         options,
       );
       return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
@@ -7823,7 +7992,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7884,7 +8053,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [types] Used to filter results on the payee type field.
      * @param {Array<string>} [payeeIds] Used to filter results on the payeeId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7929,12 +8098,12 @@ export const BankingApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [types] Used to filter results on the type field.
      * @param {number} [minimumAmount] Used to filter results on the amount field
      * @param {number} [maximumAmount] Used to filter results on the amount field
-     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. If absent defaults newest time minus 90 days. Format is aligned to DateTimeString common type.
-     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. If absent defaults to now. Format is aligned to DateTimeString common type.
+     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. Format is aligned to DateTimeString common type.
+     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {string} [oldestTime] Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type
+     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8001,7 +8170,10 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {string} [consumerAuthDate] The time when the customer last logged in.
+     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
+     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8030,6 +8202,9 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       >,
       page?: number,
       pageSize?: number,
+      consumerAuthDate?: string,
+      consumerIpAddress?: string,
+      userAgent?: string,
       options?: any,
     ): AxiosPromise<BankingAccountList> {
       return BankingApiFp(configuration)
@@ -8045,6 +8220,9 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
           productCategories,
           page,
           pageSize,
+          consumerAuthDate,
+          consumerIpAddress,
+          userAgent,
           options,
         )
         .then((request) => request(axios, basePath));
@@ -8062,7 +8240,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
      * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8121,7 +8299,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
      * @param {Array<string>} [types] Used to filter results on the payee type field.
      * @param {Array<string>} [payeeIds] Used to filter results on the payeeId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8164,12 +8342,12 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
      * @param {Array<string>} [types] Used to filter results on the type field.
      * @param {number} [minimumAmount] Used to filter results on the amount field
      * @param {number} [maximumAmount] Used to filter results on the amount field
-     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. If absent defaults newest time minus 90 days. Format is aligned to DateTimeString common type.
-     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. If absent defaults to now. Format is aligned to DateTimeString common type.
+     * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. Format is aligned to DateTimeString common type.
+     * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {string} [oldestTime] Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type
-     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type
+     * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time. Format is aligned to DateTimeString common type.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8235,7 +8413,10 @@ export class BankingApi extends BaseAPI {
    * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
    * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
+   * @param {string} [consumerAuthDate] The time when the customer last logged in.
+   * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
+   * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof BankingApi
@@ -8265,6 +8446,9 @@ export class BankingApi extends BaseAPI {
     >,
     page?: number,
     pageSize?: number,
+    consumerAuthDate?: string,
+    consumerIpAddress?: string,
+    userAgent?: string,
     options?: any,
   ) {
     return BankingApiFp(this.configuration)
@@ -8280,6 +8464,9 @@ export class BankingApi extends BaseAPI {
         productCategories,
         page,
         pageSize,
+        consumerAuthDate,
+        consumerIpAddress,
+        userAgent,
         options,
       )
       .then((request) => request(this.axios, this.basePath));
@@ -8298,7 +8485,7 @@ export class BankingApi extends BaseAPI {
    * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
    * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof BankingApi
@@ -8359,7 +8546,7 @@ export class BankingApi extends BaseAPI {
    * @param {Array<string>} [types] Used to filter results on the payee type field.
    * @param {Array<string>} [payeeIds] Used to filter results on the payeeId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof BankingApi
@@ -8404,12 +8591,12 @@ export class BankingApi extends BaseAPI {
    * @param {Array<string>} [types] Used to filter results on the type field.
    * @param {number} [minimumAmount] Used to filter results on the amount field
    * @param {number} [maximumAmount] Used to filter results on the amount field
-   * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. If absent defaults newest time minus 90 days. Format is aligned to DateTimeString common type.
-   * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. If absent defaults to now. Format is aligned to DateTimeString common type.
+   * @param {string} [oldestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or after this date/time. Format is aligned to DateTimeString common type.
+   * @param {string} [newestRetrievalTime] Constrain the transaction history request to transactions with retrieval time at or before this date/time. Format is aligned to DateTimeString common type.
    * @param {string} [oldestTime] Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type
-   * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type
+   * @param {string} [newestTime] Constrain the transaction history request to transactions with effective time at or before this date/time. Format is aligned to DateTimeString common type.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof BankingApi
@@ -8471,7 +8658,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8558,7 +8745,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [billingIds] Used to filter results on the billingId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8649,7 +8836,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8735,7 +8922,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8822,7 +9009,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [invoiceIds] Used to filter results on the invoiceId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8909,7 +9096,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8984,7 +9171,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9026,7 +9213,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [billingIds] Used to filter results on the billingId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9069,7 +9256,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9110,7 +9297,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9152,7 +9339,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [invoiceIds] Used to filter results on the invoiceId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9191,7 +9378,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9233,7 +9420,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9273,7 +9460,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [billingIds] Used to filter results on the billingId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9314,7 +9501,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9353,7 +9540,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9393,7 +9580,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [invoiceIds] Used to filter results on the invoiceId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9430,7 +9617,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
-     * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+     * @param {number} [pageSize] Page size to request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9465,7 +9652,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -9507,7 +9694,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [billingIds] Used to filter results on the billingId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -9550,7 +9737,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -9591,7 +9778,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [servicePointIds] Used to filter results on the servicePointId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -9633,7 +9820,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [invoiceIds] Used to filter results on the invoiceId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -9672,7 +9859,7 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [planIds] Used to filter results on the planId field.
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
-   * @param {number} [pageSize] Page size to request. Default is 25 (standard pagination)
+   * @param {number} [pageSize] Page size to request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
