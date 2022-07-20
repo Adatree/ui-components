@@ -10,6 +10,7 @@ import { Card } from '../../../atoms/card/card.atom';
 import { DateSelector } from '../../../molecules/date-selector/date-selector.molecule';
 import { TextBuilder } from '../../../utils/text/text-builder';
 import { Helper } from '../../../utils/helper/helper';
+import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
 
 export type CreateConsentStepProps = {
   accreditationNumber: string;
@@ -150,6 +151,13 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
           <Box sx={{ mb: 4, position: 'relative' }}>
             <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
+            {useCase.osps && useCase.osps.length > 0 && (
+              <SupportingParties
+                title={'Supporting Parties'}
+                useCase={useCase}
+                outsourcedServiceProviders={useCase.osps}
+              />
+            )}
           </Box>
 
           <Box

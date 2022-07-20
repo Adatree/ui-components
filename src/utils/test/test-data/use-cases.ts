@@ -1,5 +1,6 @@
 import { UseCaseResponse, SharingDuration, AccessFrequency, NotificationType } from '../../../generated/consent/api';
 import { dataHolder } from './data-holders';
+import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';
 
 const onceOffConsentMinScopes = (): UseCaseResponse => {
@@ -53,6 +54,13 @@ const homeLoan = (): UseCaseResponse => {
     scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
     accessFrequency: AccessFrequency.ONCEOFF,
     sharingDurations: [SharingDuration.ONCEOFF],
+  };
+};
+
+const homeLoanWithOsps = (): UseCaseResponse => {
+  return {
+    ...homeLoan(),
+    osps: outsourcedServiceProvider.all(),
   };
 };
 
@@ -116,6 +124,7 @@ export const useCase = {
   onceOffConsentMinScopes,
   ongoingConsentMinScopes,
   homeLoan,
+  homeLoanWithOsps,
   openEnergyLite,
   openEnergy,
 };

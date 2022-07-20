@@ -1,43 +1,36 @@
-const adatree = () => {
+import { OutsourcedServiceProvider } from '../../../generated/consent';
+
+const adatree = (): OutsourcedServiceProvider => {
   return {
-    id: 1,
-    name: 'Adatree',
-    accreditedId: '1234567890',
-    description:
-      'Adatre are a lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae facilisis est. Donec ut nisl at velit pharetra interdum. ',
-    service:
+    providerName: 'Adatree',
+    accreditationId: '1234567890',
+    serviceDescription:
       "They'll collect and analyse your data on our behalf. They delete your data as soon as they have provided this service on our behalf.",
-    cdrPolicyUrl: 'https://example.com',
+    cdrPolicyUri: 'https://example.com',
   };
 };
 
-const outsourcedServiceProvider1 = () => {
+const outsourcedServiceProvider1 = (): OutsourcedServiceProvider => {
   return {
-    id: 2,
-    name: 'OSP 1',
-    accreditedId: '1234567890',
-    description:
-      'OSP 1 are a lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae facilisis est. Donec ut nisl at velit pharetra interdum. ',
-    service:
+    providerName: 'OSP 1',
+    accreditationId: '1234567890',
+    serviceDescription:
       "They'll collect and analyse your data on our behalf. They delete your data as soon as they have provided this service on our behalf.",
-    cdrPolicyUrl: 'https://example.com',
+    cdrPolicyUri: 'https://example.com',
   };
 };
 
-const outsourcedServiceProvider2 = () => {
+const outsourcedServiceProvider2 = (): OutsourcedServiceProvider => {
   return {
-    id: 3,
-    name: 'OSP 2',
-    description:
-      'OSP 2 are a lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae facilisis est. Donec ut nisl at velit pharetra interdum. ',
-    accreditedId: '1234567890',
-    service:
+    providerName: 'OSP 2',
+    accreditationId: '1234567890',
+    serviceDescription:
       "They'll collect and analyse your data on our behalf. They delete your data as soon as they have provided this service on our behalf.",
-    cdrPolicyUrl: 'https://example.com',
+    cdrPolicyUri: 'https://example.com',
   };
 };
 
-const all = () => {
+const all = (): OutsourcedServiceProvider[] => {
   return [adatree(), outsourcedServiceProvider1(), outsourcedServiceProvider2()];
 };
 

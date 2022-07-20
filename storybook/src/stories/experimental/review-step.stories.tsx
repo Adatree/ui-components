@@ -47,5 +47,4 @@ WithSupportingParties.args = {
   useCase: TestUtil.testData.useCase.onceOffConsentMinScopes(),
   cdrPolicyUrl: 'https://example.com',
   dataSharingRevocationEmail: 'data.sharing.revocation@email.com',
-  outsourcedServiceProvider: TestUtil.testData.outsourcedServiceProvider.all(),
 };

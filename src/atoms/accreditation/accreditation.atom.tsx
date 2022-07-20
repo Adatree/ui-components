@@ -32,7 +32,7 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
           </Typography>
           <a target="_blank" style={{ display: 'block', textDecoration: 'underline' }} href={cdrPolicyUrl}>
             <Typography variant="body2">{cdrText}</Typography>
-          </a>{' '}
+          </a>
         </Box>
       </Box>
     </>

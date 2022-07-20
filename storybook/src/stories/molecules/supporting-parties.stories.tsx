@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SupportingParties, TestUtil } from '../../lib';
 
 export default {
-  title: 'Experimental/Supporting parties/Supporting parties',
+  title: 'Components/Molecules/Supporting parties',
   component: SupportingParties,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -16,5 +16,5 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Supporting parties',
   useCase: TestUtil.testData.useCase.homeLoan(),
-  outsourcedServiceProvider: TestUtil.testData.outsourcedServiceProvider.all(),
+  outsourcedServiceProviders: TestUtil.testData.outsourcedServiceProvider.all(),
 };

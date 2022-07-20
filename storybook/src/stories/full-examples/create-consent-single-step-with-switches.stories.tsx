@@ -130,6 +130,34 @@ WithUnderCdrPrinciple.args = {
 
 // ####################################
 
+export const WithSupportingParties = Template.bind({});
+WithSupportingParties.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithSupportingParties.args = {
+  accreditationNumber: accreditationNumber,
+  companyName: companyName,
+  cdrPolicyUrl: cdrPolicyUrl,
+  existingConsents: TestUtil.testData.consent.all(),
+  underCdrPrinciple: true,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoanWithOsps(),
+    sharingDurations: [SharingDuration.ONCEOFF],
+    accessFrequency: AccessFrequency.ONCEOFF,
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
 export const WithLongScopes = Template.bind({});
 WithLongScopes.decorators = [
   (Story) => {
