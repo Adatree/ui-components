@@ -270,6 +270,12 @@ export interface ConsentResponse {
   dataHolderBrandId?: string;
   /**
    *
+   * @type {string}
+   * @memberof ConsentResponse
+   */
+  dataHolderLogoUri?: string;
+  /**
+   *
    * @type {UseCaseResponse}
    * @memberof ConsentResponse
    */
@@ -317,6 +323,18 @@ export interface ConsentResponse {
    */
   externalId?: string;
 }
+/**
+ * consumer types that will be consenting to the various scopes (data clusters)
+ * @export
+ * @enum {string}
+ */
+export enum ConsumerType {
+  ALL = 'ALL',
+  INDIVIDUAL = 'INDIVIDUAL',
+  ORGANISATION = 'ORGANISATION',
+  ANY = 'ANY',
+}
+
 /**
  *
  * @export
@@ -424,6 +442,16 @@ export interface DataHolder {
 /**
  *
  * @export
+ * @enum {string}
+ */
+export enum Industry {
+  BANKING = 'BANKING',
+  ENERGY = 'ENERGY',
+}
+
+/**
+ *
+ * @export
  * @interface LinksPaginated
  */
 export interface LinksPaginated {
@@ -500,6 +528,37 @@ export enum NotificationType {
   SMS = 'SMS',
 }
 
+/**
+ *
+ * @export
+ * @interface OutsourcedServiceProvider
+ */
+export interface OutsourcedServiceProvider {
+  /**
+   * The consumer facing name of the service provider.
+   * @type {string}
+   * @memberof OutsourcedServiceProvider
+   */
+  providerName: string;
+  /**
+   * The consumer facing description of what the service provider does as part of supporting the use case.
+   * @type {string}
+   * @memberof OutsourcedServiceProvider
+   */
+  serviceDescription: string;
+  /**
+   * The ACCC issued Accreditation ID if applicable. Normally only applied to OSPs for data collection e.g. Adatree.
+   * @type {string}
+   * @memberof OutsourcedServiceProvider
+   */
+  accreditationId?: string;
+  /**
+   * The logo URI of the data holder you wish the consumer to authenticate with.
+   * @type {string}
+   * @memberof OutsourcedServiceProvider
+   */
+  cdrPolicyUri?: string;
+}
 /**
  *
  * @export
@@ -775,6 +834,24 @@ export interface UseCaseResponse {
    * @memberof UseCaseResponse
    */
   dataHolders?: Array<UseCaseDataHolder>;
+  /**
+   * list of industries this use-case applies to.
+   * @type {Array<Industry>}
+   * @memberof UseCaseResponse
+   */
+  industries?: Array<Industry>;
+  /**
+   *
+   * @type {ConsumerType}
+   * @memberof UseCaseResponse
+   */
+  consumerType?: ConsumerType;
+  /**
+   * list of OSPs used to provide this use case.
+   * @type {Array<OutsourcedServiceProvider>}
+   * @memberof UseCaseResponse
+   */
+  osps?: Array<OutsourcedServiceProvider>;
 }
 
 /**
