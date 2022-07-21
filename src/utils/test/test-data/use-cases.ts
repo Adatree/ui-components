@@ -1,4 +1,10 @@
-import { UseCaseResponse, SharingDuration, AccessFrequency, NotificationType } from '../../../generated/consent/api';
+import {
+  UseCaseResponse,
+  SharingDuration,
+  AccessFrequency,
+  NotificationType,
+  Industry,
+} from '../../../generated/consent/api';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';
@@ -9,6 +15,7 @@ const onceOffConsentMinScopes = (): UseCaseResponse => {
     name: 'Once Off Consent - Minimal Scopes',
     dataHolders: dataHolder.all(),
     description: 'Data is used to test a once off consent scenario for minimal scopes and APIs',
+    industries: [Industry.BANKING],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
     notificationType: NotificationType.EMAIL,
@@ -28,6 +35,7 @@ const ongoingConsentMinScopes = (): UseCaseResponse => {
     name: 'Ongoing Consent - Minimal Scopes',
     dataHolders: dataHolder.all(),
     description: 'Data is used to test an ongoing consent scenario for minimal scopes and APIs',
+    industries: [Industry.BANKING],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
     notificationType: NotificationType.EMAIL,
@@ -48,6 +56,7 @@ const homeLoan = (): UseCaseResponse => {
     name: 'Home Loan Application',
     dataHolders: dataHolder.all(),
     description: 'Data is used to assess your suitability for a home loan',
+    industries: [Industry.BANKING],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
     notificationType: NotificationType.EMAIL,
@@ -70,6 +79,7 @@ const openEnergyLite = (): UseCaseResponse => {
     name: 'Open Energy Lite',
     dataHolders: dataHolder.all(),
     description: 'Your data will be used to assess the best energy provider for you',
+    industries: [Industry.ENERGY],
     priority: 101,
     historicalCollectionPeriodInDays: 365,
     notificationType: NotificationType.EMAIL,
@@ -90,6 +100,7 @@ const openEnergy = (): UseCaseResponse => {
     name: 'Open Energy',
     dataHolders: dataHolder.all(),
     description: 'Your data will be used to assess the best energy provider for you',
+    industries: [Industry.ENERGY],
     priority: 100,
     historicalCollectionPeriodInDays: 365,
     notificationType: NotificationType.EMAIL,
