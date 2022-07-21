@@ -26,6 +26,7 @@ export default {
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
 const companyName = 'TestComapnay';
+const dataSharingRevocationEmail = 'name@example.com';
 const baseConsentFormValues = {
   accessFrequency: undefined,
   checkedScopes: [],
@@ -35,6 +36,17 @@ const baseConsentFormValues = {
   sharingEndDate: undefined,
   useCaseId: undefined,
 };
+const organisation = {
+  accreditationNumber: accreditationNumber,
+  dataSharingRevocationEmail: dataSharingRevocationEmail,
+  cdrPolicyUrl: cdrPolicyUrl,
+  name: companyName,
+  underCdrPrinciple: false,
+};
+const copy = {
+  consent: { dataHolderInputLabel: 'Choose your data provider', title: 'requests access to your account data' },
+};
+
 const handleSummit = () => {
   alert('Consent submitted');
 };
@@ -58,11 +70,9 @@ WithOngoingAccess.decorators = [
 ];
 
 WithOngoingAccess.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: false,
+  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -86,11 +96,9 @@ WithOnceOffAccess.decorators = [
 ];
 
 WithOnceOffAccess.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
+  organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: false,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -114,11 +122,9 @@ WithUnderCdrPrinciple.decorators = [
 ];
 
 WithUnderCdrPrinciple.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: true,
+  organisation: { ...organisation, underCdrPrinciple: true },
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -142,11 +148,9 @@ WithSupportingParties.decorators = [
 ];
 
 WithSupportingParties.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
+  organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: true,
   useCase: {
     ...TestUtil.testData.useCase.homeLoanWithOsps(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -170,11 +174,9 @@ WithLongScopes.decorators = [
 ];
 
 WithLongScopes.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: false,
+  organisation: organisation,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -194,11 +196,9 @@ WithMultiDatesAndCustom.decorators = [
 ];
 
 WithMultiDatesAndCustom.args = {
-  accreditationNumber: accreditationNumber,
-  companyName: companyName,
-  cdrPolicyUrl: cdrPolicyUrl,
+  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
-  underCdrPrinciple: false,
+  organisation: organisation,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -218,9 +218,7 @@ WithNoRemainingDataHolders.decorators = [
 ];
 
 WithNoRemainingDataHolders.args = {
-  accreditationNumber: accreditationNumber,
-  cdrPolicyUrl: cdrPolicyUrl,
-  companyName: companyName,
+  copy: copy,
   existingConsents: [
     ...TestUtil.testData.consent.all(),
     ...[
@@ -230,7 +228,7 @@ WithNoRemainingDataHolders.args = {
       }),
     ],
   ],
-  underCdrPrinciple: false,
+  organisation: organisation,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,
   onSubmit: handleSummit,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentListItem, TestUtil, Status } from '../../lib';
+import { ConsentListItem, TestUtil } from '../../lib';
 
 export default {
   title: 'Components/Atoms/Consent list item',

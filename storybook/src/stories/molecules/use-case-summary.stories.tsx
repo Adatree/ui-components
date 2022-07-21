@@ -10,7 +10,6 @@ export default {
   },
 } as ComponentMeta<typeof UseCaseSummary>;
 
-const homeUseCase = TestUtil.testData.useCase.homeLoan();
 const Template: ComponentStory<typeof UseCaseSummary> = (args) => <UseCaseSummary {...args} />;
 
 export const HomeUseCase = Template.bind({});
