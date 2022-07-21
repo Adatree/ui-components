@@ -103,7 +103,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
         <>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
-              <strong>{organisation.name}</strong> requests access to your banking account data
+              <strong>{organisation.name}</strong> {copy.consent.title}
             </Typography>
             <Typography>{useCase.description}</Typography>
           </Box>
