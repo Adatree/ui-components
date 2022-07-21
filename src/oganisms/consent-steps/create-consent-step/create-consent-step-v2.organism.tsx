@@ -11,31 +11,20 @@ import { DateSelector } from '../../../molecules/date-selector/date-selector.mol
 import { TextBuilder } from '../../../utils/text/text-builder';
 import { Helper } from '../../../utils/helper/helper';
 import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
+import { Organisation } from '../../../types/organisation.type';
+import { Copy } from '../../../types/copy.type';
 
 export type CreateConsentStepProps = {
-  accreditationNumber: string;
-  cdrPolicyUrl: string;
-  companyName: string;
-  dataSharingRevocationEmail: string;
+  copy: Copy;
   existingConsents: ConsentResponse[];
-  underCdrPrinciple: boolean;
+  organisation: Organisation;
   useCase: UseCaseResponse;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
-  const {
-    accreditationNumber,
-    cdrPolicyUrl,
-    companyName,
-    dataSharingRevocationEmail,
-    existingConsents,
-    underCdrPrinciple,
-    useCase,
-    onCancel,
-    onSubmit,
-  } = props;
+  const { copy, existingConsents, organisation, useCase, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -114,7 +103,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
         <>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
-              <strong>{companyName}</strong> requests access to your banking account data
+              <strong>{organisation.name}</strong> requests access to your banking account data
             </Typography>
             <Typography>{useCase.description}</Typography>
           </Box>
@@ -124,14 +113,14 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             disableDataHolders={disableDataHolders}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
-            label={'Choose your bank'}
+            label={copy.consent.dataHolderInputLabel}
           />
 
           <Card error={showScopeError} sx={{ mt: 1 }}>
             <Typography sx={{ mb: 1 }}>
-              Please confirm that <strong>{companyName}</strong> can have access to the following data:
+              Please confirm that <strong>{organisation.name}</strong> can have access to the following data:
             </Typography>
-            <ScopeListSwitch scopes={useCase.scopes} companyName={companyName} onChange={handleScopeChange} />
+            <ScopeListSwitch scopes={useCase.scopes} companyName={organisation.name} onChange={handleScopeChange} />
           </Card>
           <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
             {showScopeError && 'Please select all the options.'}
@@ -139,18 +128,21 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
           <Card error={showDateError}>
             {useCase.sharingDurations && (
-              <DateSelector companyName={companyName} sharingDurations={useCase.sharingDurations} />
+              <DateSelector companyName={organisation.name} sharingDurations={useCase.sharingDurations} />
             )}
             <Typography sx={{ mt: 1.5, mb: 0 }}>
-              {TextBuilder.accessFrequency(companyName, useCase.accessFrequency)}
+              {TextBuilder.accessFrequency(organisation.name, useCase.accessFrequency)}
             </Typography>
           </Card>
           <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showDateError && `Please confirm how long you would like ${companyName} to access your data.`}
+            {showDateError && `Please confirm how long you would like ${name} to access your data.`}
           </Typography>
 
           <Box sx={{ mb: 4, position: 'relative' }}>
-            <GeneralInformation cdrPolicyUrl={cdrPolicyUrl} dataSharingRevocationEmail={dataSharingRevocationEmail} />
+            <GeneralInformation
+              cdrPolicyUrl={organisation.cdrPolicyUrl}
+              dataSharingRevocationEmail={organisation.dataSharingRevocationEmail}
+            />
             {useCase.osps && useCase.osps.length > 0 && (
               <SupportingParties
                 title={'Supporting Parties'}
@@ -192,10 +184,10 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
           <Box sx={{ p: 2, m: 1 }}>
             <Accreditation
-              accreditationNumber={accreditationNumber}
-              cdrPolicyUrl={cdrPolicyUrl}
-              companyName={companyName}
-              underCdrPrinciple={underCdrPrinciple}
+              accreditationNumber={organisation.accreditationNumber}
+              cdrPolicyUrl={organisation.cdrPolicyUrl}
+              companyName={organisation.name}
+              underCdrPrinciple={organisation.underCdrPrinciple}
             />
           </Box>
         </>
