@@ -44,7 +44,11 @@ const organisation = {
   underCdrPrinciple: false,
 };
 const copy = {
-  consent: { dataHolderInputLabel: 'Choose your data provider', title: 'requests access to your account data' },
+  consent: {
+    dataHolderInputLabel: 'Choose your data provider',
+    dataHolderType: 'Data Holder',
+    title: 'requests access to your account data',
+  },
 };
 
 const handleSummit = () => {

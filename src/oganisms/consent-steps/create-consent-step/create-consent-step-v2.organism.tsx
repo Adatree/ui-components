@@ -149,6 +149,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
           <Box sx={{ mb: 4, position: 'relative' }}>
             <GeneralInformation
               cdrPolicyUrl={organisation.cdrPolicyUrl}
+              dataHolderType={copy.consent.dataHolderType}
               dataSharingRevocationEmail={organisation.dataSharingRevocationEmail}
             />
             {showPoweredBy && <PowerByAccordion organisationName={organisation.name} />}
