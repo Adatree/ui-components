@@ -46,7 +46,8 @@ const organisation = {
 const copy = {
   consent: {
     dataHolderInputLabel: 'Choose your data provider',
-    dataHolderType: 'Data Holder',
+    dataHolderGeneralInformationListItem:
+      'We will never ask for your Data Holder login or password. Your Data Holder will send you a one time password.',
     title: 'requests access to your account data',
   },
 };
