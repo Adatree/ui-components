@@ -16,7 +16,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
   } = props;
 
   const generalInfoList = [
-    { topListItemOverride },
+    topListItemOverride,
     'We will never sell your data or use it for marketing.',
     <Typography>
       You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to

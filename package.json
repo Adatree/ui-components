@@ -1,6 +1,6 @@
 {
   "name": "@adatree-oss/atomic-components",
-  "version": "3.0.12-beta",
+  "version": "3.0.13-beta",
   "main": "dist/index.js",
   "repository": "https://gitlab.com/adatree-oss/atomic-design/atomic-components",
   "author": "Adatree",
