@@ -167,6 +167,33 @@ WithSupportingParties.args = {
 
 // ####################################
 
+export const WithPartnerDialog = Template.bind({});
+WithPartnerDialog.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithPartnerDialog.args = {
+  copy: copy,
+  organisation: organisation,
+  existingConsents: TestUtil.testData.consent.all(),
+  showPartnerDialog: true,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoanWithOsps(),
+    sharingDurations: [SharingDuration.ONCEOFF],
+    accessFrequency: AccessFrequency.ONCEOFF,
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
 export const WithPoweredBy = Template.bind({});
 WithPoweredBy.decorators = [
   (Story) => {

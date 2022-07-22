@@ -21,16 +21,27 @@ export type CreateConsentStepProps = {
   existingConsents: ConsentResponse[];
   organisation: Organisation;
   useCase: UseCaseResponse;
+  showPartnerDialog?: boolean;
   showPoweredBy?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
-  const { copy, existingConsents, organisation, useCase, showPoweredBy = false, onCancel, onSubmit } = props;
+  const {
+    copy,
+    existingConsents,
+    organisation,
+    useCase,
+    showPartnerDialog = false,
+    showPoweredBy = false,
+    onCancel,
+    onSubmit,
+  } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
@@ -90,14 +101,24 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     onCancel();
   };
 
-  const handleSubmit = () => {
+  const handlePreSubmit = () => {
+    setIsPartnerDialogOpen(false);
+
     if (isFormValid) {
-      onSubmit();
+      if (showPartnerDialog) {
+        setIsPartnerDialogOpen(true);
+      } else {
+        handleSubmit();
+      }
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
       setShowScopeError(isAllCheckboxChecked === true ? false : true);
     }
+  };
+
+  const handleSubmit = () => {
+    onSubmit();
   };
 
   return (
@@ -173,7 +194,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
               color={isFormValid === true ? 'cta' : 'inherit'}
-              onClick={handleSubmit}
+              onClick={handlePreSubmit}
             >
               Consent
             </Button>
@@ -241,11 +262,11 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
       <Dialog
         open={isDialogOpen}
         onClose={handleDialogClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby="info-dialog-title"
+        aria-describedby="info-dialog-description"
       >
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="info-dialog-description">
             Are you sure you want to cancel this consent?
           </DialogContentText>
         </DialogContent>
@@ -257,6 +278,35 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             Yes
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={isPartnerDialogOpen}
+        aria-labelledby="partner-dialog-title"
+        aria-describedby="partner-dialog-description"
+      >
+        <DialogContent>
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src="https://design.adatree.com.au/assets/images/waave-adatree-logos.png"
+              alt="Waave partnering with Adatree"
+              style={{ maxWidth: '260px', width: '100%', margin: '0 auto' }}
+            />
+          </div>
+          <Typography sx={{ mb: 1 }}>
+            <strong>{organisation.name}</strong> have partnered with <strong>Adatree Pty Ltd</strong> to help you
+            consent and access your data.
+          </Typography>
+          <Typography sx={{ mt: 1.5, mb: 0 }}>
+            Your bank might ask you to consent to share your data with <strong>Adatree Pty Ltd</strong>. Please allow
+            this in order to continue.
+          </Typography>
+          <Box sx={{ pt: 1, display: 'flex', justifyContent: 'center' }}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              OK
+            </Button>
+          </Box>
+        </DialogContent>
       </Dialog>
     </section>
   );
