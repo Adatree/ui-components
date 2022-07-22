@@ -191,7 +191,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             {(showDataHolderError || showDateError || showScopeError) && 'Please fix the error(s) above.'}
           </Typography>
 
-          <Box sx={{ p: 2, m: 1 }}>
+          <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
             <Accreditation
               accreditationNumber={organisation.accreditationNumber}
               cdrPolicyUrl={organisation.cdrPolicyUrl}
@@ -200,7 +200,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             />
           </Box>
           {showPoweredBy && (
-            <Box sx={{ p: 2, m: 1 }}>
+            <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
               <PowerByLogo />
             </Box>
           )}
