@@ -47,7 +47,7 @@ const copy = {
   consent: {
     dataHolderInputLabel: 'Choose your data provider',
     dataHolderGeneralInformationListItem:
-      'We will never ask for your Data Holder login or password. Your Data Holder will send you a one time password.',
+      'We will never ask for your Data Holder login password. Your Data Holder will send you a one time password.',
     title: 'requests access to your account data',
   },
 };
