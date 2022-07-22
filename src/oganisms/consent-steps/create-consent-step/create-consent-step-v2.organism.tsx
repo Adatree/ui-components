@@ -13,18 +13,21 @@ import { Helper } from '../../../utils/helper/helper';
 import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
 import { Organisation } from '../../../types/organisation.type';
 import { Copy } from '../../../types/copy.type';
+import { PowerByAccordion } from '../../../atoms/powered-by/powered-by-accordion.atom';
+import { PowerByLogo } from '../../../atoms/powered-by/powered-by-logo.atom';
 
 export type CreateConsentStepProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   organisation: Organisation;
   useCase: UseCaseResponse;
+  showPoweredBy?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
-  const { copy, existingConsents, organisation, useCase, onCancel, onSubmit } = props;
+  const { copy, existingConsents, organisation, useCase, showPoweredBy = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -133,6 +136,11 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             <Typography sx={{ mt: 1.5, mb: 0 }}>
               {TextBuilder.accessFrequency(organisation.name, useCase.accessFrequency)}
             </Typography>
+            {showPoweredBy && (
+              <Typography sx={{ mt: 1.5, mb: 0 }}>
+                <strong>{organisation.name}</strong> have partnered with <strong>Adatree Pty Ltd</strong> to ........
+              </Typography>
+            )}
           </Card>
           <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
             {showDateError && `Please confirm how long you would like ${name} to access your data.`}
@@ -143,6 +151,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               cdrPolicyUrl={organisation.cdrPolicyUrl}
               dataSharingRevocationEmail={organisation.dataSharingRevocationEmail}
             />
+            {showPoweredBy && <PowerByAccordion organisationName={organisation.name} />}
             {useCase.osps && useCase.osps.length > 0 && (
               <SupportingParties
                 title={'Supporting Parties'}
@@ -190,6 +199,11 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               underCdrPrinciple={organisation.underCdrPrinciple}
             />
           </Box>
+          {showPoweredBy && (
+            <Box sx={{ p: 2, m: 1 }}>
+              <PowerByLogo />
+            </Box>
+          )}
         </>
       )}
 
