@@ -167,6 +167,13 @@ WithPoweredBy.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <div style={{ textAlign: 'center' }}>
+          <img
+            src="https://design.adatree.com.au/assets/images/waave-adatree-logos.png"
+            alt="Waave partnering with Adatree"
+            style={{ width: '260px', margin: '0 auto' }}
+          />
+        </div>
         <Story />
       </ConsentFormProvider>
     );
