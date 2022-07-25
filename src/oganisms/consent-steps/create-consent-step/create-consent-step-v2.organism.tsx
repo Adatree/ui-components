@@ -31,23 +31,13 @@ export type CreateConsentStepProps = {
   existingConsents: ConsentResponse[];
   organisation: Organisation;
   useCase: UseCaseResponse;
-  showPartnerDialog?: boolean;
   showPoweredBy?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
-  const {
-    copy,
-    existingConsents,
-    organisation,
-    useCase,
-    showPartnerDialog = false,
-    showPoweredBy = false,
-    onCancel,
-    onSubmit,
-  } = props;
+  const { copy, existingConsents, organisation, useCase, showPoweredBy = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
@@ -119,7 +109,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (showPartnerDialog) {
+      if (organisation.underCdrPrinciple) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();
