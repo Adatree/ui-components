@@ -50,7 +50,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
   } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
@@ -103,8 +103,8 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     setIsAllCheckboxChecked(isAllChecked);
   };
 
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
+  const handleCancelDialogClose = () => {
+    setIsCancelDialogOpen(false);
   };
 
   const handlePartnerDialogClose = () => {
@@ -217,7 +217,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               variant="outlined"
               color="inherit"
               onClick={() => {
-                setIsDialogOpen(true);
+                setIsCancelDialogOpen(true);
               }}
             >
               Cancel
@@ -274,8 +274,8 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
       )}
 
       <Dialog
-        open={isDialogOpen}
-        onClose={handleDialogClose}
+        open={isCancelDialogOpen}
+        onClose={handleCancelDialogClose}
         aria-labelledby="info-dialog-title"
         aria-describedby="info-dialog-description"
       >
@@ -285,7 +285,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" color="inherit" onClick={handleDialogClose} autoFocus>
+          <Button variant="outlined" color="inherit" onClick={handleCancelDialogClose} autoFocus>
             No
           </Button>
           <Button variant="outlined" color="inherit" onClick={handleCancel}>
