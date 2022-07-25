@@ -3,7 +3,16 @@ import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '.
 import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../../context/consentForm.context';
 import { Card } from '../../../atoms/card/card.atom';
@@ -15,6 +24,7 @@ import { Organisation } from '../../../types/organisation.type';
 import { Copy } from '../../../types/copy.type';
 import { PowerByAccordion } from '../../../atoms/powered-by/powered-by-accordion.atom';
 import { PowerByLogo } from '../../../atoms/powered-by/powered-by-logo.atom';
+import Close from 'mdi-material-ui/Close';
 
 export type CreateConsentStepProps = {
   copy: Copy;
@@ -95,6 +105,10 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
+  };
+
+  const handlePartnerDialogClose = () => {
+    setIsPartnerDialogOpen(false);
   };
 
   const handleCancel = () => {
@@ -286,6 +300,19 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
         aria-describedby="partner-dialog-description"
       >
         <DialogContent>
+          <IconButton
+            aria-label="close"
+            onClick={handlePartnerDialogClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <Close />
+          </IconButton>
+
           <div style={{ textAlign: 'center' }}>
             <img
               src="https://design.adatree.com.au/assets/images/waave-adatree-logos.png"
@@ -298,10 +325,10 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             consent and access your data.
           </Typography>
           <Typography sx={{ mt: 1.5, mb: 0 }}>
-            Your bank might ask you to consent to share your data with <strong>Adatree Pty Ltd</strong>. Please allow
-            this in order to continue.
+            <strong>{consentForm.dataHolder?.brandName}</strong> might ask you for consent to share your data with{' '}
+            <strong>Adatree Pty Ltd</strong> instead of <strong>{organisation.name}</strong>.
           </Typography>
-          <Box sx={{ pt: 1, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               OK
             </Button>
