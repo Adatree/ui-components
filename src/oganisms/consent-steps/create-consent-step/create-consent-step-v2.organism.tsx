@@ -70,7 +70,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
       setShowDateError(false);
     }
 
-    if (isAllCheckboxChecked && consentForm.dataHolder) {
+    if (isAllCheckboxChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
