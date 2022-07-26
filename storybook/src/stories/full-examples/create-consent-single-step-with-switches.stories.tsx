@@ -40,6 +40,7 @@ const organisation = {
   accreditationNumber: accreditationNumber,
   dataSharingRevocationEmail: dataSharingRevocationEmail,
   cdrPolicyUrl: cdrPolicyUrl,
+  logo: 'https://waave-nonprod.dashboard.adatree.com.au/images/waave/waave-logo.png',
   name: companyName,
   underCdrPrinciple: false,
 };
