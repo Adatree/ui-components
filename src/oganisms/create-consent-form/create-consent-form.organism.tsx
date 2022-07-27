@@ -25,7 +25,7 @@ import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import Close from 'mdi-material-ui/Close';
 
-export type CreateConsentProps = {
+export type CreateConsentFormProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   organisation: Organisation;
@@ -34,7 +34,7 @@ export type CreateConsentProps = {
   onSubmit: () => void;
 };
 
-export const CreateConsent = (props: CreateConsentProps) => {
+export const CreateConsentForm = (props: CreateConsentFormProps) => {
   const { copy, existingConsents, organisation, useCase, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);

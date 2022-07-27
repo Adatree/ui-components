@@ -12,7 +12,7 @@ import { Helper } from '../../utils/helper/helper';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { Card } from '../../atoms/card/card.atom';
 
-export type CreateConsentWithConfirmationBoxProps = {
+export type CreateConsentFormWithConfirmationBoxProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
@@ -23,7 +23,7 @@ export type CreateConsentWithConfirmationBoxProps = {
   onCancel: () => void;
 };
 
-export const CreateConsentWithConfirmationBox = (props: CreateConsentWithConfirmationBoxProps) => {
+export const CreateConsentFormWithConfirmationBox = (props: CreateConsentFormWithConfirmationBoxProps) => {
   const {
     accreditationNumber,
     cdrPolicyUrl,
