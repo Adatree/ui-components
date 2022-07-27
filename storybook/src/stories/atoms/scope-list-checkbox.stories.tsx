@@ -13,7 +13,7 @@ const handleChange = (isAllClicked: boolean) => {
 };
 
 export default {
-  title: 'Components/Atoms/Scope Accordion Checkbox',
+  title: 'Components/Atoms/Scope List with Checkboxes',
   component: ScopeListCheckbox,
   argTypes: {
     backgroundColor: { control: 'color' },

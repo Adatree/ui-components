@@ -13,7 +13,7 @@ const handleChange = (isAllClicked: boolean) => {
 };
 
 export default {
-  title: 'Components/Atoms/Scope Accordion Switch',
+  title: 'Components/Atoms/Scope List with Switches',
   component: ScopeListSwitch,
   argTypes: {
     backgroundColor: { control: 'color' },
