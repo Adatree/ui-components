@@ -3,15 +3,15 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
   AccessFrequency,
   ConsentFormProvider,
-  CreateConsentStepV2,
+  CreateConsent,
   PostUsageAction,
   SharingDuration,
   TestUtil,
 } from '../../lib';
 
 export default {
-  title: 'Full examples/Create consent single step/with switches',
-  component: CreateConsentStepV2,
+  title: 'Full examples/Create consent',
+  component: CreateConsent,
   parameters: {
     backgrounds: {
       default: 'Adatree',
@@ -21,7 +21,7 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof CreateConsentStepV2>;
+} as ComponentMeta<typeof CreateConsent>;
 
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
@@ -60,7 +60,7 @@ const handleCancel = () => {
   alert('Consent canceled');
 };
 
-const Template: ComponentStory<typeof CreateConsentStepV2> = (args) => <CreateConsentStepV2 {...args} />;
+const Template: ComponentStory<typeof CreateConsent> = (args) => <CreateConsent {...args} />;
 
 // ####################################
 

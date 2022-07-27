@@ -35,8 +35,8 @@ export { UseCaseSelector } from './molecules/use-case-selector/use-case-selector
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
 // Organisms
-export { CreateConsentStepV2 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v2.organism';
-export { CreateConsentStepV3 } from './oganisms/consent-steps/create-consent-step/create-consent-step-v3.organism';
+export { CreateConsent } from './oganisms/create-consent/create-consent.organism';
+export { CreateConsentWithConfirmationBox } from './oganisms/create-consent/create-consent-with-confirmation-box';
 
 // Icons
 export { ApiCogIcon } from './atoms/icons/api-cog.icon';

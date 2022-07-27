@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
-import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-import { ScopeListSwitch } from '../../../atoms/scope-list/scope-list-switch.atom';
-import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
+import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
+import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
+import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import {
   Box,
   Button,
@@ -13,19 +13,19 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
-import { useConsentForm } from '../../../context/consentForm.context';
-import { Card } from '../../../atoms/card/card.atom';
-import { DateSelector } from '../../../molecules/date-selector/date-selector.molecule';
-import { TextBuilder } from '../../../utils/text/text-builder';
-import { Helper } from '../../../utils/helper/helper';
-import { SupportingParties } from '../../../molecules/supporting-parties/supporting-parties.molecule';
-import { Organisation } from '../../../types/organisation.type';
-import { Copy } from '../../../types/copy.type';
-import { PartnerMessage } from '../../../atoms/partner-message/partner-message-atom';
+import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
+import { useConsentForm } from '../../context/consentForm.context';
+import { Card } from '../../atoms/card/card.atom';
+import { DateSelector } from '../../molecules/date-selector/date-selector.molecule';
+import { TextBuilder } from '../../utils/text/text-builder';
+import { Helper } from '../../utils/helper/helper';
+import { SupportingParties } from '../../molecules/supporting-parties/supporting-parties.molecule';
+import { Organisation } from '../../types/organisation.type';
+import { Copy } from '../../types/copy.type';
+import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import Close from 'mdi-material-ui/Close';
 
-export type CreateConsentStepProps = {
+export type CreateConsentProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   organisation: Organisation;
@@ -34,7 +34,7 @@ export type CreateConsentStepProps = {
   onSubmit: () => void;
 };
 
-export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
+export const CreateConsent = (props: CreateConsentProps) => {
   const { copy, existingConsents, organisation, useCase, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);

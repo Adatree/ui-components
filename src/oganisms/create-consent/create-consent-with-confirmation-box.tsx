@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { DataHolder, SharingDuration, UseCaseResponse } from '../../../generated/consent';
-import { AutocompleteDropdown } from '../../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-import { ScopeList } from '../../../atoms/scope-list/scope-list.atom';
-import { GeneralInformation } from '../../../atoms/general-information/general-information.atom';
+import { DataHolder, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
+import { ScopeList } from '../../atoms/scope-list/scope-list.atom';
+import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Typography } from '@mui/material';
-import { Accreditation } from '../../../atoms/accreditation/accreditation.atom';
-import { useConsentForm } from '../../../context/consentForm.context';
-import { DateSelector } from '../../../molecules/date-selector/date-selector.molecule';
-import { Confirmation } from '../../../atoms/confirmation/confirmation.atom';
-import { Helper } from '../../../utils/helper/helper';
-import { TextBuilder } from '../../../utils/text/text-builder';
-import { Card } from '../../../atoms/card/card.atom';
+import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
+import { useConsentForm } from '../../context/consentForm.context';
+import { DateSelector } from '../../molecules/date-selector/date-selector.molecule';
+import { Confirmation } from '../../atoms/confirmation/confirmation.atom';
+import { Helper } from '../../utils/helper/helper';
+import { TextBuilder } from '../../utils/text/text-builder';
+import { Card } from '../../atoms/card/card.atom';
 
-export type CreateConsentStepProps = {
+export type CreateConsentWithConfirmationBoxProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
@@ -23,7 +23,7 @@ export type CreateConsentStepProps = {
   onCancel: () => void;
 };
 
-export const CreateConsentStepV3 = (props: CreateConsentStepProps) => {
+export const CreateConsentWithConfirmationBox = (props: CreateConsentWithConfirmationBoxProps) => {
   const {
     accreditationNumber,
     cdrPolicyUrl,
