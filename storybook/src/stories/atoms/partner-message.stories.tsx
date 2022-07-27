@@ -21,6 +21,6 @@ Default.args = {
     cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
     logo: '/assets/images/test-company-logo.png',
     name: 'TestComapnay',
-    underCdrPrinciple: true,
+    underCdrPrincipal: true,
   },
 };

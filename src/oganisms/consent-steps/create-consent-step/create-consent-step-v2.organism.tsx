@@ -110,7 +110,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (organisation.underCdrPrinciple) {
+      if (organisation.underCdrPrincipal) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();
@@ -223,7 +223,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
               accreditationNumber={organisation.accreditationNumber}
               cdrPolicyUrl={organisation.cdrPolicyUrl}
               companyName={organisation.name}
-              underCdrPrinciple={organisation.underCdrPrinciple}
+              underCdrPrincipal={organisation.underCdrPrincipal}
             />
           </Box>
           {showPoweredBy && (

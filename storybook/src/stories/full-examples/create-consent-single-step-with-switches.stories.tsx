@@ -42,7 +42,7 @@ const organisation = {
   cdrPolicyUrl: cdrPolicyUrl,
   logo: '/assets/images/test-company-logo.png',
   name: companyName,
-  underCdrPrinciple: false,
+  underCdrPrincipal: false,
 };
 const copy = {
   consent: {
@@ -116,8 +116,8 @@ WithOnceOffAccess.args = {
 
 // ####################################
 
-export const WithUnderCdrPrinciple = Template.bind({});
-WithUnderCdrPrinciple.decorators = [
+export const WithUnderCdrPrincipal = Template.bind({});
+WithUnderCdrPrincipal.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -127,10 +127,10 @@ WithUnderCdrPrinciple.decorators = [
   },
 ];
 
-WithUnderCdrPrinciple.args = {
+WithUnderCdrPrincipal.args = {
   copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
-  organisation: { ...organisation, underCdrPrinciple: true },
+  organisation: { ...organisation, underCdrPrincipal: true },
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],

@@ -4,5 +4,5 @@ export interface Organisation {
   dataSharingRevocationEmail: string;
   logo: string;
   name: string;
-  underCdrPrinciple: boolean;
+  underCdrPrincipal: boolean;
 }

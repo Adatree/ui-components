@@ -5,14 +5,14 @@ export type AccreditationProps = {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   companyName: string;
-  underCdrPrinciple: boolean;
+  underCdrPrincipal: boolean;
 };
 
 export const Accreditation: React.FC<AccreditationProps> = (props) => {
-  const { accreditationNumber, cdrPolicyUrl, companyName, underCdrPrinciple = false } = props;
+  const { accreditationNumber, cdrPolicyUrl, companyName, underCdrPrincipal = false } = props;
 
   const cdrText =
-    underCdrPrinciple === true
+    underCdrPrincipal === true
       ? `Under CDR Principal: ${accreditationNumber}`
       : `Accredited Data Recipient: ${accreditationNumber}`;
 
