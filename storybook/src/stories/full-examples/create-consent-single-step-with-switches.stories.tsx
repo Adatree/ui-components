@@ -40,7 +40,7 @@ const organisation = {
   accreditationNumber: accreditationNumber,
   dataSharingRevocationEmail: dataSharingRevocationEmail,
   cdrPolicyUrl: cdrPolicyUrl,
-  logo: 'https://waave-nonprod.dashboard.adatree.com.au/images/waave/waave-logo.png',
+  logo: '/assets/images/test-company-logo.png',
   name: companyName,
   underCdrPrinciple: false,
 };
@@ -157,40 +157,6 @@ WithSupportingParties.args = {
   copy: copy,
   organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoanWithOsps(),
-    sharingDurations: [SharingDuration.ONCEOFF],
-    accessFrequency: AccessFrequency.ONCEOFF,
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
-
-export const WithPoweredBy = Template.bind({});
-WithPoweredBy.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <div style={{ textAlign: 'center' }}>
-          <img
-            src="https://design.adatree.com.au/assets/images/waave-adatree-logos.png"
-            alt="Waave partnering with Adatree"
-            style={{ width: '260px', margin: '0 auto' }}
-          />
-        </div>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
-
-WithPoweredBy.args = {
-  copy: copy,
-  organisation: organisation,
-  existingConsents: TestUtil.testData.consent.all(),
-  showPoweredBy: true,
   useCase: {
     ...TestUtil.testData.useCase.homeLoanWithOsps(),
     sharingDurations: [SharingDuration.ONCEOFF],

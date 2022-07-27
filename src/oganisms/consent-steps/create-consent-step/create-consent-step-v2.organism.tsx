@@ -24,6 +24,7 @@ import { Organisation } from '../../../types/organisation.type';
 import { Copy } from '../../../types/copy.type';
 import { PowerByAccordion } from '../../../atoms/powered-by/powered-by-accordion.atom';
 import { PowerByLogo } from '../../../atoms/powered-by/powered-by-logo.atom';
+import { PartnerMessage } from '../../../atoms/partner-message/partner-message-atom';
 import Close from 'mdi-material-ui/Close';
 
 export type CreateConsentStepProps = {
@@ -163,7 +164,7 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             </Typography>
             {showPoweredBy && (
               <Typography sx={{ mt: 1.5, mb: 0 }}>
-                <strong>{organisation.name}</strong> have partnered with <strong>Adatree Pty Ltd</strong> to ........
+                <strong>{organisation.name}</strong> have partnered with <strong>Adatree</strong> to ........
               </Typography>
             )}
           </Card>
@@ -303,29 +304,11 @@ export const CreateConsentStepV2 = (props: CreateConsentStepProps) => {
             <Close />
           </IconButton>
 
-          <div style={{ textAlign: 'center' }}>
-            <Box sx={{ mt: 3, mb: 1 }}>
-              <img
-                src={organisation.logo}
-                alt="Waave partnering with Adatree"
-                style={{ maxWidth: '260px', width: '100%', margin: '0 auto' }}
-              />
-            </Box>
-            <Typography sx={{ mb: 1 }}>partnering with</Typography>
-            <Typography variant="h1" sx={{ mb: 2.5 }}>
-              Adatree
-            </Typography>
-          </div>
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography sx={{ mb: 1 }}>
-              <strong>{organisation.name}</strong> have partnered with <strong>Adatree Pty Ltd</strong> to help you
-              consent and access your data.
-            </Typography>
-            <Typography sx={{ mt: 1.5, mb: 0 }}>
-              <strong>{consentForm.dataHolder?.brandName}</strong> might ask you for consent to share your data with{' '}
-              <strong>Adatree Pty Ltd</strong> instead of <strong>{organisation.name}</strong>.
-            </Typography>
-          </Box>
+          <PartnerMessage
+            dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
+            organisation={organisation}
+          />
+
           <Box sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               OK
