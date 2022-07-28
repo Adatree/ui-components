@@ -30,12 +30,21 @@ export type CreateConsentFormProps = {
   existingConsents: ConsentResponse[];
   organisation: Organisation;
   useCase: UseCaseResponse;
+  enablePartnerMessageDiscreetMode?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const CreateConsentForm = (props: CreateConsentFormProps) => {
-  const { copy, existingConsents, organisation, useCase, onCancel, onSubmit } = props;
+  const {
+    copy,
+    existingConsents,
+    organisation,
+    useCase,
+    enablePartnerMessageDiscreetMode = false,
+    onCancel,
+    onSubmit,
+  } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
@@ -293,6 +302,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
           <PartnerMessage
             dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
             organisation={organisation}
+            discreetMode={enablePartnerMessageDiscreetMode}
           />
 
           <Box sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
