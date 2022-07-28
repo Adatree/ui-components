@@ -5,10 +5,11 @@ import { Organisation } from '../../types/organisation.type';
 export type PartnerMessageProps = {
   dataHolderName: string;
   organisation: Organisation;
+  discreetMode?: boolean;
 };
 
 export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
-  const { dataHolderName, organisation } = props;
+  const { dataHolderName, organisation, discreetMode = false } = props;
 
   return (
     <section>
@@ -20,8 +21,8 @@ export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
             style={{ maxWidth: '260px', width: '100%', margin: '0 auto' }}
           />
         </Box>
-        <Typography sx={{ mb: 1 }}>consent service provided by</Typography>
-        <Typography variant="h1" sx={{ mb: 2.5 }}>
+        {!discreetMode && <Typography sx={{ mb: 1 }}>consent service provided by</Typography>}
+        <Typography variant="h1" sx={{ mb: 2.5, fontSize: discreetMode === true ? '1.8rem' : '3rem' }}>
           Adatree
         </Typography>
       </div>

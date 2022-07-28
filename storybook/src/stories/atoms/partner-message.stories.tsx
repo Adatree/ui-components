@@ -24,3 +24,17 @@ Default.args = {
     underCdrPrincipal: true,
   },
 };
+
+export const WithDiscreetMode = Template.bind({});
+WithDiscreetMode.args = {
+  dataHolderName: 'Red Bank Australia',
+  organisation: {
+    accreditationNumber: '1234-5678',
+    dataSharingRevocationEmail: 'name@example.com',
+    cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
+    logo: '/assets/images/test-company-logo.png',
+    name: 'TestComapnay',
+    underCdrPrincipal: true,
+  },
+  discreetMode: true,
+};
