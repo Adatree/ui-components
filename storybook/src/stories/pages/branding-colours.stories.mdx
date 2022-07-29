@@ -10,8 +10,8 @@ import { adatreeTheme } from '../../lib';
 <br />
 
 <ColorPalette>
-  <ColorItem title="Primary" colors={[adatreeTheme.colour.primary.main]} />
-  <ColorItem title="Secondary" colors={[adatreeTheme.colour.secondary.main]} />
+  <ColorItem title="Primary" colors={['#48DFD2']} />
+  <ColorItem title="Secondary" colors={['#021C55']} />
 </ColorPalette>
 
 <br />
@@ -20,19 +20,24 @@ import { adatreeTheme } from '../../lib';
 
 <ColorPalette>
   <ColorItem
-    title="theme.colour.cta"
-    subtitle='Light - Main - Dark'
-    colors={[adatreeTheme.colour.cta.light, adatreeTheme.colour.cta.main, adatreeTheme.colour.cta.dark]}
+    title="backgrounds"
+    subtitle='card - hover - inputs - modal - page'
+    colors={[
+      adatreeTheme.colour.backgrounds.card,
+      adatreeTheme.colour.backgrounds.hover,
+      adatreeTheme.colour.backgrounds.inputs,
+      adatreeTheme.colour.backgrounds.modal,
+      adatreeTheme.colour.backgrounds.page]}
   />
   <ColorItem
-    title="theme.colour.hover"
-    subtitle='Light - Main - Dark'
-    colors={[adatreeTheme.colour.hover.light, adatreeTheme.colour.hover.main, adatreeTheme.colour.hover.dark]}
+    title="button"
+    subtitle='background - text'
+    colors={[adatreeTheme.colour.buttons.background, adatreeTheme.colour.buttons.text]}
   />
   <ColorItem
-    title="theme.colour.typography"
-    subtitle='Light - Main - Dark'
-    colors={[adatreeTheme.colour.typography.light, adatreeTheme.colour.typography.main, adatreeTheme.colour.typography.dark]}
+    title="text"
+    subtitle='main - link - highlight'
+    colors={[adatreeTheme.colour.text.main, adatreeTheme.colour.text.link, adatreeTheme.colour.text.highlight]}
   />
 
 </ColorPalette>

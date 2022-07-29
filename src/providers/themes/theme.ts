@@ -1,27 +1,46 @@
 import * as React from 'react';
 import { adatreeTheme } from './adatree.theme';
-import { createTheme as MuiCreateTheme, Theme, ThemeOptions } from '@mui/material/styles';
+import {
+  createTheme as MuiCreateTheme,
+  SimplePaletteColorOptions,
+  Theme,
+  ThemeOptions,
+  darken,
+  lighten,
+} from '@mui/material/styles';
 
 const appTheme = adatreeTheme;
+const scalingFactor = 8;
+const baseHtmlFontSize = 10;
+
+const generatePaletteColor = (hexColour: string, contrastTextColour?: string): SimplePaletteColorOptions => {
+  const paletteColor = {
+    light: lighten(hexColour, 0.1),
+    main: hexColour,
+    dark: darken(hexColour, 0.1),
+  };
+
+  if (contrastTextColour) {
+    return { ...paletteColor, contrastText: contrastTextColour };
+  }
+  return paletteColor;
+};
 
 const palette = {
-  primary: {
-    main: appTheme.colour.primary.main,
+  primary: generatePaletteColor(appTheme.colour.buttons.background),
+  background_card: generatePaletteColor(appTheme.colour.backgrounds.card),
+  background_hover: generatePaletteColor(appTheme.colour.backgrounds.hover),
+  background_inputs: generatePaletteColor(appTheme.colour.backgrounds.inputs),
+  background_modal: generatePaletteColor(appTheme.colour.backgrounds.modal),
+  background_page: generatePaletteColor(appTheme.colour.backgrounds.page),
+  button: generatePaletteColor(appTheme.colour.buttons.background, appTheme.colour.buttons.text),
+  text_main: generatePaletteColor(appTheme.colour.text.main),
+  text_link: generatePaletteColor(appTheme.colour.text.link),
+  text_highlight: generatePaletteColor(appTheme.colour.text.highlight),
+  background: {
+    default: appTheme.colour.backgrounds.modal,
+    paper: appTheme.colour.backgrounds.card,
   },
-  secondary: {
-    main: appTheme.colour.secondary.main,
-  },
-  cta: {
-    main: appTheme.colour.cta.main,
-    contrastText: appTheme.colour.cta.text,
-  },
-  hover: appTheme.colour.hover,
-  tooltip: {
-    light: appTheme.colour.tooltip.background,
-    main: appTheme.colour.tooltip.text,
-    dark: appTheme.colour.tooltip.border,
-  },
-  typography: appTheme.colour.typography,
 };
 
 export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
@@ -35,10 +54,10 @@ export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
       // Set the HTML Base font size (px)
       // Useful to set the 10px simplification, remember to set "font-size:62.5%" on the html element
       // https://www.sitepoint.com/understanding-and-using-rem-units-in-css/
-      htmlFontSize: appTheme.font.baseHtmlFontSize,
+      htmlFontSize: baseHtmlFontSize,
 
       allVariants: {
-        color: appTheme.colour.typography.main,
+        color: appTheme.colour.text.main,
       },
 
       h1: {
@@ -86,14 +105,28 @@ export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
         lineHeight: '1.4',
       },
     },
+    components: {
+      MuiAutocomplete: {
+        styleOverrides: {
+          option: {
+            '&.Mui-focused': { backgroundColor: appTheme.colour.backgrounds.hover + ' !important' },
+            '&[aria-selected="true"].Mui-focused': {
+              backgroundColor: appTheme.colour.backgrounds.hover + ' !important',
+            },
+          },
+          paper: {
+            backgroundColor: appTheme.colour.backgrounds.inputs,
+          },
+        },
+      },
+    },
 
     // Set the spacing scaling factor (px)
     // Uses the baseHtmlFontSize, example
     // ( scalingFactor / baseHtmlFontSize) * factor = X rem
     // ( 8 / 10 ) * 1 = 0.8rem (8px since baseHtmlFontSize is 10)
     // ( 8 / 16 ) * 1 = 0.5rem (8px since baseHtmlFontSize is 16)
-    spacing: (factor: number) =>
-      `${((appTheme.spacing.scalingFactor / appTheme.font.baseHtmlFontSize) * 10 * factor) / 10}rem`, // * 10 and / 10 to avoid JS IEEE 754 encoding error
+    spacing: (factor: number) => `${((scalingFactor / baseHtmlFontSize) * 10 * factor) / 10}rem`, // * 10 and / 10 to avoid JS IEEE 754 encoding error
   };
 
   let theme = baseTheme;
@@ -107,40 +140,50 @@ export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
 
 declare module '@mui/material/styles' {
   interface Palette {
-    cta: Palette['primary'];
-    hover: Palette['primary'];
-    tooltip: Palette['primary'];
-    typography: Palette['primary'];
+    background_card: Palette['primary'];
+    background_hover: Palette['primary'];
+    background_inputs: Palette['primary'];
+    background_modal: Palette['primary'];
+    background_page: Palette['primary'];
+    button: Palette['primary'];
+    text_main: Palette['primary'];
+    text_link: Palette['primary'];
+    text_highlight: Palette['primary'];
   }
   interface PaletteOptions {
-    cta?: PaletteOptions['primary'];
-    hover?: PaletteOptions['primary'];
-    tooltip?: PaletteOptions['primary'];
-    typography?: PaletteOptions['primary'];
+    background_card?: PaletteOptions['primary'];
+    background_hover?: PaletteOptions['primary'];
+    background_inputs?: PaletteOptions['primary'];
+    background_modal?: PaletteOptions['primary'];
+    background_page?: PaletteOptions['primary'];
+    button?: PaletteOptions['primary'];
+    text_main?: PaletteOptions['primary'];
+    text_link?: PaletteOptions['primary'];
+    text_highlight?: PaletteOptions['primary'];
   }
 }
 
 // Update the element's color prop options
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
-    cta: true;
+    button: true;
   }
 }
 
 declare module '@mui/material/Checkbox' {
   interface CheckboxPropsColorOverrides {
-    cta: true;
+    button: true;
   }
 }
 
 declare module '@mui/material/Radio' {
   interface RadioPropsColorOverrides {
-    cta: true;
+    button: true;
   }
 }
 
 declare module '@mui/material/SvgIcon' {
   interface SvgIconPropsColorOverrides {
-    cta: true;
+    button: true;
   }
 }

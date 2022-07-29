@@ -12,12 +12,6 @@ import {
 export default {
   title: 'Full examples/Create consent',
   component: CreateConsentForm,
-  parameters: {
-    backgrounds: {
-      default: 'Adatree',
-      values: [{ name: 'Adatree', value: '#F8F8F8' }],
-    },
-  },
   argTypes: {
     backgroundColor: { control: 'color' },
   },
