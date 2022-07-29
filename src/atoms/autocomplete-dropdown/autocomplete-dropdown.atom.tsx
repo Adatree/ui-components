@@ -57,7 +57,11 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
       <Autocomplete
         disablePortal
         className={error === true ? 'error' : ''}
-        sx={{ backgroundColor: '#fff', '&.error fieldset': { borderColor: 'error.main' } }}
+        sx={{
+          backgroundColor: (theme) => theme.palette.background_inputs.main,
+          borderRadius: '4px',
+          '&.error fieldset': { borderColor: (theme) => theme.palette.error.main },
+        }}
         options={dataHolders}
         getOptionLabel={(option) => option.brandName}
         getOptionDisabled={(option) => {
