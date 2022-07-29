@@ -43,11 +43,11 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
                   m: 0,
                   pl: 1,
                   justifyContent: 'space-between',
-                  '&:hover': { backgroundColor: 'hover.main' },
+                  '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main },
                   width: '100%',
                 }}
                 value={item.value}
-                control={<Radio disabled={disabled} color="cta" />}
+                control={<Radio disabled={disabled} color="button" />}
                 label={<Typography variant="h3">{item.label}</Typography>}
                 labelPlacement="start"
               />

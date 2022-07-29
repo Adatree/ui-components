@@ -25,11 +25,11 @@ export const AccordionBasic: React.FC<AccordionBasicProps> = (props) => {
           display: 'flex',
           justifyContent: 'space-between',
           cursor: 'pointer',
-          '&:hover': { backgroundColor: 'hover.main' },
+          '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main },
         }}
       >
         <Typography variant="body2" sx={{ ml: '26px' }}>
-          <Circle color={'cta'} sx={{ fontSize: '8px', mx: 1, ml: '-16px' }} />
+          <Circle color={'button'} sx={{ fontSize: '8px', mx: 1, ml: '-16px' }} />
           {title}
         </Typography>
         <ChevronDown

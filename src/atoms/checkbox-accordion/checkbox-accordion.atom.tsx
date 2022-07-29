@@ -47,7 +47,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
               justifyContent: 'space-between',
               ml: 0,
               pl: 1,
-              '&:hover': { backgroundColor: 'hover.main' },
+              '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main  },
             }}
             control={
               <Checkbox
@@ -55,7 +55,7 @@ export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
                 checked={isChecked}
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
-                color="cta"
+                color="button"
               />
             }
           />

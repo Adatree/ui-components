@@ -56,7 +56,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
         {scopes.map((scope: ScopeResponse) => {
           return (
-            <ListItem key={scope.id} sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: 'hover.main' } }}>
+            <ListItem key={scope.id} sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main  } }}>
               <ListItemText
                 id={`switch-list-label-${scope.id}`}
                 primary={
