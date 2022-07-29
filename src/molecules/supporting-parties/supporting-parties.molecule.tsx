@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { OutsourcedServiceProvider, UseCaseResponse } from '../../generated/consent/api';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
+import { LinkExternal } from '../../atoms/links/link-external.atom';
 
 export type SupportingPartiesProps = {
   title: string;
@@ -35,12 +36,11 @@ export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
                 )}
                 {osp.serviceDescription && <Typography sx={{ mb: 1 }}>{osp.serviceDescription}</Typography>}
 
-                <Typography sx={{ mt: 0.5, mb: 1 }}>
-                  Learn more about how they do this in our{' '}
-                  <a target="_blank" style={{ textDecoration: 'underline' }} href={osp.cdrPolicyUri}>
-                    CDR Policy.
-                  </a>
-                </Typography>
+                {osp.cdrPolicyUri && (
+                  <Typography sx={{ mt: 0.5, mb: 1 }}>
+                    Learn more about how they do this in our <LinkExternal href={osp.cdrPolicyUri} text="CDR Policy" />.
+                  </Typography>
+                )}
               </Box>
             );
           })}

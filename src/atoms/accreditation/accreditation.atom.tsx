@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
+import { LinkExternal } from '../links/link-external.atom';
 
 export type AccreditationProps = {
   accreditationNumber: string;
@@ -30,9 +31,9 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
           <Typography variant="body2" sx={{ display: 'block', mb: { xs: 0.1, sm: 0.5 } }}>
             {companyName}
           </Typography>
-          <a target="_blank" style={{ display: 'block', textDecoration: 'underline' }} href={cdrPolicyUrl}>
-            <Typography variant="body2">{cdrText}</Typography>
-          </a>
+          <Typography variant="body2">
+            <LinkExternal href={cdrPolicyUrl} text={cdrText} />
+          </Typography>
         </Box>
       </Box>
     </>

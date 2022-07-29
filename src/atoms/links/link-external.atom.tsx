@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 export type LinkExternalProps = {
   href: string;
@@ -12,7 +12,7 @@ export const LinkExternal: React.FC<LinkExternalProps> = (props) => {
 
   return (
     <a target="_blank" style={{ color: theme.palette.text_link.main, textDecoration: 'underline' }} href={href}>
-      <Typography>{text}</Typography>
+      {text}
     </a>
   );
 };
