@@ -85,7 +85,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
                 title={
                   <Link href={extendableUrl} sx={{ display: 'inline-block' }}>
                     <IconButton sx={{ mr: 1 }}>
-                      <Calendar color="cta" />
+                      <Calendar color="button" />
                     </IconButton>
                   </Link>
                 }
@@ -95,7 +95,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
               content="Revoke Data Access"
               title={
                 <IconButton onClick={handleonRevokeClick} sx={{ mr: 1 }}>
-                  <Delete color="cta" />
+                  <Delete color="button" />
                 </IconButton>
               }
             />

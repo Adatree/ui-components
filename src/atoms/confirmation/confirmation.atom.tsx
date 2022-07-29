@@ -21,7 +21,7 @@ export const Confirmation: React.FC<ConfirmationnProps> = (props) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <FormControlLabel
-        control={<Checkbox color="cta" onChange={handleConfirmationChange} />}
+        control={<Checkbox color="button" onChange={handleConfirmationChange} />}
         label={<Typography>{TextBuilder.confirmation(companyName, endDate, sharingDuration)}</Typography>}
       />
     </Box>

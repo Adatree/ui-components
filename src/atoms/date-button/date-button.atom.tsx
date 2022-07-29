@@ -30,7 +30,7 @@ export const DateButton: React.FC<DateButtonProps> = (props) => {
             variant={duration.type === selectedSharingDuration ? 'contained' : 'outlined'}
             disabled={disabled}
             key={`${duration.unit}-${duration.value}`}
-            color={duration.type === selectedSharingDuration ? 'cta' : 'inherit'}
+            color={duration.type === selectedSharingDuration ? 'button' : 'inherit'}
             sx={{ mr: '4px', mb: 1, width: { xs: 'calc(50% - 4px)', sm: 'inherit' } }}
           >
             {duration.text}

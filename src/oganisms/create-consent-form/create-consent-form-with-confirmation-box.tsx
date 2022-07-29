@@ -161,7 +161,7 @@ export const CreateConsentFormWithConfirmationBox = (props: CreateConsentFormWit
             <Button
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
-              color={isFormValid === true ? 'cta' : 'inherit'}
+              color={isFormValid === true ? 'button' : 'inherit'}
               onClick={handleSubmit}
             >
               Consent

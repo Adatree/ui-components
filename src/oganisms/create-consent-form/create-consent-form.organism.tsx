@@ -198,7 +198,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
             <Button
               sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
-              color={isFormValid === true ? 'cta' : 'inherit'}
+              color={isFormValid === true ? 'button' : 'inherit'}
               onClick={handlePreSubmit}
             >
               Consent
@@ -250,7 +250,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
             <Button
               sx={{ my: 2, width: { xs: '100%', sm: '20rem' } }}
               variant="contained"
-              color="cta"
+              color="button"
               onClick={handleCancel}
             >
               Back
@@ -293,7 +293,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
               position: 'absolute',
               right: { xs: 4, sm: 8 },
               top: { xs: 4, sm: 8 },
-              color: (theme) => theme.palette.grey[500],
+              color: (theme) => theme.palette.button.light,
             }}
           >
             <Close />
