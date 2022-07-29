@@ -11,7 +11,13 @@ export const Card: React.FC<CardProps> = (props) => {
 
   return (
     <MuiCard
-      sx={{ p: 2, border: '1px Solid #fff', '&.error': { borderColor: 'error.main' }, ...sx }}
+      sx={{
+        p: 2,
+        border: '1px Solid',
+        borderColor: (theme) => theme.palette.background_card.main,
+        '&.error': { borderColor: 'error.main' },
+        ...sx,
+      }}
       className={error === true ? 'error' : ''}
       elevation={0}
     >
