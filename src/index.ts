@@ -12,6 +12,7 @@ export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom'
 export { GeneralInformation } from './atoms/general-information/general-information.atom';
 export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
+export { LinkExternal } from './atoms/links/link-external.atom';
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
 export { PartnerMessage } from './atoms/partner-message/partner-message-atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
