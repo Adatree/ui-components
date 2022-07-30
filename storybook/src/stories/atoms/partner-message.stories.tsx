@@ -20,7 +20,7 @@ Default.args = {
     dataSharingRevocationEmail: 'name@example.com',
     cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
     logo: '/assets/images/test-company-logo.png',
-    name: 'TestComapnay',
+    name: 'TestCompany',
     underCdrPrincipal: true,
   },
 };
@@ -33,7 +33,7 @@ WithDiscreetMode.args = {
     dataSharingRevocationEmail: 'name@example.com',
     cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
     logo: '/assets/images/test-company-logo.png',
-    name: 'TestComapnay',
+    name: 'TestCompany',
     underCdrPrincipal: true,
   },
   discreetMode: true,

@@ -19,7 +19,7 @@ export default {
 
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
-const companyName = 'TestComapnay';
+const companyName = 'TestCompany';
 const dataSharingRevocationEmail = 'name@example.com';
 const baseConsentFormValues = {
   accessFrequency: undefined,
