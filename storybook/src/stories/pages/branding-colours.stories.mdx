@@ -1,5 +1,5 @@
 import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
-import { adatreeTheme } from '../../lib';
+import { defaultTheme } from '../../lib';
 
 <Meta title="Branding/Colours" />
 
@@ -10,8 +10,8 @@ import { adatreeTheme } from '../../lib';
 <br />
 
 <ColorPalette>
-  <ColorItem title="Primary" colors={['#48DFD2']} />
-  <ColorItem title="Secondary" colors={['#021C55']} />
+  <ColorItem title="Primary" colors={[defaultTheme.colour.primary]} />
+  <ColorItem title="Secondary" colors={[defaultTheme.colour.secondary]} />
 </ColorPalette>
 
 <br />
@@ -23,21 +23,21 @@ import { adatreeTheme } from '../../lib';
     title="backgrounds"
     subtitle='card - hover - inputs - modal - page'
     colors={[
-      adatreeTheme.colour.backgrounds.card,
-      adatreeTheme.colour.backgrounds.hover,
-      adatreeTheme.colour.backgrounds.inputs,
-      adatreeTheme.colour.backgrounds.modal,
-      adatreeTheme.colour.backgrounds.page]}
+      defaultTheme.colour.backgrounds.card,
+      defaultTheme.colour.backgrounds.hover,
+      defaultTheme.colour.backgrounds.inputs,
+      defaultTheme.colour.backgrounds.modal,
+      defaultTheme.colour.backgrounds.page]}
   />
   <ColorItem
     title="button"
     subtitle='background - text'
-    colors={[adatreeTheme.colour.buttons.background, adatreeTheme.colour.buttons.text]}
+    colors={[defaultTheme.colour.buttons.background, defaultTheme.colour.buttons.text]}
   />
   <ColorItem
     title="text"
     subtitle='main - link - highlight'
-    colors={[adatreeTheme.colour.text.main, adatreeTheme.colour.text.link, adatreeTheme.colour.text.highlight]}
+    colors={[defaultTheme.colour.text.main, defaultTheme.colour.text.link, defaultTheme.colour.text.highlight]}
   />
 
 </ColorPalette>

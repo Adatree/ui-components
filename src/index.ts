@@ -50,7 +50,7 @@ export { ThemeProvider } from './providers/theme.provider';
 
 // Themes
 export { CreateTheme } from './providers/themes/theme';
-export { adatreeTheme } from './providers/themes/adatree.theme';
+export { defaultTheme, AppTheme } from './providers/themes/app.theme';
 
 // Utils
 export { Debugger } from './utils/debug/debug';

@@ -1,9 +1,9 @@
-import { ThemeProvider } from '../src/lib';
+import { ThemeProvider, defaultTheme } from '../src/lib';
 
 export const decorators = [
   (Story) => {
     return (
-      <ThemeProvider>
+      <ThemeProvider theme={defaultTheme}>
         <Story />
       </ThemeProvider>
     );

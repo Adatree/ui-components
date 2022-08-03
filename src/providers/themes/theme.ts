@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { adatreeTheme } from './adatree.theme';
 import {
   createTheme as MuiCreateTheme,
   SimplePaletteColorOptions,
@@ -8,8 +7,8 @@ import {
   darken,
   lighten,
 } from '@mui/material/styles';
+import { AppTheme } from './app.theme';
 
-const appTheme = adatreeTheme;
 const scalingFactor = 8;
 const baseHtmlFontSize = 10;
 
@@ -26,27 +25,24 @@ const generatePaletteColor = (hexColour: string, contrastTextColour?: string): S
   return paletteColor;
 };
 
-const palette = {
-  primary: generatePaletteColor(appTheme.colour.buttons.background),
-  background_card: generatePaletteColor(appTheme.colour.backgrounds.card),
-  background_hover: generatePaletteColor(appTheme.colour.backgrounds.hover),
-  background_inputs: generatePaletteColor(appTheme.colour.backgrounds.inputs),
-  background_modal: generatePaletteColor(appTheme.colour.backgrounds.modal),
-  background_page: generatePaletteColor(appTheme.colour.backgrounds.page),
-  button: generatePaletteColor(appTheme.colour.buttons.background, appTheme.colour.buttons.text),
-  text_main: generatePaletteColor(appTheme.colour.text.main),
-  text_link: generatePaletteColor(appTheme.colour.text.link),
-  text_highlight: generatePaletteColor(appTheme.colour.text.highlight),
-  background: {
-    default: appTheme.colour.backgrounds.modal,
-    paper: appTheme.colour.backgrounds.card,
-  },
-};
-
-export const CreateTheme = (extendTheme?: Partial<ThemeOptions>): Theme => {
+export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptions>): Theme => {
   const baseTheme: ThemeOptions = {
     palette: {
-      ...palette,
+      primary: generatePaletteColor(appTheme.colour.primary),
+      secondary: generatePaletteColor(appTheme.colour.secondary),
+      background_card: generatePaletteColor(appTheme.colour.backgrounds.card),
+      background_hover: generatePaletteColor(appTheme.colour.backgrounds.hover),
+      background_inputs: generatePaletteColor(appTheme.colour.backgrounds.inputs),
+      background_modal: generatePaletteColor(appTheme.colour.backgrounds.modal),
+      background_page: generatePaletteColor(appTheme.colour.backgrounds.page),
+      button: generatePaletteColor(appTheme.colour.buttons.background, appTheme.colour.buttons.text),
+      text_main: generatePaletteColor(appTheme.colour.text.main),
+      text_link: generatePaletteColor(appTheme.colour.text.link),
+      text_highlight: generatePaletteColor(appTheme.colour.text.highlight),
+      background: {
+        default: appTheme.colour.backgrounds.modal,
+        paper: appTheme.colour.backgrounds.card,
+      },
     },
     typography: {
       fontFamily: appTheme.font.fontFamily,
