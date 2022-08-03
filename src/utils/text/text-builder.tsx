@@ -1,4 +1,5 @@
 import React from 'react';
+import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { AccessFrequency, SharingDuration } from '../../generated/consent';
 import { Formatter } from '../formatter/formater';
 import { Helper } from '../helper/helper';
@@ -10,26 +11,26 @@ const confirmation = (
 ): React.ReactNode => {
   const common = (
     <>
-      I confirm that I am allowing <strong>{companyName}</strong> to access my data (listed above)
+      I confirm that I am allowing <Highlight>{companyName}</Highlight> to access my data (listed above)
     </>
   );
 
   if (endDate && sharingDuration === SharingDuration.CUSTOM) {
     return (
       <>
-        {common} untill the <strong>{Formatter.formatDateTime(endDate)}</strong>.
+        {common} untill the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
       </>
     );
   } else if (sharingDuration === SharingDuration.ONCEOFF) {
     return (
       <>
-        {common} <strong>once</strong>.
+        {common} <Highlight>once</Highlight>.
       </>
     );
   } else if (sharingDuration && sharingDuration !== SharingDuration.CUSTOM) {
     return (
       <>
-        {common} for a period of <strong>{Helper.sharingDurationToString(sharingDuration)}</strong>.
+        {common} for a period of <Highlight>{Helper.sharingDurationToString(sharingDuration)}</Highlight>.
       </>
     );
   } else {
@@ -40,20 +41,20 @@ const confirmation = (
 const accessFrequency = (companyName: string, accessFrequency: AccessFrequency | undefined): React.ReactNode => {
   const common = (
     <>
-      <strong>{companyName}</strong> will be able to access your data
+      <Highlight>{companyName}</Highlight> will be able to access your data
     </>
   );
 
   if (accessFrequency === AccessFrequency.ONCEOFF) {
     return (
       <>
-        Data sharing with <strong>{companyName}</strong> ends after <strong>first use</strong>.
+        Data sharing with <Highlight>{companyName}</Highlight> ends after <Highlight>first use</Highlight>.
       </>
     );
   } else if (accessFrequency === AccessFrequency.ONGOING) {
     return (
       <>
-        {common} <strong>multiple times</strong> during this period.
+        {common} <Highlight>multiple times</Highlight> during this period.
       </>
     );
   } else {

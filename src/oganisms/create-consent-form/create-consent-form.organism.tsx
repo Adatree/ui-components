@@ -23,6 +23,7 @@ import { SupportingParties } from '../../molecules/supporting-parties/supporting
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
+import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import Close from 'mdi-material-ui/Close';
 
 export type CreateConsentFormProps = {
@@ -138,7 +139,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
         <>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
-              <strong>{organisation.name}</strong> {copy.consent.title}
+              <Highlight>{organisation.name}</Highlight> {copy.consent.title}
             </Typography>
             <Typography>{useCase.description}</Typography>
           </Box>
@@ -153,7 +154,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
 
           <Card error={showScopeError} sx={{ mt: 1 }}>
             <Typography sx={{ mb: 1 }}>
-              Please confirm that <strong>{organisation.name}</strong> can have access to the following data:
+              Please confirm that <Highlight>{organisation.name}</Highlight> can have access to the following data:
             </Typography>
             <ScopeListSwitch scopes={useCase.scopes} companyName={organisation.name} onChange={handleScopeChange} />
           </Card>

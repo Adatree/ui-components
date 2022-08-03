@@ -11,6 +11,7 @@ import { Confirmation } from '../../atoms/confirmation/confirmation.atom';
 import { Helper } from '../../utils/helper/helper';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { Card } from '../../atoms/card/card.atom';
+import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 
 export type CreateConsentFormWithConfirmationBoxProps = {
   accreditationNumber: string;
@@ -115,7 +116,7 @@ export const CreateConsentFormWithConfirmationBox = (props: CreateConsentFormWit
           <Card sx={{ mb: 2.2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
               <Typography>
-                <strong>{companyName}</strong> has requested access to see the following data
+                <Highlight>{companyName}</Highlight> has requested access to see the following data
               </Typography>
             </Box>
             <ScopeList scopes={useCase.scopes} companyName={companyName} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Organisation } from '../../types/organisation.type';
+import { Highlight } from '../highlight-text/highlight-text.atom';
 
 export type PartnerMessageProps = {
   dataHolderName: string;
@@ -28,11 +29,12 @@ export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
       </div>
       <Box>
         <Typography sx={{ mb: 1 }}>
-          <strong>{organisation.name}</strong> use <strong>Adatree</strong> to help you consent and access your data.
+          <Highlight>{organisation.name}</Highlight> use <Highlight>Adatree</Highlight> to help you consent and access
+          your data.
         </Typography>
         <Typography sx={{ mt: 1.5, mb: 0 }}>
-          <strong>{dataHolderName}</strong> will ask you to share your data with <strong>Adatree</strong> for{' '}
-          <strong>{organisation.name}</strong>.
+          <Highlight>{dataHolderName}</Highlight> will ask you to share your data with <Highlight>Adatree</Highlight>{' '}
+          for <Highlight>{organisation.name}</Highlight>.
         </Typography>
       </Box>
     </section>

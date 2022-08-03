@@ -7,6 +7,7 @@ import { DateButton } from '../../atoms/date-button/date-button.atom';
 import { Helper } from '../../utils/helper/helper';
 import { Formatter } from '../../utils/formatter/formater';
 import { useConsentForm } from '../../context/consentForm.context';
+import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 
 export type DateSelectorProps = {
   companyName: string;
@@ -39,7 +40,7 @@ export const DateSelector = (props: DateSelectorProps) => {
     <>
       {(sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.CUSTOM)) && (
         <Typography sx={{ mb: 2 }}>
-          How long would you like <strong>{companyName}</strong> to be able to access your data?
+          How long would you like <Highlight>{companyName}</Highlight> to be able to access your data?
         </Typography>
       )}
 
@@ -47,14 +48,14 @@ export const DateSelector = (props: DateSelectorProps) => {
         !sharingDurations.includes(SharingDuration.CUSTOM) &&
         !sharingDurations.includes(SharingDuration.ONCEOFF) && (
           <Typography sx={{ mb: 1.5 }}>
-            <strong>{companyName}</strong> will be able to access your data for{' '}
-            <strong>{Helper.sharingDurationToString(sharingDurations[0])}</strong>.
+            <Highlight>{companyName}</Highlight> will be able to access your data for{' '}
+            <Highlight>{Helper.sharingDurationToString(sharingDurations[0])}</Highlight>.
           </Typography>
         )}
 
       {sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.ONCEOFF) && (
         <Typography sx={{ mb: 1.5 }}>
-          <strong>{companyName}</strong> will be able to access your data <strong>once</strong>.
+          <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
         </Typography>
       )}
 
@@ -95,21 +96,21 @@ export const DateSelector = (props: DateSelectorProps) => {
       )}
       {sharingEndDate && sharingDuration === SharingDuration.CUSTOM && (
         <Typography sx={{ my: 1.5 }}>
-          <strong>{companyName}</strong> will be able to access your data untill the{' '}
-          <strong>{Formatter.formatDateTime(sharingEndDate)}</strong>.
+          <Highlight>{companyName}</Highlight> will be able to access your data untill the{' '}
+          <Highlight>{Formatter.formatDateTime(sharingEndDate)}</Highlight>.
         </Typography>
       )}
       {sharingDuration && sharingDuration !== SharingDuration.CUSTOM && (
         <Typography sx={{ my: 1.5 }}>
-          <strong>{companyName}</strong> will be able to access your data{' '}
+          <Highlight>{companyName}</Highlight> will be able to access your data{' '}
           {sharingDuration === SharingDuration.ONCEOFF && (
             <>
-              <strong>once</strong>.
+              <Highlight>once</Highlight>.
             </>
           )}
           {sharingDuration !== SharingDuration.ONCEOFF && (
             <>
-              for <strong>{Helper.sharingDurationToString(sharingDuration)}</strong>.
+              for <Highlight>{Helper.sharingDurationToString(sharingDuration)}</Highlight>.
             </>
           )}
         </Typography>

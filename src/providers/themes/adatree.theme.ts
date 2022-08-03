@@ -16,7 +16,7 @@ export const adatreeTheme = {
     text: {
       main: '#212121',
       link: '#1a0dab',
-      highlight: '#212121',
+      highlight: '#1D50BF',
     },
   },
   font: {
