@@ -28,23 +28,23 @@ export type AppTheme = {
 
 export const defaultTheme: AppTheme = {
   colour: {
-    primary: '#48DFD2',
-    secondary: '#021C55',
+    primary: '#48dfd2',
+    secondary: '#021c55',
     backgrounds: {
-      card: '#FFFFFF',
-      hover: '#C8F5F1',
-      inputs: '#FFFFFF',
-      modal: '#F8F8F8',
-      page: '#EBEBEB',
+      card: '#ffffff',
+      hover: '#c8f5f1',
+      inputs: '#ffffff',
+      modal: '#f8f8f8',
+      page: '#ebebeb',
     },
     buttons: {
-      background: '#48DFD2',
+      background: '#48dfd2',
       text: '#212121',
     },
     text: {
       main: '#212121',
-      link: '#1A0DAB',
-      highlight: '#1D50BF',
+      link: '#1a0dab',
+      highlight: '#1d50bf',
     },
   },
   font: {
