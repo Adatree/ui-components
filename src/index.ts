@@ -10,6 +10,7 @@ export { DateButton } from './atoms/date-button/date-button.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
 export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom';
 export { GeneralInformation } from './atoms/general-information/general-information.atom';
+export { Highlight } from './atoms/highlight-text/highlight-text.atom';
 export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { LinkExternal } from './atoms/links/link-external.atom';
