@@ -26,6 +26,13 @@ const generatePaletteColor = (hexColour: string, contrastTextColour?: string): S
 };
 
 export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptions>): Theme => {
+  const fontFamilyBase = appTheme.font.fontFamily;
+  let fontFamilyHeadings = appTheme.font.fontFamily;
+
+  if (appTheme.font.fontFamilyHeadings) {
+    fontFamilyHeadings = appTheme.font.fontFamilyHeadings;
+  }
+
   const baseTheme: ThemeOptions = {
     palette: {
       primary: generatePaletteColor(appTheme.colour.primary),
@@ -45,7 +52,7 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
       },
     },
     typography: {
-      fontFamily: appTheme.font.fontFamily,
+      fontFamily: fontFamilyBase,
 
       // Set the HTML Base font size (px)
       // Useful to set the 10px simplification, remember to set "font-size:62.5%" on the html element
@@ -57,23 +64,27 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
       },
 
       h1: {
+        fontFamily: fontFamilyHeadings,
         fontSize: '3rem',
         letterSpacing: '0',
         lineHeight: '1.1',
       },
       h2: {
+        fontFamily: fontFamilyHeadings,
         fontSize: '2.2rem',
         fontWeight: 600,
         letterSpacing: '0.07px',
         lineHeight: '1.6',
       },
       h3: {
+        fontFamily: fontFamilyHeadings,
         fontSize: '1.6rem',
         fontWeight: 600,
         letterSpacing: '0.07px',
         lineHeight: '1.6',
       },
       h4: {
+        fontFamily: fontFamilyHeadings,
         fontSize: '1.6rem',
         fontWeight: 600,
         letterSpacing: '0.07px',

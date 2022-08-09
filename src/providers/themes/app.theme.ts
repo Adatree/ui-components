@@ -23,6 +23,7 @@ export type AppTheme = {
   };
   font: {
     fontFamily: string;
+    fontFamilyHeadings?: string;
   };
 };
 
