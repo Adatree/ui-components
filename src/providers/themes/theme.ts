@@ -129,7 +129,9 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
       MuiButton: {
         styleOverrides: {
           root: {
-            textTransform: 'inherit',
+            display: 'block',
+            textTransform: 'lowercase',
+            '&::first-letter': { textTransform: 'uppercase' },
           },
         },
       },
