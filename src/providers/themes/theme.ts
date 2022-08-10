@@ -139,7 +139,16 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
   let theme = baseTheme;
 
   if (extendTheme) {
-    theme = { ...baseTheme, ...extendTheme };
+    theme = {
+      ...baseTheme,
+      ...extendTheme,
+      mixins: { ...baseTheme.mixins, ...extendTheme.mixins },
+      components: { ...baseTheme.components, ...extendTheme.components },
+      palette: { ...baseTheme.palette, ...extendTheme.palette },
+      transitions: { ...baseTheme.transitions, ...extendTheme.transitions },
+      typography: { ...baseTheme.typography, ...extendTheme.typography },
+      zIndex: { ...baseTheme.zIndex, ...extendTheme.zIndex },
+    };
   }
 
   return MuiCreateTheme(theme);
