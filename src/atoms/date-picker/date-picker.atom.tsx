@@ -39,7 +39,9 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
         value={value}
         disabled={disabled}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField {...params} sx={{ input: { color: (theme) => theme.palette.text_main.main } }} />
+        )}
       />
     </LocalizationProvider>
   );

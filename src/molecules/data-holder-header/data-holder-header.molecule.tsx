@@ -105,8 +105,9 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
           label={consent.status}
           size="small"
           sx={{
-            color: 'typography.light',
+            color: 'common.white',
             fontWeight: 600,
+            fontSize: '1.4rem',
             textTransform: 'lowercase',
             '& span:first-letter': {
               textTransform: 'capitalize',

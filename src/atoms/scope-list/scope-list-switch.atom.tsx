@@ -10,6 +10,7 @@ import {
   ListItemText,
   Switch,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
@@ -26,6 +27,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const theme = useTheme();
 
   const handleToggle = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
     const value = event.target.value;
@@ -56,7 +58,10 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
         {scopes.map((scope: ScopeResponse) => {
           return (
-            <ListItem key={scope.id} sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main  } }}>
+            <ListItem
+              key={scope.id}
+              sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main } }}
+            >
               <ListItemText
                 id={`switch-list-label-${scope.id}`}
                 primary={
@@ -121,9 +126,10 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
                   marginLeft: '2rem',
                   marginBottom: '0.5rem',
                   listStyle: 'disc',
+                  color: theme.palette.text_main.main,
                 }}
               >
-                {claim}
+                <Typography>{claim}</Typography>
               </li>
             ))}
           </ul>

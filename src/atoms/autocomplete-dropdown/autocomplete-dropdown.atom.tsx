@@ -83,7 +83,9 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
             {getLabel(option)}
           </Typography>
         )}
-        renderInput={(params) => <TextField {...params} label={label} />}
+        renderInput={(params) => (
+          <TextField {...params} label={label} sx={{ input: { color: (theme) => theme.palette.text_main.main } }} />
+        )}
         onChange={handleChange}
         onBlur={() => handleBlur()}
         onFocus={() => handleFocus()}
