@@ -126,6 +126,13 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
           },
         },
       },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'inherit',
+          },
+        },
+      },
     },
 
     // Set the spacing scaling factor (px)
