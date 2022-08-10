@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Box } from '@mui/material';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { RadioButtonItem, RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';
+import { Card } from '../../atoms/card/card.atom';
 
 export type UseCaseSelectorProps = {
   useCases: UseCaseResponse[];
@@ -23,8 +23,8 @@ export const UseCaseSelector: React.FC<UseCaseSelectorProps> = (props) => {
   };
 
   return (
-    <Box>
+    <Card>
       <RadioButtonWithText radioButtonItems={radioButtonItems} onChange={handleRadioCheck} />
-    </Box>
+    </Card>
   );
 };
