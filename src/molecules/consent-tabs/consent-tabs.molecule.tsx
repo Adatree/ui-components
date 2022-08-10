@@ -3,6 +3,7 @@ import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
 import { ConsentResponse, DataHolder, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Helper } from '../../utils/helper/helper';
+import { Card } from '../../atoms/card/card.atom';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
@@ -60,21 +61,27 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
       <TabPanel value={value} index={0}>
         {isLoading && renderLoading()}
         {!isLoading && activeConsents.length > 0 && (
-          <ConsentList consents={activeConsents} dataHolders={dataHolders} url={urlPrefix} />
+          <Card>
+            <ConsentList consents={activeConsents} dataHolders={dataHolders} url={urlPrefix} />
+          </Card>
         )}
         {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {isLoading && renderLoading()}
         {!isLoading && expiredConsents.length > 0 && (
-          <ConsentList consents={expiredConsents} dataHolders={dataHolders} url={urlPrefix} />
+          <Card>
+            <ConsentList consents={expiredConsents} dataHolders={dataHolders} url={urlPrefix} />
+          </Card>
         )}
         {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {isLoading && renderLoading()}
         {!isLoading && revokedConsents.length > 0 && (
-          <ConsentList consents={revokedConsents} dataHolders={dataHolders} url={urlPrefix} />
+          <Card>
+            <ConsentList consents={revokedConsents} dataHolders={dataHolders} url={urlPrefix} />
+          </Card>
         )}
         {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
       </TabPanel>
