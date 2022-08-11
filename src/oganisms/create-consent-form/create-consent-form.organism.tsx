@@ -3,16 +3,7 @@ import { ConsentResponse, DataHolder, SharingDuration, UseCaseResponse } from '.
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Card } from '../../atoms/card/card.atom';
@@ -24,6 +15,7 @@ import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
+import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import Close from 'mdi-material-ui/Close';
 
 export type CreateConsentFormProps = {
@@ -48,7 +40,6 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
   } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
-  const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
@@ -99,10 +90,6 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
   const handleScopeChange = (isAllChecked: boolean) => {
     setShowScopeError(false);
     setIsAllCheckboxChecked(isAllChecked);
-  };
-
-  const handleCancelDialogClose = () => {
-    setIsCancelDialogOpen(false);
   };
 
   const handlePartnerDialogClose = () => {
@@ -204,16 +191,7 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
             >
               Consent
             </Button>
-            <Button
-              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
-              variant="outlined"
-              color="inherit"
-              onClick={() => {
-                setIsCancelDialogOpen(true);
-              }}
-            >
-              Cancel
-            </Button>
+            <ConsentCancelButton dialogText={copy.consent.cancelMessage} onCancel={handleCancel} />
           </Box>
           <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
             {(showDataHolderError || showDateError || showScopeError) && 'Please fix the error(s) above.'}
@@ -259,27 +237,6 @@ export const CreateConsentForm = (props: CreateConsentFormProps) => {
           </Box>
         </>
       )}
-
-      <Dialog
-        open={isCancelDialogOpen}
-        onClose={handleCancelDialogClose}
-        aria-labelledby="info-dialog-title"
-        aria-describedby="info-dialog-description"
-      >
-        <DialogContent>
-          <DialogContentText id="info-dialog-description">
-            Are you sure you want to cancel this consent?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="outlined" color="inherit" onClick={handleCancelDialogClose} autoFocus>
-            No
-          </Button>
-          <Button variant="outlined" color="inherit" onClick={handleCancel}>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
 
       <Dialog
         open={isPartnerDialogOpen}
