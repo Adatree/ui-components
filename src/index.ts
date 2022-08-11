@@ -2,6 +2,7 @@
 export { Accordion } from './atoms/accordion/accordion.molecule';
 export { Accreditation } from './atoms/accreditation/accreditation.atom';
 export { AutocompleteDropdown } from './atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
+export { ConsentCancelButton } from './atoms/consent-cancel-button/consent-cancel-button.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
 export { Confirmation } from './atoms/confirmation/confirmation.atom';
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
