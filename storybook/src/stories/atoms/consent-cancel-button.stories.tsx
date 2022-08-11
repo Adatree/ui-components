@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentCancelButton } from '../../lib';
 
 export default {
-  title: 'Components/Atoms/Cancel Consent Button',
+  title: 'Components/Atoms/Consent Cancel Button',
   component: ConsentCancelButton,
   argTypes: {
     backgroundColor: { control: 'color' },
