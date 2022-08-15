@@ -7,6 +7,7 @@ export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion
 export { Confirmation } from './atoms/confirmation/confirmation.atom';
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
 export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.atom';
+export { DataHolderTiles } from './atoms/data-holder-tiles/data-holder-tiles.atom';
 export { DateButton } from './atoms/date-button/date-button.atom';
 export { DatePicker } from './atoms/date-picker/date-picker.atom';
 export { FeedbackMessage } from './atoms/feedback-message/feedback-message.atom';
