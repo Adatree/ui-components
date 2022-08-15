@@ -9,14 +9,13 @@ import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 
 export type DataHolderHeaderProps = {
   consent: ConsentResponse;
-  dataHolderLogoUrl: string;
   isExtendable?: boolean;
   extendableUrl?: string;
-  onRevokeClick: () => void;
+  onRevokeClick?: () => void;
 };
 
 export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
-  const { consent, dataHolderLogoUrl, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
+  const { consent, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
 
   let textDate = '';
 
@@ -45,7 +44,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
       <Box sx={{ order: 1 }}>
         <Avatar
           alt={consent.dataHolderName}
-          src={dataHolderLogoUrl}
+          src={consent.dataHolderLogoUri}
           component={'span'}
           sx={{ mr: 2, img: { height: 'auto' } }}
           variant="square"
@@ -77,7 +76,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
           justifyContent: 'flex-end',
         }}
       >
-        {consent.status === Status.ACTIVE && (
+        {consent.status === Status.ACTIVE && onRevokeClick && (
           <>
             {isExtendable && (
               <Tooltip

@@ -17,15 +17,7 @@ export type ConsentDetailsProps = {
 };
 
 export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
-  const {
-    consent,
-    dataHolderLogoUrl,
-    dateTitle,
-    useCasetTitle,
-    isExtendable = false,
-    extendableUrl,
-    onRevokeClick,
-  } = props;
+  const { consent, dateTitle, useCasetTitle, isExtendable = false, extendableUrl, onRevokeClick } = props;
 
   return (
     <>
@@ -33,7 +25,6 @@ export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
         <DataHolderHeader
           consent={consent}
           onRevokeClick={onRevokeClick}
-          dataHolderLogoUrl={dataHolderLogoUrl}
           isExtendable={isExtendable}
           extendableUrl={extendableUrl}
         />
