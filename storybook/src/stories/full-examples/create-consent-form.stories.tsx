@@ -38,15 +38,7 @@ const organisation = {
   name: companyName,
   underCdrPrincipal: false,
 };
-const copy = {
-  consent: {
-    cancelMessage: 'Are you sure you want to cancel this consent?',
-    dataHolderInputLabel: 'Choose your data provider',
-    dataHolderGeneralInformationListItem:
-      'We will never ask for your Data Holder login password. Your Data Holder will send you a one time password.',
-    title: 'requests access to your account data',
-  },
-};
+const copy = TestUtil.testData.copy;
 
 const handleSummit = () => {
   alert('Consent submitted');
