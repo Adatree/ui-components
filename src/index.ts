@@ -39,6 +39,7 @@ export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.mo
 
 // Organisms
 export { AmendConsentForm } from './oganisms/create-consent-form/amend-consent-form.organism';
+export { CreateConsentFlow } from './oganisms/create-consent-form/create-consent-flow.organism';
 export { CreateConsentForm } from './oganisms/create-consent-form/create-consent-form.organism';
 export { CreateConsentFormWithConfirmationBox } from './oganisms/create-consent-form/create-consent-form-with-confirmation-box';
 
