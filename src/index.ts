@@ -37,6 +37,7 @@ export { UseCaseSelector } from './molecules/use-case-selector/use-case-selector
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
 // Organisms
+export { AmendConsentForm } from './oganisms/create-consent-form/amend-consent-form.organism';
 export { CreateConsentForm } from './oganisms/create-consent-form/create-consent-form.organism';
 export { CreateConsentFormWithConfirmationBox } from './oganisms/create-consent-form/create-consent-form-with-confirmation-box';
 
