@@ -15,6 +15,7 @@ export { Highlight } from './atoms/highlight-text/highlight-text.atom';
 export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
 export { LinkExternal } from './atoms/links/link-external.atom';
+export { MaxAccountConnectedMessage } from './atoms/max-account-connected-message/max-account-connected-message.atom';
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
 export { PartnerMessage } from './atoms/partner-message/partner-message-atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
