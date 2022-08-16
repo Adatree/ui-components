@@ -3,7 +3,8 @@ export interface Copy {
     cancelMessage: string;
     dataHolderInputLabel: string;
     dataHolderGeneralInformationListItem: string;
-    selectDataHolderTitle: string;
+    selectFavouriteDataHolderTitle: string;
+    selectMoreDataHolderTitle: string;
     title: string;
   };
 }
