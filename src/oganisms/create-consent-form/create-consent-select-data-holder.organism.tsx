@@ -11,10 +11,11 @@ export type CreateConsentSelectDataHolderProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
+  favouriteDataHolders?: DataHolder[];
 };
 
 export const CreateConsentSelectDataHolder = (props: CreateConsentSelectDataHolderProps) => {
-  const { copy, existingConsents, useCase } = props;
+  const { copy, existingConsents, favouriteDataHolders, useCase } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
 
@@ -43,15 +44,19 @@ export const CreateConsentSelectDataHolder = (props: CreateConsentSelectDataHold
 
       {useCase.dataHolders && (
         <>
-          <DataHolderTiles
-            dataHolders={useCase.dataHolders}
-            onClick={handleDataHolderChange}
-            disableDataHolders={disableDataHolders}
-          />
+          {favouriteDataHolders && (
+            <>
+              <DataHolderTiles
+                dataHolders={favouriteDataHolders}
+                onClick={handleDataHolderChange}
+                disableDataHolders={disableDataHolders}
+              />
 
-          <Box sx={{ mt: 3, mb: 1 }}>
-            <Typography variant="h3">{copy.consent.selectMoreDataHolderTitle}</Typography>
-          </Box>
+              <Box sx={{ mt: 3, mb: 1 }}>
+                <Typography variant="h3">{copy.consent.selectMoreDataHolderTitle}</Typography>
+              </Box>
+            </>
+          )}
 
           <AutocompleteDropdown
             dataHolders={useCase.dataHolders}

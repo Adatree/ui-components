@@ -66,6 +66,7 @@ WithOngoingAccess.decorators = [
 WithOngoingAccess.args = {
   copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -93,6 +94,7 @@ WithOnceOffAccess.args = {
   copy: copy,
   organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -118,6 +120,7 @@ WithUnderCdrPrincipal.decorators = [
 WithUnderCdrPrincipal.args = {
   copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: { ...organisation, underCdrPrincipal: true },
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -145,6 +148,7 @@ WithSupportingParties.args = {
   copy: copy,
   organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoanWithOsps(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -170,6 +174,7 @@ WithLongScopes.decorators = [
 WithLongScopes.args = {
   copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
@@ -190,6 +195,29 @@ WithMultiDatesAndCustom.decorators = [
 ];
 
 WithMultiDatesAndCustom.args = {
+  copy: copy,
+  existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  organisation: organisation,
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithNoFavouriteDataHolders = Template.bind({});
+WithNoFavouriteDataHolders.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithNoFavouriteDataHolders.args = {
   copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   organisation: organisation,
@@ -230,6 +258,7 @@ WithNoRemainingDataHolders.args = {
       }),
     ],
   ],
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,

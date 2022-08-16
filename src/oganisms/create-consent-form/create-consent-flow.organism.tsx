@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConsentResponse, UseCaseResponse } from '../../generated/consent';
+import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
@@ -14,6 +14,7 @@ export type CreateConsentProps = {
   organisation: Organisation;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
+  favouriteDataHolders?: DataHolder[];
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -25,6 +26,7 @@ export const CreateConsentFlow = (props: CreateConsentProps) => {
     organisation,
     useCase,
     enablePartnerMessageDiscreetMode = false,
+    favouriteDataHolders,
     onCancel,
     onSubmit,
   } = props;
@@ -50,7 +52,12 @@ export const CreateConsentFlow = (props: CreateConsentProps) => {
       {useCase.dataHolders && useCase.scopes && useCase.dataHolders.length > disableDataHolders.length && (
         <>
           {!consentForm.dataHolder && (
-            <CreateConsentSelectDataHolder copy={copy} existingConsents={existingConsents} useCase={useCase} />
+            <CreateConsentSelectDataHolder
+              copy={copy}
+              existingConsents={existingConsents}
+              useCase={useCase}
+              favouriteDataHolders={favouriteDataHolders}
+            />
           )}
           {consentForm.dataHolder && (
             <CreateConsentSelectScopes
