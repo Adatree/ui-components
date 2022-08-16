@@ -4,6 +4,8 @@ import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomp
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Copy } from '../../types/copy.type';
+import { Box, Typography } from '@mui/material';
+import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
 
 export type CreateConsentSelectDataHolderProps = {
   copy: Copy;
@@ -35,14 +37,30 @@ export const CreateConsentSelectDataHolder = (props: CreateConsentSelectDataHold
 
   return (
     <>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h2">{copy.consent.selectFavouriteDataHolderTitle}</Typography>
+      </Box>
+
       {useCase.dataHolders && (
-        <AutocompleteDropdown
-          dataHolders={useCase.dataHolders}
-          disableDataHolders={disableDataHolders}
-          onChange={handleDataHolderChange}
-          showError={showDataHolderError}
-          label={copy.consent.dataHolderInputLabel}
-        />
+        <>
+          <DataHolderTiles
+            dataHolders={useCase.dataHolders}
+            onClick={handleDataHolderChange}
+            disableDataHolders={disableDataHolders}
+          />
+
+          <Box sx={{ mt: 3, mb: 1 }}>
+            <Typography variant="h3">{copy.consent.selectMoreDataHolderTitle}</Typography>
+          </Box>
+
+          <AutocompleteDropdown
+            dataHolders={useCase.dataHolders}
+            disableDataHolders={disableDataHolders}
+            onChange={handleDataHolderChange}
+            showError={showDataHolderError}
+            label={copy.consent.dataHolderInputLabel}
+          />
+        </>
       )}
     </>
   );

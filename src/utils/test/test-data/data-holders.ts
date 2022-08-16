@@ -20,7 +20,7 @@ const blueBank = (): DataHolder => {
   return {
     dataHolderBrandId: '8a8cea5d-19c4-458b-ab79-c926455475d3',
     brandName: 'Royal Blue Bank of Australia',
-    logoUri: 'https://placehold.co/200x100/4169e1/000?text=Blue%20Bank',
+    logoUri: 'https://placehold.co/100x100/4169e1/000?text=Blue%20Bank',
   };
 };
 
@@ -28,7 +28,7 @@ const greenBank = (): DataHolder => {
   return {
     dataHolderBrandId: '7a7cea5d-19c4-458b-ab79-c926455475d3',
     brandName: 'Green Bank',
-    logoUri: 'https://placehold.co/100x200/7BB123/000?text=Green%20Bank',
+    logoUri: 'https://placehold.co/100x100/7BB123/000?text=Green%20Bank',
   };
 };
 
