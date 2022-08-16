@@ -6,6 +6,6 @@ export const copy = {
       'We will never ask for your Data Holder login password. Your Data Holder will send you a one time password.',
     selectFavouriteDataHolderTitle: 'Select your bank',
     selectMoreDataHolderTitle: 'More banks',
-    title: 'requests access to your account data',
+    title: ['requests access to your', 'account data'],
   },
 };

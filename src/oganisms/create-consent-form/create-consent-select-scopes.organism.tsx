@@ -99,7 +99,8 @@ export const CreateConsentSelectScopes = (props: CreateConsentSelectScopesProps)
         <>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
-              <Highlight>{organisation.name}</Highlight> {copy.consent.title}
+              <Highlight>{organisation.name}</Highlight> {copy.consent.title[0]}{' '}
+              <Highlight>{consentForm.dataHolder?.brandName}</Highlight> {copy.consent.title[1]}
             </Typography>
             <Typography>{useCase.description}</Typography>
           </Box>

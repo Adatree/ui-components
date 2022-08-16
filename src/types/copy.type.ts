@@ -5,6 +5,6 @@ export interface Copy {
     dataHolderGeneralInformationListItem: string;
     selectFavouriteDataHolderTitle: string;
     selectMoreDataHolderTitle: string;
-    title: string;
+    title: string[];
   };
 }
