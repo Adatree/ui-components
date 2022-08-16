@@ -16,6 +16,7 @@ import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import Close from 'mdi-material-ui/Close';
+import ChevronLeft from 'mdi-material-ui/ChevronLeft';
 
 export type CreateConsentSelectScopesProps = {
   copy: Copy;
@@ -93,10 +94,21 @@ export const CreateConsentSelectScopes = (props: CreateConsentSelectScopesProps)
     onSubmit();
   };
 
+  const handleNavBack = () => {
+    consentForm.dataHolder = undefined;
+    consentForm.selectedSharingDurations = undefined;
+    consentForm.sharingEndDate = undefined;
+    setConsentForm({ ...consentForm });
+  };
+
   return (
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
+          <Button variant="text" onClick={handleNavBack} color="inherit" sx={{ mb: 2, pl: 0 }}>
+            <ChevronLeft />
+            Back
+          </Button>
           <Box sx={{ mb: 3 }}>
             <Typography sx={{ mb: 1 }} variant="h2">
               <Highlight>{organisation.name}</Highlight> {copy.consent.title[0]}{' '}
