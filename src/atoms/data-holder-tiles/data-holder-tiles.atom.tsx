@@ -48,8 +48,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
                 title={dataHolder.brandName}
                 style={{
                   width: '100%',
-                  filter: disabled === true ? 'grayscale(100%)' : 'grayscale(0)',
-                  opacity: disabled === true ? '0.5' : '1',
+                  opacity: disabled === true ? '0.3' : '1',
                 }}
               />
               {disabled && (
