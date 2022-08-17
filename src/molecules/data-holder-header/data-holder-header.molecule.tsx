@@ -40,8 +40,8 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
-      <Box sx={{ order: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box>
         <Avatar
           alt={consent.dataHolderName}
           src={consent.dataHolderLogoUri}
@@ -55,21 +55,18 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
 
       <Box
         sx={{
-          order: { xs: 3, sm: 2 },
           display: 'flex',
           flex: '1',
           flexDirection: 'column',
           flexBasis: { xs: '100%', sm: 0 },
-          pt: { xs: 1, sm: 0 },
         }}
       >
         <Typography variant="h2">{consent.dataHolderName}</Typography>
-        <Typography>{textDate}</Typography>
+        <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{textDate}</Typography>
       </Box>
 
       <Box
         sx={{
-          order: { xs: 2, sm: 3 },
           display: 'flex',
           flex: { xs: 1, sm: 'inherit' },
           alignItems: 'center',
@@ -100,31 +97,30 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
             />
           </>
         )}
-        <Chip
-          label={consent.status}
-          size="small"
-          sx={{
-            color: 'common.white',
-            fontWeight: 600,
-            fontSize: '1.4rem',
-            textTransform: 'lowercase',
-            '& span:first-letter': {
-              textTransform: 'capitalize',
-            },
-            ...(consent.status === Status.ACTIVE && {
-              backgroundColor: 'success.main',
-            }),
-            ...(consent.status === Status.EXPIRED && {
-              backgroundColor: 'warning.main',
-            }),
-            ...(consent.status === Status.REQUESTED && {
-              backgroundColor: 'info.main',
-            }),
-            ...(consent.status === Status.REVOKED && {
-              backgroundColor: 'error.main',
-            }),
-          }}
-        />
+        {consent.status !== Status.ACTIVE && (
+          <Chip
+            label={consent.status}
+            size="small"
+            sx={{
+              color: 'common.white',
+              fontWeight: 600,
+              fontSize: '1.4rem',
+              textTransform: 'lowercase',
+              '& span:first-letter': {
+                textTransform: 'capitalize',
+              },
+              ...(consent.status === Status.EXPIRED && {
+                backgroundColor: 'warning.main',
+              }),
+              ...(consent.status === Status.REQUESTED && {
+                backgroundColor: 'info.main',
+              }),
+              ...(consent.status === Status.REVOKED && {
+                backgroundColor: 'error.main',
+              }),
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
