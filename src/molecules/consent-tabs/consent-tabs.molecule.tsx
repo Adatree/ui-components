@@ -53,9 +53,9 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
           variant="fullWidth"
           aria-label="Consent tabs"
         >
-          <Tab label="Current" {...a11yProps(0)} />
-          <Tab label="Expired" {...a11yProps(1)} />
-          <Tab label="Revoked" {...a11yProps(2)} />
+          <Tab sx={{ textTransform: 'capitalize' }} label="Current" {...a11yProps(0)} />
+          <Tab sx={{ textTransform: 'capitalize' }} label="Expired" {...a11yProps(1)} />
+          <Tab sx={{ textTransform: 'capitalize' }} label="Revoked" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
