@@ -74,7 +74,7 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
         fontSize: '2.2rem',
         fontWeight: 600,
         letterSpacing: '0.07px',
-        lineHeight: '1.6',
+        lineHeight: '1.4',
       },
       h3: {
         fontFamily: fontFamilyHeadings,

@@ -15,8 +15,8 @@ import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
+import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import Close from 'mdi-material-ui/Close';
-import ChevronLeft from 'mdi-material-ui/ChevronLeft';
 
 export type CreateConsentSelectScopesProps = {
   copy: Copy;
@@ -105,16 +105,11 @@ export const CreateConsentSelectScopes = (props: CreateConsentSelectScopesProps)
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Button variant="text" onClick={handleNavBack} color="inherit" sx={{ mb: 2, pl: 0 }}>
-            <ChevronLeft />
-            Back
-          </Button>
           <Box sx={{ mb: 3 }}>
-            <Typography sx={{ mb: 1 }} variant="h2">
+            <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
               <Highlight>{organisation.name}</Highlight> {copy.consent.title[0]}{' '}
               <Highlight>{consentForm.dataHolder?.brandName}</Highlight> {copy.consent.title[1]}
             </Typography>
-            <Typography>{useCase.description}</Typography>
           </Box>
 
           <Card error={showScopeError} sx={{ mt: 1 }}>
@@ -140,6 +135,7 @@ export const CreateConsentSelectScopes = (props: CreateConsentSelectScopesProps)
           </Typography>
 
           <Box sx={{ mb: 4, position: 'relative' }}>
+            <Accordion title="Purpose of accessing my data" content={useCase.description} />
             <GeneralInformation
               cdrPolicyUrl={organisation.cdrPolicyUrl}
               topListItemOverride={copy.consent.dataHolderGeneralInformationListItem}
