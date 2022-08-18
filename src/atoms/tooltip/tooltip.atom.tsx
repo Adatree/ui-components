@@ -8,25 +8,42 @@ export type TooltipProps = {
 };
 export const Tooltip: React.FC<TooltipProps> = (props) => {
   const { content, title } = props;
-  const text = typeof content === 'string' ? <Typography>{content}</Typography> : content;
-  const body = title ? title : <InfoIcon sx={{ ml: 1, pb: '2px', cursor: 'pointer', color: '#08A4E4' }} />;
+
+  const body =
+    typeof content === 'string' ? (
+      <Typography
+        sx={{
+          color: 'common.white',
+        }}
+      >
+        {content}
+      </Typography>
+    ) : (
+      content
+    );
+
+  const text = title ? (
+    <span style={{ cursor: 'pointer' }}>{title}</span>
+  ) : (
+    <InfoIcon sx={{ ml: 1, pb: '2px', cursor: 'pointer', color: '#08A4E4' }} />
+  );
 
   return (
     <>
       <MuiTooltip
-        title={text}
+        title={body}
         componentsProps={{
           tooltip: {
             sx: {
-              backgroundColor: 'tooltip.light',
+              backgroundColor: 'grey.light',
               border: '1px solid',
-              borderColor: 'tooltip.dark',
-              color: 'tooltip.main',
+              borderColor: 'grey.dark',
+              color: 'common.white',
             },
           },
         }}
       >
-        {body}
+        {text}
       </MuiTooltip>
     </>
   );
