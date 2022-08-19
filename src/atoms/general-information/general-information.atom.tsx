@@ -20,6 +20,10 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
     topListItemOverride,
     'We will never sell your data or use it for marketing.',
     <Typography>
+      You can request copies of records relating to your consent and the data we collect by writing to us at{' '}
+      <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
+    </Typography>,
+    <Typography>
       You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to
       us at <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
     </Typography>,
