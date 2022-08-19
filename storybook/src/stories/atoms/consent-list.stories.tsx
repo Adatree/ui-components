@@ -15,6 +15,5 @@ const Template: ComponentStory<typeof ConsentList> = (args) => <ConsentList {...
 export const Active = Template.bind({});
 Active.args = {
   consents: TestUtil.testData.consent.all(),
-  dataHolders: TestUtil.testData.dataHolder.all(),
   url: '/url-to-the-consent',
 };

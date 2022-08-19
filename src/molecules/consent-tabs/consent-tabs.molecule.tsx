@@ -1,13 +1,12 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
-import { ConsentResponse, DataHolder, Status } from '../../generated/consent';
+import { ConsentResponse, Status } from '../../generated/consent';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Helper } from '../../utils/helper/helper';
 import { Card } from '../../atoms/card/card.atom';
 
 export type ConsentTabsProps = {
   consents: ConsentResponse[] | undefined;
-  dataHolders: DataHolder[];
   isLoading?: boolean;
   urlPrefix?: string;
 };
@@ -19,7 +18,7 @@ type TabPanelProps = {
 };
 
 export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
-  const { consents = [], dataHolders, isLoading = false, urlPrefix = '/consent/' } = props;
+  const { consents = [], isLoading = false, urlPrefix = '/consent/' } = props;
   const [value, setValue] = React.useState(0);
 
   const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.ACTIVE));
@@ -62,7 +61,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
         {isLoading && renderLoading()}
         {!isLoading && activeConsents.length > 0 && (
           <Card>
-            <ConsentList consents={activeConsents} dataHolders={dataHolders} url={urlPrefix} />
+            <ConsentList consents={activeConsents} url={urlPrefix} />
           </Card>
         )}
         {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
@@ -71,7 +70,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
         {isLoading && renderLoading()}
         {!isLoading && expiredConsents.length > 0 && (
           <Card>
-            <ConsentList consents={expiredConsents} dataHolders={dataHolders} url={urlPrefix} />
+            <ConsentList consents={expiredConsents} url={urlPrefix} />
           </Card>
         )}
         {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
@@ -80,7 +79,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
         {isLoading && renderLoading()}
         {!isLoading && revokedConsents.length > 0 && (
           <Card>
-            <ConsentList consents={revokedConsents} dataHolders={dataHolders} url={urlPrefix} />
+            <ConsentList consents={revokedConsents} url={urlPrefix} />
           </Card>
         )}
         {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}

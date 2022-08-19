@@ -8,7 +8,7 @@ import Bank from 'mdi-material-ui/Bank';
 export type ListItemProps = {
   consent: ConsentResponse;
   consentUrl: string;
-  dataHolderLogoUrl: string;
+  dataHolderLogoUrl: string | undefined;
 };
 
 export const ConsentListItem: React.FC<ListItemProps> = (props) => {
