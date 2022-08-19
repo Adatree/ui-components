@@ -38,7 +38,8 @@ export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
 
                 {osp.cdrPolicyUri && (
                   <Typography sx={{ mt: 0.5, mb: 1 }}>
-                    Learn more about how they do this in our <LinkExternal href={osp.cdrPolicyUri} text="CDR Policy" />.
+                    Learn more about how they do this in the{' '}
+                    <LinkExternal href={osp.cdrPolicyUri} text={`${osp.providerName} CDR Policy`} />.
                   </Typography>
                 )}
               </Box>
