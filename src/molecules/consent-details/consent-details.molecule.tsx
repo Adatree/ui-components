@@ -8,7 +8,6 @@ import { DateSummary } from '../date-summary/date-summary.molecule';
 
 export type ConsentDetailsProps = {
   consent: ConsentResponse;
-  dataHolderLogoUrl: string;
   dateTitle: string;
   useCasetTitle: string;
   isExtendable?: boolean;
