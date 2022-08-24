@@ -39,7 +39,7 @@ export { UseCaseSelector } from './molecules/use-case-selector/use-case-selector
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
 // Organisms
-export { CreateConsentFlow } from './oganisms/create-consent-form/create-consent-flow.organism';
+export { ConsentCreate } from './oganisms/consent-create/consent-create.organism';
 
 // Icons
 export { ApiCogIcon } from './atoms/icons/api-cog.icon';

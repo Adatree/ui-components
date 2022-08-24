@@ -8,7 +8,7 @@ import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-hol
 import { ConsentInputScopes } from '../consent-inputs/consent-input-scopes.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 
-export type CreateConsentProps = {
+export type ConsentCreateProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   organisation: Organisation;
@@ -19,7 +19,7 @@ export type CreateConsentProps = {
   onSubmit: () => void;
 };
 
-export const CreateConsentFlow = (props: CreateConsentProps) => {
+export const ConsentCreate = (props: ConsentCreateProps) => {
   const {
     copy,
     existingConsents,

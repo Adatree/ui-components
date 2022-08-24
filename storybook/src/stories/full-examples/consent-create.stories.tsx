@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
   AccessFrequency,
   ConsentFormProvider,
-  CreateConsentFlow,
+  ConsentCreate,
   PostUsageAction,
   SharingDuration,
   TestUtil,
@@ -11,11 +11,11 @@ import {
 
 export default {
   title: 'Full examples/Create consent flow',
-  component: CreateConsentFlow,
+  component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof CreateConsentFlow>;
+} as ComponentMeta<typeof ConsentCreate>;
 
 const accreditationNumber = '1234-5678';
 const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
@@ -48,7 +48,7 @@ const handleCancel = () => {
   alert('Consent canceled');
 };
 
-const Template: ComponentStory<typeof CreateConsentFlow> = (args) => <CreateConsentFlow {...args} />;
+const Template: ComponentStory<typeof ConsentCreate> = (args) => <ConsentCreate {...args} />;
 
 // ####################################
 
