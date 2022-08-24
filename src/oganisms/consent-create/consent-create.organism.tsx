@@ -5,7 +5,7 @@ import { Copy } from '../../types/copy.type';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
 import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';
-import { ConsentInputScopes } from '../consent-inputs/consent-input-scopes.organism';
+import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 
 export type ConsentCreateProps = {
@@ -60,7 +60,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
             />
           )}
           {consentForm.dataHolder && (
-            <ConsentInputScopes
+            <ConsentCreateForm
               copy={copy}
               organisation={organisation}
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}

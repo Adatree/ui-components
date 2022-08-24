@@ -14,7 +14,7 @@ import { ConsentSectionDates } from '../../molecules/consent-section/consent-sec
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import Close from 'mdi-material-ui/Close';
 
-export type ConsentInputScopesProps = {
+export type ConsentCreateFormProps = {
   copy: Copy;
   organisation: Organisation;
   useCase: UseCaseResponse;
@@ -23,7 +23,7 @@ export type ConsentInputScopesProps = {
   onSubmit: () => void;
 };
 
-export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
+export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const { copy, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
