@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
-import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
-import { SupportingParties } from '../../molecules/supporting-parties/supporting-parties.molecule';
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
-import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
+import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import Close from 'mdi-material-ui/Close';
 
 export type ConsentInputScopesProps = {
@@ -111,21 +109,7 @@ export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
 
           <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
 
-          <Box sx={{ mb: 4, position: 'relative' }}>
-            <Accordion title="Purpose of accessing my data" content={useCase.description} />
-            <GeneralInformation
-              cdrPolicyUrl={organisation.cdrPolicyUrl}
-              topListItemOverride={copy.consent.dataHolderGeneralInformationListItem}
-              dataSharingRevocationEmail={organisation.dataSharingRevocationEmail}
-            />
-            {useCase.osps && useCase.osps.length > 0 && (
-              <SupportingParties
-                title={'Supporting Parties'}
-                useCase={useCase}
-                outsourcedServiceProviders={useCase.osps}
-              />
-            )}
-          </Box>
+          <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
 
           <Box
             sx={{
