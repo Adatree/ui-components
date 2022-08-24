@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
-import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
@@ -13,10 +12,10 @@ import { SupportingParties } from '../../molecules/supporting-parties/supporting
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
-import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
+import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import Close from 'mdi-material-ui/Close';
 
 export type ConsentInputScopesProps = {
@@ -95,13 +94,6 @@ export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
     onSubmit();
   };
 
-  const handleNavBack = () => {
-    consentForm.dataHolder = undefined;
-    consentForm.selectedSharingDurations = undefined;
-    consentForm.sharingEndDate = undefined;
-    setConsentForm({ ...consentForm });
-  };
-
   return (
     <section>
       {useCase.dataHolders && useCase.scopes && (
@@ -112,15 +104,12 @@ export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
             organisation={organisation}
           />
 
-          <Card error={showScopeError} sx={{ mt: 1 }}>
-            <Typography sx={{ mb: 1 }}>
-              Please confirm that <Highlight>{organisation.name}</Highlight> can have access to the following data:
-            </Typography>
-            <ScopeListSwitch scopes={useCase.scopes} companyName={organisation.name} onChange={handleScopeChange} />
-          </Card>
-          <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showScopeError && 'Please select all the options.'}
-          </Typography>
+          <ConsentSectionScopes
+            organisation={organisation}
+            scopes={useCase.scopes}
+            showError={showScopeError}
+            onChange={handleScopeChange}
+          />
 
           <Card error={showDateError}>
             {useCase.sharingDurations && (
