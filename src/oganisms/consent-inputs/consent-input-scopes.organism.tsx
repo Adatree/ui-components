@@ -4,9 +4,6 @@ import { GeneralInformation } from '../../atoms/general-information/general-info
 import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
 import { useConsentForm } from '../../context/consentForm.context';
-import { Card } from '../../atoms/card/card.atom';
-import { DateSelector } from '../../molecules/date-selector/date-selector.molecule';
-import { TextBuilder } from '../../utils/text/text-builder';
 import { Helper } from '../../utils/helper/helper';
 import { SupportingParties } from '../../molecules/supporting-parties/supporting-parties.molecule';
 import { Organisation } from '../../types/organisation.type';
@@ -16,8 +13,8 @@ import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-c
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
-import Close from 'mdi-material-ui/Close';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
+import Close from 'mdi-material-ui/Close';
 
 export type ConsentInputScopesProps = {
   copy: Copy;
