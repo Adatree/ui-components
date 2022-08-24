@@ -10,6 +10,7 @@ export type ConsentSectionDatesProps = {
   organisation: Organisation;
   useCase: UseCaseResponse;
   showError: boolean;
+  editMessage?: string;
 };
 
 export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) => {
@@ -26,7 +27,7 @@ export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) =
         </Typography>
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showError && `Please confirm how long you would like ${name} to access your data.`}
+        {showError && `Please confirm how long you would like ${organisation.name} to access your data.`}
       </Typography>
     </>
   );

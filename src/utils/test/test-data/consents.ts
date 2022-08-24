@@ -21,7 +21,7 @@ const active = (): ConsentResponse => {
     status: Status.ACTIVE,
     created: new Date(2020, 10, 25).toISOString(),
     consumerEmail: 'shane+test@adatree.com.au',
-    sharingEndDate: new Date(2021, 10, 2).toISOString(),
+    sharingEndDate: new Date(2023, 10, 2).toISOString(),
     dataHolderName: dataHolder.yellowBank().brandName,
     dataHolderBrandId: dataHolder.yellowBank().dataHolderBrandId,
     dataHolderLogoUri: dataHolder.yellowBank().logoUri,

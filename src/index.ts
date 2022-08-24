@@ -40,6 +40,7 @@ export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.mo
 
 // Organisms
 export { ConsentCreate } from './oganisms/consent-create/consent-create.organism';
+export { ConsentEdit } from './oganisms/consent-edit/consent-edit.organism';
 
 // Icons
 export { ApiCogIcon } from './atoms/icons/api-cog.icon';

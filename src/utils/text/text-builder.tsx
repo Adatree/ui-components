@@ -62,7 +62,26 @@ const accessFrequency = (companyName: string, accessFrequency: AccessFrequency |
   }
 };
 
+const currentAccess = (companyName: string, endDate: string | undefined): React.ReactNode => {
+  const common = (
+    <>
+      You are currently allowing <Highlight>{companyName}</Highlight> to acceess your data
+    </>
+  );
+
+  if (endDate) {
+    return (
+      <>
+        {common} untill the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
+      </>
+    );
+  } else {
+    return <>{common}.</>;
+  }
+};
+
 export const TextBuilder = {
   accessFrequency,
   confirmation,
+  currentAccess,
 };
