@@ -2,20 +2,19 @@ import React from 'react';
 import { Avatar, Box, Chip, IconButton, Link, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
+import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 import Bank from 'mdi-material-ui/Bank';
 import Delete from 'mdi-material-ui/Delete';
-import Calendar from 'mdi-material-ui/Calendar';
-import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
+import Pencil from 'mdi-material-ui/Pencil';
 
 export type DataHolderHeaderProps = {
   consent: ConsentResponse;
-  isExtendable?: boolean;
-  extendableUrl?: string;
+  editUrl?: string;
   onRevokeClick?: () => void;
 };
 
 export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
-  const { consent, isExtendable = false, extendableUrl = '', onRevokeClick } = props;
+  const { consent, editUrl = '', onRevokeClick } = props;
 
   let textDate = '';
 
@@ -75,13 +74,13 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
       >
         {consent.status === Status.ACTIVE && onRevokeClick && (
           <>
-            {isExtendable && (
+            {editUrl && (
               <Tooltip
-                content="Extend Data Sharing Period"
+                content="Edit consent"
                 title={
-                  <Link href={extendableUrl} sx={{ display: 'inline-block' }}>
+                  <Link href={editUrl} sx={{ display: 'inline-block' }}>
                     <IconButton sx={{ mr: 1 }}>
-                      <Calendar color="button" />
+                      <Pencil color="button" />
                     </IconButton>
                   </Link>
                 }

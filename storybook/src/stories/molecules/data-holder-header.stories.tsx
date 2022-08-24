@@ -20,11 +20,10 @@ WithActiveStatus.args = {
   },
 };
 
-export const WithActiveStatusAndExtendableDate = Template.bind({});
-WithActiveStatusAndExtendableDate.args = {
+export const WithActiveStatusAndEditAction = Template.bind({});
+WithActiveStatusAndEditAction.args = {
   consent: TestUtil.testData.consent.active(),
-  isExtendable: true,
-  extendableUrl: '/?path=/story/components-molecules-data-holder-header--with-active-status-and-extendable-date',
+  editUrl: '/?path=/story/components-molecules-data-holder-header--with-active-status-and-edit-action',
   onRevokeClick: () => {
     alert(`The revoke button was clicked`);
   },
