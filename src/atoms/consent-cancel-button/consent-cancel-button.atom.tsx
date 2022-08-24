@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 
 export type ConsentCancelButtonProps = {
+  label: string;
   dialogText: string;
   onCancel: () => void;
 };
 
 export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) => {
-  const { dialogText, onCancel } = props;
+  const { label, dialogText, onCancel } = props;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClose = () => {
@@ -28,7 +29,7 @@ export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) =
           setIsDialogOpen(true);
         }}
       >
-        Cancel
+        {label}
       </Button>
 
       <Dialog
