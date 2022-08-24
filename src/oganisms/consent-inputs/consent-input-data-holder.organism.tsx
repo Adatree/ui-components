@@ -7,14 +7,14 @@ import { Copy } from '../../types/copy.type';
 import { Box, Typography } from '@mui/material';
 import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
 
-export type CreateConsentSelectDataHolderProps = {
+export type ConsentInputDataHolderProps = {
   copy: Copy;
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   favouriteDataHolders?: DataHolder[];
 };
 
-export const CreateConsentSelectDataHolder = (props: CreateConsentSelectDataHolderProps) => {
+export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
   const { copy, existingConsents, favouriteDataHolders, useCase } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();

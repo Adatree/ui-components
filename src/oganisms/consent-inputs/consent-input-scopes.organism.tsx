@@ -18,7 +18,7 @@ import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-c
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import Close from 'mdi-material-ui/Close';
 
-export type CreateConsentSelectScopesProps = {
+export type ConsentInputScopesProps = {
   copy: Copy;
   organisation: Organisation;
   useCase: UseCaseResponse;
@@ -27,7 +27,7 @@ export type CreateConsentSelectScopesProps = {
   onSubmit: () => void;
 };
 
-export const CreateConsentSelectScopes = (props: CreateConsentSelectScopesProps) => {
+export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
   const { copy, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);

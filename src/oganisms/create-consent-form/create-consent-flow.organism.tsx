@@ -4,9 +4,9 @@ import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
-import { CreateConsentSelectDataHolder } from './create-consent-select-data-holder.organism';
+import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';
+import { ConsentInputScopes } from '../consent-inputs/consent-input-scopes.organism';
 import { useConsentForm } from '../../context/consentForm.context';
-import { CreateConsentSelectScopes } from './create-consent-select-scopes.organism';
 
 export type CreateConsentProps = {
   copy: Copy;
@@ -52,7 +52,7 @@ export const CreateConsentFlow = (props: CreateConsentProps) => {
       {useCase.dataHolders && useCase.scopes && useCase.dataHolders.length > disableDataHolders.length && (
         <>
           {!consentForm.dataHolder && (
-            <CreateConsentSelectDataHolder
+            <ConsentInputDataHolder
               copy={copy}
               existingConsents={existingConsents}
               useCase={useCase}
@@ -60,7 +60,7 @@ export const CreateConsentFlow = (props: CreateConsentProps) => {
             />
           )}
           {consentForm.dataHolder && (
-            <CreateConsentSelectScopes
+            <ConsentInputScopes
               copy={copy}
               organisation={organisation}
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
