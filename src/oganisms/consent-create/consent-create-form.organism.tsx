@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
-import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
-import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
+import { Box, Button, Dialog, DialogContent, IconButton } from '@mui/material';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
-import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
+import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import Close from 'mdi-material-ui/Close';
 
 export type ConsentCreateFormProps = {
@@ -111,35 +110,14 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
 
           <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: { xs: 'column', sm: 'row-reverse' },
-            }}
-          >
-            <Button
-              sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
-              variant="contained"
-              color={isFormValid === true ? 'button' : 'inherit'}
-              onClick={handlePreSubmit}
-            >
-              Consent
-            </Button>
-            <ConsentCancelButton dialogText={copy.consent.cancelMessage} onCancel={handleCancel} />
-          </Box>
-          <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {(showDataHolderError || showDateError || showScopeError) && 'Please fix the error(s) above.'}
-          </Typography>
-
-          <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
-            <Accreditation
-              accreditationNumber={organisation.accreditationNumber}
-              cdrPolicyUrl={organisation.cdrPolicyUrl}
-              companyName={organisation.name}
-              underCdrPrincipal={organisation.underCdrPrincipal}
-            />
-          </Box>
+          <ConsentSectionActions
+            copy={copy}
+            organisation={organisation}
+            isValid={isFormValid}
+            showError={showDataHolderError || showDateError || showScopeError}
+            onCancel={handleCancel}
+            onSubmit={handlePreSubmit}
+          />
         </>
       )}
 
