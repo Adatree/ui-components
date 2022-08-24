@@ -16,6 +16,7 @@ import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
+import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import Close from 'mdi-material-ui/Close';
 
 export type ConsentInputScopesProps = {
@@ -105,12 +106,11 @@ export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
-              <Highlight>{organisation.name}</Highlight> {copy.consent.title[0]}{' '}
-              <Highlight>{consentForm.dataHolder?.brandName}</Highlight> {copy.consent.title[1]}
-            </Typography>
-          </Box>
+          <ConsentSectionHeader
+            copy={copy}
+            dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
+            organisation={organisation}
+          />
 
           <Card error={showScopeError} sx={{ mt: 1 }}>
             <Typography sx={{ mb: 1 }}>
