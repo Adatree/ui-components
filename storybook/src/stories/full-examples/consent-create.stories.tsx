@@ -10,7 +10,7 @@ import {
 } from '../../lib';
 
 export default {
-  title: 'Full examples/Create consent flow',
+  title: 'Full examples/Create consent',
   component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
