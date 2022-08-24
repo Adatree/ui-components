@@ -17,6 +17,7 @@ import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import Close from 'mdi-material-ui/Close';
+import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 
 export type ConsentInputScopesProps = {
   copy: Copy;
@@ -111,17 +112,7 @@ export const ConsentInputScopes = (props: ConsentInputScopesProps) => {
             onChange={handleScopeChange}
           />
 
-          <Card error={showDateError}>
-            {useCase.sharingDurations && (
-              <DateSelector companyName={organisation.name} sharingDurations={useCase.sharingDurations} />
-            )}
-            <Typography sx={{ mt: 1.5, mb: 0 }}>
-              {TextBuilder.accessFrequency(organisation.name, useCase.accessFrequency)}
-            </Typography>
-          </Card>
-          <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-            {showDateError && `Please confirm how long you would like ${name} to access your data.`}
-          </Typography>
+          <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
 
           <Box sx={{ mb: 4, position: 'relative' }}>
             <Accordion title="Purpose of accessing my data" content={useCase.description} />
