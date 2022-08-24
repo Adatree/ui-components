@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
-import { Box, Button, Dialog, DialogContent, IconButton } from '@mui/material';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
-import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
-import Close from 'mdi-material-ui/Close';
+import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 
 export type ConsentCreateFormProps = {
   copy: Copy;
@@ -121,38 +119,14 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
         </>
       )}
 
-      <Dialog
-        open={isPartnerDialogOpen}
-        aria-labelledby="partner-dialog-title"
-        aria-describedby="partner-dialog-description"
-      >
-        <DialogContent>
-          <IconButton
-            aria-label="close"
-            onClick={handlePartnerDialogClose}
-            sx={{
-              position: 'absolute',
-              right: { xs: 4, sm: 8 },
-              top: { xs: 4, sm: 8 },
-              color: (theme) => theme.palette.button.light,
-            }}
-          >
-            <Close />
-          </IconButton>
-
-          <PartnerMessage
-            dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
-            organisation={organisation}
-            discreetMode={enablePartnerMessageDiscreetMode}
-          />
-
-          <Box sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              OK
-            </Button>
-          </Box>
-        </DialogContent>
-      </Dialog>
+      <PartnerMessageDialog
+        dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
+        discreetMode={enablePartnerMessageDiscreetMode}
+        isOpen={isPartnerDialogOpen}
+        organisation={organisation}
+        onClose={handlePartnerDialogClose}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };
