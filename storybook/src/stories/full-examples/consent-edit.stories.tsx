@@ -1,13 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {
-  AccessFrequency,
-  ConsentFormProvider,
-  ConsentEdit,
-  PostUsageAction,
-  SharingDuration,
-  TestUtil,
-} from '../../lib';
+import { AccessFrequency, ConsentFormProvider, ConsentEdit, PostUsageAction, TestUtil } from '../../lib';
 
 export default {
   title: 'Full examples/Edit consent',
@@ -69,7 +62,6 @@ NonEditable.args = {
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.THREEMONTHS],
     accessFrequency: AccessFrequency.ONGOING,
   },
   onCancel: handleCancel,

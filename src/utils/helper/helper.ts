@@ -8,6 +8,7 @@ import {
   DataHolder,
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
+import { isEqual } from 'lodash';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -150,11 +151,28 @@ const dateDurationToDate = (duration: DateDuration): Date => {
   return newDate;
 };
 
+const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): boolean => {
+  console.log(consent, useCase);
+  if (!useCase.sharingDurations) {
+    return false;
+  }
+
+  if (useCase.sharingDurations.includes(SharingDuration.CUSTOM)) {
+    return true;
+  }
+
+  if (useCase.sharingDurations.length === 1 && isEqual(useCase.sharingDurations, consent.useCase?.sharingDurations)) {
+    return false;
+  }
+
+  return true;
+};
 export const Helper = {
   accessFrequencyToString,
   dateDurationToDate,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
+  isConsentEditable,
   parseSharingDuration,
   parseSharingDurations,
   sharingDurationToDate,

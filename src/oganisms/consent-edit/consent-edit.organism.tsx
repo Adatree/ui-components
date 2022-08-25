@@ -48,9 +48,9 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     ) {
       consentForm.selectedSharingDurations = useCase.sharingDurations[0];
       consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);
-      setIsEditable(false);
     }
 
+    setIsEditable(Helper.isConsentEditable(consent, useCase));
     setConsentForm({ ...consentForm });
   }, []);
 
