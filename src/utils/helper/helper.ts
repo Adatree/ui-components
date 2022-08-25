@@ -152,8 +152,7 @@ const dateDurationToDate = (duration: DateDuration): Date => {
 };
 
 const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): boolean => {
-  console.log(consent, useCase);
-  if (!useCase.sharingDurations) {
+  if (!useCase.sharingDurations || consent.status !== Status.ACTIVE) {
     return false;
   }
 
