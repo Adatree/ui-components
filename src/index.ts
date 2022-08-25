@@ -2,9 +2,10 @@
 export { Accordion } from './atoms/accordion/accordion.molecule';
 export { Accreditation } from './atoms/accreditation/accreditation.atom';
 export { AutocompleteDropdown } from './atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
-export { ConsentCancelButton } from './atoms/consent-cancel-button/consent-cancel-button.atom';
+export { Card } from './atoms/card/card.atom';
 export { CheckboxAccordion } from './atoms/checkbox-accordion/checkbox-accordion.atom';
 export { Confirmation } from './atoms/confirmation/confirmation.atom';
+export { ConsentCancelButton } from './atoms/consent-cancel-button/consent-cancel-button.atom';
 export { ConsentList } from './atoms/consent-list/consent-list.atom';
 export { ConsentListItem } from './atoms/consent-list-item/consent-list-item.atom';
 export { DataHolderTiles } from './atoms/data-holder-tiles/data-holder-tiles.atom';
@@ -20,10 +21,10 @@ export { MaxAccountConnectedMessage } from './atoms/max-account-connected-messag
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
 export { PartnerMessage } from './atoms/partner-message/partner-message-atom';
 export { RadioButtonWithText } from './atoms/radio-button-with-text/radio-button-with-text.atom';
+export { SectionCard } from './atoms/section-card/section-card.atom';
 export { ScopeList } from './atoms/scope-list/scope-list.atom';
 export { ScopeListCheckbox } from './atoms/scope-list/scope-list-checkbox.atom';
 export { ScopeListSwitch } from './atoms/scope-list/scope-list-switch.atom';
-export { SectionCard } from './atoms/section-card/section-card.atom';
 export { Tooltip } from './atoms/tooltip/tooltip.atom';
 
 // Molecules
