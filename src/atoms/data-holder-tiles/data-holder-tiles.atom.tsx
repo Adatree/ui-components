@@ -26,15 +26,16 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-evenly' }}>
       {dataHolders.map((dataHolder) => {
         const disabled = isDisabled(dataHolder);
         return (
           <Box
             sx={{
-              width: { xs: '50%', md: '25%' },
+              width: '50%',
+              maxWidth: '25rem',
               cursor: disabled === true ? 'default' : 'pointer',
-              p: { xs: 0.5, sm: 2, md: 3 },
+              p: 0.5,
               position: 'relative',
               '&:hover': { opacity: disabled === true ? '1' : '0.3' },
               alignSelf: 'stretch',
