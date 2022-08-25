@@ -45,8 +45,8 @@ const Template: ComponentStory<typeof ConsentEdit> = (args) => <ConsentEdit {...
 
 // ####################################
 
-export const NonEditable = Template.bind({});
-NonEditable.decorators = [
+export const NonEditableActiveStatus = Template.bind({});
+NonEditableActiveStatus.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -56,7 +56,7 @@ NonEditable.decorators = [
   },
 ];
 
-NonEditable.args = {
+NonEditableActiveStatus.args = {
   consent: TestUtil.testData.consent.active(),
   copy: copy,
   organisation: organisation,
@@ -68,6 +68,30 @@ NonEditable.args = {
   onSubmit: handleSummit,
 };
 
+// ####################################
+
+export const NonEditableNonActiveStatus = Template.bind({});
+NonEditableNonActiveStatus.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+NonEditableNonActiveStatus.args = {
+  consent: TestUtil.testData.consent.revoked(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    accessFrequency: AccessFrequency.ONGOING,
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
 // ####################################
 
 export const WithCustomDate = Template.bind({});

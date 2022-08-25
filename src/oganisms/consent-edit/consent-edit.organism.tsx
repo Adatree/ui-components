@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ConsentResponse, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
@@ -96,9 +96,16 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     <section>
       {!isEditable && (
         <Box sx={{ mb: 3 }}>
-          <Alert severity="success">
-            <Typography>Your consent details are up to date. There are no options for you to edit.</Typography>
-          </Alert>
+          {consent.status === Status.ACTIVE && (
+            <Alert severity="success">
+              <Typography>Your consent details are up to date. There are no options for you to edit.</Typography>
+            </Alert>
+          )}
+          {consent.status !== Status.ACTIVE && (
+            <Alert severity="error">
+              <Typography>{`You are unable to edit your consent because it's status is ${consent.status?.toLowerCase()}.`}</Typography>
+            </Alert>
+          )}
         </Box>
       )}
 
