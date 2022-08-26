@@ -18,7 +18,7 @@ const confirmation = (
   if (endDate && sharingDuration === SharingDuration.CUSTOM) {
     return (
       <>
-        {common} untill the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
+        {common} until the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
       </>
     );
   } else if (sharingDuration === SharingDuration.ONCEOFF) {
@@ -72,7 +72,7 @@ const currentAccess = (companyName: string, endDate: string | undefined): React.
   if (endDate) {
     return (
       <>
-        {common} untill the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
+        {common} until the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
       </>
     );
   } else {

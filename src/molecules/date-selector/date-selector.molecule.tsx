@@ -96,7 +96,7 @@ export const DateSelector = (props: DateSelectorProps) => {
       )}
       {sharingEndDate && sharingDuration === SharingDuration.CUSTOM && (
         <Typography sx={{ my: 1.5 }}>
-          <Highlight>{companyName}</Highlight> will be able to access your data untill the{' '}
+          <Highlight>{companyName}</Highlight> will be able to access your data until the{' '}
           <Highlight>{Formatter.formatDateTime(sharingEndDate)}</Highlight>.
         </Typography>
       )}
