@@ -4,15 +4,12 @@ import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
 import { Copy } from '../../types/copy.type';
-import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
-import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { Alert, Box, Button, Typography } from '@mui/material';
-import { Card } from '../../atoms/card/card.atom';
-import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
-import { TextBuilder } from '../../utils/text/text-builder';
+import { ConsentEditScopes } from './consent-edit-scopes.organism';
+import { ConsentEditDates } from './consent-edit-dates.organism';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -117,40 +114,30 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </Box>
       )}
 
-      {useCase.dataHolders && useCase.scopes && (
-        <>
-          <ConsentSectionScopes organisation={organisation} readOnly={true} scopes={useCase.scopes} showError={false} />
+      <ConsentEditScopes consent={consent} organisation={organisation} useCase={useCase} />
 
-          <Card>
-            <Typography sx={{ mt: 1.5, mb: 0 }}>
-              {TextBuilder.currentAccess(organisation.name, consent.sharingEndDate)}
-            </Typography>
-          </Card>
+      <ConsentEditDates consent={consent} organisation={organisation} showError={showDateError} useCase={useCase} />
 
-          <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
+      <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
 
-          <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
-
-          {!isEditable && (
-            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button variant="contained" onClick={handleCancel} sx={{ width: { xs: '100%', sm: '20rem' } }}>
-                Done
-              </Button>
-            </Box>
-          )}
-          {isEditable && (
-            <ConsentSectionActions
-              actionButtonLabel={copy.consent.saveLabel}
-              cancelButtonLabel={copy.consent.cancelLabel}
-              cancelButtonMessage={copy.consent.cancelEditMessage}
-              organisation={organisation}
-              isValid={isFormValid}
-              showError={showDateError}
-              onCancel={handleCancel}
-              onSubmit={handlePreSubmit}
-            />
-          )}
-        </>
+      {!isEditable && (
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Button variant="contained" onClick={handleCancel} sx={{ width: { xs: '100%', sm: '20rem' } }}>
+            Done
+          </Button>
+        </Box>
+      )}
+      {isEditable && (
+        <ConsentSectionActions
+          actionButtonLabel={copy.consent.saveLabel}
+          cancelButtonLabel={copy.consent.cancelLabel}
+          cancelButtonMessage={copy.consent.cancelEditMessage}
+          organisation={organisation}
+          isValid={isFormValid}
+          showError={showDateError}
+          onCancel={handleCancel}
+          onSubmit={handlePreSubmit}
+        />
       )}
 
       <PartnerMessageDialog
