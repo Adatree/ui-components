@@ -6,9 +6,10 @@ import {
   Status,
   UseCaseResponse,
   DataHolder,
+  ScopeResponse,
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
-import { isEqual } from 'lodash';
+import { isEqual, xor } from 'lodash';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -151,6 +152,19 @@ const dateDurationToDate = (duration: DateDuration): Date => {
   return newDate;
 };
 
+/**
+ * Compares the compareWithBaseScopes to baseScopes
+ * @param baseScopes
+ * @param compareWithBaseScopes
+ * @returns [] for equal or [ScopeResponse] if compareWithBaseScopes has a difference.
+ */
+const getScopeDifference = (baseScopes: ScopeResponse[], compareWithBaseScopes: ScopeResponse[]): ScopeResponse[] => {
+  let difference = compareWithBaseScopes.filter(
+    (compareWithBaseScope) => !baseScopes.some((baseScope) => compareWithBaseScope.id === baseScope.id),
+  );
+  return difference;
+};
+
 const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): boolean => {
   if (!useCase.sharingDurations || consent.status !== Status.ACTIVE) {
     return false;
@@ -166,11 +180,13 @@ const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): 
 
   return true;
 };
+
 export const Helper = {
   accessFrequencyToString,
   dateDurationToDate,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
+  getScopeDifference,
   isConsentEditable,
   parseSharingDuration,
   parseSharingDurations,

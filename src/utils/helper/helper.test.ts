@@ -124,10 +124,72 @@ describe('Helper Utils', () => {
 
   describe('parseSharingDuration', () => {
     it('should parse the SharingDuration array amd return the correct DateDuration array', () => {
-      expect(Helper.parseSharingDuration([SharingDuration.ONEDAY])).toEqual([DateDurationList[0]]);
-      expect(Helper.parseSharingDuration([SharingDuration.ONCEOFF])).toEqual([DateDurationList[8]]);
-      expect(Helper.parseSharingDuration([SharingDuration.CUSTOM])).toEqual([DateDurationList[9]]);
-      expect(Helper.parseSharingDuration([])).toEqual([]);
+      expect(Helper.parseSharingDuration(SharingDuration.ONEDAY)).toEqual(DateDurationList[0]);
+      expect(Helper.parseSharingDuration(SharingDuration.ONCEOFF)).toEqual(DateDurationList[8]);
+      expect(Helper.parseSharingDuration(SharingDuration.CUSTOM)).toEqual(DateDurationList[9]);
+    });
+  });
+
+  describe('getScopeDifference', () => {
+    it('should get scope difference between scope array A and B', () => {
+      // Same
+      expect(Helper.getScopeDifference([{ id: 'A', name: 'Name A' }], [{ id: 'A', name: 'Name A' }])).toEqual([]);
+      expect(Helper.getScopeDifference([{ id: 'A', name: 'Name A' }], [{ id: 'A', name: 'Name A new' }])).toEqual([]);
+
+      // Scope(s) are present in the compareWithBaseScopes array
+      expect(Helper.getScopeDifference([{ id: 'A', name: 'Name A' }], [{ id: 'B', name: 'Name B' }])).toEqual([
+        { id: 'B', name: 'Name B' },
+      ]);
+      expect(
+        Helper.getScopeDifference(
+          [
+            { id: 'A', name: 'Name A' },
+            { id: 'AA', name: 'Name AA' },
+            { id: 'AAA', name: 'Name AAA' },
+          ],
+          [
+            { id: 'B', name: 'Name B' },
+            { id: 'BB', name: 'Name BB' },
+            { id: 'BBB', name: 'Name BBB' },
+          ],
+        ),
+      ).toEqual([
+        { id: 'B', name: 'Name B' },
+        { id: 'BB', name: 'Name BB' },
+        { id: 'BBB', name: 'Name BBB' },
+      ]);
+      expect(
+        Helper.getScopeDifference(
+          [
+            { id: 'A', name: 'Name A' },
+            { id: 'AA', name: 'Name AA' },
+            { id: 'AAA', name: 'Name AAA' },
+          ],
+          [
+            { id: 'B', name: 'Name B' },
+            { id: 'AA', name: 'Name AA' },
+            { id: 'BBB', name: 'Name BBB' },
+          ],
+        ),
+      ).toEqual([
+        { id: 'B', name: 'Name B' },
+        { id: 'BBB', name: 'Name BBB' },
+      ]);
+
+      // compareWithBaseScopes scope are all in baseScopes
+      expect(
+        Helper.getScopeDifference(
+          [
+            { id: 'A', name: 'Name A' },
+            { id: 'AA', name: 'Name AA' },
+            { id: 'AAA', name: 'Name AAA' },
+          ],
+          [
+            { id: 'AA', name: 'Name AA' },
+            { id: 'AAA', name: 'Name AAA' },
+          ],
+        ),
+      ).toEqual([]);
     });
   });
 });
