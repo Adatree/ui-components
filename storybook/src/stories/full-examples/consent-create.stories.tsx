@@ -23,7 +23,7 @@ const companyName = 'TestCompany';
 const dataSharingRevocationEmail = 'name@example.com';
 const baseConsentFormValues = {
   accessFrequency: undefined,
-  checkedScopes: [],
+  allScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.DELETION,

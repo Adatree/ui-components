@@ -23,7 +23,6 @@ export type ConsentCreateFormProps = {
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const { copy, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
-  const [isAllCheckboxChecked, setIsAllCheckboxChecked] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
@@ -47,17 +46,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDateError(false);
     }
 
-    if (isAllCheckboxChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
+    if (consentForm.allScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
     }
-  }, [isAllCheckboxChecked, consentForm]);
-
-  const handleScopeChange = (isAllChecked: boolean) => {
-    setShowScopeError(false);
-    setIsAllCheckboxChecked(isAllChecked);
-  };
+  }, [consentForm]);
 
   const handlePartnerDialogClose = () => {
     setIsPartnerDialogOpen(false);
@@ -79,7 +73,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowScopeError(isAllCheckboxChecked === true ? false : true);
+      setShowScopeError(consentForm.allScopesChecked === true ? false : true);
     }
   };
 
@@ -97,12 +91,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             organisation={organisation}
           />
 
-          <ConsentSectionScopes
-            organisation={organisation}
-            scopes={useCase.scopes}
-            showError={showScopeError}
-            onChange={handleScopeChange}
-          />
+          <ConsentSectionScopes organisation={organisation} scopes={useCase.scopes} showError={showScopeError} />
 
           <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
 

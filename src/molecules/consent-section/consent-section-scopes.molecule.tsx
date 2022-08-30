@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent/api';
 import { Card } from '../../atoms/card/card.atom';
@@ -6,27 +6,33 @@ import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { Organisation } from '../../types/organisation.type';
 import { ScopeList } from '../../atoms/scope-list/scope-list.atom';
+import { useConsentForm } from '../../context/consentForm.context';
 
 export type ConsentSectionScopesProps = {
   organisation: Organisation;
   scopes: ScopeResponse[];
   showError: boolean;
   readOnly?: boolean;
-  onChange?: (isAllClicked: boolean) => void;
 };
 
 export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props) => {
-  const { organisation, showError, scopes, readOnly = false, onChange } = props;
+  const { organisation, showError, scopes, readOnly = false } = props;
+  const [showScopeError, setShowScopeError] = useState(showError);
+  const [consentForm, setConsentForm] = useConsentForm();
+
+  useEffect(() => {
+    setShowScopeError(showError);
+  }, [showError]);
 
   const handleChange = (isAllClicked: boolean) => {
-    if (onChange) {
-      onChange(isAllClicked);
-    }
+    consentForm.allScopesChecked = isAllClicked;
+    setConsentForm({ ...consentForm });
+    setShowScopeError(!isAllClicked);
   };
 
   return (
     <>
-      <Card error={showError} sx={{ mt: 1 }}>
+      <Card error={showScopeError} sx={{ mt: 1 }}>
         {readOnly && (
           <>
             <Typography sx={{ mb: 1 }}>
@@ -46,7 +52,7 @@ export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props)
         )}
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showError && !readOnly && 'Please select all the options.'}
+        {showScopeError && !readOnly && 'Please select all the options.'}
       </Typography>
     </>
   );

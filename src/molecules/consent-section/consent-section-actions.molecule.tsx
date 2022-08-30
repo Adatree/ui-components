@@ -55,7 +55,7 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
         <ConsentCancelButton label={cancelButtonLabel} dialogText={cancelButtonMessage} onCancel={handleCancel} />
       </Box>
       <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showError && 'Please fix the error(s) above.'}
+        {showError && !isValid && 'Please fix the error(s) above.'}
       </Typography>
       <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
         <Accreditation
