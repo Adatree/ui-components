@@ -46,7 +46,7 @@ export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props)
         )}
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showError && readOnly && 'Please select all the options.'}
+        {showError && !readOnly && 'Please select all the options.'}
       </Typography>
     </>
   );
