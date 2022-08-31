@@ -3,17 +3,16 @@ import { ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../..
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
-import { Copy } from '../../types/copy.type';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { Alert, Box, Button, Typography } from '@mui/material';
 import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
+import { useCopy } from '../../context/copy.context';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
-  copy: Copy;
   organisation: Organisation;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
@@ -22,12 +21,13 @@ export type ConsentEditProps = {
 };
 
 export const ConsentEdit = (props: ConsentEditProps) => {
-  const { consent, copy, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const { consent, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isEditable, setIsEditable] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
+  const [copy] = useCopy();
 
   useEffect(() => {
     if (consent.dataHolderName && consent.dataHolderBrandId && consent.dataHolderLogoUri) {
@@ -118,7 +118,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
 
       <ConsentEditDates consent={consent} organisation={organisation} showError={showDateError} useCase={useCase} />
 
-      <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
+      <ConsentSectionInfo organisation={organisation} useCase={useCase} />
 
       {!isEditable && (
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>

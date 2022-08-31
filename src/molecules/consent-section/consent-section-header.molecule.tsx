@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { Organisation } from '../../types/organisation.type';
-import { Copy } from '../../types/copy.type';
+import { useCopy } from '../../context/copy.context';
 
 export type ConsentSectionHeaderProps = {
-  copy: Copy;
   dataHolderName: string;
   organisation: Organisation;
 };
 
 export const ConsentSectionHeader: React.FC<ConsentSectionHeaderProps> = (props) => {
-  const { copy, dataHolderName, organisation } = props;
+  const { dataHolderName, organisation } = props;
+  const [copy] = useCopy();
 
   return (
     <>

@@ -5,16 +5,16 @@ import { Organisation } from '../../types/organisation.type';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
-import { Copy } from '../../types/copy.type';
+import { useCopy } from '../../context/copy.context';
 
 export type ConsentSectionInfoProps = {
-  copy: Copy;
   organisation: Organisation;
   useCase: UseCaseResponse;
 };
 
 export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
-  const { copy, organisation, useCase } = props;
+  const { organisation, useCase } = props;
+  const [copy] = useCopy();
 
   return (
     <>

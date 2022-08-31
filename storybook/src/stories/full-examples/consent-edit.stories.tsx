@@ -39,8 +39,6 @@ const organisation = {
   underCdrPrincipal: false,
 };
 
-const copy = TestUtil.testData.copy;
-
 const handleSummit = () => {
   alert('Consent submitted');
 };
@@ -65,7 +63,6 @@ WithNoChanges.decorators = [
 
 WithNoChanges.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -90,7 +87,6 @@ WithNonActiveConsent.decorators = [
 
 WithNonActiveConsent.args = {
   consent: TestUtil.testData.consent.revoked(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -115,7 +111,6 @@ WithAdditionalUseCaseScopes.decorators = [
 
 WithAdditionalUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -145,7 +140,6 @@ WithRemovedUseCaseScopes.decorators = [
 
 WithRemovedUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -170,7 +164,6 @@ WithAdditionalAndRemovedUseCaseScopes.decorators = [
 
 WithAdditionalAndRemovedUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -195,7 +188,6 @@ WithCustomDate.decorators = [
 
 WithCustomDate.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.CUSTOM] },
   onCancel: handleCancel,
@@ -217,7 +209,6 @@ WithMultiDates.decorators = [
 
 WithMultiDates.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -242,7 +233,6 @@ WithMultiDatesAndCustom.decorators = [
 
 WithMultiDatesAndCustom.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
@@ -267,7 +257,6 @@ WithAll.decorators = [
 
 WithAll.args = {
   consent: TestUtil.testData.consent.active(),
-  copy: copy,
   organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),

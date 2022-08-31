@@ -39,8 +39,6 @@ const organisation = {
   underCdrPrincipal: false,
 };
 
-const copy = TestUtil.testData.copy.generateCopy(organisation);
-
 const handleSummit = () => {
   alert('Consent submitted');
 };
@@ -64,7 +62,6 @@ WithOngoingAccess.decorators = [
 ];
 
 WithOngoingAccess.args = {
-  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
@@ -91,7 +88,6 @@ WithOnceOffAccess.decorators = [
 ];
 
 WithOnceOffAccess.args = {
-  copy: copy,
   organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
@@ -118,7 +114,6 @@ WithUnderCdrPrincipal.decorators = [
 ];
 
 WithUnderCdrPrincipal.args = {
-  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: { ...organisation, underCdrPrincipal: true },
@@ -145,7 +140,6 @@ WithSupportingParties.decorators = [
 ];
 
 WithSupportingParties.args = {
-  copy: copy,
   organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
@@ -172,7 +166,6 @@ WithLongScopes.decorators = [
 ];
 
 WithLongScopes.args = {
-  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
@@ -195,7 +188,6 @@ WithMultiDatesAndCustom.decorators = [
 ];
 
 WithMultiDatesAndCustom.args = {
-  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   organisation: organisation,
@@ -218,7 +210,6 @@ WithNoFavouriteDataHolders.decorators = [
 ];
 
 WithNoFavouriteDataHolders.args = {
-  copy: copy,
   existingConsents: TestUtil.testData.consent.all(),
   organisation: organisation,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
@@ -240,7 +231,6 @@ WithNoRemainingDataHolders.decorators = [
 ];
 
 WithNoRemainingDataHolders.args = {
-  copy: copy,
   existingConsents: [
     ...TestUtil.testData.consent.all(),
     ...[

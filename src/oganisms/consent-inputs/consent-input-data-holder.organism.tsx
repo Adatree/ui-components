@@ -3,21 +3,21 @@ import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/co
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
-import { Copy } from '../../types/copy.type';
 import { Box, Typography } from '@mui/material';
 import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
+import { useCopy } from '../../context/copy.context';
 
 export type ConsentInputDataHolderProps = {
-  copy: Copy;
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   favouriteDataHolders?: DataHolder[];
 };
 
 export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
-  const { copy, existingConsents, favouriteDataHolders, useCase } = props;
+  const { existingConsents, favouriteDataHolders, useCase } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
+  const [copy] = useCopy();
 
   const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(
     useCase.dataHolders,

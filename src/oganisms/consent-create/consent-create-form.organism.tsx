@@ -3,7 +3,7 @@ import { SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { Organisation } from '../../types/organisation.type';
-import { Copy } from '../../types/copy.type';
+import { useCopy } from '../../context/copy.context';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
@@ -12,7 +12,6 @@ import { ConsentSectionActions } from '../../molecules/consent-section/consent-s
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 
 export type ConsentCreateFormProps = {
-  copy: Copy;
   organisation: Organisation;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
@@ -21,13 +20,14 @@ export type ConsentCreateFormProps = {
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { copy, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const { organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
+  const [copy] = useCopy();
 
   useEffect(() => {
     if (
@@ -86,7 +86,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       {useCase.dataHolders && useCase.scopes && (
         <>
           <ConsentSectionHeader
-            copy={copy}
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
             organisation={organisation}
           />
@@ -95,7 +94,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
 
           <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
 
-          <ConsentSectionInfo copy={copy} organisation={organisation} useCase={useCase} />
+          <ConsentSectionInfo organisation={organisation} useCase={useCase} />
 
           <ConsentSectionActions
             actionButtonLabel={copy.consent.consentLabel}
