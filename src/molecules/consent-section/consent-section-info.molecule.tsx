@@ -22,7 +22,7 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
         <Accordion title="Purpose of accessing my data" content={useCase.description} />
         <GeneralInformation
           cdrPolicyUrl={organisation.cdrPolicyUrl}
-          topListItemOverride={copy.consent.dataHolderGeneralInformationListItem}
+          topListItemOverride={copy.consent.create.data_holder_general_information_list_item}
           dataSharingRevocationEmail={organisation.dataSharingRevocationEmail}
         />
         {useCase.osps && useCase.osps.length > 0 && (

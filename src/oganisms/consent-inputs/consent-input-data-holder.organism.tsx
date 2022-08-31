@@ -39,7 +39,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
   return (
     <>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h2">{copy.consent.selectFavouriteDataHolderTitle}</Typography>
+        <Typography variant="h2">{copy.consent.create.select_favourite_data_holder_title}</Typography>
       </Box>
 
       {useCase.dataHolders && (
@@ -53,7 +53,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
               />
 
               <Box sx={{ mt: 3, mb: 1 }}>
-                <Typography variant="h3">{copy.consent.selectMoreDataHolderTitle}</Typography>
+                <Typography variant="h3">{copy.consent.create.select_more_data_holder_title}</Typography>
               </Box>
             </>
           )}
@@ -63,7 +63,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
             disableDataHolders={disableDataHolders}
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
-            label={copy.consent.dataHolderInputLabel}
+            label={copy.consent.create.data_holder_input_label}
           />
         </>
       )}

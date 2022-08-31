@@ -129,9 +129,9 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       )}
       {isEditable && (
         <ConsentSectionActions
-          actionButtonLabel={copy.consent.saveLabel}
-          cancelButtonLabel={copy.consent.cancelLabel}
-          cancelButtonMessage={copy.consent.cancelEditMessage}
+          actionButtonLabel={copy.consent.create.save_label}
+          cancelButtonLabel={copy.consent.create.cancel_label}
+          cancelButtonMessage={copy.consent.create.cancel_edit_message}
           isValid={isFormValid}
           showError={showDateError}
           onCancel={handleCancel}
