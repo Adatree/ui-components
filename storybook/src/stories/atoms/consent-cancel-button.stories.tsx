@@ -14,6 +14,7 @@ const Template: ComponentStory<typeof ConsentCancelButton> = (args) => <ConsentC
 
 export const Default = Template.bind({});
 Default.args = {
+  label: 'cancel',
   dialogText: 'Are you sure you want to cancel this consent?',
   onCancel: () => {
     alert('Consent cancelled');

@@ -4,6 +4,7 @@ import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import ChevronRight from 'mdi-material-ui/ChevronRight';
 import Bank from 'mdi-material-ui/Bank';
+import { useCopy } from '../../context/copy.context';
 
 export type ListItemProps = {
   consent: ConsentResponse;
@@ -13,21 +14,22 @@ export type ListItemProps = {
 
 export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   const { consent, dataHolderLogoUrl, consentUrl } = props;
+  const [copy] = useCopy();
 
   let textDate = '';
 
   switch (consent.status) {
     case Status.ACTIVE:
-      textDate = `granted: ${Formatter.formatDate(consent.created)}`;
+      textDate = `${copy.common.status_active_label} ${Formatter.formatDate(consent.created)}`;
       break;
     case Status.REQUESTED:
-      textDate = `requested: ${Formatter.formatDate(consent.created)}`;
+      textDate = `${copy.common.status_requested_label} ${Formatter.formatDate(consent.created)}`;
       break;
     case Status.EXPIRED:
-      textDate = `expired: ${Formatter.formatDate(consent.sharingEndDate)}`;
+      textDate = `${copy.common.status_expired_label} ${Formatter.formatDate(consent.sharingEndDate)}`;
       break;
     case Status.REVOKED:
-      textDate = `revoked: ${Formatter.formatDate(consent.revoked)}`;
+      textDate = `${copy.common.status_revoked_label} ${Formatter.formatDate(consent.revoked)}`;
       break;
   }
 

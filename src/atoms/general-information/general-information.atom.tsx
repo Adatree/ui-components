@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { LinkExternal } from '../links/link-external.atom';
+import { useCopy } from '../../context/copy.context';
 
 export type GeneralInformationProps = {
   cdrPolicyUrl: string;
@@ -10,33 +11,30 @@ export type GeneralInformationProps = {
 };
 
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
-  const {
-    cdrPolicyUrl,
-    topListItemOverride = 'We will never ask for your bank login password. Your bank will send you a one time password.',
-    dataSharingRevocationEmail,
-  } = props;
+  const { cdrPolicyUrl, topListItemOverride, dataSharingRevocationEmail } = props;
+  const [copy] = useCopy();
 
   const generalInfoList = [
-    topListItemOverride,
-    'We will never sell your data or use it for marketing.',
+    topListItemOverride ? topListItemOverride : copy.component.general_information.list_security,
+    copy.component.general_information.list_marketing,
     <Typography>
-      You can request copies of records relating to your consent and the data we collect by writing to us at{' '}
+      {copy.component.general_information.list_records}{' '}
       <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
     </Typography>,
     <Typography>
-      You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to
-      us at <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
+      {copy.component.general_information.list_sharing}{' '}
+      <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
     </Typography>,
-    'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
-    'When you revoke consent, the services we offer may cease to provide you with benefits.',
+    copy.component.general_information.list_deleted,
+    copy.component.general_information.list_revoked,
     <Typography>
-      Find out more information on how we handle your data in our easy to read{' '}
-      <LinkExternal href={cdrPolicyUrl} text="CDR Policy" />.
+      {copy.component.general_information.list_more}{' '}
+      <LinkExternal href={cdrPolicyUrl} text={copy.common.cdr_policy_label} />.
     </Typography>,
   ];
   return (
     <Accordion
-      title="General information"
+      title={copy.component.general_information.title}
       content={
         <List>
           {generalInfoList.map((item, index) => {

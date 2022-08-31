@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import Bank from 'mdi-material-ui/Bank';
+import { useCopy } from '../../context/copy.context';
 
 export type CheckboxAccordionProps = {
   dataHolders: DataHolder[];
@@ -16,6 +17,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   const { dataHolders, label = '', defaultValue = null, disableDataHolders = [], showError = false, onChange } = props;
   const [inputValue, setInputValue] = useState<DataHolder | null>(null);
   const [error, setError] = useState(showError);
+  const [copy] = useCopy();
 
   useEffect(() => {
     if (showError) {
@@ -92,7 +94,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
       />
 
       <Typography sx={{ minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {error && 'This field is required.'}
+        {error && copy.error.required}
       </Typography>
     </>
   );

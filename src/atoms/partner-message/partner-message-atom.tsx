@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { Highlight } from '../highlight-text/highlight-text.atom';
 import { useOrg } from '../../context/organisation.context';
+import { useCopy } from '../../context/copy.context';
 
 export type PartnerMessageProps = {
   dataHolderName: string;
@@ -11,6 +11,7 @@ export type PartnerMessageProps = {
 export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
   const { dataHolderName, discreetMode = false } = props;
   const [organisation] = useOrg();
+  const [copy] = useCopy();
 
   return (
     <section>
@@ -22,20 +23,14 @@ export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
             style={{ maxWidth: '260px', width: '100%', margin: '0 auto' }}
           />
         </Box>
-        {!discreetMode && <Typography sx={{ mb: 1 }}>consent service provided by</Typography>}
+        {!discreetMode && <Typography sx={{ mb: 1 }}>{copy.component.partner_message.discreet_label}</Typography>}
         <Typography variant="h1" sx={{ mb: 2.5, fontSize: discreetMode === true ? '1.8rem' : '3rem' }}>
-          Adatree
+          {copy.common.adatree_name}
         </Typography>
       </div>
       <Box>
-        <Typography sx={{ mb: 1 }}>
-          <Highlight>{organisation.name}</Highlight> use <Highlight>Adatree</Highlight> to help you consent and access
-          your data.
-        </Typography>
-        <Typography sx={{ mt: 1.5, mb: 0 }}>
-          <Highlight>{dataHolderName}</Highlight> will ask you to share your data with <Highlight>Adatree</Highlight>{' '}
-          for <Highlight>{organisation.name}</Highlight>.
-        </Typography>
+        <Typography sx={{ mb: 1 }}>{copy.component.partner_message.what_label}</Typography>
+        <Typography sx={{ mt: 1.5, mb: 0 }}>{copy.component.partner_message.why_label(dataHolderName)}</Typography>
       </Box>
     </section>
   );

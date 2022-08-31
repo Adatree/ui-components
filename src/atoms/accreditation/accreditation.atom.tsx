@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { LinkExternal } from '../links/link-external.atom';
+import { useCopy } from '../../context/copy.context';
 
 export type AccreditationProps = {
   accreditationNumber: string;
@@ -11,11 +12,12 @@ export type AccreditationProps = {
 
 export const Accreditation: React.FC<AccreditationProps> = (props) => {
   const { accreditationNumber, cdrPolicyUrl, companyName, underCdrPrincipal = false } = props;
+  const [copy] = useCopy();
 
   const cdrText =
     underCdrPrincipal === true
-      ? `Under CDR Principal: ${accreditationNumber}`
-      : `Accredited Data Recipient: ${accreditationNumber}`;
+      ? `${copy.common.cdr_principal_label} ${accreditationNumber}`
+      : `${copy.common.accredited_recipient_label} ${accreditationNumber}`;
 
   return (
     <>

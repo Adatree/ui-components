@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { List } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
 import { CheckboxAccordion } from '../checkbox-accordion/checkbox-accordion.atom';
+import { useCopy } from '../../context/copy.context';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
@@ -12,6 +13,7 @@ export type ScopeListProps = {
 export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
   const { scopes, companyName, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
+  const [copy] = useCopy();
 
   const handleChexboxClick = (isChecked: boolean, value: string) => {
     let tmpArray = clickedValues;
@@ -42,7 +44,7 @@ export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
               ${scope.purpose}
 
 
-              ${companyName} will receive access to the following information:
+              ${copy.consent.scope.tooltip_label}
               `}
               />
             </li>

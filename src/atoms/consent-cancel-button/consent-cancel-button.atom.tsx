@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
+import { useCopy } from '../../context/copy.context';
 
 export type ConsentCancelButtonProps = {
   label: string;
@@ -10,6 +11,7 @@ export type ConsentCancelButtonProps = {
 export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) => {
   const { label, dialogText, onCancel } = props;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [copy] = useCopy();
 
   const handleClose = () => {
     setIsDialogOpen(false);
@@ -43,10 +45,10 @@ export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) =
         </DialogContent>
         <DialogActions>
           <Button variant="outlined" color="inherit" onClick={handleClose} autoFocus>
-            No
+            {copy.common.button_label_no}
           </Button>
           <Button variant="outlined" color="inherit" onClick={handleCancel}>
-            Yes
+            {copy.common.button_label_yes}
           </Button>
         </DialogActions>
       </Dialog>

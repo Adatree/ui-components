@@ -13,6 +13,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
+import { useCopy } from '../../context/copy.context';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
 
@@ -28,6 +29,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [copy] = useCopy();
   const theme = useTheme();
 
   const handleToggle = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
@@ -117,7 +119,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
         </DialogTitle>
         <DialogContent>
           <Typography sx={{ mb: 1.5 }}>{scope?.purpose}</Typography>
-          <Typography sx={{ mb: 0.75 }}>{companyName} will receive access to the following information:</Typography>
+          <Typography sx={{ mb: 0.75 }}>{copy.consent.scope.tooltip_label}</Typography>
           <ul>
             {scope?.claims?.map((claim) => (
               <li
