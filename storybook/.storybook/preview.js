@@ -4,9 +4,11 @@ export const decorators = [
   (Story) => {
     return (
       <ThemeProvider theme={defaultTheme}>
-        <CopyProvider initialCopy={TestUtil.testData.copy}>
-          <Story />
-        </CopyProvider>
+        <OrganisationProvider org={TestUtil.testData.organisation}>
+          <CopyProvider initialCopy={TestUtil.testData.copy}>
+            <Story />
+          </CopyProvider>
+        </OrganisationProvider>
       </ThemeProvider>
     );
   },
