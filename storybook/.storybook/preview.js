@@ -1,11 +1,11 @@
-import { CopyProvider, defaultTheme, ThemeProvider, TestUtil } from '../src/lib';
+import { CopyProvider, defaultTheme, OrganisationProvider, ThemeProvider, TestUtil } from '../src/lib';
 
 export const decorators = [
   (Story) => {
     return (
       <ThemeProvider theme={defaultTheme}>
         <OrganisationProvider org={TestUtil.testData.organisation}>
-          <CopyProvider initialCopy={TestUtil.testData.copy}>
+          <CopyProvider initialCopy={TestUtil.testData.generateCopy(TestUtil.testData.organisation)}>
             <Story />
           </CopyProvider>
         </OrganisationProvider>

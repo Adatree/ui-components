@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 export interface Copy {
   consent: {
     cancelLabel: string;
@@ -10,5 +12,9 @@ export interface Copy {
     selectMoreDataHolderTitle: string;
     saveLabel: string;
     title: string[];
+    edit: {
+      scope_additional_label: string | ReactElement;
+      scope_removal_label: string;
+    };
   };
 }
