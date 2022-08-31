@@ -48,6 +48,7 @@ export { ApiCogIcon } from './atoms/icons/api-cog.icon';
 
 // Context
 export * from './context/consentForm.context';
+export * from './context/copy.context';
 
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
