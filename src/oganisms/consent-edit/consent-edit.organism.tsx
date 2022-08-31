@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
-import { Organisation } from '../../types/organisation.type';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
@@ -10,10 +9,10 @@ import { Alert, Box, Button, Typography } from '@mui/material';
 import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 import { useCopy } from '../../context/copy.context';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
-  organisation: Organisation;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   onCancel: () => void;
@@ -21,13 +20,14 @@ export type ConsentEditProps = {
 };
 
 export const ConsentEdit = (props: ConsentEditProps) => {
-  const { consent, organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const { consent, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isEditable, setIsEditable] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
+  const [organisation] = useOrg();
 
   useEffect(() => {
     if (consent.dataHolderName && consent.dataHolderBrandId && consent.dataHolderLogoUri) {
@@ -114,11 +114,11 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </Box>
       )}
 
-      <ConsentEditScopes consent={consent} organisation={organisation} useCase={useCase} />
+      <ConsentEditScopes consent={consent} useCase={useCase} />
 
-      <ConsentEditDates consent={consent} organisation={organisation} showError={showDateError} useCase={useCase} />
+      <ConsentEditDates consent={consent} showError={showDateError} useCase={useCase} />
 
-      <ConsentSectionInfo organisation={organisation} useCase={useCase} />
+      <ConsentSectionInfo useCase={useCase} />
 
       {!isEditable && (
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
@@ -132,7 +132,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
           actionButtonLabel={copy.consent.saveLabel}
           cancelButtonLabel={copy.consent.cancelLabel}
           cancelButtonMessage={copy.consent.cancelEditMessage}
-          organisation={organisation}
           isValid={isFormValid}
           showError={showDateError}
           onCancel={handleCancel}
@@ -144,7 +143,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
         discreetMode={enablePartnerMessageDiscreetMode}
         isOpen={isPartnerDialogOpen}
-        organisation={organisation}
         onClose={handlePartnerDialogClose}
         onSubmit={handleSubmit}
       />

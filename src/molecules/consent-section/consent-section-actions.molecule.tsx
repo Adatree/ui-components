@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { Organisation } from '../../types/organisation.type';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentSectionActionsProps = {
   actionButtonLabel: string;
   cancelButtonLabel: string;
   cancelButtonMessage: string;
-  organisation: Organisation;
   isValid: boolean;
   showError: boolean;
   onCancel: () => void;
@@ -16,16 +15,8 @@ export type ConsentSectionActionsProps = {
 };
 
 export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (props) => {
-  const {
-    actionButtonLabel,
-    cancelButtonLabel,
-    cancelButtonMessage,
-    organisation,
-    isValid,
-    showError,
-    onCancel,
-    onSubmit,
-  } = props;
+  const { actionButtonLabel, cancelButtonLabel, cancelButtonMessage, isValid, showError, onCancel, onSubmit } = props;
+  const [organisation] = useOrg();
 
   const handleSubmit = () => {
     onSubmit();

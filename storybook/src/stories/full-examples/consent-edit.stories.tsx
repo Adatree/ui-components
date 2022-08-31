@@ -17,10 +17,6 @@ export default {
   },
 } as ComponentMeta<typeof ConsentEdit>;
 
-const accreditationNumber = '1234-5678';
-const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
-const companyName = 'TestCompany';
-const dataSharingRevocationEmail = 'name@example.com';
 const baseConsentFormValues = {
   accessFrequency: undefined,
   allScopesChecked: false,
@@ -29,14 +25,6 @@ const baseConsentFormValues = {
   postUsageAction: PostUsageAction.DELETION,
   sharingEndDate: undefined,
   useCaseId: undefined,
-};
-const organisation = {
-  accreditationNumber: accreditationNumber,
-  dataSharingRevocationEmail: dataSharingRevocationEmail,
-  cdrPolicyUrl: cdrPolicyUrl,
-  logo: '/assets/images/test-company-logo.png',
-  name: companyName,
-  underCdrPrincipal: false,
 };
 
 const handleSummit = () => {
@@ -63,7 +51,6 @@ WithNoChanges.decorators = [
 
 WithNoChanges.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     accessFrequency: AccessFrequency.ONGOING,
@@ -87,7 +74,6 @@ WithNonActiveConsent.decorators = [
 
 WithNonActiveConsent.args = {
   consent: TestUtil.testData.consent.revoked(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     accessFrequency: AccessFrequency.ONGOING,
@@ -111,7 +97,6 @@ WithAdditionalUseCaseScopes.decorators = [
 
 WithAdditionalUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     accessFrequency: AccessFrequency.ONGOING,
@@ -140,7 +125,6 @@ WithRemovedUseCaseScopes.decorators = [
 
 WithRemovedUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     scopes: [TestUtil.testData.scope.bankAccountsBasicRead()],
@@ -164,7 +148,6 @@ WithAdditionalAndRemovedUseCaseScopes.decorators = [
 
 WithAdditionalAndRemovedUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     scopes: [TestUtil.testData.scope.bankAccountsBasicRead(), TestUtil.testData.scope.bankAccountsDetailRead()],
@@ -188,7 +171,6 @@ WithCustomDate.decorators = [
 
 WithCustomDate.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.CUSTOM] },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -209,7 +191,6 @@ WithMultiDates.decorators = [
 
 WithMultiDates.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONEMONTH, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
@@ -233,7 +214,6 @@ WithMultiDatesAndCustom.decorators = [
 
 WithMultiDatesAndCustom.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
@@ -257,7 +237,6 @@ WithAll.decorators = [
 
 WithAll.args = {
   consent: TestUtil.testData.consent.active(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],

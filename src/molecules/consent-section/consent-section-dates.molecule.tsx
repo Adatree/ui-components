@@ -4,17 +4,17 @@ import { UseCaseResponse } from '../../generated/consent/api';
 import { Card } from '../../atoms/card/card.atom';
 import { DateSelector } from '../date-selector/date-selector.molecule';
 import { TextBuilder } from '../../utils/text/text-builder';
-import { Organisation } from '../../types/organisation.type';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentSectionDatesProps = {
-  organisation: Organisation;
   useCase: UseCaseResponse;
   showError: boolean;
   editMessage?: string;
 };
 
 export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) => {
-  const { organisation, useCase, showError } = props;
+  const { useCase, showError } = props;
+  const [organisation] = useOrg();
 
   return (
     <>

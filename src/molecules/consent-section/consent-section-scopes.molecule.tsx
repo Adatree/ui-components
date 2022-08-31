@@ -4,21 +4,21 @@ import { ScopeResponse } from '../../generated/consent/api';
 import { Card } from '../../atoms/card/card.atom';
 import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
-import { Organisation } from '../../types/organisation.type';
 import { ScopeList } from '../../atoms/scope-list/scope-list.atom';
 import { useConsentForm } from '../../context/consentForm.context';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentSectionScopesProps = {
-  organisation: Organisation;
   scopes: ScopeResponse[];
   showError: boolean;
   readOnly?: boolean;
 };
 
 export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props) => {
-  const { organisation, showError, scopes, readOnly = false } = props;
+  const { showError, scopes, readOnly = false } = props;
   const [showScopeError, setShowScopeError] = useState(showError);
   const [consentForm, setConsentForm] = useConsentForm();
+  const [organisation] = useOrg();
 
   useEffect(() => {
     setShowScopeError(showError);

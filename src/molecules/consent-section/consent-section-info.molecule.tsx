@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
 import { UseCaseResponse } from '../../generated/consent/api';
-import { Organisation } from '../../types/organisation.type';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/general-information/general-information.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { useCopy } from '../../context/copy.context';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentSectionInfoProps = {
-  organisation: Organisation;
   useCase: UseCaseResponse;
 };
 
 export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
-  const { organisation, useCase } = props;
+  const { useCase } = props;
   const [copy] = useCopy();
+  const [organisation] = useOrg();
 
   return (
     <>

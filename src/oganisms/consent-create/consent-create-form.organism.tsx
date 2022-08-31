@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
-import { Organisation } from '../../types/organisation.type';
+import { useOrg } from '../../context/organisation.context';
 import { useCopy } from '../../context/copy.context';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
@@ -12,7 +12,6 @@ import { ConsentSectionActions } from '../../molecules/consent-section/consent-s
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 
 export type ConsentCreateFormProps = {
-  organisation: Organisation;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   onCancel: () => void;
@@ -20,7 +19,7 @@ export type ConsentCreateFormProps = {
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { organisation, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const { useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
@@ -28,6 +27,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
+  const [organisation] = useOrg();
 
   useEffect(() => {
     if (
@@ -87,20 +87,18 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
         <>
           <ConsentSectionHeader
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-            organisation={organisation}
           />
 
-          <ConsentSectionScopes organisation={organisation} scopes={useCase.scopes} showError={showScopeError} />
+          <ConsentSectionScopes scopes={useCase.scopes} showError={showScopeError} />
 
-          <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showDateError} />
+          <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
-          <ConsentSectionInfo organisation={organisation} useCase={useCase} />
+          <ConsentSectionInfo useCase={useCase} />
 
           <ConsentSectionActions
             actionButtonLabel={copy.consent.consentLabel}
             cancelButtonLabel={copy.consent.cancelLabel}
             cancelButtonMessage={copy.consent.cancelConsentMessage}
-            organisation={organisation}
             isValid={isFormValid}
             showError={showDataHolderError || showDateError || showScopeError}
             onCancel={handleCancel}
@@ -113,7 +111,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
         dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
         discreetMode={enablePartnerMessageDiscreetMode}
         isOpen={isPartnerDialogOpen}
-        organisation={organisation}
         onClose={handlePartnerDialogClose}
         onSubmit={handleSubmit}
       />

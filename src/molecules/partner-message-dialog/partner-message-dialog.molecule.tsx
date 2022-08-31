@@ -1,20 +1,20 @@
 import React from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton } from '@mui/material';
-import { Organisation } from '../../types/organisation.type';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
+import { useOrg } from '../../context/organisation.context';
 import Close from 'mdi-material-ui/Close';
 
 export type PartnerMessageDialogProps = {
   dataHolderName: string;
   isOpen: boolean;
-  organisation: Organisation;
   discreetMode?: boolean;
   onClose: () => void;
   onSubmit: () => void;
 };
 
 export const PartnerMessageDialog: React.FC<PartnerMessageDialogProps> = (props) => {
-  const { dataHolderName, isOpen, organisation, discreetMode = false, onClose, onSubmit } = props;
+  const { dataHolderName, isOpen, discreetMode = false, onClose, onSubmit } = props;
+  const [organisation] = useOrg();
 
   const handleClose = () => {
     onClose();
@@ -40,7 +40,7 @@ export const PartnerMessageDialog: React.FC<PartnerMessageDialogProps> = (props)
           <Close />
         </IconButton>
 
-        <PartnerMessage dataHolderName={dataHolderName} organisation={organisation} discreetMode={discreetMode} />
+        <PartnerMessage dataHolderName={dataHolderName} discreetMode={discreetMode} />
 
         <Box sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained" color="primary" onClick={handleSubmit}>

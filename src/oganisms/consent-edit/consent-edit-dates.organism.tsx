@@ -1,20 +1,20 @@
 import React from 'react';
 import { ConsentResponse, UseCaseResponse } from '../../generated/consent';
-import { Organisation } from '../../types/organisation.type';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 import { Card } from '../../atoms/card/card.atom';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { Typography } from '@mui/material';
+import { useOrg } from '../../context/organisation.context';
 
 export type ConsentEditDatesProps = {
   consent: ConsentResponse;
-  organisation: Organisation;
   showError: boolean;
   useCase: UseCaseResponse;
 };
 
 export const ConsentEditDates = (props: ConsentEditDatesProps) => {
-  const { consent, organisation, showError = false, useCase } = props;
+  const { consent, showError = false, useCase } = props;
+  const [organisation] = useOrg();
 
   return (
     <section>
@@ -24,7 +24,7 @@ export const ConsentEditDates = (props: ConsentEditDatesProps) => {
         </Typography>
       </Card>
 
-      <ConsentSectionDates organisation={organisation} useCase={useCase} showError={showError} />
+      <ConsentSectionDates useCase={useCase} showError={showError} />
     </section>
   );
 };

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { Organisation } from '../../types/organisation.type';
 import { Highlight } from '../highlight-text/highlight-text.atom';
+import { useOrg } from '../../context/organisation.context';
 
 export type PartnerMessageProps = {
   dataHolderName: string;
-  organisation: Organisation;
   discreetMode?: boolean;
 };
 
 export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
-  const { dataHolderName, organisation, discreetMode = false } = props;
+  const { dataHolderName, discreetMode = false } = props;
+  const [organisation] = useOrg();
 
   return (
     <section>

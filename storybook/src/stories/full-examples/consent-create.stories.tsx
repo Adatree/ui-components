@@ -7,6 +7,7 @@ import {
   PostUsageAction,
   SharingDuration,
   TestUtil,
+  OrganisationProvider,
 } from '../../lib';
 
 export default {
@@ -17,10 +18,6 @@ export default {
   },
 } as ComponentMeta<typeof ConsentCreate>;
 
-const accreditationNumber = '1234-5678';
-const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
-const companyName = 'TestCompany';
-const dataSharingRevocationEmail = 'name@example.com';
 const baseConsentFormValues = {
   accessFrequency: undefined,
   allScopesChecked: false,
@@ -29,14 +26,6 @@ const baseConsentFormValues = {
   postUsageAction: PostUsageAction.DELETION,
   sharingEndDate: undefined,
   useCaseId: undefined,
-};
-const organisation = {
-  accreditationNumber: accreditationNumber,
-  dataSharingRevocationEmail: dataSharingRevocationEmail,
-  cdrPolicyUrl: cdrPolicyUrl,
-  logo: '/assets/images/test-company-logo.png',
-  name: companyName,
-  underCdrPrincipal: false,
 };
 
 const handleSummit = () => {
@@ -64,7 +53,6 @@ WithOngoingAccess.decorators = [
 WithOngoingAccess.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  organisation: organisation,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -88,7 +76,6 @@ WithOnceOffAccess.decorators = [
 ];
 
 WithOnceOffAccess.args = {
-  organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   useCase: {
@@ -106,9 +93,11 @@ export const WithUnderCdrPrincipal = Template.bind({});
 WithUnderCdrPrincipal.decorators = [
   (Story) => {
     return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
+      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+        <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+          <Story />
+        </ConsentFormProvider>
+      </OrganisationProvider>
     );
   },
 ];
@@ -116,7 +105,6 @@ WithUnderCdrPrincipal.decorators = [
 WithUnderCdrPrincipal.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  organisation: { ...organisation, underCdrPrincipal: true },
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -140,7 +128,6 @@ WithSupportingParties.decorators = [
 ];
 
 WithSupportingParties.args = {
-  organisation: organisation,
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
   useCase: {
@@ -168,7 +155,6 @@ WithLongScopes.decorators = [
 WithLongScopes.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  organisation: organisation,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -190,7 +176,6 @@ WithMultiDatesAndCustom.decorators = [
 WithMultiDatesAndCustom.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  organisation: organisation,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -211,7 +196,6 @@ WithNoFavouriteDataHolders.decorators = [
 
 WithNoFavouriteDataHolders.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  organisation: organisation,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -249,7 +233,6 @@ WithNoRemainingDataHolders.args = {
     ],
   ],
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  organisation: organisation,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
