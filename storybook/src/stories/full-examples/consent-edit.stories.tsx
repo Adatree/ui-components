@@ -1,6 +1,13 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { AccessFrequency, ConsentFormProvider, ConsentEdit, PostUsageAction, TestUtil } from '../../lib';
+import {
+  AccessFrequency,
+  ConsentFormProvider,
+  ConsentEdit,
+  PostUsageAction,
+  TestUtil,
+  SharingDuration,
+} from '../../lib';
 
 export default {
   title: 'Full examples/Edit consent',
@@ -45,8 +52,8 @@ const Template: ComponentStory<typeof ConsentEdit> = (args) => <ConsentEdit {...
 
 // ####################################
 
-export const NonEditableActiveStatus = Template.bind({});
-NonEditableActiveStatus.decorators = [
+export const WithNoChanges = Template.bind({});
+WithNoChanges.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -56,7 +63,7 @@ NonEditableActiveStatus.decorators = [
   },
 ];
 
-NonEditableActiveStatus.args = {
+WithNoChanges.args = {
   consent: TestUtil.testData.consent.active(),
   copy: copy,
   organisation: organisation,
@@ -70,8 +77,8 @@ NonEditableActiveStatus.args = {
 
 // ####################################
 
-export const NonEditableNonActiveStatus = Template.bind({});
-NonEditableNonActiveStatus.decorators = [
+export const WithNonActiveConsent = Template.bind({});
+WithNonActiveConsent.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -81,7 +88,7 @@ NonEditableNonActiveStatus.decorators = [
   },
 ];
 
-NonEditableNonActiveStatus.args = {
+WithNonActiveConsent.args = {
   consent: TestUtil.testData.consent.revoked(),
   copy: copy,
   organisation: organisation,
@@ -92,6 +99,87 @@ NonEditableNonActiveStatus.args = {
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
+
+// ####################################
+
+export const WithAdditionalUseCaseScopes = Template.bind({});
+WithAdditionalUseCaseScopes.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithAdditionalUseCaseScopes.args = {
+  consent: TestUtil.testData.consent.active(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    accessFrequency: AccessFrequency.ONGOING,
+    scopes: [
+      TestUtil.testData.scope.bankAccountsBasicRead(),
+      TestUtil.testData.scope.bankTransactionsRead(),
+      TestUtil.testData.scope.bankAccountsDetailRead(),
+    ],
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithRemovedUseCaseScopes = Template.bind({});
+WithRemovedUseCaseScopes.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithRemovedUseCaseScopes.args = {
+  consent: TestUtil.testData.consent.active(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    scopes: [TestUtil.testData.scope.bankAccountsBasicRead()],
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithAdditionalAndRemovedUseCaseScopes = Template.bind({});
+WithAdditionalAndRemovedUseCaseScopes.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithAdditionalAndRemovedUseCaseScopes.args = {
+  consent: TestUtil.testData.consent.active(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    scopes: [TestUtil.testData.scope.bankAccountsBasicRead(), TestUtil.testData.scope.bankAccountsDetailRead()],
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
 // ####################################
 
 export const WithCustomDate = Template.bind({});
@@ -109,7 +197,32 @@ WithCustomDate.args = {
   consent: TestUtil.testData.consent.active(),
   copy: copy,
   organisation: organisation,
-  useCase: TestUtil.testData.useCase.openEnergy(),
+  useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.CUSTOM] },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithMultiDates = Template.bind({});
+WithMultiDates.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithMultiDates.args = {
+  consent: TestUtil.testData.consent.active(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    sharingDurations: [SharingDuration.ONEMONTH, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+  },
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
@@ -131,7 +244,36 @@ WithMultiDatesAndCustom.args = {
   consent: TestUtil.testData.consent.active(),
   copy: copy,
   organisation: organisation,
-  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithAll = Template.bind({});
+WithAll.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithAll.args = {
+  consent: TestUtil.testData.consent.active(),
+  copy: copy,
+  organisation: organisation,
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+    scopes: [TestUtil.testData.scope.bankAccountsBasicRead(), TestUtil.testData.scope.bankAccountsDetailRead()],
+  },
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
