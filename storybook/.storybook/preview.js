@@ -5,7 +5,7 @@ export const decorators = [
     return (
       <ThemeProvider theme={defaultTheme}>
         <OrganisationProvider org={TestUtil.testData.organisation}>
-          <CopyProvider initialCopy={TestUtil.testData.generateCopy(TestUtil.testData.organisation)}>
+          <CopyProvider initialCopy={TestUtil.testData.copy.generateCopy(TestUtil.testData.organisation)}>
             <Story />
           </CopyProvider>
         </OrganisationProvider>

@@ -39,7 +39,7 @@ const organisation = {
   underCdrPrincipal: false,
 };
 
-const copy = TestUtil.testData.copy;
+const copy = TestUtil.testData.copy.generateCopy(organisation);
 
 const handleSummit = () => {
   alert('Consent submitted');

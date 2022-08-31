@@ -1,7 +1,7 @@
 import { Logger } from '../logger/logger';
 import { bankData } from './test-data/bank-transactions';
 import { consent } from './test-data/consents';
-import { copy, generateCopy } from './test-data/copy';
+import { copy } from './test-data/copy';
 import { dataHolder } from './test-data/data-holders';
 import { organisation } from './test-data/organisation';
 import { outsourcedServiceProvider } from './test-data/outsourced-service-providers';
@@ -21,7 +21,6 @@ export const TestUtil = {
     copy,
     consent,
     dataHolder,
-    generateCopy,
     organisation,
     outsourcedServiceProvider,
     scope,
