@@ -77,6 +77,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     }
   };
 
+  const handleScopeChange = (isAllClicked: boolean) => {
+    consentForm.allScopesChecked = isAllClicked;
+    setConsentForm({ ...consentForm });
+    setShowScopeError(false);
+  };
+
   const handleSubmit = () => {
     onSubmit();
   };
@@ -93,6 +99,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             message={copy.consent.edit.scope_create_message}
             scopes={useCase.scopes}
             showError={showScopeError}
+            onChange={handleScopeChange}
           />
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />

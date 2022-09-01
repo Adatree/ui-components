@@ -12,33 +12,28 @@ export type ConsentSectionScopesProps = {
   scopes: ScopeResponse[];
   showError: boolean;
   readOnly?: boolean;
+  onChange?: (isAllClicked: boolean) => void;
 };
 
 export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props) => {
-  const { message, showError, scopes, readOnly = false } = props;
-  const [showScopeError, setShowScopeError] = useState(showError);
-  const [consentForm, setConsentForm] = useConsentForm();
+  const { message, showError, scopes, readOnly = false, onChange } = props;
   const [organisation] = useOrg();
 
-  useEffect(() => {
-    setShowScopeError(showError);
-  }, [showError]);
-
   const handleChange = (isAllClicked: boolean) => {
-    consentForm.allScopesChecked = isAllClicked;
-    setConsentForm({ ...consentForm });
-    setShowScopeError(!isAllClicked);
+    if (onChange) {
+      onChange(isAllClicked);
+    }
   };
 
   return (
     <>
-      <Card error={showScopeError} sx={{ mt: 1 }}>
+      <Card error={showError} sx={{ mt: 1 }}>
         <Typography sx={{ mb: 1 }}>{message}</Typography>
         {readOnly && <ScopeList scopes={scopes} companyName={organisation.name} />}
         {!readOnly && <ScopeListSwitch scopes={scopes} companyName={organisation.name} onChange={handleChange} />}
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showScopeError && !readOnly && 'Please select all the options.'}
+        {showError && !readOnly && 'Please select all the options.'}
       </Typography>
     </>
   );
