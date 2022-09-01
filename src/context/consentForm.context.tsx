@@ -2,7 +2,8 @@ import * as React from 'react';
 import { DataHolder, PostUsageAction, SharingDuration } from '../generated/consent';
 
 type ConsentForm = {
-  allScopesChecked: boolean;
+  allAddScopesChecked: boolean;
+  allRemoveScopesChecked: boolean;
   dataHolder: DataHolder | undefined;
   selectedSharingDurations: SharingDuration | undefined;
   postUsageAction: PostUsageAction | undefined;
@@ -28,7 +29,8 @@ type ConsentFormProviderProps = {
 };
 
 const ConsentFormDefaultValues: ConsentForm = {
-  allScopesChecked: false,
+  allAddScopesChecked: false,
+  allRemoveScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.DELETION,

@@ -58,7 +58,12 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       setShowDateError(false);
     }
 
-    if (consentForm.dataHolder && consentForm.selectedSharingDurations && consentForm.allScopesChecked) {
+    if (
+      consentForm.dataHolder &&
+      consentForm.selectedSharingDurations &&
+      consentForm.allAddScopesChecked &&
+      consentForm.allRemoveScopesChecked
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -70,13 +75,13 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   };
 
   const handleAddScopeChange = (isAllScopesClicked: boolean) => {
-    consentForm.allScopesChecked = isAllScopesClicked;
+    consentForm.allAddScopesChecked = isAllScopesClicked;
     setConsentForm({ ...consentForm });
     setShowAddScopeError(!isAllScopesClicked);
   };
 
   const handleRemoveScopeChange = (isAllScopesClicked: boolean) => {
-    consentForm.allScopesChecked = isAllScopesClicked;
+    consentForm.allRemoveScopesChecked = isAllScopesClicked;
     setConsentForm({ ...consentForm });
     setShowRemoveScopeError(!isAllScopesClicked);
   };
@@ -96,8 +101,8 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       }
     } else {
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowAddScopeError(!consentForm.allScopesChecked);
-      setShowRemoveScopeError(!consentForm.allScopesChecked);
+      setShowAddScopeError(!consentForm.allAddScopesChecked);
+      setShowRemoveScopeError(!consentForm.allRemoveScopesChecked);
     }
   };
 

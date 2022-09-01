@@ -46,7 +46,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDateError(false);
     }
 
-    if (consentForm.allScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
+    if (consentForm.allAddScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -73,12 +73,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowScopeError(consentForm.allScopesChecked === true ? false : true);
+      setShowScopeError(consentForm.allAddScopesChecked === true ? false : true);
     }
   };
 
   const handleScopeChange = (isAllClicked: boolean) => {
-    consentForm.allScopesChecked = isAllClicked;
+    consentForm.allAddScopesChecked = isAllClicked;
     setConsentForm({ ...consentForm });
     setShowScopeError(false);
   };
