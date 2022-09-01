@@ -25,6 +25,8 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
+  const [showAddScopeError, setShowAddScopeError] = useState(false);
+  const [showRemoveScopeError, setShowRemoveScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const [organisation] = useOrg();
@@ -56,7 +58,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       setShowDateError(false);
     }
 
-    if (consentForm.dataHolder && consentForm.selectedSharingDurations) {
+    if (consentForm.dataHolder && consentForm.selectedSharingDurations && consentForm.allScopesChecked) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -65,6 +67,18 @@ export const ConsentEdit = (props: ConsentEditProps) => {
 
   const handlePartnerDialogClose = () => {
     setIsPartnerDialogOpen(false);
+  };
+
+  const handleAddScopeChange = (isAllScopesClicked: boolean) => {
+    consentForm.allScopesChecked = isAllScopesClicked;
+    setConsentForm({ ...consentForm });
+    setShowAddScopeError(!isAllScopesClicked);
+  };
+
+  const handleRemoveScopeChange = (isAllScopesClicked: boolean) => {
+    consentForm.allScopesChecked = isAllScopesClicked;
+    setConsentForm({ ...consentForm });
+    setShowRemoveScopeError(!isAllScopesClicked);
   };
 
   const handleCancel = () => {
@@ -82,6 +96,8 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       }
     } else {
       setShowDateError(!consentForm.selectedSharingDurations);
+      setShowAddScopeError(!consentForm.allScopesChecked);
+      setShowRemoveScopeError(!consentForm.allScopesChecked);
     }
   };
 
@@ -114,7 +130,14 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </Box>
       )}
 
-      <ConsentEditScopes consent={consent} useCase={useCase} />
+      <ConsentEditScopes
+        consent={consent}
+        useCase={useCase}
+        showAddScopeError={showAddScopeError}
+        showRemoveScopeError={showRemoveScopeError}
+        onAddScopeChange={handleAddScopeChange}
+        onRemoveScopeChange={handleRemoveScopeChange}
+      />
 
       <ConsentEditDates consent={consent} showError={showDateError} useCase={useCase} />
 

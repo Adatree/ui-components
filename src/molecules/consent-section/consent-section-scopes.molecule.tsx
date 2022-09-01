@@ -1,10 +1,9 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Typography } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent/api';
 import { Card } from '../../atoms/card/card.atom';
 import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { ScopeList } from '../../atoms/scope-list/scope-list.atom';
-import { useConsentForm } from '../../context/consentForm.context';
 import { useOrg } from '../../context/organisation.context';
 
 export type ConsentSectionScopesProps = {

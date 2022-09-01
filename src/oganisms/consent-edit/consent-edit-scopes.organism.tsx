@@ -7,10 +7,14 @@ import { useCopy } from '../../context/copy.context';
 export type ConsentEditScopesProps = {
   consent: ConsentResponse;
   useCase: UseCaseResponse;
+  showAddScopeError: boolean;
+  showRemoveScopeError: boolean;
+  onAddScopeChange: (isAllScopesClicked: boolean) => void;
+  onRemoveScopeChange: (isAllScopesClicked: boolean) => void;
 };
 
 export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
-  const { consent, useCase } = props;
+  const { consent, useCase, showAddScopeError, showRemoveScopeError, onAddScopeChange, onRemoveScopeChange } = props;
   const [userConsentedScopes, setUserConsentedScopes] = useState<ScopeResponse[]>([]);
   const [additionalScopes, setAdditionalScopes] = useState<ScopeResponse[]>([]);
   const [removedScopes, setRemovedScopes] = useState<ScopeResponse[]>([]);
@@ -39,14 +43,16 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
         <ConsentSectionScopes
           message={copy.consent.edit.scope_additional_message}
           scopes={additionalScopes}
-          showError={false}
+          showError={showAddScopeError}
+          onChange={onAddScopeChange}
         />
       )}
       {consent.status === Status.ACTIVE && removedScopes.length >= 1 && (
         <ConsentSectionScopes
           message={copy.consent.edit.scope_remove_message}
           scopes={removedScopes}
-          showError={false}
+          showError={showRemoveScopeError}
+          onChange={onRemoveScopeChange}
         />
       )}
     </section>
