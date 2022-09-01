@@ -9,7 +9,7 @@ import {
   ScopeResponse,
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
-import { isEqual, xor } from 'lodash';
+import { isEqual } from 'lodash';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -172,6 +172,15 @@ const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): 
 
   if (useCase.sharingDurations.includes(SharingDuration.CUSTOM)) {
     return true;
+  }
+
+  if (consent.useCase && consent.useCase.scopes && useCase.scopes) {
+    const differenceA = getScopeDifference(consent.useCase?.scopes, useCase.scopes);
+    const differenceB = getScopeDifference(useCase.scopes, consent.useCase?.scopes);
+
+    if (differenceA.length > 0 || differenceB.length > 0) {
+      return true;
+    }
   }
 
   if (useCase.sharingDurations.length === 1 && isEqual(useCase.sharingDurations, consent.useCase?.sharingDurations)) {

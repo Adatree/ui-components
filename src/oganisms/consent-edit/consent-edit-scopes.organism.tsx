@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ConsentResponse, ScopeResponse, Status, UseCaseResponse } from '../../generated/consent';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { Helper } from '../../utils/helper/helper';
-import { Typography } from '@mui/material';
 import { useCopy } from '../../context/copy.context';
 
 export type ConsentEditScopesProps = {
@@ -37,22 +36,18 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
         showError={false}
       />
       {consent.status === Status.ACTIVE && additionalScopes.length >= 1 && (
-        <>
-          <ConsentSectionScopes
-            message={copy.consent.edit.scope_additional_message}
-            scopes={additionalScopes}
-            showError={false}
-          />
-        </>
+        <ConsentSectionScopes
+          message={copy.consent.edit.scope_additional_message}
+          scopes={additionalScopes}
+          showError={false}
+        />
       )}
       {consent.status === Status.ACTIVE && removedScopes.length >= 1 && (
-        <>
-          <ConsentSectionScopes
-            message={copy.consent.edit.scope_remove_message}
-            scopes={removedScopes}
-            showError={false}
-          />
-        </>
+        <ConsentSectionScopes
+          message={copy.consent.edit.scope_remove_message}
+          scopes={removedScopes}
+          showError={false}
+        />
       )}
     </section>
   );
