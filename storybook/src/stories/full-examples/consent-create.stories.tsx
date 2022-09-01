@@ -20,7 +20,8 @@ export default {
 
 const baseConsentFormValues = {
   accessFrequency: undefined,
-  allScopesChecked: false,
+  allAddScopesChecked: false,
+  allRemoveScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.DELETION,
