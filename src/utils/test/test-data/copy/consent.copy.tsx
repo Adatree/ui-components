@@ -25,17 +25,36 @@ export const consentCopy = (org: Organisation): Copy['consent'] => {
       },
     },
     edit: {
-      scope_additional_label: (
+      active_consent_message: 'Update your consent details',
+      non_active_consent_message: (status: string) => {
+        return `You are unable to edit your consent because it's status is ${status}.`;
+      },
+      scope_additional_message: (
         <>
-          Add <HL>{org.name}</HL> some other
+          <HL>{org.name}</HL> would like access to the following new data:
         </>
       ),
-      scope_removal_label: 'Remove',
+      scope_create_message: (
+        <>
+          <HL>{org.name}</HL> would like access to the following data:
+        </>
+      ),
+      scope_read_only_message: (
+        <>
+          <HL>{org.name}</HL> has access to the following data:
+        </>
+      ),
+      scope_remove_message: (
+        <>
+          <HL>{org.name}</HL> would like to remove access to the following data:
+        </>
+      ),
+      up_to_date_message: 'Your consent details are up to date. There are no options for you to edit.',
     },
     scope: {
       tooltip_label: (
         <>
-          <HL>{org.name}</HL> will receive access to the following information:
+          <HL>{org.name}</HL> will receive access to the following data:
         </>
       ),
     },

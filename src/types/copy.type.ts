@@ -5,10 +5,12 @@ export interface Copy {
     accredited_recipient_label: string;
     adatree_name: string;
     button_label_back: string;
+    button_label_finished: string;
     button_label_no: string;
     button_label_yes: string;
     cdr_policy_label: string;
     cdr_principal_label: string;
+    fallback_data_holder_name: string;
     status_active_label: string;
     status_expired_label: string;
     status_requested_label: string;
@@ -28,8 +30,14 @@ export interface Copy {
       title: (name: string) => ReactElement;
     };
     edit: {
-      scope_additional_label: ReactElement;
-      scope_removal_label: string | ReactElement;
+      active_consent_message: string;
+
+      non_active_consent_message: (status: string) => string;
+      scope_additional_message: ReactElement;
+      scope_create_message: ReactElement;
+      scope_read_only_message: ReactElement;
+      scope_remove_message: ReactElement;
+      up_to_date_message: string;
     };
     scope: {
       tooltip_label: ReactElement;

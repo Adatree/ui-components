@@ -95,12 +95,12 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         <Box sx={{ mb: 3 }}>
           {consent.status === Status.ACTIVE && (
             <Alert severity="success">
-              <Typography>Your consent details are up to date. There are no options for you to edit.</Typography>
+              <Typography>{copy.consent.edit.up_to_date_message}</Typography>
             </Alert>
           )}
-          {consent.status !== Status.ACTIVE && (
+          {consent.status && consent.status !== Status.ACTIVE && (
             <Alert severity="error">
-              <Typography>{`You are unable to edit your consent because it's status is ${consent.status?.toLowerCase()}.`}</Typography>
+              <Typography>{copy.consent.edit.non_active_consent_message(consent.status.toLowerCase())}</Typography>
             </Alert>
           )}
         </Box>
@@ -109,7 +109,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       {isEditable && (
         <Box sx={{ mb: 3 }}>
           <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
-            Update your consent details
+            {copy.consent.edit.active_consent_message}
           </Typography>
         </Box>
       )}
@@ -123,7 +123,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       {!isEditable && (
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <Button variant="contained" onClick={handleCancel} sx={{ width: { xs: '100%', sm: '20rem' } }}>
-            Done
+            {copy.common.button_label_finished}
           </Button>
         </Box>
       )}
@@ -140,7 +140,9 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       )}
 
       <PartnerMessageDialog
-        dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
+        dataHolderName={
+          consentForm.dataHolder ? consentForm.dataHolder?.brandName : copy.common.fallback_data_holder_name
+        }
         discreetMode={enablePartnerMessageDiscreetMode}
         isOpen={isPartnerDialogOpen}
         onClose={handlePartnerDialogClose}

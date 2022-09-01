@@ -30,17 +30,28 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
 
   return (
     <section>
-      <ConsentSectionScopes readOnly={true} scopes={userConsentedScopes} showError={false} />
+      <ConsentSectionScopes
+        message={copy.consent.edit.scope_read_only_message}
+        readOnly={true}
+        scopes={userConsentedScopes}
+        showError={false}
+      />
       {consent.status === Status.ACTIVE && additionalScopes.length >= 1 && (
         <>
-          <Typography>{copy.consent.edit.scope_additional_label}</Typography>
-          <ConsentSectionScopes scopes={additionalScopes} showError={false} />
+          <ConsentSectionScopes
+            message={copy.consent.edit.scope_additional_message}
+            scopes={additionalScopes}
+            showError={false}
+          />
         </>
       )}
       {consent.status === Status.ACTIVE && removedScopes.length >= 1 && (
         <>
-          <Typography>{copy.consent.edit.scope_removal_label}</Typography>
-          <ConsentSectionScopes scopes={removedScopes} showError={false} />
+          <ConsentSectionScopes
+            message={copy.consent.edit.scope_remove_message}
+            scopes={removedScopes}
+            showError={false}
+          />
         </>
       )}
     </section>

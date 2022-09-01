@@ -89,7 +89,11 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
           />
 
-          <ConsentSectionScopes scopes={useCase.scopes} showError={showScopeError} />
+          <ConsentSectionScopes
+            message={copy.consent.edit.scope_create_message}
+            scopes={useCase.scopes}
+            showError={showScopeError}
+          />
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
