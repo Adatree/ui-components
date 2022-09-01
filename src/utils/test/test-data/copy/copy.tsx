@@ -1,4 +1,3 @@
-import React from 'react';
 import { Copy } from '../../../../types/copy.type';
 import { Organisation } from '../../../../types/organisation.type';
 import { commonCopy } from './common.copy';

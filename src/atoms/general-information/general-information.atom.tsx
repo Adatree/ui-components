@@ -17,17 +17,17 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
   const generalInfoList = [
     topListItemOverride ? topListItemOverride : copy.component.general_information.list_security,
     copy.component.general_information.list_marketing,
-    <Typography>
+    <Typography key="item1">
       {copy.component.general_information.list_records}{' '}
       <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
     </Typography>,
-    <Typography>
+    <Typography key="item2">
       {copy.component.general_information.list_sharing}{' '}
       <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
     </Typography>,
     copy.component.general_information.list_deleted,
     copy.component.general_information.list_revoked,
-    <Typography>
+    <Typography key="item3">
       {copy.component.general_information.list_more}{' '}
       <LinkExternal href={cdrPolicyUrl} text={copy.common.cdr_policy_label} />.
     </Typography>,

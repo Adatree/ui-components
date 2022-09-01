@@ -94,8 +94,9 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
       <FeedbackMessage
         message={'We are sorry but it looks like an error has occurred.'}
         icon={<AlertCircle sx={{ fontSize: iconFontSize, color: 'error.main' }} />}
-        children={body}
-      ></FeedbackMessage>
+      >
+        {body}
+      </FeedbackMessage>
     </>
   );
 };

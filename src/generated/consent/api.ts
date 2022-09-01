@@ -1,5 +1,7 @@
 // @ts-nocheck
 // tslint:disable
+// eslint:disable
+
 /**
  * Adatree ADR Platform Consent API
  * Consent Dashboard REST APIs. This allows ADR / consumers to perform CDR consumer authorization flow with Data Holders

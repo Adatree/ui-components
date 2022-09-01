@@ -6,12 +6,11 @@ import { useCopy } from '../../context/copy.context';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
-  companyName: string;
   onChange: (isAllClicked: boolean) => void;
 };
 
 export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
-  const { scopes, companyName, onChange } = props;
+  const { scopes, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [copy] = useCopy();
 

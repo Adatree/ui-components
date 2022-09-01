@@ -88,7 +88,7 @@ const parseSharingDuration = (sharingDuration: SharingDuration): DateDuration | 
 };
 
 const parseSharingDurations = (sharingDurations: SharingDuration[]): DateDuration[] => {
-  let durations: DateDuration[] = [];
+  const durations: DateDuration[] = [];
 
   sharingDurations.forEach((sharingDuration) => {
     const found = DateDurationList.find((duration) => {
@@ -159,7 +159,7 @@ const dateDurationToDate = (duration: DateDuration): Date => {
  * @returns [] for equal or [ScopeResponse] if compareWithBaseScopes has a difference.
  */
 const getScopeDifference = (baseScopes: ScopeResponse[], compareWithBaseScopes: ScopeResponse[]): ScopeResponse[] => {
-  let difference = compareWithBaseScopes.filter(
+  const difference = compareWithBaseScopes.filter(
     (compareWithBaseScope) => !baseScopes.some((baseScope) => compareWithBaseScope.id === baseScope.id),
   );
   return difference;

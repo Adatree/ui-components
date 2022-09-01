@@ -12,7 +12,7 @@ export const LinkExternal: React.FC<LinkExternalProps> = (props) => {
   const textColour = theme.palette.text_link !== undefined ? theme.palette.text_link.main : '#1a0dab';
 
   return (
-    <a target="_blank" style={{ color: textColour, textDecoration: 'underline' }} href={href}>
+    <a target="_blank" rel="noreferrer" style={{ color: textColour, textDecoration: 'underline' }} href={href}>
       {text}
     </a>
   );

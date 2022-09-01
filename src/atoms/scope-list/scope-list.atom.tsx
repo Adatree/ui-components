@@ -12,17 +12,16 @@ import {
   useTheme,
 } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
+import { useCopy } from '../../context/copy.context';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
-import { useCopy } from '../../context/copy.context';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
-  companyName: string;
 };
 
 export const ScopeList: React.FC<ScopeListProps> = (props) => {
-  const { scopes, companyName } = props;
+  const { scopes } = props;
   const [scope, setScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [copy] = useCopy();

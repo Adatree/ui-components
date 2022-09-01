@@ -20,10 +20,10 @@ function randomEnum<T>(anEnum: T): T[keyof T] {
 }
 
 const getTransactions = (numOfTransactions: number): BankingTransaction[] => {
-  let transactions: BankingTransaction[] = [];
+  const transactions: BankingTransaction[] = [];
 
   for (let index = 0; index < numOfTransactions; index++) {
-    const element = transactions.push(generateTransaction());
+    transactions.push(generateTransaction());
   }
   return transactions;
 };

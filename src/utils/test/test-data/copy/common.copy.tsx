@@ -1,4 +1,3 @@
-import React from 'react';
 import { Copy } from '../../../../types/copy.type';
 
 export const commonCopy = (): Copy['common'] => {

@@ -158,7 +158,7 @@ const generateConsent = (createConsent: CreateConsent): ConsentResponse => {
 
 const getTestUuidV4 = () => {
   const getRandomSymbol = (symbol: string) => {
-    var array;
+    let array;
 
     if (symbol === 'y') {
       array = ['8', '9', 'a', 'b'];

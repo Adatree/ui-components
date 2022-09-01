@@ -19,13 +19,12 @@ import CloseIcon from 'mdi-material-ui/Close';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
-  companyName: string;
   enableAll?: boolean;
   onChange: (isAllClicked: boolean) => void;
 };
 
 export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
-  const { scopes, companyName, enableAll = false, onChange } = props;
+  const { scopes, enableAll = false, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
