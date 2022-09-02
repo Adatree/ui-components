@@ -77,13 +77,13 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   const handleAddScopeChange = (isAllScopesClicked: boolean) => {
     consentForm.allAddScopesChecked = isAllScopesClicked;
     setConsentForm({ ...consentForm });
-    setShowAddScopeError(!isAllScopesClicked);
+    setShowAddScopeError(false);
   };
 
   const handleRemoveScopeChange = (isAllScopesClicked: boolean) => {
     consentForm.allRemoveScopesChecked = isAllScopesClicked;
     setConsentForm({ ...consentForm });
-    setShowRemoveScopeError(!isAllScopesClicked);
+    setShowRemoveScopeError(false);
   };
 
   const handleCancel = () => {
@@ -101,8 +101,8 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       }
     } else {
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowAddScopeError(!consentForm.allAddScopesChecked);
-      setShowRemoveScopeError(!consentForm.allRemoveScopesChecked);
+      setShowAddScopeError(consentForm.allAddScopesChecked === true ? false : true);
+      setShowRemoveScopeError(consentForm.allRemoveScopesChecked === true ? false : true);
     }
   };
 
@@ -161,7 +161,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
           cancelButtonLabel={copy.consent.create.cancel_label}
           cancelButtonMessage={copy.consent.create.cancel_edit_message}
           isValid={isFormValid}
-          showError={showDateError}
+          showError={showAddScopeError || showDateError || showRemoveScopeError}
           onCancel={handleCancel}
           onSubmit={handlePreSubmit}
         />
