@@ -1,7 +1,7 @@
 import React from 'react';
-import { Highlight as HL } from '../../../../atoms/highlight-text/highlight-text.atom';
-import { Copy } from '../../../../types/copy.type';
-import { Organisation } from '../../../../types/organisation.type';
+import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
+import { Copy } from '../types/copy.type';
+import { Organisation } from '../types/organisation.type';
 
 export const componentCopy = (org: Organisation): Copy['component'] => {
   return {

@@ -1,4 +1,4 @@
-import { Copy } from '../../../../types/copy.type';
+import { Copy } from '../types/copy.type';
 
 export const errorCopy = (): Copy['error'] => {
   return {

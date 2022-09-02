@@ -46,6 +46,9 @@ export { ConsentEdit } from './oganisms/consent-edit/consent-edit.organism';
 // Icons
 export { ApiCogIcon } from './atoms/icons/api-cog.icon';
 
+// Copy
+export { copy } from './copy/copy';
+
 // Context
 export * from './context/consentForm.context';
 export * from './context/copy.context';
