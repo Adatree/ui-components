@@ -37,13 +37,31 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
               cursor: disabled === true ? 'default' : 'pointer',
               p: 0.5,
               position: 'relative',
-              '&:hover': { opacity: disabled === true ? '1' : '0.3' },
               alignSelf: 'stretch',
             }}
             onClick={() => handleClick(dataHolder, disabled)}
             key={dataHolder.dataHolderBrandId}
           >
-            <Card sx={{ height: '100%', alignItems: 'center', display: 'flex' }}>
+            <Card
+              sx={{
+                height: '100%',
+                alignItems: 'center',
+                display: 'flex',
+                '&:hover': {
+                  backgroundColor:
+                    disabled === true
+                      ? (theme) => theme.palette.background_card.main
+                      : (theme) => theme.palette.background_hover.main,
+                  borderColor:
+                    disabled === true
+                      ? (theme) => theme.palette.background_card.main
+                      : (theme) => theme.palette.background_hover.main,
+                },
+                '&:hover img': {
+                  opacity: disabled === true ? '1' : '0.3 !important',
+                },
+              }}
+            >
               <img
                 src={dataHolder.logoUri}
                 alt={dataHolder.brandName}
