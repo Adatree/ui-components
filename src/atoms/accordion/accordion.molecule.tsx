@@ -11,7 +11,7 @@ export const Accordion: React.FC<AccordionProps> = (props) => {
   const { title, content } = props;
 
   return (
-    <MuiAccordion elevation={0}>
+    <MuiAccordion elevation={0} sx={{ boxShadow: '0 1px 2px rgba(0,0,0,.1)' }}>
       <AccordionSummary
         expandIcon={<ChevronDown />}
         aria-controls={`panel-content-${title.replace(' ', '-')}`}
