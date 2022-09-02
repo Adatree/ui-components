@@ -15,6 +15,7 @@ export const Card: React.FC<CardProps> = (props) => {
         p: 2,
         border: '1px Solid',
         borderColor: (theme) => theme.palette.background_card.main,
+        boxShadow: '0 1px 2px rgba(0,0,0,.1)',
         '&.error': { borderColor: 'error.main' },
         ...sx,
       }}

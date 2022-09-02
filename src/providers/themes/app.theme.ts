@@ -35,7 +35,7 @@ export const defaultTheme: AppTheme = {
       card: '#ffffff',
       hover: '#c8f5f1',
       inputs: '#ffffff',
-      modal: '#f8f8f8',
+      modal: '#f5f5f5',
       page: '#ebebeb',
     },
     buttons: {
