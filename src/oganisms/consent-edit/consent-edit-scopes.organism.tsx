@@ -3,6 +3,7 @@ import { ConsentResponse, ScopeResponse, Status, UseCaseResponse } from '../../g
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { Helper } from '../../utils/helper/helper';
 import { useCopy } from '../../context/copy.context';
+import { useConsentForm } from '../../context/consentForm.context';
 
 export type ConsentEditScopesProps = {
   consent: ConsentResponse;
@@ -18,6 +19,7 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
   const [userConsentedScopes, setUserConsentedScopes] = useState<ScopeResponse[]>([]);
   const [additionalScopes, setAdditionalScopes] = useState<ScopeResponse[]>([]);
   const [removedScopes, setRemovedScopes] = useState<ScopeResponse[]>([]);
+  const [form, setForm] = useConsentForm();
   const [copy] = useCopy();
 
   useEffect(() => {
@@ -25,6 +27,14 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
       const additional = Helper.getScopeDifference(consent.useCase.scopes, useCase.scopes);
       const removed = Helper.getScopeDifference(useCase.scopes, consent.useCase.scopes);
 
+      if (additional.length === 0) {
+        form.allAddScopesChecked = true;
+      }
+      if (removed.length === 0) {
+        form.allRemoveScopesChecked = true;
+      }
+
+      setForm({ ...form });
       setAdditionalScopes(additional);
       setRemovedScopes(removed);
       setUserConsentedScopes(consent.useCase.scopes);
