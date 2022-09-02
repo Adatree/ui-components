@@ -27,7 +27,7 @@ export const consentCopy = (org: Organisation): Copy['consent'] => {
     edit: {
       active_consent_message: 'Update your consent details',
       non_active_consent_message: (status: string) => {
-        return `You are unable to edit your consent because it's status is ${status}.`;
+        return `You are unable to edit your consent because the status is ${status}.`;
       },
       scope_additional_message: (
         <>
