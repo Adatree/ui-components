@@ -61,6 +61,10 @@ export { ThemeProvider } from './providers/theme.provider';
 export { CreateTheme } from './providers/themes/theme';
 export { defaultTheme, AppTheme } from './providers/themes/app.theme';
 
+// Types
+export { Copy } from './types/copy.type';
+export { Organisation } from './types/organisation.type';
+
 // Utils
 export { Debugger } from './utils/debug/debug';
 export { Formatter } from './utils/formatter/formater';
