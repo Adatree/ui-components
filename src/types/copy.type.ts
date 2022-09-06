@@ -50,6 +50,7 @@ export interface Copy {
       title: string;
     };
     general_information: {
+      list_complaint: (complaintEmail: string) => ReactElement;
       list_deleted: string;
       list_marketing: string;
       list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;

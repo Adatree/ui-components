@@ -13,14 +13,9 @@ export default {
 const Template: ComponentStory<typeof GeneralInformation> = (args) => <GeneralInformation {...args} />;
 
 export const WithAllListItems = Template.bind({});
-WithAllListItems.args = {
-  cdrPolicyUrl: 'https://example.com',
-  dataSharingRevocationEmail: 'data.sharing.revocation@email.com',
-};
+WithAllListItems.args = {};
 
 export const WithoutDuplicateListItem = Template.bind({});
 WithoutDuplicateListItem.args = {
-  cdrPolicyUrl: 'https://example.com',
-  dataSharingRevocationEmail: 'data.sharing.revocation@email.com',
   hideDuplicateListItem: true,
 };

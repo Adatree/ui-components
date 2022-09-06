@@ -44,6 +44,14 @@ export const componentCopy = (org: Organisation): Copy['component'] => {
       list_sharing:
         'You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to us at',
       title: 'General information',
+      list_complaint: (complaintEmail: string) => {
+        return (
+          <>
+            If you would like to make a complaint, please email us at{' '}
+            <LinkExternal href={`mailto:${complaintEmail}`} text={complaintEmail} />.
+          </>
+        );
+      },
     },
     max_account_connected_message: {
       list_label: 'You currently have the following active consents:',

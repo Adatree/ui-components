@@ -3,19 +3,19 @@ import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { LinkExternal } from '../links/link-external.atom';
 import { useCopy } from '../../context/copy.context';
+import { useOrg } from '../../context/organisation.context';
 
 export type GeneralInformationProps = {
-  cdrPolicyUrl: string;
   topListItemOverride?: string;
-  dataSharingRevocationEmail: string;
   hideDuplicateListItem?: boolean;
 };
 
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
-  const { cdrPolicyUrl, topListItemOverride, dataSharingRevocationEmail, hideDuplicateListItem = false } = props;
+  const { topListItemOverride, hideDuplicateListItem = false } = props;
   const [copy] = useCopy();
+  const [org] = useOrg();
 
-  const renderListItem = (text: ReactElement | string, key: number): ReactElement => {
+  const renderListItem = (text: ReactElement | string): ReactElement => {
     return (
       <ListItem
         sx={{
@@ -26,7 +26,6 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           listStyle: 'disc',
           width: 'calc(100% - 2rem)',
         }}
-        key={key}
       >
         <ListItemText primary={text} />
       </ListItem>
@@ -36,34 +35,31 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
   const getList = (): ReactElement => {
     return (
       <List>
+        {renderListItem(topListItemOverride ? topListItemOverride : copy.component.general_information.list_security)}
+        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_marketing)}
         {renderListItem(
-          topListItemOverride ? topListItemOverride : copy.component.general_information.list_security,
-          0,
-        )}
-        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_marketing, 1)}
-        {renderListItem(
-          <Typography key="item1">
+          <Typography>
             {copy.component.general_information.list_records}{' '}
-            <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
+            <LinkExternal href={`mailto:${org.dataSharingRevocationEmail}`} text={org.dataSharingRevocationEmail} />.
           </Typography>,
-          2,
         )}
         {renderListItem(
-          <Typography key="item2">
+          <Typography>
             {copy.component.general_information.list_sharing}{' '}
-            <LinkExternal href={`mailto:${dataSharingRevocationEmail}`} text={dataSharingRevocationEmail} />.
+            <LinkExternal href={`mailto:${org.dataSharingRevocationEmail}`} text={org.dataSharingRevocationEmail} />.
           </Typography>,
-          3,
         )}
-        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted, 4)}
-        {renderListItem(copy.component.general_information.list_revoked, 5)}
+        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
+        {renderListItem(copy.component.general_information.list_revoked)}
         {!hideDuplicateListItem &&
           renderListItem(
-            <Typography key="item3">
-              {copy.component.general_information.list_more(copy.common.cdr_policy_label, cdrPolicyUrl)}
+            <Typography>
+              {copy.component.general_information.list_more(copy.common.cdr_policy_label, org.cdrPolicyUrl)}
             </Typography>,
-            6,
           )}
+        {renderListItem(
+          <Typography>{copy.component.general_information.list_complaint(org.complaintEmail)}</Typography>,
+        )}
       </List>
     );
   };

@@ -1,15 +1,11 @@
 import { Organisation } from '../../../types/organisation.type';
 
-const accreditationNumber = '1234-5678';
-const cdrPolicyUrl = 'https://www.adatree.com.au/cdrpolicy';
-const companyName = 'TestCompany';
-const dataSharingRevocationEmail = 'name@example.com';
-
 export const organisation: Organisation = {
-  accreditationNumber: accreditationNumber,
-  dataSharingRevocationEmail: dataSharingRevocationEmail,
-  cdrPolicyUrl: cdrPolicyUrl,
+  accreditationNumber: '1234-5678',
+  complaintEmail: 'complaint@example.com',
+  cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
+  dataSharingRevocationEmail: 'data.sharing.revocation@example.com',
   logo: '/assets/images/test-company-logo.png',
-  name: companyName,
+  name: 'TestCompany',
   underCdrPrincipal: false,
 };
