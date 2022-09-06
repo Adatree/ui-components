@@ -44,10 +44,15 @@ export interface Copy {
     };
   };
   component: {
+    data_handling_info: {
+      list_data_policy: (name: string, dataPolicyUrl: string) => ReactElement;
+      list_protection_framework: (protectionFrameworkText: string, protectionFrameworkUrl: string) => ReactElement;
+      title: string;
+    };
     general_information: {
       list_deleted: string;
       list_marketing: string;
-      list_more: string;
+      list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
       list_records: string;
       list_revoked: string;
       list_security: string;

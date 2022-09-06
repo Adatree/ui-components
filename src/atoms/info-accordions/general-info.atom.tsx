@@ -28,8 +28,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
     copy.component.general_information.list_deleted,
     copy.component.general_information.list_revoked,
     <Typography key="item3">
-      {copy.component.general_information.list_more}{' '}
-      <LinkExternal href={cdrPolicyUrl} text={copy.common.cdr_policy_label} />.
+      {copy.component.general_information.list_more(copy.common.cdr_policy_label, cdrPolicyUrl)}
     </Typography>,
   ];
   return (

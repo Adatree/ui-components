@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
-import { GeneralInformation } from '../../atoms/populated-accordions/general-information.atom';
+import { GeneralInformation } from '../../atoms/info-accordions/general-info.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { useCopy } from '../../context/copy.context';
 import { useOrg } from '../../context/organisation.context';

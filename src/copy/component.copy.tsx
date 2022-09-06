@@ -1,15 +1,42 @@
 import React from 'react';
 import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
+import { LinkExternal } from '../atoms/links/link-external.atom';
 import { Copy } from '../types/copy.type';
 import { Organisation } from '../types/organisation.type';
 
 export const componentCopy = (org: Organisation): Copy['component'] => {
   return {
+    data_handling_info: {
+      list_data_policy: (name: string, dataPolicyUrl: string) => {
+        return (
+          <>
+            Find out more information on how your data will be handled by {name}{' '}
+            <LinkExternal href={dataPolicyUrl} text="here" />.
+          </>
+        );
+      },
+      list_protection_framework: (protectionFrameworkText: string, protectionFrameworkUrl: string) => {
+        return (
+          <>
+            Your data will be subject to the protections provided under{' '}
+            <LinkExternal href={protectionFrameworkUrl} text={protectionFrameworkText} /> rather than the CDR.
+          </>
+        );
+      },
+      title: 'Data Handling',
+    },
     general_information: {
       list_deleted:
         'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
       list_marketing: 'We will never sell your data or use it for marketing.',
-      list_more: 'Find out more information on how we handle your data in our easy to read',
+      list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => {
+        return (
+          <>
+            Find out more information on how we handle your data in our easy to read{' '}
+            <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
+          </>
+        );
+      },
       list_records:
         'You can request copies of records relating to your consent and the data we collect by writing to us at',
       list_revoked: 'When you revoke consent, the services we offer may cease to provide you with benefits.',
