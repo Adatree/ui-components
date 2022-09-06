@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Chip, Grid } from '@mui/material';
+import { Chip, Grid } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
 
