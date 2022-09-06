@@ -13,9 +13,18 @@ export default {
 const dataHolders = TestUtil.testData.dataHolder.all();
 const Template: ComponentStory<typeof DataHolderTiles> = (args) => <DataHolderTiles {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const WithAllEnabled = Template.bind({});
+WithAllEnabled.args = {
   dataHolders: dataHolders,
+  onClick: (dataHolder) => {
+    alert(`${dataHolder.brandName} was clicked.`);
+  },
+};
+
+export const WithTwoDisabled = Template.bind({});
+WithTwoDisabled.args = {
+  dataHolders: dataHolders,
+  disableDataHolders: [dataHolders[1], dataHolders[3]],
   onClick: (dataHolder) => {
     alert(`${dataHolder.brandName} was clicked.`);
   },

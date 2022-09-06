@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Chip } from '@mui/material';
+import { Box, Chip, Grid } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
 
@@ -26,19 +26,15 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-evenly' }}>
+    <Grid container spacing={2}>
       {dataHolders.map((dataHolder) => {
         const disabled = isDisabled(dataHolder);
         return (
-          <Box
-            sx={{
-              width: '50%',
-              maxWidth: '25rem',
-              cursor: disabled === true ? 'default' : 'pointer',
-              p: 0.5,
-              position: 'relative',
-              alignSelf: 'stretch',
-            }}
+          <Grid
+            item
+            xs={6}
+            md={3}
+            sx={{ cursor: 'pointer', position: 'relative' }}
             onClick={() => handleClick(dataHolder, disabled)}
             key={dataHolder.dataHolderBrandId}
           >
@@ -93,9 +89,9 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
                 size="small"
               />
             )}
-          </Box>
+          </Grid>
         );
       })}
-    </Box>
+    </Grid>
   );
 };
