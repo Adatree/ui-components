@@ -1,8 +1,6 @@
 import React from 'react';
 
 import AlertCircle from 'mdi-material-ui/AlertCircle';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { FeedbackMessage } from '../../atoms/feedback-message/feedback-message.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { Box, Typography } from '@mui/material';
@@ -65,9 +63,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
         <>
           <Typography variant="h3">Extra information</Typography>
           <Box sx={{ code: { display: 'block', width: '100px' } }}>
-            <SyntaxHighlighter language="JSON" style={docco}>
-              {parsedData}
-            </SyntaxHighlighter>
+            <pre style={{ backgroundColor: '#F8F8FF', padding: '8px' }}>{parsedData}</pre>
           </Box>
         </>
       )}
