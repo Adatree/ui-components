@@ -5,6 +5,7 @@ import { dataHolder } from './test-data/data-holders';
 import { organisation } from './test-data/organisation';
 import { outsourcedServiceProvider } from './test-data/outsourced-service-providers';
 import { scope } from './test-data/scopes';
+import { trustedAdvisor } from './test-data/trusted-advisors';
 import { useCase } from './test-data/use-cases';
 
 const suspendLogger = (): void => {
@@ -22,6 +23,7 @@ export const TestUtil = {
     organisation,
     outsourcedServiceProvider,
     scope,
+    trustedAdvisor,
     useCase,
   },
   suspendLogger,
