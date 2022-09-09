@@ -4,6 +4,7 @@ import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-me
 import { Helper } from '../../utils/helper/helper';
 import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';
 import { ConsentCreateForm } from './consent-create-form.organism';
+import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
 import { useConsentForm } from '../../context/consentForm.context';
 
 export type ConsentCreateProps = {
@@ -11,6 +12,7 @@ export type ConsentCreateProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
+  trustedAdvisors?: TrustedAdvisorResponse[];
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -21,6 +23,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     useCase,
     enablePartnerMessageDiscreetMode = false,
     favouriteDataHolders,
+    trustedAdvisors,
     onCancel,
     onSubmit,
   } = props;
@@ -55,6 +58,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
             <ConsentCreateForm
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
+              trustedAdvisors={trustedAdvisors}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />

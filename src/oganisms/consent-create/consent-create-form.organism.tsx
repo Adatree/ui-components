@@ -10,16 +10,19 @@ import { ConsentSectionDates } from '../../molecules/consent-section/consent-sec
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
+import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { ConsentSectionTrustedAdvisor } from '../../molecules/consent-section/consent-section-trusted-advisor.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
+  trustedAdvisors?: TrustedAdvisorResponse[];
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const { useCase, enablePartnerMessageDiscreetMode = false, trustedAdvisors, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
@@ -102,6 +105,13 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
+          {trustedAdvisors && (
+            <ConsentSectionTrustedAdvisor
+              message={copy.consent.create.trusted_advisors_label}
+              trustedAdvisors={trustedAdvisors}
+            />
+          )}
+
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
           <ConsentSectionInfo useCase={useCase} />
@@ -119,7 +129,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       )}
 
       <PartnerMessageDialog
-        dataHolderName={consentForm.dataHolder ? consentForm.dataHolder?.brandName : 'Your data provider'}
+        dataHolderName={
+          consentForm.dataHolder ? consentForm.dataHolder?.brandName : copy.common.fallback_data_holder_name
+        }
         discreetMode={enablePartnerMessageDiscreetMode}
         isOpen={isPartnerDialogOpen}
         onClose={handlePartnerDialogClose}

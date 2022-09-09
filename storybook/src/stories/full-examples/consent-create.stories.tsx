@@ -142,6 +142,53 @@ WithSupportingParties.args = {
 
 // ####################################
 
+export const WithOneTrustedAdvisor = Template.bind({});
+WithOneTrustedAdvisor.decorators = [
+  (Story) => {
+    return (
+      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+        <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+          <Story />
+        </ConsentFormProvider>
+      </OrganisationProvider>
+    );
+  },
+];
+
+WithOneTrustedAdvisor.args = {
+  existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  trustedAdvisors: [TestUtil.testData.trustedAdvisor.trustedAdvisor1()],
+  useCase: { ...TestUtil.testData.useCase.homeLoan() },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithManyTrustedAdvisors = Template.bind({});
+WithManyTrustedAdvisors.decorators = [
+  (Story) => {
+    return (
+      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+        <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+          <Story />
+        </ConsentFormProvider>
+      </OrganisationProvider>
+    );
+  },
+];
+
+WithManyTrustedAdvisors.args = {
+  existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  trustedAdvisors: TestUtil.testData.trustedAdvisor.all(),
+  useCase: { ...TestUtil.testData.useCase.homeLoan() },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+// ####################################
+
 export const WithLongScopes = Template.bind({});
 WithLongScopes.decorators = [
   (Story) => {

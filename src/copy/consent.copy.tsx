@@ -22,6 +22,7 @@ export const consentCopy = (org: Organisation, providerType: string): Copy['cons
           </>
         );
       },
+      trusted_advisors_label: 'Your data will be shared with:',
     },
     edit: {
       active_consent_message: 'Update your consent details',

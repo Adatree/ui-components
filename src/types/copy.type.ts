@@ -28,6 +28,7 @@ export interface Copy {
       select_more_data_holder_title: string;
       save_label: string;
       title: (name: string) => ReactElement;
+      trusted_advisors_label: string;
     };
     edit: {
       active_consent_message: string;
