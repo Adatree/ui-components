@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Card } from '../../atoms/card/card.atom';
 import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { TrustedAdvisorList } from '../../atoms/trusted-advisor-list/trusted-advisor-list.atom';
 
 export type ConsentSectionTrustedAdvisorProps = {
   message: string | ReactElement;
@@ -15,18 +16,7 @@ export const ConsentSectionTrustedAdvisor: React.FC<ConsentSectionTrustedAdvisor
     <>
       <Card sx={{ mt: 1, mb: '3rem' }}>
         <Typography sx={{ mb: 1 }}>{message}</Typography>
-        <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-          {trustedAdvisors.map((trustedAdvisor) => {
-            return (
-              <ListItem key={trustedAdvisor.id} sx={{ px: 1, py: 0.5 }}>
-                <ListItemText
-                  id={`trusted-advisor-list-label-${trustedAdvisor.id}`}
-                  primary={<Typography variant="body2">{trustedAdvisor.name}</Typography>}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
+        <TrustedAdvisorList TrustedAdvisors={trustedAdvisors} />
       </Card>
     </>
   );
