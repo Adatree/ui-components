@@ -2,7 +2,7 @@ import { Logger } from '../logger/logger';
 import { bankData } from './test-data/bank-transactions';
 import { consent } from './test-data/consents';
 import { dataHolder } from './test-data/data-holders';
-import { organisation } from './test-data/organisation';
+import { dataRecipient } from './test-data/organisation';
 import { outsourcedServiceProvider } from './test-data/outsourced-service-providers';
 import { scope } from './test-data/scopes';
 import { trustedAdvisor } from './test-data/trusted-advisors';
@@ -20,7 +20,7 @@ export const TestUtil = {
     bankData,
     consent,
     dataHolder,
-    organisation,
+    dataRecipient,
     outsourcedServiceProvider,
     scope,
     trustedAdvisor,

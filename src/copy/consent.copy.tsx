@@ -1,9 +1,9 @@
 import React from 'react';
 import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
 import { Copy } from '../types/copy.type';
-import { Organisation } from '../types/organisation.type';
+import { DataRecipient } from '../types/data-recipient.type';
 
-export const consentCopy = (org: Organisation, providerType: string): Copy['consent'] => {
+export const consentCopy = (dataRecipient: DataRecipient, providerType: string): Copy['consent'] => {
   return {
     create: {
       consent_label: 'Consent',
@@ -18,7 +18,7 @@ export const consentCopy = (org: Organisation, providerType: string): Copy['cons
       title: (name: string) => {
         return (
           <>
-            <HL>{org.name}</HL> requests access to your <HL>{name}</HL> account data
+            <HL>{dataRecipient.name}</HL> requests access to your <HL>{name}</HL> account data
           </>
         );
       },
@@ -31,22 +31,22 @@ export const consentCopy = (org: Organisation, providerType: string): Copy['cons
       },
       scope_additional_message: (
         <>
-          <HL>{org.name}</HL> would like access to the following new data:
+          <HL>{dataRecipient.name}</HL> would like access to the following new data:
         </>
       ),
       scope_create_message: (
         <>
-          <HL>{org.name}</HL> would like access to the following data:
+          <HL>{dataRecipient.name}</HL> would like access to the following data:
         </>
       ),
       scope_read_only_message: (
         <>
-          <HL>{org.name}</HL> has access to the following data:
+          <HL>{dataRecipient.name}</HL> has access to the following data:
         </>
       ),
       scope_remove_message: (
         <>
-          <HL>{org.name}</HL> would like to remove access to the following data:
+          <HL>{dataRecipient.name}</HL> would like to remove access to the following data:
         </>
       ),
       up_to_date_message: 'Your consent details are up to date. There are no options for you to edit.',
@@ -54,7 +54,7 @@ export const consentCopy = (org: Organisation, providerType: string): Copy['cons
     scope: {
       tooltip_label: (
         <>
-          <HL>{org.name}</HL> will receive access to the following data:
+          <HL>{dataRecipient.name}</HL> will receive access to the following data:
         </>
       ),
     },

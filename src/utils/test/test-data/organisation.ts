@@ -1,6 +1,6 @@
-import { Organisation } from '../../../types/organisation.type';
+import { DataRecipient } from '../../../types/data-recipient.type';
 
-export const organisation: Organisation = {
+export const dataRecipient: DataRecipient = {
   accreditationNumber: '1234-5678',
   complaintEmail: 'complaint@example.com',
   cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',

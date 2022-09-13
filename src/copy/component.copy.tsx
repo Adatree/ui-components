@@ -2,9 +2,9 @@ import React from 'react';
 import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
 import { LinkExternal } from '../atoms/links/link-external.atom';
 import { Copy } from '../types/copy.type';
-import { Organisation } from '../types/organisation.type';
+import { DataRecipient } from '../types/data-recipient.type';
 
-export const componentCopy = (org: Organisation): Copy['component'] => {
+export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] => {
   return {
     data_handling_info: {
       list_data_policy: (name: string, dataPolicyUrl: string) => {
@@ -65,13 +65,14 @@ export const componentCopy = (org: Organisation): Copy['component'] => {
       discreet_label: 'consent service provided by',
       what_label: (
         <>
-          <HL>{org.name}</HL> use <HL>Adatree</HL> to help you consent and access your data.
+          <HL>{dataRecipient.name}</HL> use <HL>Adatree</HL> to help you consent and access your data.
         </>
       ),
       why_label: (dataHolderName: string) => {
         return (
           <>
-            <HL>{dataHolderName}</HL> will ask you to share your data with <HL>Adatree</HL> for <HL>{org.name}</HL>.
+            <HL>{dataHolderName}</HL> will ask you to share your data with <HL>Adatree</HL> for{' '}
+            <HL>{dataRecipient.name}</HL>.
           </>
         );
       },

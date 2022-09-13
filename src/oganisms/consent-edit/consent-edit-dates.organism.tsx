@@ -4,7 +4,7 @@ import { ConsentSectionDates } from '../../molecules/consent-section/consent-sec
 import { Card } from '../../atoms/card/card.atom';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { Typography } from '@mui/material';
-import { useOrg } from '../../context/organisation.context';
+import { useDataRecipient } from '../../context/data-recipient.context';
 
 export type ConsentEditDatesProps = {
   consent: ConsentResponse;
@@ -14,13 +14,13 @@ export type ConsentEditDatesProps = {
 
 export const ConsentEditDates = (props: ConsentEditDatesProps) => {
   const { consent, showError = false, useCase } = props;
-  const [organisation] = useOrg();
+  const [dataRecipient] = useDataRecipient();
 
   return (
     <section>
       <Card>
         <Typography sx={{ mt: 1.5, mb: 0 }}>
-          {TextBuilder.currentAccess(organisation.name, consent.sharingEndDate)}
+          {TextBuilder.currentAccess(dataRecipient.name, consent.sharingEndDate)}
         </Typography>
       </Card>
 

@@ -4,7 +4,7 @@ import { UseCaseResponse } from '../../generated/consent/api';
 import { Card } from '../../atoms/card/card.atom';
 import { DateSelector } from '../date-selector/date-selector.molecule';
 import { TextBuilder } from '../../utils/text/text-builder';
-import { useOrg } from '../../context/organisation.context';
+import { useDataRecipient } from '../../context/data-recipient.context';
 
 export type ConsentSectionDatesProps = {
   useCase: UseCaseResponse;
@@ -14,20 +14,20 @@ export type ConsentSectionDatesProps = {
 
 export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) => {
   const { useCase, showError } = props;
-  const [organisation] = useOrg();
+  const [dataRecipient] = useDataRecipient();
 
   return (
     <>
       <Card error={showError}>
         {useCase.sharingDurations && (
-          <DateSelector companyName={organisation.name} sharingDurations={useCase.sharingDurations} />
+          <DateSelector companyName={dataRecipient.name} sharingDurations={useCase.sharingDurations} />
         )}
         <Typography sx={{ mt: 1.5, mb: 0 }}>
-          {TextBuilder.accessFrequency(organisation.name, useCase.accessFrequency)}
+          {TextBuilder.accessFrequency(dataRecipient.name, useCase.accessFrequency)}
         </Typography>
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">
-        {showError && `Please confirm how long you would like ${organisation.name} to access your data.`}
+        {showError && `Please confirm how long you would like ${dataRecipient.name} to access your data.`}
       </Typography>
     </>
   );

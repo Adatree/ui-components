@@ -1,4 +1,4 @@
-export interface Organisation {
+export interface DataRecipient {
   accreditationNumber: string;
   cdrPolicyUrl: string;
   complaintEmail: string;

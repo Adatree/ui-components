@@ -54,7 +54,7 @@ export { copy } from './copy/copy';
 // Context
 export * from './context/consentForm.context';
 export * from './context/copy.context';
-export * from './context/organisation.context';
+export * from './context/data-recipient.context';
 
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
@@ -65,7 +65,7 @@ export { defaultTheme, AppTheme } from './providers/themes/app.theme';
 
 // Types
 export { Copy } from './types/copy.type';
-export { Organisation } from './types/organisation.type';
+export { DataRecipient } from './types/data-recipient.type';
 
 // Utils
 export { Debugger } from './utils/debug/debug';

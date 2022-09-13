@@ -7,7 +7,7 @@ import {
   PostUsageAction,
   SharingDuration,
   TestUtil,
-  OrganisationProvider,
+  DataRecipientProvider,
 } from '../../lib';
 
 export default {
@@ -94,11 +94,11 @@ export const WithUnderCdrPrincipal = Template.bind({});
 WithUnderCdrPrincipal.decorators = [
   (Story) => {
     return (
-      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+      <DataRecipientProvider dataRecipient={{ ...TestUtil.testData.dataRecipient, underCdrPrincipal: true }}>
         <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
           <Story />
         </ConsentFormProvider>
-      </OrganisationProvider>
+      </DataRecipientProvider>
     );
   },
 ];
@@ -146,11 +146,11 @@ export const WithOneTrustedAdvisor = Template.bind({});
 WithOneTrustedAdvisor.decorators = [
   (Story) => {
     return (
-      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+      <DataRecipientProvider dataRecipient={{ ...TestUtil.testData.dataRecipient, underCdrPrincipal: true }}>
         <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
           <Story />
         </ConsentFormProvider>
-      </OrganisationProvider>
+      </DataRecipientProvider>
     );
   },
 ];
@@ -170,11 +170,11 @@ export const WithManyTrustedAdvisors = Template.bind({});
 WithManyTrustedAdvisors.decorators = [
   (Story) => {
     return (
-      <OrganisationProvider org={{ ...TestUtil.testData.organisation, underCdrPrincipal: true }}>
+      <DataRecipientProvider dataRecipient={{ ...TestUtil.testData.dataRecipient, underCdrPrincipal: true }}>
         <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
           <Story />
         </ConsentFormProvider>
-      </OrganisationProvider>
+      </DataRecipientProvider>
     );
   },
 ];

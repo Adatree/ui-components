@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
-import { useOrg } from '../../context/organisation.context';
 import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { useDataRecipient } from '../../context/data-recipient.context';
 
 export type DataHandlingInfoProps = {
   trustedAdvisors: TrustedAdvisorResponse[];
@@ -12,7 +12,7 @@ export type DataHandlingInfoProps = {
 export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
   const { trustedAdvisors } = props;
   const [copy] = useCopy();
-  const [org] = useOrg();
+  const [dataRecipient] = useDataRecipient();
 
   const renderListItem = (text: ReactElement | string, key: number): ReactElement => {
     return (
@@ -38,7 +38,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
         {renderListItem(copy.component.general_information.list_marketing, 0)}
         {renderListItem(copy.component.general_information.list_deleted, 1)}
         {renderListItem(
-          copy.component.general_information.list_more(copy.common.cdr_policy_label, org.cdrPolicyUrl),
+          copy.component.general_information.list_more(copy.common.cdr_policy_label, dataRecipient.cdrPolicyUrl),
           2,
         )}
       </List>
@@ -68,7 +68,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
       title={copy.component.data_handling_info.title}
       content={
         <>
-          <Typography variant="h3">{org.name}</Typography>
+          <Typography variant="h3">{dataRecipient.name}</Typography>
           {renderDataHandlingList()}
 
           {trustedAdvisors.map((trustedAdvisor, index) => {
