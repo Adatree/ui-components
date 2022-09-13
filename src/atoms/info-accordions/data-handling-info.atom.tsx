@@ -3,20 +3,14 @@ import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
 import { useOrg } from '../../context/organisation.context';
-
-export type TaRecord = {
-  name: string;
-  dataPolicyUrl: string;
-  protectionFrameworkText: string;
-  protectionFrameworkUrl: string;
-};
+import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
 
 export type DataHandlingInfoProps = {
-  taRecords: TaRecord[];
+  trustedAdvisors: TrustedAdvisorResponse[];
 };
 
 export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
-  const { taRecords } = props;
+  const { trustedAdvisors } = props;
   const [copy] = useCopy();
   const [org] = useOrg();
 
@@ -38,7 +32,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const getAdatreeList = (): ReactElement => {
+  const renderDataHandlingList = (): ReactElement => {
     return (
       <List>
         {renderListItem(copy.component.general_information.list_marketing, 0)}
@@ -51,17 +45,20 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const getTaList = (ta: TaRecord): ReactElement => {
+  const renderTrustedAdvisorList = (trustedAdvisor: TrustedAdvisorResponse): ReactElement => {
     return (
       <List>
         {renderListItem(
           copy.component.data_handling_info.list_protection_framework(
-            ta.protectionFrameworkText,
-            ta.protectionFrameworkUrl,
+            trustedAdvisor.name,
+            trustedAdvisor.protectionFrameworkUrl,
           ),
           0,
         )}
-        {renderListItem(copy.component.data_handling_info.list_data_policy(ta.name, ta.dataPolicyUrl), 1)}
+        {renderListItem(
+          copy.component.data_handling_info.list_data_policy(trustedAdvisor.name, trustedAdvisor.dataPolicyUrl),
+          1,
+        )}
       </List>
     );
   };
@@ -71,16 +68,16 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
       title={copy.component.data_handling_info.title}
       content={
         <>
-          <Typography variant="h3">{copy.common.adatree_name}</Typography>
-          {getAdatreeList()}
+          <Typography variant="h3">{org.name}</Typography>
+          {renderDataHandlingList()}
 
-          {taRecords.map((ta, index) => {
+          {trustedAdvisors.map((trustedAdvisor, index) => {
             return (
               <>
                 <Typography variant="h3" sx={{ mt: 2 }} key={index}>
-                  {ta.name}
+                  {trustedAdvisor.name}
                 </Typography>
-                {getTaList(ta)}
+                {renderTrustedAdvisorList(trustedAdvisor)}
               </>
             );
           })}

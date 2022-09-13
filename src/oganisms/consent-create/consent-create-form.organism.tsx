@@ -114,7 +114,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
-          <ConsentSectionInfo useCase={useCase} />
+          <ConsentSectionInfo useCase={useCase} trustedAdvisors={trustedAdvisors} />
 
           <ConsentSectionActions
             actionButtonLabel={copy.consent.create.consent_label}

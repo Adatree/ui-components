@@ -15,11 +15,11 @@ export const componentCopy = (org: Organisation): Copy['component'] => {
           </>
         );
       },
-      list_protection_framework: (protectionFrameworkText: string, protectionFrameworkUrl: string) => {
+      list_protection_framework: (trustedAdvisorName: string, protectionFrameworkUrl: string) => {
         return (
           <>
-            Your data will be subject to the protections provided under{' '}
-            <LinkExternal href={protectionFrameworkUrl} text={protectionFrameworkText} /> rather than the CDR.
+            Your data will be subject to the protections provided under {trustedAdvisorName}{' '}
+            <LinkExternal href={protectionFrameworkUrl} text={`protection framework policy`} /> rather than the CDR.
           </>
         );
       },
