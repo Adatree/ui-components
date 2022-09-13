@@ -7,10 +7,10 @@ import {
   PostUsageAction,
   TestUtil,
   SharingDuration,
-} from '../../lib';
+} from '../../../lib';
 
 export default {
-  title: 'Full examples/Edit consent',
+  title: 'Full examples/CDR principal/Edit consent',
   component: ConsentEdit,
   argTypes: {
     backgroundColor: { control: 'color' },

@@ -8,10 +8,10 @@ import {
   SharingDuration,
   TestUtil,
   DataRecipientProvider,
-} from '../../lib';
+} from '../../../lib';
 
 export default {
-  title: 'Full examples/Create consent',
+  title: 'Full examples/CDR principal/Create consent',
   component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
