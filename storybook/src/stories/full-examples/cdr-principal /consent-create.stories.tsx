@@ -11,7 +11,7 @@ import {
 } from '../../../lib';
 
 export default {
-  title: 'Full examples/CDR principal/Create consent',
+  title: 'Full examples/CDR representative/Create consent',
   component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
