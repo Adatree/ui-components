@@ -10,7 +10,7 @@ import {
 } from '../../../lib';
 
 export default {
-  title: 'Full examples/Common to all parties/Create consent',
+  title: 'Full examples/Create consent',
   component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -149,6 +149,55 @@ WithMultiDatesAndCustom.decorators = [
 WithMultiDatesAndCustom.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithOneTrustedAdvisor = Template.bind({});
+WithOneTrustedAdvisor.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithOneTrustedAdvisor.args = {
+  existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  trustedAdvisors: [TestUtil.testData.trustedAdvisor.trustedAdvisor1()],
+  useCase: {
+    ...TestUtil.testData.useCase.homeLoan(),
+    sharingDurations: [SharingDuration.THREEMONTHS],
+    accessFrequency: AccessFrequency.ONGOING,
+  },
+
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};
+
+// ####################################
+
+export const WithManyTrustedAdvisors = Template.bind({});
+WithManyTrustedAdvisors.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithManyTrustedAdvisors.args = {
+  existingConsents: TestUtil.testData.consent.all(),
+  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
+  trustedAdvisors: TestUtil.testData.trustedAdvisor.all(),
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
