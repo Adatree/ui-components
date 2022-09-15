@@ -10,20 +10,20 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { DataHandler } from '../../types/data-handler.type';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
 
 export type TrustedAdvisorListProps = {
-  TrustedAdvisors: TrustedAdvisorResponse[];
+  TrustedAdvisors: DataHandler[];
 };
 
 export const TrustedAdvisorList: React.FC<TrustedAdvisorListProps> = (props) => {
   const { TrustedAdvisors } = props;
-  const [listItem, setListItem] = useState<TrustedAdvisorResponse>();
+  const [listItem, setListItem] = useState<DataHandler>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleInfoClick = (listItem: TrustedAdvisorResponse) => {
+  const handleInfoClick = (listItem: DataHandler) => {
     setListItem(listItem);
     setIsDialogOpen(true);
   };
@@ -35,7 +35,7 @@ export const TrustedAdvisorList: React.FC<TrustedAdvisorListProps> = (props) => 
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {TrustedAdvisors.map((trustedAdvisor: TrustedAdvisorResponse) => {
+        {TrustedAdvisors.map((trustedAdvisor: DataHandler) => {
           return (
             <ListItem key={trustedAdvisor.id} sx={{ px: 1, py: 0.5 }}>
               <ListItemText

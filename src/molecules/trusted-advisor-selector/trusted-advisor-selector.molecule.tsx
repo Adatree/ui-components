@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RadioButtonItem, RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { Card } from '../../atoms/card/card.atom';
-import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { DataHandler } from '../../types/data-handler.type';
 
 export type TrustedAdvisorSelectorProps = {
-  trustedAdvisors: TrustedAdvisorResponse[];
+  trustedAdvisors: DataHandler[];
   onChange: (trustedAdvisorsId: string) => void;
 };
 

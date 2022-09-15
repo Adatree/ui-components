@@ -65,6 +65,7 @@ export { defaultTheme, AppTheme } from './providers/themes/app.theme';
 
 // Types
 export { Copy } from './types/copy.type';
+export { DataHandler } from './types/data-handler.type';
 export { DataRecipient } from './types/data-recipient.type';
 
 // Utils

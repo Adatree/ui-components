@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react';
 import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
-import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { DataHandler } from '../../types/data-handler.type';
 import { useDataRecipient } from '../../context/data-recipient.context';
 
 export type DataHandlingInfoProps = {
-  trustedAdvisors: TrustedAdvisorResponse[];
+  trustedAdvisors: DataHandler[];
 };
 
 export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
@@ -45,7 +45,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const renderTrustedAdvisorList = (trustedAdvisor: TrustedAdvisorResponse): ReactElement => {
+  const renderTrustedAdvisorList = (trustedAdvisor: DataHandler): ReactElement => {
     return (
       <List>
         {renderListItem(

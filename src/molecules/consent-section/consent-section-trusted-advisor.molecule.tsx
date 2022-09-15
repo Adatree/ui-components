@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Typography } from '@mui/material';
 import { Card } from '../../atoms/card/card.atom';
-import { TrustedAdvisorResponse } from '../../types/trusted-advisor.type';
+import { DataHandler } from '../../types/data-handler.type';
 import { TrustedAdvisorList } from '../../atoms/trusted-advisor-list/trusted-advisor-list.atom';
 
 export type ConsentSectionTrustedAdvisorProps = {
   message: string | ReactElement;
-  trustedAdvisors: TrustedAdvisorResponse[];
+  trustedAdvisors: DataHandler[];
 };
 
 export const ConsentSectionTrustedAdvisor: React.FC<ConsentSectionTrustedAdvisorProps> = (props) => {

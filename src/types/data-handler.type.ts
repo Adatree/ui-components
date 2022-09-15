@@ -1,4 +1,4 @@
-export interface TrustedAdvisorResponse {
+export interface DataHandler {
   dataPolicyUrl: string;
   description: string;
   id: string;
