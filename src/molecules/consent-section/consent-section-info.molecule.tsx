@@ -10,11 +10,11 @@ import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info
 
 export type ConsentSectionInfoProps = {
   useCase: UseCaseResponse;
-  trustedAdvisors?: DataHandler[];
+  dataHandlers?: DataHandler[];
 };
 
 export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
-  const { useCase, trustedAdvisors } = props;
+  const { useCase, dataHandlers } = props;
   const [copy] = useCopy();
 
   return (
@@ -23,12 +23,12 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
         <Accordion title="Purpose of accessing my data" content={useCase.description} />
         <GeneralInformation
           topListItemOverride={copy.consent.create.data_holder_general_information_list_item}
-          hideDuplicateListItem={trustedAdvisors !== undefined}
+          hideDuplicateListItem={dataHandlers !== undefined}
         />
         {useCase.osps && useCase.osps.length > 0 && (
           <SupportingParties title={'Supporting Parties'} useCase={useCase} outsourcedServiceProviders={useCase.osps} />
         )}
-        {trustedAdvisors && <DataHandlingInfo trustedAdvisors={trustedAdvisors} />}
+        {dataHandlers && <DataHandlingInfo dataHandlers={dataHandlers} />}
       </Box>
     </>
   );

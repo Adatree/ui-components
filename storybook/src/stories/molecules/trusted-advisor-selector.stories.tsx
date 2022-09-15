@@ -10,7 +10,7 @@ export default {
   },
 } as ComponentMeta<typeof TrustedAdvisorSelector>;
 
-const trustedAdvisors = TestUtil.testData.trustedAdvisor.all();
+const trustedAdvisors = TestUtil.testData.dataHandler.all();
 const Template: ComponentStory<typeof TrustedAdvisorSelector> = (args) => <TrustedAdvisorSelector {...args} />;
 
 export const WithUseCases = Template.bind({});

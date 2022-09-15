@@ -12,12 +12,12 @@ export default {
 
 const Template: ComponentStory<typeof DataHandlingInfo> = (args) => <DataHandlingInfo {...args} />;
 
-export const WithOneTrustedAdvisor = Template.bind({});
-WithOneTrustedAdvisor.args = {
-  trustedAdvisors: [TestUtil.testData.trustedAdvisor.trustedAdvisor1()],
+export const WithOneDataHandler = Template.bind({});
+WithOneDataHandler.args = {
+  dataHandlers: [TestUtil.testData.dataHandler.dataHandler1()],
 };
 
-export const WithManyTrustedAdvisors = Template.bind({});
-WithManyTrustedAdvisors.args = {
-  trustedAdvisors: TestUtil.testData.trustedAdvisor.all(),
+export const WithManyDataHandler = Template.bind({});
+WithManyDataHandler.args = {
+  dataHandlers: TestUtil.testData.dataHandler.all(),
 };

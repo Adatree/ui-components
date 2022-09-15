@@ -14,12 +14,12 @@ import { DataHandler } from '../../types/data-handler.type';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
 
-export type TrustedAdvisorListProps = {
-  TrustedAdvisors: DataHandler[];
+export type DataHandlerListProps = {
+  dataHandlers: DataHandler[];
 };
 
-export const TrustedAdvisorList: React.FC<TrustedAdvisorListProps> = (props) => {
-  const { TrustedAdvisors } = props;
+export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
+  const { dataHandlers } = props;
   const [listItem, setListItem] = useState<DataHandler>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -35,11 +35,11 @@ export const TrustedAdvisorList: React.FC<TrustedAdvisorListProps> = (props) => 
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {TrustedAdvisors.map((trustedAdvisor: DataHandler) => {
+        {dataHandlers.map((dataHandler: DataHandler) => {
           return (
-            <ListItem key={trustedAdvisor.id} sx={{ px: 1, py: 0.5 }}>
+            <ListItem key={dataHandler.id} sx={{ px: 1, py: 0.5 }}>
               <ListItemText
-                id={`trusted-advisor-list-label-${trustedAdvisor.id}`}
+                id={`data-handler-list-label-${dataHandler.id}`}
                 primary={
                   <>
                     <Box
@@ -49,11 +49,8 @@ export const TrustedAdvisorList: React.FC<TrustedAdvisorListProps> = (props) => 
                         justifyContent: { xs: 'space-between', sm: 'normal' },
                       }}
                     >
-                      <Typography variant="body2">{trustedAdvisor.name}</Typography>
-                      <Box
-                        onClick={() => handleInfoClick(trustedAdvisor)}
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                      >
+                      <Typography variant="body2">{dataHandler.name}</Typography>
+                      <Box onClick={() => handleInfoClick(dataHandler)} sx={{ display: 'flex', alignItems: 'center' }}>
                         <InfoIcon sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
                       </Box>
                     </Box>

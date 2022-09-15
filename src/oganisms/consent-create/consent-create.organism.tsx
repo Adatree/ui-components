@@ -12,7 +12,7 @@ export type ConsentCreateProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
-  trustedAdvisors?: DataHandler[];
+  dataHandlers?: DataHandler[];
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -23,7 +23,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     useCase,
     enablePartnerMessageDiscreetMode = false,
     favouriteDataHolders,
-    trustedAdvisors,
+    dataHandlers,
     onCancel,
     onSubmit,
   } = props;
@@ -58,7 +58,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
             <ConsentCreateForm
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
-              trustedAdvisors={trustedAdvisors}
+              dataHandlers={dataHandlers}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />

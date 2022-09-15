@@ -6,11 +6,11 @@ import { DataHandler } from '../../types/data-handler.type';
 import { useDataRecipient } from '../../context/data-recipient.context';
 
 export type DataHandlingInfoProps = {
-  trustedAdvisors: DataHandler[];
+  dataHandlers: DataHandler[];
 };
 
 export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
-  const { trustedAdvisors } = props;
+  const { dataHandlers } = props;
   const [copy] = useCopy();
   const [dataRecipient] = useDataRecipient();
 
@@ -45,18 +45,18 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const renderTrustedAdvisorList = (trustedAdvisor: DataHandler): ReactElement => {
+  const renderTrustedAdvisorList = (dataHandler: DataHandler): ReactElement => {
     return (
       <List>
         {renderListItem(
           copy.component.data_handling_info.list_protection_framework(
-            trustedAdvisor.name,
-            trustedAdvisor.protectionFrameworkUrl,
+            dataHandler.name,
+            dataHandler.protectionFrameworkUrl,
           ),
           0,
         )}
         {renderListItem(
-          copy.component.data_handling_info.list_data_policy(trustedAdvisor.name, trustedAdvisor.dataPolicyUrl),
+          copy.component.data_handling_info.list_data_policy(dataHandler.name, dataHandler.dataPolicyUrl),
           1,
         )}
       </List>
@@ -71,13 +71,13 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
           <Typography variant="h3">{dataRecipient.name}</Typography>
           {renderDataHandlingList()}
 
-          {trustedAdvisors.map((trustedAdvisor, index) => {
+          {dataHandlers.map((dataHandler, index) => {
             return (
               <>
                 <Typography variant="h3" sx={{ mt: 2 }} key={index}>
-                  {trustedAdvisor.name}
+                  {dataHandler.name}
                 </Typography>
-                {renderTrustedAdvisorList(trustedAdvisor)}
+                {renderTrustedAdvisorList(dataHandler)}
               </>
             );
           })}

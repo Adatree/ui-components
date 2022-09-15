@@ -156,8 +156,8 @@ WithMultiDatesAndCustom.args = {
 
 // ####################################
 
-export const WithOneTrustedAdvisor = Template.bind({});
-WithOneTrustedAdvisor.decorators = [
+export const WithOneDataHandler = Template.bind({});
+WithOneDataHandler.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -167,10 +167,10 @@ WithOneTrustedAdvisor.decorators = [
   },
 ];
 
-WithOneTrustedAdvisor.args = {
+WithOneDataHandler.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  trustedAdvisors: [TestUtil.testData.trustedAdvisor.trustedAdvisor1()],
+  dataHandlers: [TestUtil.testData.dataHandler.dataHandler1()],
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -183,8 +183,8 @@ WithOneTrustedAdvisor.args = {
 
 // ####################################
 
-export const WithManyTrustedAdvisors = Template.bind({});
-WithManyTrustedAdvisors.decorators = [
+export const WithManyDataHandler = Template.bind({});
+WithManyDataHandler.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -194,10 +194,10 @@ WithManyTrustedAdvisors.decorators = [
   },
 ];
 
-WithManyTrustedAdvisors.args = {
+WithManyDataHandler.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  trustedAdvisors: TestUtil.testData.trustedAdvisor.all(),
+  dataHandlers: TestUtil.testData.dataHandler.all(),
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,

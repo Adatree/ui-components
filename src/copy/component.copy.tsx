@@ -15,10 +15,10 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
           </>
         );
       },
-      list_protection_framework: (trustedAdvisorName: string, protectionFrameworkUrl: string) => {
+      list_protection_framework: (dataHandlerName: string, protectionFrameworkUrl: string) => {
         return (
           <>
-            Your data will be subject to the protections provided under {trustedAdvisorName}{' '}
+            Your data will be subject to the protections provided under {dataHandlerName}{' '}
             <LinkExternal href={protectionFrameworkUrl} text={`protection framework policy`} /> rather than the CDR.
           </>
         );

@@ -11,18 +11,18 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataHandler } from '../../types/data-handler.type';
-import { ConsentSectionTrustedAdvisor } from '../../molecules/consent-section/consent-section-trusted-advisor.molecule';
+import { ConsentSectionDataHandler } from '../../molecules/consent-section/consent-section-data-handler.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
-  trustedAdvisors?: DataHandler[];
+  dataHandlers?: DataHandler[];
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { useCase, enablePartnerMessageDiscreetMode = false, trustedAdvisors, onCancel, onSubmit } = props;
+  const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
@@ -105,16 +105,13 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
-          {trustedAdvisors && (
-            <ConsentSectionTrustedAdvisor
-              message={copy.consent.create.trusted_advisors_label}
-              trustedAdvisors={trustedAdvisors}
-            />
+          {dataHandlers && (
+            <ConsentSectionDataHandler message={copy.consent.create.data_handler_label} dataHandlers={dataHandlers} />
           )}
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
-          <ConsentSectionInfo useCase={useCase} trustedAdvisors={trustedAdvisors} />
+          <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlers} />
 
           <ConsentSectionActions
             actionButtonLabel={copy.consent.create.consent_label}

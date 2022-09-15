@@ -28,7 +28,7 @@ export interface Copy {
       select_more_data_holder_title: string;
       save_label: string;
       title: (name: string) => ReactElement;
-      trusted_advisors_label: string;
+      data_handler_label: string;
     };
     edit: {
       active_consent_message: string;
@@ -47,7 +47,7 @@ export interface Copy {
   component: {
     data_handling_info: {
       list_data_policy: (name: string, dataPolicyUrl: string) => ReactElement;
-      list_protection_framework: (trustedAdvisorName: string, protectionFrameworkUrl: string) => ReactElement;
+      list_protection_framework: (dataHandlerName: string, protectionFrameworkUrl: string) => ReactElement;
       title: string;
     };
     general_information: {

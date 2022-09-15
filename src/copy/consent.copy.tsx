@@ -22,7 +22,7 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
           </>
         );
       },
-      trusted_advisors_label: 'Your data will be shared with:',
+      data_handler_label: 'Your data will be shared with:',
     },
     edit: {
       active_consent_message: 'Update your consent details',
