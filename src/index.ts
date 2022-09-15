@@ -37,7 +37,6 @@ export { DateSummary } from './molecules/date-summary/date-summary.molecule';
 export { ErrorMessage } from './molecules/error-message/error-message.molecule';
 export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
 export { SupportingParties } from './molecules/supporting-parties/supporting-parties.molecule';
-export { TrustedAdvisorSelector } from './molecules/trusted-advisor-selector/trusted-advisor-selector.molecule';
 export { UseCaseSelector } from './molecules/use-case-selector/use-case-selector.molecule';
 export { UseCaseSummary } from './molecules/use-case-summary/use-case-summary.molecule';
 
