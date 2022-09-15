@@ -29,7 +29,7 @@ export const globalTypes = {
        * You can check all available icons by this link:
        * https://5a375b97f4b14f0020b0cda3-wbeulgbetj.chromatic.com/?path=/story/basics-icon--labels
        */
-      icon: 'users',
+      icon: 'useralt',
       items: dataRecipients,
       showName: true,
     },
