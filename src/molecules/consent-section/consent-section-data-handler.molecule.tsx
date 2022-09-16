@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Typography } from '@mui/material';
 import { Card } from '../../atoms/card/card.atom';
-import { DataHandler } from '../../types/data-handler.type';
 import { DataHandlerList } from '../../atoms/data-handler-list/data-handler-list.atom';
+import { DataRecipient } from '../../types/data-recipient.type';
 
 export type ConsentSectionDataHandlerProps = {
   message: string | ReactElement;
-  dataHandlers: DataHandler[];
+  dataHandlers: DataRecipient[];
 };
 
 export const ConsentSectionDataHandler: React.FC<ConsentSectionDataHandlerProps> = (props) => {

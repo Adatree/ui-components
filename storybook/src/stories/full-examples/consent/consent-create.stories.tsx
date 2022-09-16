@@ -170,7 +170,7 @@ WithOneDataHandler.decorators = [
 WithOneDataHandler.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  dataHandlers: [TestUtil.testData.dataHandler.dataHandler1()],
+  dataHandlers: [TestUtil.testData.dataRecipient.accreditedDataRecipient()],
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -197,7 +197,7 @@ WithManyDataHandler.decorators = [
 WithManyDataHandler.args = {
   existingConsents: TestUtil.testData.consent.all(),
   favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  dataHandlers: TestUtil.testData.dataHandler.all(),
+  dataHandlers: TestUtil.testData.dataRecipient.all(),
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,

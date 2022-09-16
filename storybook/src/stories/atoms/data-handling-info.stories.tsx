@@ -14,10 +14,10 @@ const Template: ComponentStory<typeof DataHandlingInfo> = (args) => <DataHandlin
 
 export const WithOneDataHandler = Template.bind({});
 WithOneDataHandler.args = {
-  dataHandlers: [TestUtil.testData.dataHandler.dataHandler1()],
+  dataHandlers: [TestUtil.testData.dataRecipient.accreditedDataRecipient()],
 };
 
 export const WithManyDataHandler = Template.bind({});
 WithManyDataHandler.args = {
-  dataHandlers: TestUtil.testData.dataHandler.all(),
+  dataHandlers: TestUtil.testData.dataRecipient.all(),
 };

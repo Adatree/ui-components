@@ -4,7 +4,7 @@ import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-me
 import { Helper } from '../../utils/helper/helper';
 import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';
 import { ConsentCreateForm } from './consent-create-form.organism';
-import { DataHandler } from '../../types/data-handler.type';
+import { DataRecipient } from '../../types/data-recipient.type';
 import { useConsentForm } from '../../context/consentForm.context';
 
 export type ConsentCreateProps = {
@@ -12,7 +12,7 @@ export type ConsentCreateProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
-  dataHandlers?: DataHandler[];
+  dataHandlers?: DataRecipient[];
   onCancel: () => void;
   onSubmit: () => void;
 };

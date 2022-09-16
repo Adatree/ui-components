@@ -10,20 +10,20 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { DataHandler } from '../../types/data-handler.type';
+import { DataRecipient } from '../../types/data-recipient.type';
 import InfoIcon from 'mdi-material-ui/InformationOutline';
 import CloseIcon from 'mdi-material-ui/Close';
 
 export type DataHandlerListProps = {
-  dataHandlers: DataHandler[];
+  dataHandlers: DataRecipient[];
 };
 
 export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
   const { dataHandlers } = props;
-  const [listItem, setListItem] = useState<DataHandler>();
+  const [listItem, setListItem] = useState<DataRecipient>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleInfoClick = (listItem: DataHandler) => {
+  const handleInfoClick = (listItem: DataRecipient) => {
     setListItem(listItem);
     setIsDialogOpen(true);
   };
@@ -35,11 +35,10 @@ export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {dataHandlers.map((dataHandler: DataHandler) => {
+        {dataHandlers.map((dataHandler: DataRecipient) => {
           return (
-            <ListItem key={dataHandler.id} sx={{ px: 1, py: 0.5 }}>
+            <ListItem key={dataHandler.name} sx={{ px: 1, py: 0.5 }}>
               <ListItemText
-                id={`data-handler-list-label-${dataHandler.id}`}
                 primary={
                   <>
                     <Box

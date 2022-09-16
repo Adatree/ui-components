@@ -10,13 +10,13 @@ import { ConsentSectionDates } from '../../molecules/consent-section/consent-sec
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
-import { DataHandler } from '../../types/data-handler.type';
+import { DataRecipient } from '../../types/data-recipient.type';
 import { ConsentSectionDataHandler } from '../../molecules/consent-section/consent-section-data-handler.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
-  dataHandlers?: DataHandler[];
+  dataHandlers?: DataRecipient[];
   onCancel: () => void;
   onSubmit: () => void;
 };

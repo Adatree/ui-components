@@ -5,12 +5,12 @@ import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/info-accordions/general-info.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { useCopy } from '../../context/copy.context';
-import { DataHandler } from '../../types/data-handler.type';
 import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info.atom';
+import { DataRecipient } from '../../types/data-recipient.type';
 
 export type ConsentSectionInfoProps = {
   useCase: UseCaseResponse;
-  dataHandlers?: DataHandler[];
+  dataHandlers?: DataRecipient[];
 };
 
 export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
