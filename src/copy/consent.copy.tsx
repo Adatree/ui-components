@@ -12,7 +12,7 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
       cancel_consent_message: 'Are you sure you want to cancel this consent?',
       cancel_edit_message: 'Are you sure you want to cancel editing this consent?',
       data_holder_input_label: `Choose your ${providerType}`,
-      data_holder_general_information_list_item: `We will never ask for your ${providerType} login password. Your ${providerType} will send you a one time password.`,
+      data_holder_general_information_list_item: `We will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
       select_favourite_data_holder_title: `Select your ${providerType}`,
       select_more_data_holder_title: `More ${providerType}s`,
       title: (name: string) => {

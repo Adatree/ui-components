@@ -18,7 +18,7 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       list_protection_framework: (dataHandlerName: string, protectionFrameworkUrl: string) => {
         return (
           <>
-            Your data will be subject to the protections provided under {dataHandlerName}{' '}
+            Your data will be subject to the protections provided under the {dataHandlerName}{' '}
             <LinkExternal href={protectionFrameworkUrl} text={`protection framework policy`} /> rather than the CDR.
           </>
         );
@@ -32,7 +32,7 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => {
         return (
           <>
-            Find out more information on how we handle your data in our easy to read{' '}
+            Find out more information on how we handle your data in our easy-to-read{' '}
             <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
           </>
         );
@@ -40,7 +40,7 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       list_records:
         'You can request copies of records relating to your consent and the data we collect by writing to us at',
       list_revoked: 'When you revoke consent, the services we offer may cease to provide you with benefits.',
-      list_security: 'We will never ask for your bank login password. Your bank will send you a one time password.',
+      list_security: 'We will never ask for your bank login password. Your bank will send you a one-time password.',
       list_sharing:
         'You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to us at',
       title: 'General information',
