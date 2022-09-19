@@ -10,6 +10,7 @@ import {
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import isEqual from 'lodash/isEqual';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
   return list.sort((a, b) => {
@@ -190,11 +191,65 @@ const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): 
   return true;
 };
 
+const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipient => {
+  if (dataRecipients.length === 1) {
+    return dataRecipients[0];
+  }
+
+  const foundTrustedAdviser = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.TRUSTED_ADVISER;
+  });
+
+  if (foundTrustedAdviser) {
+    return foundTrustedAdviser;
+  }
+
+  const foundTrustedAdviserServiceProvider = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER;
+  });
+
+  if (foundTrustedAdviserServiceProvider) {
+    return foundTrustedAdviserServiceProvider;
+  }
+
+  const foundCdrRepresentative = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE;
+  });
+
+  if (foundCdrRepresentative) {
+    return foundCdrRepresentative;
+  }
+
+  const foundAccreditedDataRecipient = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
+  });
+
+  if (foundAccreditedDataRecipient) {
+    return foundAccreditedDataRecipient;
+  }
+
+  return dataRecipients[0];
+};
+
+const getAdrDataRecipients = (dataRecipients: DataRecipient[]): DataRecipient => {
+  const found = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
+  });
+
+  if (found) {
+    return found;
+  } else {
+    return getPrimaryDataRecipients(dataRecipients);
+  }
+};
+
 export const Helper = {
   accessFrequencyToString,
   dateDurationToDate,
   filterDataHoldersByConsentsAndUseCase,
   filterListbyStatus,
+  getAdrDataRecipients,
+  getPrimaryDataRecipients,
   getScopeDifference,
   isConsentEditable,
   parseSharingDuration,

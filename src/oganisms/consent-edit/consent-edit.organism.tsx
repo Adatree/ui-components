@@ -9,7 +9,7 @@ import { Alert, Box, Button, Typography } from '@mui/material';
 import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 import { useCopy } from '../../context/copy.context';
-import { useDataRecipient } from '../../context/data-recipient.context';
+import { useDataRecipients } from '../../context/data-recipient.context';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -29,7 +29,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   const [showRemoveScopeError, setShowRemoveScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const [dataRecipient] = useDataRecipient();
+  const { primaryDataRecipient } = useDataRecipients();
 
   useEffect(() => {
     if (consent.dataHolderName && consent.dataHolderBrandId && consent.dataHolderLogoUri) {
@@ -94,7 +94,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (dataRecipient.underCdrPrincipal) {
+      if (primaryDataRecipient.underCdrPrincipal) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();

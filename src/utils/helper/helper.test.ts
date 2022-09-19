@@ -2,6 +2,7 @@ import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
 import { AccessFrequency, SharingDuration, Status } from '../../generated/consent';
 import { DateDurationList } from '../../consts/duration.const';
+import { DataRecipientType } from '../../types/data-recipient.type';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -127,6 +128,64 @@ describe('Helper Utils', () => {
       expect(Helper.parseSharingDuration(SharingDuration.ONEDAY)).toEqual(DateDurationList[0]);
       expect(Helper.parseSharingDuration(SharingDuration.ONCEOFF)).toEqual(DateDurationList[8]);
       expect(Helper.parseSharingDuration(SharingDuration.CUSTOM)).toEqual(DateDurationList[9]);
+    });
+  });
+
+  describe('getPrimaryDataRecipients', () => {
+    it('should get the correct primary dataRecipient based the priority logic in the function', () => {
+      const onelist = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const cdrrList1 = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.cdrRepresentative(),
+      ];
+      const taList1 = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.trustedAdvisor(),
+      ];
+      const taList2 = [
+        TestUtil.testData.dataRecipient.cdrRepresentative(),
+        TestUtil.testData.dataRecipient.trustedAdvisor(),
+      ];
+      const taList3 = [
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+        TestUtil.testData.dataRecipient.trustedAdvisor(),
+      ];
+      const taspList = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+      ];
+      const taspList2 = [
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+        TestUtil.testData.dataRecipient.cdrRepresentative(),
+      ];
+
+      expect(Helper.getPrimaryDataRecipients(onelist).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getPrimaryDataRecipients(cdrrList1).type).toEqual(DataRecipientType.CDR_REPRESENTATIVE);
+      expect(Helper.getPrimaryDataRecipients(taList1).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
+      expect(Helper.getPrimaryDataRecipients(taList2).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
+      expect(Helper.getPrimaryDataRecipients(taList3).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
+      expect(Helper.getPrimaryDataRecipients(taspList).type).toEqual(
+        DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
+      );
+      expect(Helper.getPrimaryDataRecipients(taspList2).type).toEqual(
+        DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
+      );
+    });
+  });
+
+  describe('getAdrDataRecipients', () => {
+    it('should get the adr dataRecipient, if it is not present return the primary data recipient', () => {
+      const adrList = TestUtil.testData.dataRecipient.all();
+      const adrOnlyList = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const noAdrOnlyList = [
+        TestUtil.testData.dataRecipient.cdrRepresentative(),
+        TestUtil.testData.dataRecipient.trustedAdvisor(),
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+      ];
+
+      expect(Helper.getAdrDataRecipients(adrList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getAdrDataRecipients(adrOnlyList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getAdrDataRecipients(noAdrOnlyList).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
     });
   });
 

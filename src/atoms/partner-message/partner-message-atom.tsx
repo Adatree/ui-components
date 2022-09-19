@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { useDataRecipient } from '../../context/data-recipient.context';
+import { useDataRecipients } from '../../context/data-recipient.context';
 import { useCopy } from '../../context/copy.context';
 
 export type PartnerMessageProps = {
@@ -10,7 +10,7 @@ export type PartnerMessageProps = {
 
 export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
   const { dataHolderName, discreetMode = false } = props;
-  const [dataRecipient] = useDataRecipient();
+  const { primaryDataRecipient } = useDataRecipients();
   const [copy] = useCopy();
 
   return (
@@ -18,8 +18,8 @@ export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
       <div style={{ textAlign: 'center' }}>
         <Box sx={{ mt: 3, mb: 1 }}>
           <img
-            src={dataRecipient.logo}
-            alt={dataRecipient.name}
+            src={primaryDataRecipient.logo}
+            alt={primaryDataRecipient.name}
             style={{ maxWidth: '260px', width: '100%', margin: '0 auto' }}
           />
         </Box>

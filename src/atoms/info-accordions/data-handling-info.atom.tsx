@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react';
 import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
-import { useDataRecipient } from '../../context/data-recipient.context';
-import { DataRecipient } from '../../types/data-recipient.type';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 export type DataHandlingInfoProps = {
   dataHandlers: DataRecipient[];
@@ -12,7 +11,6 @@ export type DataHandlingInfoProps = {
 export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
   const { dataHandlers } = props;
   const [copy] = useCopy();
-  const [dataRecipient] = useDataRecipient();
 
   const renderListItem = (text: ReactElement | string, key: number): ReactElement => {
     return (
@@ -32,20 +30,20 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const renderDataHandlingList = (): ReactElement => {
+  const renderAdrList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List>
         {renderListItem(copy.component.general_information.list_marketing, 0)}
         {renderListItem(copy.component.general_information.list_deleted, 1)}
         {renderListItem(
-          copy.component.general_information.list_more(copy.common.cdr_policy_label, dataRecipient.cdrPolicyUrl),
+          copy.component.general_information.list_more(copy.common.cdr_policy_label, dataHandler.cdrPolicyUrl),
           2,
         )}
       </List>
     );
   };
 
-  const renderTrustedAdvisorList = (dataHandler: DataRecipient): ReactElement => {
+  const renderNonAdrList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List>
         {renderListItem(
@@ -68,16 +66,24 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
       title={copy.component.data_handling_info.title}
       content={
         <>
-          <Typography variant="h3">{dataRecipient.name}</Typography>
-          {renderDataHandlingList()}
-
           {dataHandlers.map((dataHandler, index) => {
             return (
               <>
-                <Typography variant="h3" sx={{ mt: 2 }} key={index}>
-                  {dataHandler.name}
-                </Typography>
-                {renderTrustedAdvisorList(dataHandler)}
+                {dataHandler.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT && (
+                  <>
+                    <Typography variant="h3">{dataHandler.name}</Typography>
+                    {renderAdrList(dataHandler)}
+                  </>
+                )}
+
+                {dataHandler.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT && (
+                  <>
+                    <Typography variant="h3" sx={{ mt: 2 }} key={index}>
+                      {dataHandler.name}
+                    </Typography>
+                    {renderNonAdrList(dataHandler)}
+                  </>
+                )}
               </>
             );
           })}

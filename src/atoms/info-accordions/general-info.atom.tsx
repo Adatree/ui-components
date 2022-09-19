@@ -3,7 +3,7 @@ import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { LinkExternal } from '../links/link-external.atom';
 import { useCopy } from '../../context/copy.context';
-import { useDataRecipient } from '../../context/data-recipient.context';
+import { useDataRecipients } from '../../context/data-recipient.context';
 
 export type GeneralInformationProps = {
   topListItemOverride?: string;
@@ -13,7 +13,7 @@ export type GeneralInformationProps = {
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
   const { topListItemOverride, hideDuplicateListItem = false } = props;
   const [copy] = useCopy();
-  const [dataRecipient] = useDataRecipient();
+  const { adrDataRecipient } = useDataRecipients();
 
   const renderListItem = (text: ReactElement | string): ReactElement => {
     return (
@@ -41,8 +41,8 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           <Typography>
             {copy.component.general_information.list_records}{' '}
             <LinkExternal
-              href={`mailto:${dataRecipient.dataSharingRevocationEmail}`}
-              text={dataRecipient.dataSharingRevocationEmail}
+              href={`mailto:${adrDataRecipient.dataSharingRevocationEmail}`}
+              text={adrDataRecipient.dataSharingRevocationEmail}
             />
             .
           </Typography>,
@@ -51,8 +51,8 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           <Typography>
             {copy.component.general_information.list_sharing}{' '}
             <LinkExternal
-              href={`mailto:${dataRecipient.dataSharingRevocationEmail}`}
-              text={dataRecipient.dataSharingRevocationEmail}
+              href={`mailto:${adrDataRecipient.dataSharingRevocationEmail}`}
+              text={adrDataRecipient.dataSharingRevocationEmail}
             />
             .
           </Typography>,
@@ -62,11 +62,14 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {!hideDuplicateListItem &&
           renderListItem(
             <Typography>
-              {copy.component.general_information.list_more(copy.common.cdr_policy_label, dataRecipient.cdrPolicyUrl)}
+              {copy.component.general_information.list_more(
+                copy.common.cdr_policy_label,
+                adrDataRecipient.cdrPolicyUrl,
+              )}
             </Typography>,
           )}
         {renderListItem(
-          <Typography>{copy.component.general_information.list_complaint(dataRecipient.complaintEmail)}</Typography>,
+          <Typography>{copy.component.general_information.list_complaint(adrDataRecipient.complaintEmail)}</Typography>,
         )}
       </List>
     );

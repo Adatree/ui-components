@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
-import { useDataRecipient } from '../../context/data-recipient.context';
+import { useDataRecipients } from '../../context/data-recipient.context';
 import { useCopy } from '../../context/copy.context';
 import { ConsentSectionHeader } from '../../molecules/consent-section/consent-section-header.molecule';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
@@ -30,7 +30,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showScopeError, setShowScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const [dataRecipient] = useDataRecipient();
+  const { primaryDataRecipient } = useDataRecipients();
 
   useEffect(() => {
     if (
@@ -68,7 +68,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (dataRecipient.underCdrPrincipal) {
+      if (primaryDataRecipient.underCdrPrincipal) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();

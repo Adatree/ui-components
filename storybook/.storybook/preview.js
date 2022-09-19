@@ -1,5 +1,14 @@
 import React from 'react';
-import { CopyProvider, defaultTheme, DataRecipientProvider, ThemeProvider, TestUtil, Industry, copy } from '../src/lib';
+import {
+  CopyProvider,
+  defaultTheme,
+  DataRecipientsProvider,
+  ThemeProvider,
+  TestUtil,
+  Industry,
+  copy,
+  Helper,
+} from '../src/lib';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -17,20 +26,25 @@ export const parameters = {
   },
 };
 
-const dataRecipients = ['Accredited Data Recipient', 'CDR representative', 'Trusted Adviser'];
+const dataRecipientValues = [
+  'Accredited Data Recipient',
+  'CDR representative',
+  'Trusted Adviser',
+  'Trusted Adviser Service Provider',
+];
 
 export const globalTypes = {
   dataRecipient: {
     name: 'Data Recipient',
     description: 'Select the dataRecipient for the story',
-    defaultValue: dataRecipients[0],
+    defaultValue: dataRecipientValues[0],
     toolbar: {
       /**
        * You can check all available icons by this link:
        * https://5a375b97f4b14f0020b0cda3-wbeulgbetj.chromatic.com/?path=/story/basics-icon--labels
        */
       icon: 'useralt',
-      items: dataRecipients,
+      items: dataRecipientValues,
       showName: true,
     },
   },
@@ -39,33 +53,48 @@ export const globalTypes = {
 // Hack to remount the component
 let remountKey = 0;
 
-let dataRecipient = undefined;
+let dataRecipients = undefined;
 
-const getDataRecipient = (key) => {
-  if (key === dataRecipients[0]) {
-    dataRecipient = TestUtil.testData.dataRecipient.accredited();
+const getDataRecipients = (key) => {
+  if (key === dataRecipientValues[0]) {
+    dataRecipients = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
     remountKey = Math.random();
-  } else if (key === dataRecipients[1]) {
-    dataRecipient = TestUtil.testData.dataRecipient.cdrRepresentative();
+  } else if (key === dataRecipientValues[1]) {
+    dataRecipients = [
+      TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      TestUtil.testData.dataRecipient.cdrRepresentative(),
+    ];
     remountKey = Math.random();
-  } else if (key === dataRecipients[2]) {
-    dataRecipient = TestUtil.testData.dataRecipient.trustedAdvisor();
+  } else if (key === dataRecipientValues[2]) {
+    dataRecipients = [
+      TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      TestUtil.testData.dataRecipient.trustedAdvisor(),
+      TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+    ];
+    remountKey = Math.random();
+  } else if (key === dataRecipientValues[3]) {
+    dataRecipients = [
+      TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+    ];
     remountKey = Math.random();
   }
 };
 
 export const decorators = [
   (Story, context) => {
-    getDataRecipient(context.globals.dataRecipient);
+    getDataRecipients(context.globals.dataRecipient);
 
     return (
       <div key={remountKey}>
         <ThemeProvider theme={defaultTheme}>
-          <DataRecipientProvider dataRecipient={dataRecipient}>
-            <CopyProvider initialCopy={copy.generateCopy(dataRecipient, Industry.BANKING)}>
+          <DataRecipientsProvider initialDataRecipients={dataRecipients}>
+            <CopyProvider
+              initialCopy={copy.generateCopy(Helper.getPrimaryDataRecipients(dataRecipients), Industry.BANKING)}
+            >
               <Story />
             </CopyProvider>
-          </DataRecipientProvider>
+          </DataRecipientsProvider>
         </ThemeProvider>
       </div>
     );
