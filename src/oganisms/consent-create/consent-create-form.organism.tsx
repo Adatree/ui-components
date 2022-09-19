@@ -105,7 +105,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
-          {dataHandlers && (
+          {dataHandlers && dataHandlers.length > 1 && (
             <ConsentSectionDataHandler message={copy.consent.create.data_handler_label} dataHandlers={dataHandlers} />
           )}
 
