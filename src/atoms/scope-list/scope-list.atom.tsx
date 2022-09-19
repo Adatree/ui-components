@@ -71,9 +71,7 @@ export const ScopeList: React.FC<ScopeListProps> = (props) => {
 
       <Dialog onClose={handleDialogClose} open={isDialogOpen}>
         <DialogTitle>
-          <Typography variant="h3" sx={{ mr: '2rem' }}>
-            {scope?.name}
-          </Typography>
+          <span style={{ marginRight: '2rem' }}>{scope?.name}</span>
 
           <IconButton
             aria-label="close"

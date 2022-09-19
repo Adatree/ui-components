@@ -64,9 +64,7 @@ export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
       {listItem && (
         <Dialog onClose={handleDialogClose} open={isDialogOpen}>
           <DialogTitle>
-            <Typography variant="h3" sx={{ mr: '2rem' }}>
-              {listItem.name}
-            </Typography>
+            <span style={{ marginRight: '2rem' }}>{listItem.name}</span>
 
             <IconButton
               aria-label="close"
