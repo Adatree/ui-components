@@ -36,14 +36,18 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
         {renderListItem(copy.component.general_information.list_marketing, 0)}
         {renderListItem(copy.component.general_information.list_deleted, 1)}
         {renderListItem(
-          copy.component.general_information.list_more(copy.common.cdr_policy_label, dataHandler.cdrPolicyUrl),
+          copy.component.general_information.list_third_party_more_info(
+            dataHandler.name,
+            copy.common.cdr_policy_label,
+            dataHandler.cdrPolicyUrl,
+          ),
           2,
         )}
       </List>
     );
   };
 
-  const renderNonAdrList = (dataHandler: DataRecipient): ReactElement => {
+  const renderTaList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List>
         {renderListItem(
@@ -61,6 +65,21 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
+  const renderCdrrTaspList = (dataHandler: DataRecipient): ReactElement => {
+    return (
+      <List>
+        {renderListItem(
+          copy.component.general_information.list_third_party_more_info(
+            dataHandler.name,
+            copy.common.cdr_policy_label,
+            dataHandler.cdrPolicyUrl,
+          ),
+          2,
+        )}
+      </List>
+    );
+  };
+
   return (
     <Accordion
       title={copy.component.data_handling_info.title}
@@ -68,23 +87,18 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
         <>
           {dataHandlers.map((dataHandler, index) => {
             return (
-              <>
-                {dataHandler.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT && (
-                  <>
-                    <Typography variant="h3">{dataHandler.name}</Typography>
-                    {renderAdrList(dataHandler)}
-                  </>
-                )}
+              <div key={index}>
+                <Typography variant="h3">{dataHandler.name}</Typography>
 
-                {dataHandler.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT && (
-                  <>
-                    <Typography variant="h3" sx={{ mt: 2 }} key={index}>
-                      {dataHandler.name}
-                    </Typography>
-                    {renderNonAdrList(dataHandler)}
-                  </>
+                {dataHandler.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT && <>{renderAdrList(dataHandler)}</>}
+
+                {dataHandler.type === DataRecipientType.TRUSTED_ADVISER && <>{renderTaList(dataHandler)}</>}
+
+                {(dataHandler.type === DataRecipientType.CDR_REPRESENTATIVE ||
+                  dataHandler.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER) && (
+                  <>{renderCdrrTaspList(dataHandler)}</>
                 )}
-              </>
+              </div>
             );
           })}
         </>

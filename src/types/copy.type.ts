@@ -54,11 +54,12 @@ export interface Copy {
       list_complaint: (complaintEmail: string) => ReactElement;
       list_deleted: string;
       list_marketing: string;
-      list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
+      list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
       list_records: string;
       list_revoked: string;
       list_security: string;
       list_sharing: string;
+      list_third_party_more_info: (dataHolderName: string, cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
       title: string;
     };
     max_account_connected_message: {

@@ -29,10 +29,18 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       list_deleted:
         'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
       list_marketing: 'We will never sell your data or use it for marketing.',
-      list_more: (cdrPolicyText: string, cdrPolicyUrl: string) => {
+      list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => {
         return (
           <>
             Find out more information on how we handle your data in our easy-to-read{' '}
+            <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
+          </>
+        );
+      },
+      list_third_party_more_info: (dataHandlerName: string, cdrPolicyText: string, cdrPolicyUrl: string) => {
+        return (
+          <>
+            Find out more information on how {dataHandlerName} handles your data in their{' '}
             <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
           </>
         );

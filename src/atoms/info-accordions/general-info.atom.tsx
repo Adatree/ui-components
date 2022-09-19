@@ -62,7 +62,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {!hideDuplicateListItem &&
           renderListItem(
             <Typography>
-              {copy.component.general_information.list_more(
+              {copy.component.general_information.list_primary_more_info(
                 copy.common.cdr_policy_label,
                 adrDataRecipient.cdrPolicyUrl,
               )}
