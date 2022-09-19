@@ -32,7 +32,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
 
   const renderAdrList = (dataHandler: DataRecipient): ReactElement => {
     return (
-      <List>
+      <List sx={{ mb: '2rem' }}>
         {renderListItem(copy.component.general_information.list_marketing, 0)}
         {renderListItem(copy.component.general_information.list_deleted, 1)}
         {renderListItem(
@@ -49,7 +49,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
 
   const renderTaList = (dataHandler: DataRecipient): ReactElement => {
     return (
-      <List>
+      <List sx={{ mb: '2rem' }}>
         {renderListItem(
           copy.component.data_handling_info.list_protection_framework(
             dataHandler.name,
@@ -67,7 +67,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
 
   const renderCdrrTaspList = (dataHandler: DataRecipient): ReactElement => {
     return (
-      <List>
+      <List sx={{ mb: '2rem' }}>
         {renderListItem(
           copy.component.general_information.list_third_party_more_info(
             dataHandler.name,
