@@ -17,6 +17,7 @@ WithAllDates.args = {
   consent: TestUtil.testData.consent.active(),
   dateTitle: 'Key dates',
   useCasetTitle: 'Data we are currently receiving',
+  dataRecipients: TestUtil.testData.dataRecipient.all(),
   onRevokeClick: () => {
     alert('The revoke button has been clicked');
   },

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { DataHandlerList } from '../../atoms/data-handler-list/data-handler-list.atom';
 import { DataRecipient } from '../../types/data-recipient.type';
 import { useCopy } from '../../context/copy.context';
+import { Card } from '../../atoms/card/card.atom';
 
 export type DataDisclosureProps = {
   dataRecipients: DataRecipient[];
