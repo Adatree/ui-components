@@ -30,12 +30,12 @@ deploy to prod:
   script:
     # inputs
     - TARGET_ACCOUNT_ID="${AWS_ACCOUNT_ID_PROD}"
-    - PROFILE="tenant-adatree-saas-prod"
     - FRONTEND_URL="design.adatree.com.au"
     - LOGGING_BUCKET_NAME="logging-509445696409-ap-southeast-2"
 
     # login
-    - export AWS_PROFILE=${PROFILE} ; aws sso login
+    - source ~/gitops/assume-role.sh "arn:aws:iam::${TARGET_ACCOUNT_ID}:role/TenantAccountDeployRoleStrict"
+    - aws sts get-caller-identity
 
     # route 53
     - STACK_PREFIX="design-site"
@@ -44,7 +44,7 @@ deploy to prod:
       --template-file ./infra/ap-southeast-2/stage1.cfn.yaml
       --stack-name "${STACK_PREFIX}-stage-1"
       --parameter-overrides FrontendDnsRecord=${FRONTEND_URL}
-    - HOSTED_ZONE_ID=$(aws cloudformation describe-stacks --stack-name ${STACK_PREFIX}-stage-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendHostedZoneId'].OutputValue" --output text)
+    - HOSTED_ZONE_ID=$(aws cloudformation describe-stacks --region ap-southeast-2 --stack-name ${STACK_PREFIX}-stage-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendHostedZoneId'].OutputValue" --output text)
     - aws cloudformation deploy
       --region us-east-1
       --template-file infra/us-east-1/stage2.cfn.yaml
