@@ -24,6 +24,10 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
       },
       data_handler_label: 'Your data will be shared with:',
     },
+    details: {
+      data_disclosure_label: 'Data disclosure',
+      data_disclosure_message: 'You are sharing your data with the following:',
+    },
     edit: {
       active_consent_message: 'Update your consent details',
       non_active_consent_message: (status: string) => {

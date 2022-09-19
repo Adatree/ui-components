@@ -31,6 +31,7 @@ export { Tooltip } from './atoms/tooltip/tooltip.atom';
 // Molecules
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentDetails } from './molecules/consent-details/consent-details.molecule';
+export { DataDisclosure } from './molecules/data-disclosure/data-disclosure.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSelector } from './molecules/date-selector/date-selector.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';

@@ -30,9 +30,12 @@ export interface Copy {
       title: (name: string) => ReactElement;
       data_handler_label: string;
     };
+    details: {
+      data_disclosure_label: string;
+      data_disclosure_message: string;
+    };
     edit: {
       active_consent_message: string;
-
       non_active_consent_message: (status: string) => string;
       scope_additional_message: ReactElement;
       scope_create_message: ReactElement;
