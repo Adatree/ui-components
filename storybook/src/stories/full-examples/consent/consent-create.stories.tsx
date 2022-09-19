@@ -156,55 +156,6 @@ WithMultiDatesAndCustom.args = {
 
 // ####################################
 
-export const WithOneDataHandler = Template.bind({});
-WithOneDataHandler.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
-
-WithOneDataHandler.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  dataHandlers: [TestUtil.testData.dataRecipient.accreditedDataRecipient()],
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.THREEMONTHS],
-    accessFrequency: AccessFrequency.ONGOING,
-  },
-
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
-
-export const WithManyDataHandler = Template.bind({});
-WithManyDataHandler.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
-
-WithManyDataHandler.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.all(),
-  dataHandlers: TestUtil.testData.dataRecipient.all(),
-  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
-
 export const WithNoFavouriteDataHolders = Template.bind({});
 WithNoFavouriteDataHolders.decorators = [
   (Story) => {

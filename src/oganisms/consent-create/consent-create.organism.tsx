@@ -4,15 +4,14 @@ import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-me
 import { Helper } from '../../utils/helper/helper';
 import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';
 import { ConsentCreateForm } from './consent-create-form.organism';
-import { DataRecipient } from '../../types/data-recipient.type';
 import { useConsentForm } from '../../context/consentForm.context';
+import { useDataRecipients } from '../../context/data-recipient.context';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
-  dataHandlers?: DataRecipient[];
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -23,11 +22,12 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     useCase,
     enablePartnerMessageDiscreetMode = false,
     favouriteDataHolders,
-    dataHandlers,
     onCancel,
     onSubmit,
   } = props;
   const [consentForm] = useConsentForm();
+
+  const { dataRecipients } = useDataRecipients();
 
   const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(
     useCase.dataHolders,
@@ -58,7 +58,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
             <ConsentCreateForm
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
-              dataHandlers={dataHandlers}
+              dataHandlers={dataRecipients}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />
