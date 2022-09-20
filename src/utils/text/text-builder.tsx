@@ -65,7 +65,7 @@ const accessFrequency = (companyName: string, accessFrequency: AccessFrequency |
 const currentAccess = (companyName: string, endDate: string | undefined): React.ReactNode => {
   const common = (
     <>
-      You are currently allowing <Highlight>{companyName}</Highlight> to acceess your data
+      You are currently allowing <Highlight>{companyName}</Highlight> to access your data
     </>
   );
 
