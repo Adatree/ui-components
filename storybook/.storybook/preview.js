@@ -6,7 +6,7 @@ import {
   ThemeProvider,
   TestUtil,
   Industry,
-  copy,
+  CopyBuilder,
   Helper,
 } from '../src/lib';
 
@@ -90,7 +90,7 @@ export const decorators = [
         <ThemeProvider theme={defaultTheme}>
           <DataRecipientsProvider initialDataRecipients={dataRecipients}>
             <CopyProvider
-              initialCopy={copy.generateCopy(Helper.getPrimaryDataRecipients(dataRecipients), Industry.BANKING)}
+              initialCopy={CopyBuilder.generateCopy(Helper.getPrimaryDataRecipients(dataRecipients), Industry.BANKING)}
             >
               <Story />
             </CopyProvider>

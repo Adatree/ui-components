@@ -49,7 +49,7 @@ export { ConsentEdit } from './oganisms/consent-edit/consent-edit.organism';
 export { ApiCogIcon } from './atoms/icons/api-cog.icon';
 
 // Copy
-export { copy } from './copy/copy';
+export { CopyBuilder } from './copy/copy';
 
 // Context
 export * from './context/consentForm.context';

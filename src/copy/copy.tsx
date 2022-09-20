@@ -23,6 +23,6 @@ const generateCopy = (dataRecipient: DataRecipient, industry: Industry): Copy =>
   };
 };
 
-export const copy = {
+export const CopyBuilder = {
   generateCopy,
 };
