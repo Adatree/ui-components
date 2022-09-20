@@ -31,23 +31,25 @@ export const componentCopy = (
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} have partnered with ${adrDataRecipient.name} to help you consent and access your data.`,
+      list_complaint: (
+        <>
+          If you would like to make a complaint, please email{' '}
+          <LinkExternal
+            href={`mailto:${primaryDataRecipient.complaintEmail}`}
+            text={primaryDataRecipient.complaintEmail}
+          />
+          .
+        </>
+      ),
       list_deleted: `When your consent expires or is revoked, all of the data you shared with ${adrDataRecipient.name} is automatically deleted within seconds.`,
       list_marketing: (dataRecipientName: string) =>
         `${dataRecipientName} will never sell your data or use it for marketing.`,
       list_primary_more_info: (
         <>
-          Find out more information on how {primaryDataRecipient.name} handle your data in our easy-to-read{' '}
-          <LinkExternal href={primaryDataRecipient.cdrPolicyUrl} text="Privacy Policy" />.
+          Find out more information on how {primaryDataRecipient.name} handle your data{' '}
+          <LinkExternal href={primaryDataRecipient.cdrPolicyUrl} text="here" />.
         </>
       ),
-      list_third_party_more_info: (dataHandlerName: string, cdrPolicyUrl: string) => {
-        return (
-          <>
-            Find out more information on how {dataHandlerName} handles your data in their{' '}
-            <LinkExternal href={cdrPolicyUrl} text="Privacy Policy" />.
-          </>
-        );
-      },
       list_records: (
         <>
           You can request copies of records relating to your consent and the data collected by emailing{' '}
@@ -58,7 +60,6 @@ export const componentCopy = (
           .
         </>
       ),
-
       list_revoked: 'When you revoke consent, the services offered may cease to provide you with benefits.',
       list_security: (dataRecipientName: string) =>
         `${dataRecipientName} will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
@@ -72,17 +73,24 @@ export const componentCopy = (
           .
         </>
       ),
+      list_tasp_more_info: (taspDataRecipient: DataRecipient) => {
+        return (
+          <>
+            {taspDataRecipient.name} will facilitate the collection of your data on behalf of{' '}
+            {primaryDataRecipient.name}. Find out more information on how {taspDataRecipient.name} handles your data{' '}
+            <LinkExternal href={taspDataRecipient.dataPolicyUrl} text="here" />.
+          </>
+        );
+      },
+      list_third_party_more_info: (dataHandlerName: string, cdrPolicyUrl: string) => {
+        return (
+          <>
+            Find out more information on how {dataHandlerName} handles your data{' '}
+            <LinkExternal href={cdrPolicyUrl} text="here" />.
+          </>
+        );
+      },
       title: 'General information',
-      list_complaint: (
-        <>
-          If you would like to make a complaint, please email{' '}
-          <LinkExternal
-            href={`mailto:${primaryDataRecipient.complaintEmail}`}
-            text={primaryDataRecipient.complaintEmail}
-          />
-          .
-        </>
-      ),
     },
     max_account_connected_message: {
       list_label: 'You currently have the following active consents:',

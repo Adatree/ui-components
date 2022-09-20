@@ -30,7 +30,7 @@ const dataRecipientValues = [
   'Accredited Data Recipient',
   'CDR representative',
   'Trusted Adviser',
-  'Trusted Adviser Service Provider',
+  'Trusted Adviser with a TA Service Provider',
 ];
 
 export const globalTypes = {
@@ -69,12 +69,12 @@ const getDataRecipients = (key) => {
     dataRecipients = [
       TestUtil.testData.dataRecipient.accreditedDataRecipient(),
       TestUtil.testData.dataRecipient.trustedAdvisor(),
-      TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
     ];
     remountKey = Math.random();
   } else if (key === dataRecipientValues[3]) {
     dataRecipients = [
       TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      TestUtil.testData.dataRecipient.trustedAdvisor(),
       TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
     ];
     remountKey = Math.random();

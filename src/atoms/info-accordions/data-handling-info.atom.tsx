@@ -61,13 +61,21 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
-  const renderCdrrTaspList = (dataHandler: DataRecipient): ReactElement => {
+  const renderCdrrList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
         {renderListItem(
           copy.component.general_information.list_third_party_more_info(dataHandler.name, dataHandler.cdrPolicyUrl),
-          2,
+          0,
         )}
+      </List>
+    );
+  };
+
+  const renderTaspList = (dataHandler: DataRecipient): ReactElement => {
+    return (
+      <List sx={{ mb: '2rem' }}>
+        {renderListItem(copy.component.general_information.list_tasp_more_info(dataHandler), 0)}
       </List>
     );
   };
@@ -86,9 +94,10 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
 
                 {dataHandler.type === DataRecipientType.TRUSTED_ADVISER && <>{renderTaList(dataHandler)}</>}
 
-                {(dataHandler.type === DataRecipientType.CDR_REPRESENTATIVE ||
-                  dataHandler.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER) && (
-                  <>{renderCdrrTaspList(dataHandler)}</>
+                {dataHandler.type === DataRecipientType.CDR_REPRESENTATIVE && <>{renderCdrrList(dataHandler)}</>}
+
+                {dataHandler.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER && (
+                  <>{renderTaspList(dataHandler)}</>
                 )}
               </div>
             );
