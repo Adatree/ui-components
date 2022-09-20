@@ -37,6 +37,8 @@ const handleCancel = () => {
 
 const Template: ComponentStory<typeof ConsentCreate> = (args) => <ConsentCreate {...args} />;
 
+const favouriteDataHolders = TestUtil.testData.dataHolder.allBanking();
+
 // ####################################
 
 export const WithOngoingAccess = Template.bind({});
@@ -52,7 +54,7 @@ WithOngoingAccess.decorators = [
 
 WithOngoingAccess.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -77,7 +79,7 @@ WithOnceOffAccess.decorators = [
 
 WithOnceOffAccess.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -102,7 +104,7 @@ WithSupportingParties.decorators = [
 
 WithSupportingParties.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoanWithOsps(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -127,7 +129,7 @@ WithLongScopes.decorators = [
 
 WithLongScopes.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -148,7 +150,7 @@ WithMultiDatesAndCustom.decorators = [
 
 WithMultiDatesAndCustom.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -205,7 +207,7 @@ WithNoRemainingDataHolders.args = {
       }),
     ],
   ],
-  favouriteDataHolders: TestUtil.testData.dataHolder.allBanking(),
+  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
