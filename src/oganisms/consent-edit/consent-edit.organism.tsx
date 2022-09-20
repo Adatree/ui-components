@@ -10,7 +10,6 @@ import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
-import { ConsentSectionDataHandler } from '../../molecules/consent-section/consent-section-data-handler.molecule';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -145,10 +144,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         onAddScopeChange={handleAddScopeChange}
         onRemoveScopeChange={handleRemoveScopeChange}
       />
-
-      {dataRecipients && dataRecipients.length > 1 && (
-        <ConsentSectionDataHandler message={copy.consent.create.data_handler_label} dataHandlers={dataRecipients} />
-      )}
 
       <ConsentEditDates consent={consent} showError={showDateError} useCase={useCase} />
 

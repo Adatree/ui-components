@@ -11,7 +11,6 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient } from '../../types/data-recipient.type';
-import { ConsentSectionDataHandler } from '../../molecules/consent-section/consent-section-data-handler.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -104,10 +103,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             showError={showScopeError}
             onChange={handleScopeChange}
           />
-
-          {dataHandlers && dataHandlers.length > 1 && (
-            <ConsentSectionDataHandler message={copy.consent.create.data_handler_label} dataHandlers={dataHandlers} />
-          )}
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
