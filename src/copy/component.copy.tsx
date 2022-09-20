@@ -4,7 +4,7 @@ import { LinkExternal } from '../atoms/links/link-external.atom';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
 
-export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] => {
+export const componentCopy = (dataRecipient: DataRecipient, providerType: string): Copy['component'] => {
   return {
     data_handling_info: {
       list_data_policy: (name: string, dataPolicyUrl: string) => {
@@ -26,9 +26,12 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       title: 'Data Handling',
     },
     general_information: {
+      list_adr_context: (primaryDataRecipientName: string, adrName: string) =>
+        `${primaryDataRecipientName} have partnered with ${adrName} to provider this consumer consent service.`,
       list_deleted:
         'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
-      list_marketing: 'We will never sell your data or use it for marketing.',
+      list_marketing: (dataRecipientName: string) =>
+        `${dataRecipientName} will never sell your data or use it for marketing.`,
       list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => {
         return (
           <>
@@ -48,7 +51,8 @@ export const componentCopy = (dataRecipient: DataRecipient): Copy['component'] =
       list_records:
         'You can request copies of records relating to your consent and the data we collect by writing to us at',
       list_revoked: 'When you revoke consent, the services we offer may cease to provide you with benefits.',
-      list_security: 'We will never ask for your bank login password. Your bank will send you a one-time password.',
+      list_security: (dataRecipientName: string) =>
+        `${dataRecipientName} will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
       list_sharing:
         'You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to us at',
       title: 'General information',

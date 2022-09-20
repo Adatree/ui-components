@@ -23,7 +23,6 @@ export interface Copy {
       cancel_edit_message: string;
       consent_label: string;
       data_holder_input_label: string;
-      data_holder_general_information_list_item: string;
       select_favourite_data_holder_title: string;
       select_more_data_holder_title: string;
       save_label: string;
@@ -54,13 +53,14 @@ export interface Copy {
       title: string;
     };
     general_information: {
+      list_adr_context: (primaryDataRecipientName: string, adrName: string) => string;
       list_complaint: (complaintEmail: string) => ReactElement;
       list_deleted: string;
-      list_marketing: string;
+      list_marketing: (dataRecipientName: string) => string;
       list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
       list_records: string;
       list_revoked: string;
-      list_security: string;
+      list_security: (dataRecipientName: string) => string;
       list_sharing: string;
       list_third_party_more_info: (dataHolderName: string, cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
       title: string;

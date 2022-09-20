@@ -4,16 +4,16 @@ import { Accordion } from '../accordion/accordion.molecule';
 import { LinkExternal } from '../links/link-external.atom';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
+import { DataRecipientType } from '../../types/data-recipient.type';
 
 export type GeneralInformationProps = {
-  topListItemOverride?: string;
   hideDuplicateListItem?: boolean;
 };
 
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
-  const { topListItemOverride, hideDuplicateListItem = false } = props;
+  const { hideDuplicateListItem = false } = props;
   const [copy] = useCopy();
-  const { adrDataRecipient } = useDataRecipients();
+  const { adrDataRecipient, primaryDataRecipient } = useDataRecipients();
 
   const renderListItem = (text: ReactElement | string): ReactElement => {
     return (
@@ -35,8 +35,13 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
   const getList = (): ReactElement => {
     return (
       <List>
-        {renderListItem(topListItemOverride ? topListItemOverride : copy.component.general_information.list_security)}
-        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_marketing)}
+        {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
+          renderListItem(
+            copy.component.general_information.list_adr_context(primaryDataRecipient.name, adrDataRecipient.name),
+          )}
+        {renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
+        {!hideDuplicateListItem &&
+          renderListItem(copy.component.general_information.list_marketing(adrDataRecipient.name))}
         {renderListItem(
           <Typography>
             {copy.component.general_information.list_records}{' '}

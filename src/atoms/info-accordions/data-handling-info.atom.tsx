@@ -33,7 +33,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
   const renderAdrList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
-        {renderListItem(copy.component.general_information.list_marketing, 0)}
+        {renderListItem(copy.component.general_information.list_marketing(dataHandler.name), 0)}
         {renderListItem(copy.component.general_information.list_deleted, 1)}
         {renderListItem(
           copy.component.general_information.list_third_party_more_info(

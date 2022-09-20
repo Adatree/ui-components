@@ -18,7 +18,7 @@ const generateCopy = (dataRecipient: DataRecipient, industry: Industry): Copy =>
   return {
     common: { ...commonCopy() },
     consent: { ...consentCopy(dataRecipient, providerType) },
-    component: { ...componentCopy(dataRecipient) },
+    component: { ...componentCopy(dataRecipient, providerType) },
     error: { ...errorCopy() },
   };
 };
