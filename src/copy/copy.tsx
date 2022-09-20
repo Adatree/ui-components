@@ -6,7 +6,11 @@ import { componentCopy } from './component.copy';
 import { consentCopy } from './consent.copy';
 import { errorCopy } from './error.copy';
 
-const generateCopy = (dataRecipient: DataRecipient, industry: Industry): Copy => {
+const generateCopy = (
+  adrDataRecipient: DataRecipient,
+  primaryDataRecipient: DataRecipient,
+  industry: Industry,
+): Copy => {
   let providerType = 'data provider';
 
   if (industry === Industry.BANKING) {
@@ -17,8 +21,8 @@ const generateCopy = (dataRecipient: DataRecipient, industry: Industry): Copy =>
 
   return {
     common: { ...commonCopy() },
-    consent: { ...consentCopy(dataRecipient, providerType) },
-    component: { ...componentCopy(dataRecipient, providerType) },
+    consent: { ...consentCopy(primaryDataRecipient, providerType) },
+    component: { ...componentCopy(adrDataRecipient, primaryDataRecipient, providerType) },
     error: { ...errorCopy() },
   };
 };

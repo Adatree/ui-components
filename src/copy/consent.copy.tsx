@@ -3,7 +3,7 @@ import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
 
-export const consentCopy = (dataRecipient: DataRecipient, providerType: string): Copy['consent'] => {
+export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: string): Copy['consent'] => {
   return {
     create: {
       consent_label: 'Consent',
@@ -17,7 +17,7 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
       title: (name: string) => {
         return (
           <>
-            <HL>{dataRecipient.name}</HL> requests access to your <HL>{name}</HL> account data
+            <HL>{primaryDataRecipient.name}</HL> requests access to your <HL>{name}</HL> account data
           </>
         );
       },
@@ -34,22 +34,22 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
       },
       scope_additional_message: (
         <>
-          <HL>{dataRecipient.name}</HL> would like access to the following new data:
+          <HL>{primaryDataRecipient.name}</HL> would like access to the following new data:
         </>
       ),
       scope_create_message: (
         <>
-          <HL>{dataRecipient.name}</HL> would like access to the following data:
+          <HL>{primaryDataRecipient.name}</HL> would like access to the following data:
         </>
       ),
       scope_read_only_message: (
         <>
-          <HL>{dataRecipient.name}</HL> has access to the following data:
+          <HL>{primaryDataRecipient.name}</HL> has access to the following data:
         </>
       ),
       scope_remove_message: (
         <>
-          <HL>{dataRecipient.name}</HL> would like to remove access to the following data:
+          <HL>{primaryDataRecipient.name}</HL> would like to remove access to the following data:
         </>
       ),
       up_to_date_message: 'Your consent details are up to date. There are no options for you to edit.',
@@ -57,7 +57,7 @@ export const consentCopy = (dataRecipient: DataRecipient, providerType: string):
     scope: {
       tooltip_label: (
         <>
-          <HL>{dataRecipient.name}</HL> will receive access to the following data:
+          <HL>{primaryDataRecipient.name}</HL> will receive access to the following data:
         </>
       ),
     },
