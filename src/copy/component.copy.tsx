@@ -73,14 +73,16 @@ export const componentCopy = (
         </>
       ),
       title: 'General information',
-      list_complaint: (complaintEmail: string) => {
-        return (
-          <>
-            If you would like to make a complaint, please email{' '}
-            <LinkExternal href={`mailto:${complaintEmail}`} text={complaintEmail} />.
-          </>
-        );
-      },
+      list_complaint: (
+        <>
+          If you would like to make a complaint, please email{' '}
+          <LinkExternal
+            href={`mailto:${primaryDataRecipient.complaintEmail}`}
+            text={primaryDataRecipient.complaintEmail}
+          />
+          .
+        </>
+      ),
     },
     max_account_connected_message: {
       list_label: 'You currently have the following active consents:',

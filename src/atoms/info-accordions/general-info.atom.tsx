@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Typography, List, ListItemText, ListItem } from '@mui/material';
+import { List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
@@ -43,11 +43,8 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {renderListItem(copy.component.general_information.list_sharing)}
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
         {renderListItem(copy.component.general_information.list_revoked)}
-        {!hideDuplicateListItem &&
-          renderListItem(<Typography>{copy.component.general_information.list_primary_more_info}</Typography>)}
-        {renderListItem(
-          <Typography>{copy.component.general_information.list_complaint(adrDataRecipient.complaintEmail)}</Typography>,
-        )}
+        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_primary_more_info)}
+        {renderListItem(copy.component.general_information.list_complaint)}
       </List>
     );
   };

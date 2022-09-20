@@ -54,7 +54,7 @@ export interface Copy {
     };
     general_information: {
       list_adr_context: string;
-      list_complaint: (complaintEmail: string) => ReactElement;
+      list_complaint: ReactElement;
       list_deleted: string;
       list_marketing: (dataRecipientName: string) => string;
       list_primary_more_info: ReactElement;
