@@ -35,15 +35,23 @@ const handleCancel = () => {
   alert('Consent canceled');
 };
 
-const Template: ComponentStory<typeof ConsentCreate> = (args) => <ConsentCreate {...args} />;
+const getFavouriteDataHolders = (industy: string) => {
+  if (industy === 'Energy') {
+    return TestUtil.testData.dataHolder.allEngery();
+  } else {
+    return TestUtil.testData.dataHolder.allBanking();
+  }
+};
 
-const favouriteDataHolders = TestUtil.testData.dataHolder.allBanking();
+const Template: ComponentStory<typeof ConsentCreate> = (args) => <ConsentCreate {...args} />;
 
 // ####################################
 
 export const WithOngoingAccess = Template.bind({});
 WithOngoingAccess.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -54,7 +62,6 @@ WithOngoingAccess.decorators = [
 
 WithOngoingAccess.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.THREEMONTHS],
@@ -68,7 +75,9 @@ WithOngoingAccess.args = {
 
 export const WithOnceOffAccess = Template.bind({});
 WithOnceOffAccess.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -79,7 +88,6 @@ WithOnceOffAccess.decorators = [
 
 WithOnceOffAccess.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -93,7 +101,9 @@ WithOnceOffAccess.args = {
 
 export const WithSupportingParties = Template.bind({});
 WithSupportingParties.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -104,7 +114,6 @@ WithSupportingParties.decorators = [
 
 WithSupportingParties.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: favouriteDataHolders,
   useCase: {
     ...TestUtil.testData.useCase.homeLoanWithOsps(),
     sharingDurations: [SharingDuration.ONCEOFF],
@@ -118,7 +127,9 @@ WithSupportingParties.args = {
 
 export const WithLongScopes = Template.bind({});
 WithLongScopes.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -129,7 +140,6 @@ WithLongScopes.decorators = [
 
 WithLongScopes.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.openEnergy(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -139,7 +149,9 @@ WithLongScopes.args = {
 
 export const WithMultiDatesAndCustom = Template.bind({});
 WithMultiDatesAndCustom.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -150,7 +162,6 @@ WithMultiDatesAndCustom.decorators = [
 
 WithMultiDatesAndCustom.args = {
   existingConsents: TestUtil.testData.consent.all(),
-  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -180,7 +191,9 @@ WithNoFavouriteDataHolders.args = {
 
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -207,7 +220,6 @@ WithNoRemainingDataHolders.args = {
       }),
     ],
   ],
-  favouriteDataHolders: favouriteDataHolders,
   useCase: TestUtil.testData.useCase.homeLoan(),
   onCancel: handleCancel,
   onSubmit: handleSummit,
