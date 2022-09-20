@@ -63,6 +63,7 @@ export interface Copy {
       list_revoked: string;
       list_security: (dataRecipientName: string) => string;
       list_sharing: ReactElement;
+      list_tasp_context: (taspDataRecipient: DataRecipient) => string;
       list_tasp_more_info: (taspDataRecipient: DataRecipient) => ReactElement;
       list_third_party_more_info: (dataHolderName: string, cdrPolicyUrl: string) => ReactElement;
       title: string;

@@ -73,11 +73,12 @@ export const componentCopy = (
           .
         </>
       ),
+      list_tasp_context: (taspDataRecipient: DataRecipient) =>
+        `${taspDataRecipient.name} will facilitate the collection of your data on behalf of ${primaryDataRecipient.name}.`,
       list_tasp_more_info: (taspDataRecipient: DataRecipient) => {
         return (
           <>
-            {taspDataRecipient.name} will facilitate the collection of your data on behalf of{' '}
-            {primaryDataRecipient.name}. Find out more information on how {taspDataRecipient.name} handles your data{' '}
+            Find out more information on how {taspDataRecipient.name} handles your data{' '}
             <LinkExternal href={taspDataRecipient.dataPolicyUrl} text="here" />.
           </>
         );

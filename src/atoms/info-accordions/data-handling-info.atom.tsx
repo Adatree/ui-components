@@ -75,7 +75,8 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
   const renderTaspList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
-        {renderListItem(copy.component.general_information.list_tasp_more_info(dataHandler), 0)}
+        {renderListItem(copy.component.general_information.list_tasp_context(dataHandler), 0)}
+        {renderListItem(copy.component.general_information.list_tasp_more_info(dataHandler), 1)}
       </List>
     );
   };
