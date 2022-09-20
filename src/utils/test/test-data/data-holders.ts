@@ -32,12 +32,12 @@ const greenBank = (): DataHolder => {
   };
 };
 
-const all = (): DataHolder[] => {
+const allBanking = (): DataHolder[] => {
   return [redBank(), yellowBank(), blueBank(), greenBank()];
 };
 
 export const dataHolder = {
-  all,
+  allBanking,
   redBank,
   yellowBank,
 };

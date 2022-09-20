@@ -13,7 +13,7 @@ const onceOffConsentMinScopes = (): UseCaseResponse => {
   return {
     id: 'ONCE_OFF_CONSENT_MIN_SCOPES',
     name: 'Once Off Consent - Minimal Scopes',
-    dataHolders: dataHolder.all(),
+    dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test a once off consent scenario for minimal scopes and APIs',
     industries: [Industry.BANKING],
     priority: 1,
@@ -33,7 +33,7 @@ const ongoingConsentMinScopes = (): UseCaseResponse => {
   return {
     id: 'ONGOING_CONSENT_MIN_SCOPES',
     name: 'Ongoing Consent - Minimal Scopes',
-    dataHolders: dataHolder.all(),
+    dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test an ongoing consent scenario for minimal scopes and APIs',
     industries: [Industry.BANKING],
     priority: 1,
@@ -54,7 +54,7 @@ const homeLoan = (): UseCaseResponse => {
   return {
     id: 'HOME_LOAN',
     name: 'Home Loan Application',
-    dataHolders: dataHolder.all(),
+    dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess your suitability for a home loan',
     industries: [Industry.BANKING],
     priority: 1,
@@ -77,7 +77,7 @@ const openEnergyLite = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY_LITE',
     name: 'Open Energy Lite',
-    dataHolders: dataHolder.all(),
+    dataHolders: dataHolder.allBanking(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.ENERGY],
     priority: 101,
@@ -98,7 +98,7 @@ const openEnergy = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY',
     name: 'Open Energy',
-    dataHolders: dataHolder.all(),
+    dataHolders: dataHolder.allBanking(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.ENERGY],
     priority: 100,

@@ -47,7 +47,7 @@ describe('Helper Utils', () => {
 
   describe('filterDataHoldersByConsentsAndUseCase', () => {
     it('should return DataHolder if a consent exist with that dataholder and use case', () => {
-      const dataHolders = TestUtil.testData.dataHolder.all();
+      const dataHolders = TestUtil.testData.dataHolder.allBanking();
       const consents = TestUtil.testData.consent.all();
       const homeUseCase = TestUtil.testData.useCase.homeLoan();
       const onceOffToolUseCase = TestUtil.testData.useCase.onceOffConsentMinScopes();
@@ -75,7 +75,7 @@ describe('Helper Utils', () => {
     });
 
     it('should not return DataHolders if use case is invalid', () => {
-      const dataHolders = TestUtil.testData.dataHolder.all();
+      const dataHolders = TestUtil.testData.dataHolder.allBanking();
       const consents = TestUtil.testData.consent.all();
       const useCase = TestUtil.testData.useCase.homeLoan();
       useCase.id = undefined;
@@ -88,7 +88,7 @@ describe('Helper Utils', () => {
     });
 
     it('should not return DataHolders if consents are invalid', () => {
-      const dataHolders = TestUtil.testData.dataHolder.all();
+      const dataHolders = TestUtil.testData.dataHolder.allBanking();
       const useCase = TestUtil.testData.useCase.homeLoan();
 
       let consent = TestUtil.testData.consent.active();

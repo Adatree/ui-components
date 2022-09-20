@@ -15,7 +15,7 @@ const Template: ComponentStory<typeof AutocompleteDropdown> = (args) => <Autocom
 
 export const Empty = Template.bind({});
 Empty.args = {
-  dataHolders: TestUtil.testData.dataHolder.all(),
+  dataHolders: TestUtil.testData.dataHolder.allBanking(),
   onChange: (dataHolder: DataHolder | null) => {
     if (dataHolder) {
       alert(`You have selected ${dataHolder.brandName} with ID ${dataHolder.dataHolderBrandId}.`);
@@ -27,8 +27,8 @@ Empty.args = {
 
 export const WithValueSet = Template.bind({});
 WithValueSet.args = {
-  dataHolders: TestUtil.testData.dataHolder.all(),
-  defaultValue: TestUtil.testData.dataHolder.all()[0],
+  dataHolders: TestUtil.testData.dataHolder.allBanking(),
+  defaultValue: TestUtil.testData.dataHolder.allBanking()[0],
   onChange: (dataHolder: DataHolder | null) => {
     if (dataHolder) {
       alert(`You have selected ${dataHolder.brandName} with ID ${dataHolder.dataHolderBrandId}.`);
@@ -40,7 +40,7 @@ WithValueSet.args = {
 
 export const WithDisabledOptions = Template.bind({});
 WithDisabledOptions.args = {
-  dataHolders: TestUtil.testData.dataHolder.all(),
+  dataHolders: TestUtil.testData.dataHolder.allBanking(),
   disableDataHolders: [TestUtil.testData.dataHolder.yellowBank()],
   onChange: (dataHolder: DataHolder | null) => {
     if (dataHolder) {

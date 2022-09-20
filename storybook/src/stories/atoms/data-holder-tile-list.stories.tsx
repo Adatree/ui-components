@@ -10,7 +10,7 @@ export default {
   },
 } as ComponentMeta<typeof DataHolderTiles>;
 
-const dataHolders = TestUtil.testData.dataHolder.all();
+const dataHolders = TestUtil.testData.dataHolder.allBanking();
 const Template: ComponentStory<typeof DataHolderTiles> = (args) => <DataHolderTiles {...args} />;
 
 export const WithAllEnabled = Template.bind({});

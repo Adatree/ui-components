@@ -33,6 +33,8 @@ const dataRecipientValues = [
   'Trusted Adviser with a TA Service Provider',
 ];
 
+const industryValues = ['Banking', 'Energy'];
+
 export const globalTypes = {
   dataRecipient: {
     name: 'Data Recipient',
@@ -48,12 +50,23 @@ export const globalTypes = {
       showName: true,
     },
   },
+  industry: {
+    name: 'Industry',
+    description: 'Select the industry for the story',
+    defaultValue: industryValues[0],
+    toolbar: {
+      icon: 'admin',
+      items: industryValues,
+      showName: true,
+    },
+  },
 };
 
 // Hack to remount the component
 let remountKey = 0;
 
 let dataRecipients = undefined;
+let industry = undefined;
 
 const getDataRecipients = (key) => {
   if (key === dataRecipientValues[0]) {
@@ -81,9 +94,20 @@ const getDataRecipients = (key) => {
   }
 };
 
+const getIndustry = (key) => {
+  if (key === industryValues[0]) {
+    industry = Industry.BANKING;
+    remountKey = Math.random();
+  } else if (key === industryValues[1]) {
+    industry = Industry.ENERGY;
+    remountKey = Math.random();
+  }
+};
+
 export const decorators = [
   (Story, context) => {
     getDataRecipients(context.globals.dataRecipient);
+    getIndustry(context.globals.industry);
 
     return (
       <div key={remountKey}>
@@ -93,7 +117,7 @@ export const decorators = [
               initialCopy={CopyBuilder.generateCopy(
                 Helper.getAdrDataRecipients(dataRecipients),
                 Helper.getPrimaryDataRecipients(dataRecipients),
-                Industry.BANKING,
+                industry,
               )}
             >
               <Story />
