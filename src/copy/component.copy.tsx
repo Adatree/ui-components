@@ -31,13 +31,12 @@ export const componentCopy = (
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} have partnered with ${adrDataRecipient.name} to help you consent and access your data.`,
-      list_deleted:
-        'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
+      list_deleted: `When your consent expires or is revoked, all of the data you shared with ${adrDataRecipient.name} is automatically deleted within seconds.`,
       list_marketing: (dataRecipientName: string) =>
         `${dataRecipientName} will never sell your data or use it for marketing.`,
       list_primary_more_info: (
         <>
-          Find out more information on how we handle your data in our easy-to-read{' '}
+          Find out more information on how {primaryDataRecipient.name} handle your data in our easy-to-read{' '}
           <LinkExternal href={primaryDataRecipient.cdrPolicyUrl} text="Privacy Policy" />.
         </>
       ),
@@ -49,18 +48,35 @@ export const componentCopy = (
           </>
         );
       },
-      list_records:
-        'You can request copies of records relating to your consent and the data we collect by writing to us at',
-      list_revoked: 'When you revoke consent, the services we offer may cease to provide you with benefits.',
+      list_records: (
+        <>
+          You can request copies of records relating to your consent and the data collected by emailing{' '}
+          <LinkExternal
+            href={`mailto:${primaryDataRecipient.dataSharingRevocationEmail}`}
+            text={primaryDataRecipient.dataSharingRevocationEmail}
+          />
+          .
+        </>
+      ),
+
+      list_revoked: 'When you revoke consent, the services offered may cease to provide you with benefits.',
       list_security: (dataRecipientName: string) =>
         `${dataRecipientName} will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
-      list_sharing:
-        'You can stop sharing data at any time by clicking the revoke button in the consent record. You can also write to us at',
+      list_sharing: (
+        <>
+          You can stop sharing data at any time by clicking the revoke button in the consent record. You can also email{' '}
+          <LinkExternal
+            href={`mailto:${primaryDataRecipient.dataSharingRevocationEmail}`}
+            text={primaryDataRecipient.dataSharingRevocationEmail}
+          />
+          .
+        </>
+      ),
       title: 'General information',
       list_complaint: (complaintEmail: string) => {
         return (
           <>
-            If you would like to make a complaint, please email us at{' '}
+            If you would like to make a complaint, please email{' '}
             <LinkExternal href={`mailto:${complaintEmail}`} text={complaintEmail} />.
           </>
         );

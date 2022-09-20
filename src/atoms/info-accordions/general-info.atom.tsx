@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Typography, List, ListItemText, ListItem } from '@mui/material';
 import { Accordion } from '../accordion/accordion.molecule';
-import { LinkExternal } from '../links/link-external.atom';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
@@ -40,26 +39,8 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
         {!hideDuplicateListItem &&
           renderListItem(copy.component.general_information.list_marketing(adrDataRecipient.name))}
-        {renderListItem(
-          <Typography>
-            {copy.component.general_information.list_records}{' '}
-            <LinkExternal
-              href={`mailto:${adrDataRecipient.dataSharingRevocationEmail}`}
-              text={adrDataRecipient.dataSharingRevocationEmail}
-            />
-            .
-          </Typography>,
-        )}
-        {renderListItem(
-          <Typography>
-            {copy.component.general_information.list_sharing}{' '}
-            <LinkExternal
-              href={`mailto:${adrDataRecipient.dataSharingRevocationEmail}`}
-              text={adrDataRecipient.dataSharingRevocationEmail}
-            />
-            .
-          </Typography>,
-        )}
+        {renderListItem(copy.component.general_information.list_records)}
+        {renderListItem(copy.component.general_information.list_sharing)}
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
         {renderListItem(copy.component.general_information.list_revoked)}
         {!hideDuplicateListItem &&

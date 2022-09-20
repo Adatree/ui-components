@@ -58,10 +58,10 @@ export interface Copy {
       list_deleted: string;
       list_marketing: (dataRecipientName: string) => string;
       list_primary_more_info: ReactElement;
-      list_records: string;
+      list_records: ReactElement;
       list_revoked: string;
       list_security: (dataRecipientName: string) => string;
-      list_sharing: string;
+      list_sharing: ReactElement;
       list_third_party_more_info: (dataHolderName: string, cdrPolicyUrl: string) => ReactElement;
       title: string;
     };
