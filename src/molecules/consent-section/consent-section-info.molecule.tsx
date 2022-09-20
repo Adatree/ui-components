@@ -18,12 +18,12 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        <Accordion title="Purpose of accessing my data" content={useCase.description} />
         <GeneralInformation hideDuplicateListItem={dataHandlers !== undefined} />
+        <Accordion title="What is the purpose of accessing my data" content={useCase.description} />
+        {dataHandlers && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (
           <SupportingParties title={'Supporting Parties'} useCase={useCase} outsourcedServiceProviders={useCase.osps} />
         )}
-        {dataHandlers && <DataHandlingInfo dataHandlers={dataHandlers} />}
       </Box>
     </>
   );

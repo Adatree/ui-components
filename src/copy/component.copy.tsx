@@ -27,7 +27,7 @@ export const componentCopy = (
           </>
         );
       },
-      title: 'Data Handling',
+      title: 'Who has access to my data',
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} have partnered with ${adrDataRecipient.name} to help you consent and access your data.`,
