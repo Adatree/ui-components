@@ -36,9 +36,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
     return (
       <List>
         {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
-          renderListItem(
-            copy.component.general_information.list_adr_context(primaryDataRecipient.name, adrDataRecipient.name),
-          )}
+          renderListItem(copy.component.general_information.list_adr_context)}
         {renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
         {!hideDuplicateListItem &&
           renderListItem(copy.component.general_information.list_marketing(adrDataRecipient.name))}
@@ -65,14 +63,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
         {renderListItem(copy.component.general_information.list_revoked)}
         {!hideDuplicateListItem &&
-          renderListItem(
-            <Typography>
-              {copy.component.general_information.list_primary_more_info(
-                copy.common.cdr_policy_label,
-                adrDataRecipient.cdrPolicyUrl,
-              )}
-            </Typography>,
-          )}
+          renderListItem(<Typography>{copy.component.general_information.list_primary_more_info}</Typography>)}
         {renderListItem(
           <Typography>{copy.component.general_information.list_complaint(adrDataRecipient.complaintEmail)}</Typography>,
         )}

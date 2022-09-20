@@ -53,16 +53,16 @@ export interface Copy {
       title: string;
     };
     general_information: {
-      list_adr_context: (primaryDataRecipientName: string, adrName: string) => string;
+      list_adr_context: string;
       list_complaint: (complaintEmail: string) => ReactElement;
       list_deleted: string;
       list_marketing: (dataRecipientName: string) => string;
-      list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
+      list_primary_more_info: ReactElement;
       list_records: string;
       list_revoked: string;
       list_security: (dataRecipientName: string) => string;
       list_sharing: string;
-      list_third_party_more_info: (dataHolderName: string, cdrPolicyText: string, cdrPolicyUrl: string) => ReactElement;
+      list_third_party_more_info: (dataHolderName: string, cdrPolicyUrl: string) => ReactElement;
       title: string;
     };
     max_account_connected_message: {

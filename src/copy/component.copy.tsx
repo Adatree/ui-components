@@ -4,7 +4,11 @@ import { LinkExternal } from '../atoms/links/link-external.atom';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
 
-export const componentCopy = (dataRecipient: DataRecipient, providerType: string): Copy['component'] => {
+export const componentCopy = (
+  adrDataRecipient: DataRecipient,
+  primaryDataRecipient: DataRecipient,
+  providerType: string,
+): Copy['component'] => {
   return {
     data_handling_info: {
       list_data_policy: (name: string, dataPolicyUrl: string) => {
@@ -26,25 +30,22 @@ export const componentCopy = (dataRecipient: DataRecipient, providerType: string
       title: 'Data Handling',
     },
     general_information: {
-      list_adr_context: (primaryDataRecipientName: string, adrName: string) =>
-        `${primaryDataRecipientName} have partnered with ${adrName} to provider this consumer consent service.`,
+      list_adr_context: `${primaryDataRecipient.name} have partnered with ${adrDataRecipient.name} to help you consent and access your data.`,
       list_deleted:
         'When your consent expires or is revoked, all of the data you shared with us is automatically deleted within seconds.',
       list_marketing: (dataRecipientName: string) =>
         `${dataRecipientName} will never sell your data or use it for marketing.`,
-      list_primary_more_info: (cdrPolicyText: string, cdrPolicyUrl: string) => {
-        return (
-          <>
-            Find out more information on how we handle your data in our easy-to-read{' '}
-            <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
-          </>
-        );
-      },
-      list_third_party_more_info: (dataHandlerName: string, cdrPolicyText: string, cdrPolicyUrl: string) => {
+      list_primary_more_info: (
+        <>
+          Find out more information on how we handle your data in our easy-to-read{' '}
+          <LinkExternal href={primaryDataRecipient.cdrPolicyUrl} text="Privacy Policy" />.
+        </>
+      ),
+      list_third_party_more_info: (dataHandlerName: string, cdrPolicyUrl: string) => {
         return (
           <>
             Find out more information on how {dataHandlerName} handles your data in their{' '}
-            <LinkExternal href={cdrPolicyUrl} text={cdrPolicyText} />.
+            <LinkExternal href={cdrPolicyUrl} text="Privacy Policy" />.
           </>
         );
       },
@@ -77,14 +78,15 @@ export const componentCopy = (dataRecipient: DataRecipient, providerType: string
       discreet_label: 'consent service provided by',
       what_label: (
         <>
-          <HL>{dataRecipient.name}</HL> use <HL>Adatree</HL> to help you consent and access your data.
+          <HL>{primaryDataRecipient.name}</HL> use <HL>{adrDataRecipient.name}</HL> to help you consent and access your
+          data.
         </>
       ),
       why_label: (dataHolderName: string) => {
         return (
           <>
-            <HL>{dataHolderName}</HL> will ask you to share your data with <HL>Adatree</HL> for{' '}
-            <HL>{dataRecipient.name}</HL>.
+            <HL>{dataHolderName}</HL> will ask you to share your data with <HL>{adrDataRecipient.name}</HL> for{' '}
+            <HL>{primaryDataRecipient.name}</HL>.
           </>
         );
       },
