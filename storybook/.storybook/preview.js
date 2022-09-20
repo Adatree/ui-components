@@ -90,7 +90,11 @@ export const decorators = [
         <ThemeProvider theme={defaultTheme}>
           <DataRecipientsProvider initialDataRecipients={dataRecipients}>
             <CopyProvider
-              initialCopy={CopyBuilder.generateCopy(Helper.getPrimaryDataRecipients(dataRecipients), Industry.BANKING)}
+              initialCopy={CopyBuilder.generateCopy(
+                Helper.getAdrDataRecipients(dataRecipients),
+                Helper.getPrimaryDataRecipients(dataRecipients),
+                Industry.BANKING,
+              )}
             >
               <Story />
             </CopyProvider>
