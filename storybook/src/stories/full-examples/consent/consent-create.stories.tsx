@@ -9,11 +9,24 @@ import {
   TestUtil,
 } from '../../../lib';
 
+const handleSummit = () => {
+  alert('Consent submitted');
+};
+
+const handleCancel = () => {
+  alert('Consent canceled');
+};
+
 export default {
   title: 'Full examples/Create consent',
   component: ConsentCreate,
   argTypes: {
     backgroundColor: { control: 'color' },
+  },
+  args: {
+    existingConsents: TestUtil.testData.consent.all(),
+    onCancel: handleCancel,
+    onSubmit: handleSummit,
   },
 } as ComponentMeta<typeof ConsentCreate>;
 
@@ -28,13 +41,6 @@ const baseConsentFormValues = {
   useCaseId: undefined,
 };
 
-const handleSummit = () => {
-  alert('Consent submitted');
-};
-const handleCancel = () => {
-  alert('Consent canceled');
-};
-
 const getFavouriteDataHolders = (industy: string) => {
   if (industy === 'Energy') {
     return TestUtil.testData.dataHolder.allEngery();
@@ -45,12 +51,17 @@ const getFavouriteDataHolders = (industy: string) => {
 
 const Template: ComponentStory<typeof ConsentCreate> = (args) => <ConsentCreate {...args} />;
 
-// ####################################
+// ########################################################################
 
 export const WithOngoingAccess = Template.bind({});
 WithOngoingAccess.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...TestUtil.testData.useCase.homeLoan(),
+      sharingDurations: [SharingDuration.THREEMONTHS],
+      accessFrequency: AccessFrequency.ONGOING,
+    };
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -60,23 +71,17 @@ WithOngoingAccess.decorators = [
   },
 ];
 
-WithOngoingAccess.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.THREEMONTHS],
-    accessFrequency: AccessFrequency.ONGOING,
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithOnceOffAccess = Template.bind({});
 WithOnceOffAccess.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...TestUtil.testData.useCase.homeLoan(),
+      sharingDurations: [SharingDuration.ONCEOFF],
+      accessFrequency: AccessFrequency.ONCEOFF,
+    };
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -86,23 +91,17 @@ WithOnceOffAccess.decorators = [
   },
 ];
 
-WithOnceOffAccess.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.ONCEOFF],
-    accessFrequency: AccessFrequency.ONCEOFF,
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithSupportingParties = Template.bind({});
 WithSupportingParties.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...TestUtil.testData.useCase.homeLoanWithOsps(),
+      sharingDurations: [SharingDuration.ONCEOFF],
+      accessFrequency: AccessFrequency.ONCEOFF,
+    };
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -112,23 +111,13 @@ WithSupportingParties.decorators = [
   },
 ];
 
-WithSupportingParties.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoanWithOsps(),
-    sharingDurations: [SharingDuration.ONCEOFF],
-    accessFrequency: AccessFrequency.ONCEOFF,
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithLongScopes = Template.bind({});
 WithLongScopes.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = TestUtil.testData.useCase.openEnergy();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -138,19 +127,13 @@ WithLongScopes.decorators = [
   },
 ];
 
-WithLongScopes.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: TestUtil.testData.useCase.openEnergy(),
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithMultiDatesAndCustom = Template.bind({});
 WithMultiDatesAndCustom.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = TestUtil.testData.useCase.ongoingConsentMinScopes();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -160,18 +143,13 @@ WithMultiDatesAndCustom.decorators = [
   },
 ];
 
-WithMultiDatesAndCustom.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithNoFavouriteDataHolders = Template.bind({});
 WithNoFavouriteDataHolders.decorators = [
-  (Story) => {
+  (Story, context) => {
+    context.args.useCase = TestUtil.testData.useCase.ongoingConsentMinScopes();
+
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
         <Story />
@@ -180,19 +158,30 @@ WithNoFavouriteDataHolders.decorators = [
   },
 ];
 
-WithNoFavouriteDataHolders.args = {
-  existingConsents: TestUtil.testData.consent.all(),
-  useCase: TestUtil.testData.useCase.ongoingConsentMinScopes(),
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
-
-// ####################################
+// ########################################################################
 
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = TestUtil.testData.useCase.homeLoan();
+    context.args.existingConsents = [
+      ...TestUtil.testData.consent.all(),
+      ...[
+        TestUtil.testData.consent.generateConsent({
+          dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
+          useCaseId: TestUtil.testData.useCase.homeLoan().id,
+        }),
+        TestUtil.testData.consent.generateConsent({
+          dataHolderBrandId: '7a7cea5d-19c4-458b-ab79-c926455475d3',
+          useCaseId: TestUtil.testData.useCase.homeLoan().id,
+        }),
+        TestUtil.testData.consent.generateConsent({
+          dataHolderBrandId: '8a8cea5d-19c4-458b-ab79-c926455475d3',
+          useCaseId: TestUtil.testData.useCase.homeLoan().id,
+        }),
+      ],
+    ];
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -201,26 +190,3 @@ WithNoRemainingDataHolders.decorators = [
     );
   },
 ];
-
-WithNoRemainingDataHolders.args = {
-  existingConsents: [
-    ...TestUtil.testData.consent.all(),
-    ...[
-      TestUtil.testData.consent.generateConsent({
-        dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
-        useCaseId: TestUtil.testData.useCase.homeLoan().id,
-      }),
-      TestUtil.testData.consent.generateConsent({
-        dataHolderBrandId: '7a7cea5d-19c4-458b-ab79-c926455475d3',
-        useCaseId: TestUtil.testData.useCase.homeLoan().id,
-      }),
-      TestUtil.testData.consent.generateConsent({
-        dataHolderBrandId: '8a8cea5d-19c4-458b-ab79-c926455475d3',
-        useCaseId: TestUtil.testData.useCase.homeLoan().id,
-      }),
-    ],
-  ],
-  useCase: TestUtil.testData.useCase.homeLoan(),
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
