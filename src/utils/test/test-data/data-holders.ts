@@ -43,7 +43,7 @@ const ecoPowerEnergy = (): DataHolder => {
 const originalEnergy = (): DataHolder => {
   return {
     dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
-    brandName: 'Yellow Bank of Australia',
+    brandName: 'Original Energy',
     logoUri: 'https://design.adatree.com.au/assets/images/org-logo.png',
   };
 };
@@ -51,7 +51,7 @@ const originalEnergy = (): DataHolder => {
 const ozGasEnergy = (): DataHolder => {
   return {
     dataHolderBrandId: '8a8cea5d-19c4-458b-ab79-c926455475d3',
-    brandName: 'Royal Blue Bank of Australia',
+    brandName: 'Oz Gas',
     logoUri: 'https://design.adatree.com.au/assets/images/ozg-logo.png',
   };
 };
@@ -59,7 +59,7 @@ const ozGasEnergy = (): DataHolder => {
 const yourPowerEnergy = (): DataHolder => {
   return {
     dataHolderBrandId: '7a7cea5d-19c4-458b-ab79-c926455475d3',
-    brandName: 'Green Bank',
+    brandName: 'Your Power',
     logoUri: 'https://design.adatree.com.au/assets/images/yp-logo.png',
   };
 };
