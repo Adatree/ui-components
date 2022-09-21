@@ -56,6 +56,9 @@ export * from './context/consentForm.context';
 export * from './context/copy.context';
 export * from './context/data-recipient.context';
 
+// Enum
+export { DataRecipientType } from './types/data-recipient.type';
+
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
 
