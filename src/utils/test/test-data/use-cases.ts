@@ -29,6 +29,7 @@ const onceOffConsentMinScopes = (): UseCaseResponse => {
     sharingDurations: [SharingDuration.ONCEOFF],
   };
 };
+
 const ongoingConsentMinScopes = (): UseCaseResponse => {
   return {
     id: 'ONGOING_CONSENT_MIN_SCOPES',
@@ -77,7 +78,7 @@ const openEnergyLite = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY_LITE',
     name: 'Open Energy Lite',
-    dataHolders: dataHolder.allBanking(),
+    dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.ENERGY],
     priority: 101,
@@ -98,7 +99,7 @@ const openEnergy = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY',
     name: 'Open Energy',
-    dataHolders: dataHolder.allBanking(),
+    dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.ENERGY],
     priority: 100,
