@@ -88,6 +88,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
                 value={scope.id}
                 onChange={handleToggle}
                 defaultChecked={enableAll}
+                color="button"
                 inputProps={{
                   'aria-labelledby': `switch-list-label-${scope.id}`,
                 }}

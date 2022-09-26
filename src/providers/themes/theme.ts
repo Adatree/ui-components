@@ -204,6 +204,12 @@ declare module '@mui/material/Radio' {
   }
 }
 
+declare module '@mui/material/Switch' {
+  interface SwitchPropsColorOverrides {
+    button: true;
+  }
+}
+
 declare module '@mui/material/SvgIcon' {
   interface SvgIconPropsColorOverrides {
     button: true;
