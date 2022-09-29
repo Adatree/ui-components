@@ -10,7 +10,7 @@ import { ConsentSectionDates } from '../../molecules/consent-section/consent-sec
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
-import { DataRecipient } from '../../types/data-recipient.type';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -67,7 +67,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (primaryDataRecipient.underCdrPrincipal) {
+      if (primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();

@@ -10,6 +10,7 @@ import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
+import { DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -95,7 +96,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (primaryDataRecipient.underCdrPrincipal) {
+      if (primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();

@@ -112,7 +112,7 @@ export const decorators = [
     return (
       <div key={remountKey}>
         <ThemeProvider theme={defaultTheme}>
-          <DataRecipientsProvider initialDataRecipients={dataRecipients}>
+          <DataRecipientsProvider accreditationNum="ADR-1234-1234" initialDataRecipients={dataRecipients}>
             <CopyProvider
               initialCopy={CopyBuilder.generateCopy(
                 Helper.getAdrDataRecipients(dataRecipients),

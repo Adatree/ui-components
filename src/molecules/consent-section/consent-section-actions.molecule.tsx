@@ -3,6 +3,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-cancel-button.atom';
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
 import { useDataRecipients } from '../../context/data-recipient.context';
+import { DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentSectionActionsProps = {
   actionButtonLabel: string;
@@ -16,7 +17,7 @@ export type ConsentSectionActionsProps = {
 
 export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (props) => {
   const { actionButtonLabel, cancelButtonLabel, cancelButtonMessage, isValid, showError, onCancel, onSubmit } = props;
-  const { primaryDataRecipient } = useDataRecipients();
+  const { accreditationNumber, primaryDataRecipient } = useDataRecipients();
 
   const handleSubmit = () => {
     onSubmit();
@@ -50,10 +51,10 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
       </Typography>
       <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
         <Accreditation
-          accreditationNumber={primaryDataRecipient.accreditationNumber}
+          accreditationNumber={accreditationNumber}
           cdrPolicyUrl={primaryDataRecipient.cdrPolicyUrl}
           companyName={primaryDataRecipient.name}
-          underCdrPrincipal={primaryDataRecipient.underCdrPrincipal}
+          underCdrPrincipal={primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE}
         />
       </Box>
     </>

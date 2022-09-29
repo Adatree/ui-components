@@ -5,7 +5,6 @@ export enum DataRecipientType {
   TRUSTED_ADVISER_SERVICE_PROVIDER = 'TRUSTED_ADVISER_SERVICE_PROVIDER',
 }
 export interface DataRecipient {
-  accreditationNumber: string;
   cdrPolicyUrl: string;
   complaintEmail: string;
   dataPolicyUrl: string;
@@ -15,5 +14,4 @@ export interface DataRecipient {
   name: string;
   protectionFrameworkUrl: string;
   type: DataRecipientType;
-  underCdrPrincipal: boolean;
 }

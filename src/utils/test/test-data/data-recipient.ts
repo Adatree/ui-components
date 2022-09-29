@@ -2,7 +2,6 @@ import { DataRecipient, DataRecipientType } from '../../../types/data-recipient.
 
 export const accreditedDataRecipient = (): DataRecipient => {
   return {
-    accreditationNumber: 'ADR-1234-5678',
     complaintEmail: 'adr-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/adr-cdr-policy',
     dataPolicyUrl: 'https://www.example.com/adr-data-policy',
@@ -12,13 +11,11 @@ export const accreditedDataRecipient = (): DataRecipient => {
     name: 'Accredited Company',
     protectionFrameworkUrl: 'https://www.example.com/adr-protection-framework',
     type: DataRecipientType.ACCREDITED_DATA_RECIPIENT,
-    underCdrPrincipal: false,
   };
 };
 
 export const cdrRepresentative = (): DataRecipient => {
   return {
-    accreditationNumber: 'CDRR-1234-5678',
     complaintEmail: 'cdrr-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/cdrr-cdr-policy',
     dataPolicyUrl: 'https://www.example.com/cdrr-data-policy',
@@ -28,13 +25,11 @@ export const cdrRepresentative = (): DataRecipient => {
     name: 'CDR Representative Company',
     protectionFrameworkUrl: 'https://www.example.com/cdrr-protection-framework',
     type: DataRecipientType.CDR_REPRESENTATIVE,
-    underCdrPrincipal: true,
   };
 };
 
 export const trustedAdvisor = (): DataRecipient => {
   return {
-    accreditationNumber: 'TA-1234-5678',
     complaintEmail: 'ta-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/ta-cdr-policy',
     dataPolicyUrl: 'https://www.example.com/ta-data-policy',
@@ -44,13 +39,11 @@ export const trustedAdvisor = (): DataRecipient => {
     name: 'Trusted Advisor Company',
     protectionFrameworkUrl: 'https://www.example.com/ta-protection-framework',
     type: DataRecipientType.TRUSTED_ADVISER,
-    underCdrPrincipal: false,
   };
 };
 
 export const trustedAdvisorServiceProvider = (): DataRecipient => {
   return {
-    accreditationNumber: 'TASP-1234-5678',
     complaintEmail: 'tasp-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/tasp-cdr-policy',
     dataPolicyUrl: 'https://www.example.com/tasp-data-policy',
@@ -60,7 +53,6 @@ export const trustedAdvisorServiceProvider = (): DataRecipient => {
     name: 'Trusted Advisor Service Provider Company',
     protectionFrameworkUrl: 'https://www.example.com/tasp-protection-framework',
     type: DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
-    underCdrPrincipal: false,
   };
 };
 

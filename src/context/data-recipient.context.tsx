@@ -3,6 +3,7 @@ import { DataRecipient } from '../types/data-recipient.type';
 import { Helper } from '../utils/helper/helper';
 
 type DataRecipientsContextType = {
+  accreditationNumber: string;
   adrDataRecipient: DataRecipient;
   primaryDataRecipient: DataRecipient;
   dataRecipients: DataRecipient[];
@@ -20,18 +21,20 @@ const useDataRecipients = () => {
 };
 
 type DataRecipientsProviderProps = {
+  accreditationNum: string;
   children: React.ReactNode;
   initialDataRecipients: DataRecipient[];
 };
 
-const DataRecipientsProvider = ({ children, initialDataRecipients }: DataRecipientsProviderProps) => {
+const DataRecipientsProvider = ({ accreditationNum, children, initialDataRecipients }: DataRecipientsProviderProps) => {
+  const [accreditationNumber] = React.useState<string>(accreditationNum);
   const [adrDataRecipient] = React.useState<DataRecipient>(Helper.getAdrDataRecipients(initialDataRecipients));
   const [dataRecipients, setDataRecipients] = React.useState<DataRecipient[]>(initialDataRecipients);
   const [primaryDataRecipient] = React.useState<DataRecipient>(Helper.getPrimaryDataRecipients(initialDataRecipients));
 
   return (
     <DataRecipientsContext.Provider
-      value={{ adrDataRecipient, primaryDataRecipient, dataRecipients, setDataRecipients }}
+      value={{ accreditationNumber, adrDataRecipient, primaryDataRecipient, dataRecipients, setDataRecipients }}
     >
       {children}
     </DataRecipientsContext.Provider>
