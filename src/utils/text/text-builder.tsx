@@ -48,15 +48,11 @@ const accessFrequency = (companyName: string, accessFrequency: AccessFrequency |
   if (accessFrequency === AccessFrequency.ONCEOFF) {
     return (
       <>
-        Data sharing with <Highlight>{companyName}</Highlight> ends after <Highlight>first use</Highlight>.
+        Data sharing with <Highlight>{companyName}</Highlight> ends after first use.
       </>
     );
   } else if (accessFrequency === AccessFrequency.ONGOING) {
-    return (
-      <>
-        {common} <Highlight>multiple times</Highlight> during this period.
-      </>
-    );
+    return <>{common} multiple times during this period.</>;
   } else {
     return <>{common}.</>;
   }
