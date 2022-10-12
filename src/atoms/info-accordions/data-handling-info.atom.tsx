@@ -54,6 +54,14 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
+  const renderTaList = (dataHandler: DataRecipient): ReactElement => {
+    return (
+      <List sx={{ mb: '2rem' }}>
+        {renderListItem(copy.component.data_handling_info.list_data_policy(dataHandler.name), 0)}
+      </List>
+    );
+  };
+
   const renderTaspList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
@@ -76,6 +84,8 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
                 {dataHandler.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT && <>{renderAdrList(dataHandler)}</>}
 
                 {dataHandler.type === DataRecipientType.CDR_REPRESENTATIVE && <>{renderCdrrList(dataHandler)}</>}
+
+                {dataHandler.type === DataRecipientType.TRUSTED_ADVISER && <>{renderTaList(dataHandler)}</>}
 
                 {dataHandler.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER && (
                   <>{renderTaspList(dataHandler)}</>
