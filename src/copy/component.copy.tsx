@@ -11,13 +11,8 @@ export const componentCopy = (
 ): Copy['component'] => {
   return {
     data_handling_info: {
-      list_data_policy: (name: string, dataPolicyUrl: string) => {
-        return (
-          <>
-            Find out more information on how your data will be handled by {name}{' '}
-            <LinkExternal href={dataPolicyUrl} text="here" />.
-          </>
-        );
+      list_data_policy: (name: string) => {
+        return <>Speak to {name} for more information about how they will handle your data.</>;
       },
       title: 'Who has access to my data?',
     },
@@ -67,14 +62,6 @@ export const componentCopy = (
       ),
       list_tasp_context: (taspDataRecipient: DataRecipient) =>
         `${taspDataRecipient.name} will facilitate the collection of your data on behalf of ${primaryDataRecipient.name}.`,
-      list_tasp_more_info: (taspDataRecipient: DataRecipient) => {
-        return (
-          <>
-            Find out more information on how {taspDataRecipient.name} handles your data{' '}
-            <LinkExternal href={taspDataRecipient.dataPolicyUrl} text="here" />.
-          </>
-        );
-      },
       list_third_party_more_info: (dataHandlerName: string, cdrPolicyUrl: string) => {
         return (
           <>

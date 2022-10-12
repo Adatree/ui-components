@@ -7,7 +7,6 @@ export enum DataRecipientType {
 export interface DataRecipient {
   cdrPolicyUrl: string;
   complaintEmail: string;
-  dataPolicyUrl: string;
   dataSharingRevocationEmail: string;
   description: string;
   logo: string;

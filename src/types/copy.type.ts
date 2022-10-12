@@ -49,7 +49,7 @@ export interface Copy {
   };
   component: {
     data_handling_info: {
-      list_data_policy: (name: string, dataPolicyUrl: string) => ReactElement;
+      list_data_policy: (name: string) => ReactElement;
       title: string;
     };
     general_information: {
@@ -63,7 +63,6 @@ export interface Copy {
       list_security: (dataRecipientName: string) => string;
       list_sharing: ReactElement;
       list_tasp_context: (taspDataRecipient: DataRecipient) => string;
-      list_tasp_more_info: (taspDataRecipient: DataRecipient) => ReactElement;
       list_third_party_more_info: (dataHolderName: string, cdrPolicyUrl: string) => ReactElement;
       title: string;
     };
