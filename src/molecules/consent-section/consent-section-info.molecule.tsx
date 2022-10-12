@@ -18,7 +18,7 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        <GeneralInformation hideDuplicateListItem={dataHandlers !== undefined} />
+        <GeneralInformation hideDuplicateListItem={dataHandlers && dataHandlers.length >= 1} />
         <Accordion title="What is the purpose of accessing my data?" content={useCase.description} />
         {dataHandlers && dataHandlers.length > 0 && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (
