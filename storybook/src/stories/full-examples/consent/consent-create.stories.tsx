@@ -7,6 +7,7 @@ import {
   PostUsageAction,
   SharingDuration,
   TestUtil,
+  UseCaseResponse,
 } from '../../../lib';
 
 const handleSummit = () => {
@@ -49,7 +50,7 @@ const getFavouriteDataHolders = (industy: string) => {
   }
 };
 
-const getUseCase = (industy: string) => {
+const getUseCase = (industy: string): UseCaseResponse => {
   if (industy === 'Energy') {
     return TestUtil.testData.useCase.openEnergyLite();
   } else {
@@ -188,6 +189,12 @@ WithNoFavouriteDataHolders.decorators = [
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
   (Story, context) => {
+    let useCaseId = getUseCase(context.globals.industry).id;
+
+    if (!useCaseId) {
+      useCaseId = '';
+    }
+
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = getUseCase(context.globals.industry);
     context.args.existingConsents = [
@@ -195,19 +202,23 @@ WithNoRemainingDataHolders.decorators = [
       ...[
         TestUtil.testData.consent.generateConsent({
           dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
-          useCaseId: getUseCase(context.globals.industry).id,
+          useCaseId: useCaseId,
+          sharingEndDate: new Date().toISOString(),
         }),
         TestUtil.testData.consent.generateConsent({
           dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
-          useCaseId: getUseCase(context.globals.industry).id,
+          useCaseId: useCaseId,
+          sharingEndDate: new Date().toISOString(),
         }),
         TestUtil.testData.consent.generateConsent({
           dataHolderBrandId: '7a7cea5d-19c4-458b-ab79-c926455475d3',
-          useCaseId: getUseCase(context.globals.industry).id,
+          useCaseId: useCaseId,
+          sharingEndDate: new Date().toISOString(),
         }),
         TestUtil.testData.consent.generateConsent({
           dataHolderBrandId: '8a8cea5d-19c4-458b-ab79-c926455475d3',
-          useCaseId: getUseCase(context.globals.industry).id,
+          useCaseId: useCaseId,
+          sharingEndDate: new Date().toISOString(),
         }),
       ],
     ];

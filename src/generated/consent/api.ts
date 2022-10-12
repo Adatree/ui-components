@@ -135,12 +135,6 @@ export interface ConsentEvent {
    * @memberof ConsentEvent
    */
   consumerEmail?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ConsentEvent
-   */
-  consumerMobileNumber?: string;
 }
 
 /**
@@ -313,17 +307,17 @@ export interface ConsentResponse {
    */
   directMarketingAllowed?: boolean;
   /**
-   *
-   * @type {string}
-   * @memberof ConsentResponse
-   */
-  consumerMobileNumber?: string;
-  /**
    * Adatree\'s customer can supply an externalId when creating consents to associate with records in its own system
    * @type {string}
    * @memberof ConsentResponse
    */
   externalId?: string;
+  /**
+   *
+   * @type {Grantee}
+   * @memberof ConsentResponse
+   */
+  grantee?: Grantee;
 }
 /**
  * consumer types that will be consenting to the various scopes (data clusters)
@@ -344,7 +338,7 @@ export enum ConsumerType {
  */
 export interface CreateConsent {
   /**
-   *
+   * this is required if chosen Use Case uses email as notification channel
    * @type {string}
    * @memberof CreateConsent
    */
@@ -354,19 +348,19 @@ export interface CreateConsent {
    * @type {string}
    * @memberof CreateConsent
    */
-  sharingEndDate?: string;
+  sharingEndDate: string;
   /**
    *
    * @type {string}
    * @memberof CreateConsent
    */
-  dataHolderBrandId?: string;
+  dataHolderBrandId: string;
   /**
    *
    * @type {string}
    * @memberof CreateConsent
    */
-  useCaseId?: string;
+  useCaseId: string;
   /**
    *
    * @type {PostUsageAction}
@@ -380,23 +374,23 @@ export interface CreateConsent {
    */
   directMarketingAllowed?: boolean;
   /**
-   *
-   * @type {string}
-   * @memberof CreateConsent
-   */
-  consumerMobileNumber?: string;
-  /**
    * Adatree\'s customer can supply an externalId when creating consents to associate with records in its own system
    * @type {string}
    * @memberof CreateConsent
    */
   externalId?: string;
   /**
-   * consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \'|\', which need be encoded as \'%7c\'. <br/> consumerId is only accepted for backchannel consent creation
+   * consumeId, please be kindly reminded of proper encoding as Id from some IDP could have special character like \'|\', which need be encoded as \'%7c\'. <br/> consumerId is required (and only accepted) for backchannel consent creation
    * @type {string}
    * @memberof CreateConsent
    */
   consumerId?: string;
+  /**
+   *
+   * @type {Grantee}
+   * @memberof CreateConsent
+   */
+  grantee?: Grantee;
 }
 /**
  *
@@ -440,6 +434,25 @@ export interface DataHolder {
    * @memberof DataHolder
    */
   meta?: MetaBanking;
+}
+/**
+ * consent grantee that will access CDR data
+ * @export
+ * @interface Grantee
+ */
+export interface Grantee {
+  /**
+   * full name
+   * @type {string}
+   * @memberof Grantee
+   */
+  name: string;
+  /**
+   * ACL number of consent grantee
+   * @type {string}
+   * @memberof Grantee
+   */
+  licenceNumber: string;
 }
 /**
  *
@@ -865,11 +878,18 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
     /**
      * Create a consent record for consumer
      * @summary Create Consent
+     * @param {string} [adatreeConsumerUserAgent] Mandatory for calls using a Machine token. The consumer\&#39;s original User Agent header
+     * @param {string} [adatreeConsumerIpAddress] Mandatory for calls using a Machine token. The consumer\&#39;s original IP address.
      * @param {CreateConsent} [createConsent]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConsent: async (createConsent?: CreateConsent, options: any = {}): Promise<RequestArgs> => {
+    createConsent: async (
+      adatreeConsumerUserAgent?: string,
+      adatreeConsumerIpAddress?: string,
+      createConsent?: CreateConsent,
+      options: any = {},
+    ): Promise<RequestArgs> => {
       const localVarPath = `/consents`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -896,6 +916,14 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
             ? configuration.accessToken('m2m', ['consents:write'])
             : configuration.accessToken;
         localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
+      }
+
+      if (adatreeConsumerUserAgent !== undefined && adatreeConsumerUserAgent !== null) {
+        localVarHeaderParameter['Adatree-Consumer-User-Agent'] = String(adatreeConsumerUserAgent);
+      }
+
+      if (adatreeConsumerIpAddress !== undefined && adatreeConsumerIpAddress !== null) {
+        localVarHeaderParameter['Adatree-Consumer-Ip-Address'] = String(adatreeConsumerIpAddress);
       }
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1259,15 +1287,24 @@ export const ConsentApiFp = function (configuration?: Configuration) {
     /**
      * Create a consent record for consumer
      * @summary Create Consent
+     * @param {string} [adatreeConsumerUserAgent] Mandatory for calls using a Machine token. The consumer\&#39;s original User Agent header
+     * @param {string} [adatreeConsumerIpAddress] Mandatory for calls using a Machine token. The consumer\&#39;s original IP address.
      * @param {CreateConsent} [createConsent]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async createConsent(
+      adatreeConsumerUserAgent?: string,
+      adatreeConsumerIpAddress?: string,
       createConsent?: CreateConsent,
       options?: any,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).createConsent(createConsent, options);
+      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).createConsent(
+        adatreeConsumerUserAgent,
+        adatreeConsumerIpAddress,
+        createConsent,
+        options,
+      );
       return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
         const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
         return axios.request(axiosRequestArgs);
@@ -1407,13 +1444,20 @@ export const ConsentApiFactory = function (configuration?: Configuration, basePa
     /**
      * Create a consent record for consumer
      * @summary Create Consent
+     * @param {string} [adatreeConsumerUserAgent] Mandatory for calls using a Machine token. The consumer\&#39;s original User Agent header
+     * @param {string} [adatreeConsumerIpAddress] Mandatory for calls using a Machine token. The consumer\&#39;s original IP address.
      * @param {CreateConsent} [createConsent]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConsent(createConsent?: CreateConsent, options?: any): AxiosPromise<ConsentResponse> {
+    createConsent(
+      adatreeConsumerUserAgent?: string,
+      adatreeConsumerIpAddress?: string,
+      createConsent?: CreateConsent,
+      options?: any,
+    ): AxiosPromise<ConsentResponse> {
       return ConsentApiFp(configuration)
-        .createConsent(createConsent, options)
+        .createConsent(adatreeConsumerUserAgent, adatreeConsumerIpAddress, createConsent, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -1533,14 +1577,21 @@ export class ConsentApi extends BaseAPI {
   /**
    * Create a consent record for consumer
    * @summary Create Consent
+   * @param {string} [adatreeConsumerUserAgent] Mandatory for calls using a Machine token. The consumer\&#39;s original User Agent header
+   * @param {string} [adatreeConsumerIpAddress] Mandatory for calls using a Machine token. The consumer\&#39;s original IP address.
    * @param {CreateConsent} [createConsent]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ConsentApi
    */
-  public createConsent(createConsent?: CreateConsent, options?: any) {
+  public createConsent(
+    adatreeConsumerUserAgent?: string,
+    adatreeConsumerIpAddress?: string,
+    createConsent?: CreateConsent,
+    options?: any,
+  ) {
     return ConsentApiFp(this.configuration)
-      .createConsent(createConsent, options)
+      .createConsent(adatreeConsumerUserAgent, adatreeConsumerIpAddress, createConsent, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

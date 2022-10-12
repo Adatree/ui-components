@@ -3,11 +3,17 @@ import { dataHolder } from './data-holders';
 import { useCase } from './use-cases';
 
 const createConsent = (): CreateConsent => {
+  let useCaseId = useCase.homeLoan().id;
+
+  if (!useCaseId) {
+    useCaseId = '';
+  }
+
   return {
     consumerEmail: 'shane+test@adatree.com.au',
     sharingEndDate: new Date().toISOString(),
     dataHolderBrandId: '9a9cea5d-19c4-458b-ab79-c926455475d3',
-    useCaseId: useCase.homeLoan().id,
+    useCaseId: useCaseId,
     postUsageAction: PostUsageAction.DEIDENTIFICATION,
     directMarketingAllowed: true,
   };

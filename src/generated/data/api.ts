@@ -1405,6 +1405,43 @@ export interface BankingPayeeListData {
   payees: Array<BankingPayeeDetail>;
 }
 /**
+ *
+ * @export
+ * @interface BankingProductBundle
+ */
+export interface BankingProductBundle {
+  /**
+   * Name of the bundle
+   * @type {string}
+   * @memberof BankingProductBundle
+   */
+  name: string;
+  /**
+   * Description of the bundle
+   * @type {string}
+   * @memberof BankingProductBundle
+   */
+  description: string;
+  /**
+   * Display text providing more information on the bundle
+   * @type {string}
+   * @memberof BankingProductBundle
+   */
+  additionalInfo?: string;
+  /**
+   * Link to a web page with more information on the bundle criteria and benefits
+   * @type {string}
+   * @memberof BankingProductBundle
+   */
+  additionalInfoUri?: string;
+  /**
+   * Array of product IDs for products included in the bundle that are available via the product end points.  Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference end points
+   * @type {Array<string>}
+   * @memberof BankingProductBundle
+   */
+  productIds?: Array<string>;
+}
+/**
  * The category to which a product or account belongs. See [here](#product-categories) for more details
  * @export
  * @enum {string}
@@ -1422,6 +1459,50 @@ export enum BankingProductCategory {
   TRADEFINANCE = 'TRADE_FINANCE',
   TRAVELCARDS = 'TRAVEL_CARDS',
   TRANSANDSAVINGSACCOUNTS = 'TRANS_AND_SAVINGS_ACCOUNTS',
+}
+
+/**
+ *
+ * @export
+ * @interface BankingProductConstraint
+ */
+export interface BankingProductConstraint {
+  /**
+   * The type of constraint described.  See the next section for an overview of valid values and their meaning
+   * @type {string}
+   * @memberof BankingProductConstraint
+   */
+  constraintType: BankingProductConstraintConstraintTypeEnum;
+  /**
+   * Generic field containing additional information relevant to the [constraintType](#tocSproductconstrainttypedoc) specified.  Whether mandatory or not is dependent on the value of [constraintType](#tocSproductconstrainttypedoc)
+   * @type {string}
+   * @memberof BankingProductConstraint
+   */
+  additionalValue?: string;
+  /**
+   * Display text providing more information the constraint
+   * @type {string}
+   * @memberof BankingProductConstraint
+   */
+  additionalInfo?: string;
+  /**
+   * Link to a web page with more information on the constraint
+   * @type {string}
+   * @memberof BankingProductConstraint
+   */
+  additionalInfoUri?: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingProductConstraintConstraintTypeEnum {
+  MINBALANCE = 'MIN_BALANCE',
+  MINLIMIT = 'MIN_LIMIT',
+  MAXBALANCE = 'MAX_BALANCE',
+  MAXLIMIT = 'MAX_LIMIT',
+  OPENINGBALANCE = 'OPENING_BALANCE',
 }
 
 /**
@@ -1494,6 +1575,194 @@ export enum BankingProductDepositRateDepositRateTypeEnum {
   VARIABLE = 'VARIABLE',
 }
 
+/**
+ *
+ * @export
+ * @interface BankingProductDetail
+ */
+export interface BankingProductDetail {
+  /**
+   * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  productId: string;
+  /**
+   * The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  effectiveFrom?: string;
+  /**
+   * The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  effectiveTo?: string;
+  /**
+   * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  lastUpdated: string;
+  /**
+   * The id of data holder
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  dataHolderId: string;
+  /**
+   * The brand name of data holder
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  dataHolderBrandName?: string;
+  /**
+   *
+   * @type {BankingProductCategory}
+   * @memberof BankingProductDetail
+   */
+  productCategory: BankingProductCategory;
+  /**
+   * The display name of the product
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  name: string;
+  /**
+   * A description of the product
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  description: string;
+  /**
+   * A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  brand: string;
+  /**
+   * An optional display name of the brand
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  brandName?: string;
+  /**
+   * A link to an application web page where this product can be applied for.
+   * @type {string}
+   * @memberof BankingProductDetail
+   */
+  applicationUri?: string;
+  /**
+   * Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable
+   * @type {boolean}
+   * @memberof BankingProductDetail
+   */
+  isTailored: boolean;
+  /**
+   *
+   * @type {BankingProductV3AdditionalInformation}
+   * @memberof BankingProductDetail
+   */
+  additionalInformation?: BankingProductV3AdditionalInformation;
+  /**
+   * An array of card art images
+   * @type {Array<BankingProductV3CardArt>}
+   * @memberof BankingProductDetail
+   */
+  cardArt?: Array<BankingProductV3CardArt>;
+  /**
+   * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
+   * @type {Array<BankingProductBundle>}
+   * @memberof BankingProductDetail
+   */
+  bundles?: Array<BankingProductBundle>;
+  /**
+   * Array of features available for the product
+   * @type {Array<BankingProductFeature>}
+   * @memberof BankingProductDetail
+   */
+  features?: Array<BankingProductFeature>;
+  /**
+   * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
+   * @type {Array<BankingProductConstraint>}
+   * @memberof BankingProductDetail
+   */
+  constraints?: Array<BankingProductConstraint>;
+  /**
+   * Eligibility criteria for the product
+   * @type {Array<BankingProductEligibility>}
+   * @memberof BankingProductDetail
+   */
+  eligibility?: Array<BankingProductEligibility>;
+  /**
+   * Fees applicable for the product
+   * @type {Array<BankingProductFee>}
+   * @memberof BankingProductDetail
+   */
+  fees?: Array<BankingProductFee>;
+  /**
+   * Interest rates available for deposits
+   * @type {Array<BankingProductDepositRate>}
+   * @memberof BankingProductDetail
+   */
+  depositRates?: Array<BankingProductDepositRate>;
+  /**
+   * Interest rates charged against lending balances
+   * @type {Array<BankingProductLendingRateV2>}
+   * @memberof BankingProductDetail
+   */
+  lendingRates?: Array<BankingProductLendingRateV2>;
+}
+/**
+ *
+ * @export
+ * @interface BankingProductDetailAllOf
+ */
+export interface BankingProductDetailAllOf {
+  /**
+   * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
+   * @type {Array<BankingProductBundle>}
+   * @memberof BankingProductDetailAllOf
+   */
+  bundles?: Array<BankingProductBundle>;
+  /**
+   * Array of features available for the product
+   * @type {Array<BankingProductFeature>}
+   * @memberof BankingProductDetailAllOf
+   */
+  features?: Array<BankingProductFeature>;
+  /**
+   * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
+   * @type {Array<BankingProductConstraint>}
+   * @memberof BankingProductDetailAllOf
+   */
+  constraints?: Array<BankingProductConstraint>;
+  /**
+   * Eligibility criteria for the product
+   * @type {Array<BankingProductEligibility>}
+   * @memberof BankingProductDetailAllOf
+   */
+  eligibility?: Array<BankingProductEligibility>;
+  /**
+   * Fees applicable for the product
+   * @type {Array<BankingProductFee>}
+   * @memberof BankingProductDetailAllOf
+   */
+  fees?: Array<BankingProductFee>;
+  /**
+   * Interest rates available for deposits
+   * @type {Array<BankingProductDepositRate>}
+   * @memberof BankingProductDetailAllOf
+   */
+  depositRates?: Array<BankingProductDepositRate>;
+  /**
+   * Interest rates charged against lending balances
+   * @type {Array<BankingProductLendingRateV2>}
+   * @memberof BankingProductDetailAllOf
+   */
+  lendingRates?: Array<BankingProductLendingRateV2>;
+}
 /**
  *
  * @export
@@ -1620,6 +1889,57 @@ export enum BankingProductDiscountEligibilityDiscountEligibilityTypeEnum {
   BUSINESS = 'BUSINESS',
   EMPLOYMENTSTATUS = 'EMPLOYMENT_STATUS',
   INTRODUCTORY = 'INTRODUCTORY',
+  MAXAGE = 'MAX_AGE',
+  MINAGE = 'MIN_AGE',
+  MININCOME = 'MIN_INCOME',
+  MINTURNOVER = 'MIN_TURNOVER',
+  NATURALPERSON = 'NATURAL_PERSON',
+  PENSIONRECIPIENT = 'PENSION_RECIPIENT',
+  RESIDENCYSTATUS = 'RESIDENCY_STATUS',
+  STAFF = 'STAFF',
+  STUDENT = 'STUDENT',
+  OTHER = 'OTHER',
+}
+
+/**
+ *
+ * @export
+ * @interface BankingProductEligibility
+ */
+export interface BankingProductEligibility {
+  /**
+   * The type of eligibility criteria described.  See the next section for an overview of valid values and their meaning
+   * @type {string}
+   * @memberof BankingProductEligibility
+   */
+  eligibilityType: BankingProductEligibilityEligibilityTypeEnum;
+  /**
+   * Generic field containing additional information relevant to the [eligibilityType](#tocSproducteligibilitytypedoc) specified. Whether mandatory or not is dependent on the value of [eligibilityType](#tocSproducteligibilitytypedoc)
+   * @type {string}
+   * @memberof BankingProductEligibility
+   */
+  additionalValue?: string;
+  /**
+   * Display text providing more information on the [eligibility](#tocSproducteligibilitytypedoc) criteria. Mandatory if the field is set to OTHER
+   * @type {string}
+   * @memberof BankingProductEligibility
+   */
+  additionalInfo?: string;
+  /**
+   * Link to a web page with more information on this eligibility criteria
+   * @type {string}
+   * @memberof BankingProductEligibility
+   */
+  additionalInfoUri?: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingProductEligibilityEligibilityTypeEnum {
+  BUSINESS = 'BUSINESS',
+  EMPLOYMENTSTATUS = 'EMPLOYMENT_STATUS',
   MAXAGE = 'MAX_AGE',
   MINAGE = 'MIN_AGE',
   MININCOME = 'MIN_INCOME',
@@ -1914,6 +2234,32 @@ export enum BankingProductLendingRateV2LoanPurposeEnum {
 }
 
 /**
+ *
+ * @export
+ * @interface BankingProductList
+ */
+export interface BankingProductList {
+  /**
+   *
+   * @type {BankingProductListData}
+   * @memberof BankingProductList
+   */
+  data: BankingProductListData;
+}
+/**
+ *
+ * @export
+ * @interface BankingProductListData
+ */
+export interface BankingProductListData {
+  /**
+   *
+   * @type {Array<BankingProductDetail>}
+   * @memberof BankingProductListData
+   */
+  products: Array<BankingProductDetail>;
+}
+/**
  * Defines a condition for the applicability of a tiered rate
  * @export
  * @interface BankingProductRateCondition
@@ -2007,6 +2353,574 @@ export enum BankingProductRateTierV3RateApplicationMethodEnum {
   WHOLEBALANCE = 'WHOLE_BALANCE',
 }
 
+/**
+ *
+ * @export
+ * @interface BankingProductV3
+ */
+export interface BankingProductV3 {
+  /**
+   * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  productId: string;
+  /**
+   * The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  effectiveFrom?: string;
+  /**
+   * The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  effectiveTo?: string;
+  /**
+   * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  lastUpdated: string;
+  /**
+   * The id of data holder
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  dataHolderId: string;
+  /**
+   * The brand name of data holder
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  dataHolderBrandName?: string;
+  /**
+   *
+   * @type {BankingProductCategory}
+   * @memberof BankingProductV3
+   */
+  productCategory: BankingProductCategory;
+  /**
+   * The display name of the product
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  name: string;
+  /**
+   * A description of the product
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  description: string;
+  /**
+   * A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  brand: string;
+  /**
+   * An optional display name of the brand
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  brandName?: string;
+  /**
+   * A link to an application web page where this product can be applied for.
+   * @type {string}
+   * @memberof BankingProductV3
+   */
+  applicationUri?: string;
+  /**
+   * Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable
+   * @type {boolean}
+   * @memberof BankingProductV3
+   */
+  isTailored: boolean;
+  /**
+   *
+   * @type {BankingProductV3AdditionalInformation}
+   * @memberof BankingProductV3
+   */
+  additionalInformation?: BankingProductV3AdditionalInformation;
+  /**
+   * An array of card art images
+   * @type {Array<BankingProductV3CardArt>}
+   * @memberof BankingProductV3
+   */
+  cardArt?: Array<BankingProductV3CardArt>;
+}
+/**
+ * Object that contains links to additional information on specific topics
+ * @export
+ * @interface BankingProductV3AdditionalInformation
+ */
+export interface BankingProductV3AdditionalInformation {
+  /**
+   * General overview of the product
+   * @type {string}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  overviewUri?: string;
+  /**
+   * Terms and conditions for the product
+   * @type {string}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  termsUri?: string;
+  /**
+   * Eligibility rules and criteria for the product
+   * @type {string}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  eligibilityUri?: string;
+  /**
+   * Description of fees, pricing, discounts, exemptions and bonuses for the product
+   * @type {string}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  feesAndPricingUri?: string;
+  /**
+   * Description of a bundle that this product can be part of
+   * @type {string}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  bundleUri?: string;
+}
+/**
+ *
+ * @export
+ * @interface BankingProductV3CardArt
+ */
+export interface BankingProductV3CardArt {
+  /**
+   * Display label for the specific image
+   * @type {string}
+   * @memberof BankingProductV3CardArt
+   */
+  title?: string;
+  /**
+   * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI [RFC 2397](https://tools.ietf.org/html/rfc2397)
+   * @type {string}
+   * @memberof BankingProductV3CardArt
+   */
+  imageUri: string;
+}
+/**
+ *
+ * @export
+ * @interface BankingScheduledPayment
+ */
+export interface BankingScheduledPayment {
+  /**
+   * A unique ID of the scheduled payment adhering to the standards for ID permanence
+   * @type {string}
+   * @memberof BankingScheduledPayment
+   */
+  scheduledPaymentId: string;
+  /**
+   * The short display name of the payee as provided by the customer
+   * @type {string}
+   * @memberof BankingScheduledPayment
+   */
+  nickname?: string;
+  /**
+   * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer\'s account. Empty string if no data provided
+   * @type {string}
+   * @memberof BankingScheduledPayment
+   */
+  payerReference: string;
+  /**
+   * The reference for the transaction that will be provided by the originating institution. Empty string if no data provided
+   * @type {string}
+   * @memberof BankingScheduledPayment
+   */
+  payeeReference: string;
+  /**
+   * Indicates whether the schedule is currently active. The value SKIP is equivalent to ACTIVE except that the customer has requested the next normal occurrence to be skipped.
+   * @type {string}
+   * @memberof BankingScheduledPayment
+   */
+  status: BankingScheduledPaymentStatusEnum;
+  /**
+   *
+   * @type {BankingScheduledPaymentFrom}
+   * @memberof BankingScheduledPayment
+   */
+  from: BankingScheduledPaymentFrom;
+  /**
+   *
+   * @type {Array<BankingScheduledPaymentSet>}
+   * @memberof BankingScheduledPayment
+   */
+  paymentSet: Array<BankingScheduledPaymentSet>;
+  /**
+   *
+   * @type {BankingScheduledPaymentRecurrence}
+   * @memberof BankingScheduledPayment
+   */
+  recurrence: BankingScheduledPaymentRecurrence;
+  /**
+   *
+   * @type {Adatree}
+   * @memberof BankingScheduledPayment
+   */
+  adatree: Adatree;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentStatusEnum {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  SKIP = 'SKIP',
+}
+
+/**
+ * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
+ * @export
+ * @interface BankingScheduledPaymentFrom
+ */
+export interface BankingScheduledPaymentFrom {
+  /**
+   * ID of the account that is the source of funds for the payment
+   * @type {string}
+   * @memberof BankingScheduledPaymentFrom
+   */
+  accountId: string;
+}
+/**
+ *
+ * @export
+ * @interface BankingScheduledPaymentInterval
+ */
+export interface BankingScheduledPaymentInterval {
+  /**
+   * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)  (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+   * @type {string}
+   * @memberof BankingScheduledPaymentInterval
+   */
+  interval: string;
+  /**
+   * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
+   * @type {string}
+   * @memberof BankingScheduledPaymentInterval
+   */
+  dayInInterval?: string;
+}
+/**
+ * Object containing the detail of the schedule for the payment
+ * @export
+ * @interface BankingScheduledPaymentRecurrence
+ */
+export interface BankingScheduledPaymentRecurrence {
+  /**
+   * The date of the next payment under the recurrence schedule
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  nextPaymentDate?: string;
+  /**
+   * The type of recurrence used to define the schedule
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  recurrenceUType: BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum;
+  /**
+   *
+   * @type {BankingScheduledPaymentRecurrenceOnceOff}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  onceOff?: BankingScheduledPaymentRecurrenceOnceOff;
+  /**
+   *
+   * @type {BankingScheduledPaymentRecurrenceIntervalSchedule}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  intervalSchedule?: BankingScheduledPaymentRecurrenceIntervalSchedule;
+  /**
+   *
+   * @type {BankingScheduledPaymentRecurrenceLastWeekday}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  lastWeekDay?: BankingScheduledPaymentRecurrenceLastWeekday;
+  /**
+   *
+   * @type {BankingScheduledPaymentRecurrenceEventBased}
+   * @memberof BankingScheduledPaymentRecurrence
+   */
+  eventBased?: BankingScheduledPaymentRecurrenceEventBased;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum {
+  OnceOff = 'onceOff',
+  IntervalSchedule = 'intervalSchedule',
+  LastWeekDay = 'lastWeekDay',
+  EventBased = 'eventBased',
+}
+
+/**
+ * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased
+ * @export
+ * @interface BankingScheduledPaymentRecurrenceEventBased
+ */
+export interface BankingScheduledPaymentRecurrenceEventBased {
+  /**
+   * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceEventBased
+   */
+  description: string;
+}
+/**
+ * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if recurrenceUType is set to intervalSchedule
+ * @export
+ * @interface BankingScheduledPaymentRecurrenceIntervalSchedule
+ */
+export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
+  /**
+   * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceIntervalSchedule
+   */
+  finalPaymentDate?: string;
+  /**
+   * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
+   * @type {number}
+   * @memberof BankingScheduledPaymentRecurrenceIntervalSchedule
+   */
+  paymentsRemaining?: number;
+  /**
+   * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceIntervalSchedule
+   */
+  nonBusinessDayTreatment?: BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum;
+  /**
+   * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
+   * @type {Array<BankingScheduledPaymentInterval>}
+   * @memberof BankingScheduledPaymentRecurrenceIntervalSchedule
+   */
+  intervals: Array<BankingScheduledPaymentInterval>;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum {
+  AFTER = 'AFTER',
+  BEFORE = 'BEFORE',
+  ON = 'ON',
+  ONLY = 'ONLY',
+}
+
+/**
+ * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if recurrenceUType is set to lastWeekDay
+ * @export
+ * @interface BankingScheduledPaymentRecurrenceLastWeekday
+ */
+export interface BankingScheduledPaymentRecurrenceLastWeekday {
+  /**
+   * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceLastWeekday
+   */
+  finalPaymentDate?: string;
+  /**
+   * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+   * @type {number}
+   * @memberof BankingScheduledPaymentRecurrenceLastWeekday
+   */
+  paymentsRemaining?: number;
+  /**
+   * The interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceLastWeekday
+   */
+  interval: string;
+  /**
+   * The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval.
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceLastWeekday
+   */
+  lastWeekDay: BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum;
+  /**
+   * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceLastWeekday
+   */
+  nonBusinessDayTreatment?: BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum {
+  MON = 'MON',
+  TUE = 'TUE',
+  WED = 'WED',
+  THU = 'THU',
+  FRI = 'FRI',
+  SAT = 'SAT',
+  SUN = 'SUN',
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum {
+  AFTER = 'AFTER',
+  BEFORE = 'BEFORE',
+  ON = 'ON',
+  ONLY = 'ONLY',
+}
+
+/**
+ * Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff
+ * @export
+ * @interface BankingScheduledPaymentRecurrenceOnceOff
+ */
+export interface BankingScheduledPaymentRecurrenceOnceOff {
+  /**
+   * The scheduled date for the once off payment
+   * @type {string}
+   * @memberof BankingScheduledPaymentRecurrenceOnceOff
+   */
+  paymentDate: string;
+}
+/**
+ * The set of payment amounts and destination accounts for this payment accommodating multi-part payments. A single entry indicates a simple payment with one destination account. Must have at least one entry
+ * @export
+ * @interface BankingScheduledPaymentSet
+ */
+export interface BankingScheduledPaymentSet {
+  /**
+   *
+   * @type {BankingScheduledPaymentTo}
+   * @memberof BankingScheduledPaymentSet
+   */
+  to: BankingScheduledPaymentTo;
+  /**
+   * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
+   * @type {boolean}
+   * @memberof BankingScheduledPaymentSet
+   */
+  isAmountCalculated?: boolean;
+  /**
+   * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
+   * @type {string}
+   * @memberof BankingScheduledPaymentSet
+   */
+  amount?: string;
+  /**
+   * The currency for the payment. AUD assumed if not present
+   * @type {string}
+   * @memberof BankingScheduledPaymentSet
+   */
+  currency?: string;
+}
+/**
+ * Object containing details of the destination of the payment. Used to specify a variety of payment destination types
+ * @export
+ * @interface BankingScheduledPaymentTo
+ */
+export interface BankingScheduledPaymentTo {
+  /**
+   * The type of object provided that specifies the destination of the funds for the payment.
+   * @type {string}
+   * @memberof BankingScheduledPaymentTo
+   */
+  toUType: BankingScheduledPaymentToToUTypeEnum;
+  /**
+   * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
+   * @type {string}
+   * @memberof BankingScheduledPaymentTo
+   */
+  accountId?: string;
+  /**
+   * Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead
+   * @type {string}
+   * @memberof BankingScheduledPaymentTo
+   */
+  payeeId?: string;
+  /**
+   *
+   * @type {BankingDomesticPayee}
+   * @memberof BankingScheduledPaymentTo
+   */
+  domestic?: BankingDomesticPayee;
+  /**
+   *
+   * @type {BankingBillerPayee}
+   * @memberof BankingScheduledPaymentTo
+   */
+  biller?: BankingBillerPayee;
+  /**
+   *
+   * @type {BankingInternationalPayee}
+   * @memberof BankingScheduledPaymentTo
+   */
+  international?: BankingInternationalPayee;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum BankingScheduledPaymentToToUTypeEnum {
+  AccountId = 'accountId',
+  PayeeId = 'payeeId',
+  Domestic = 'domestic',
+  Biller = 'biller',
+  International = 'international',
+}
+
+/**
+ *
+ * @export
+ * @interface BankingScheduledPaymentsList
+ */
+export interface BankingScheduledPaymentsList {
+  /**
+   *
+   * @type {BankingScheduledPaymentsListData}
+   * @memberof BankingScheduledPaymentsList
+   */
+  data: BankingScheduledPaymentsListData;
+  /**
+   *
+   * @type {LinksPaginated}
+   * @memberof BankingScheduledPaymentsList
+   */
+  links: LinksPaginated;
+  /**
+   *
+   * @type {MetaPaginated}
+   * @memberof BankingScheduledPaymentsList
+   */
+  meta: MetaPaginated;
+}
+/**
+ *
+ * @export
+ * @interface BankingScheduledPaymentsListData
+ */
+export interface BankingScheduledPaymentsListData {
+  /**
+   * The list of scheduled payments to return
+   * @type {Array<BankingScheduledPayment>}
+   * @memberof BankingScheduledPaymentsListData
+   */
+  scheduledPayments: Array<BankingScheduledPayment>;
+}
 /**
  *
  * @export
@@ -2588,6 +3502,313 @@ export interface BankingTransactionListData {
   transactions: Array<BankingTransaction>;
 }
 /**
+ *
+ * @export
+ * @interface CommonCustomer
+ */
+export interface CommonCustomer {
+  /**
+   * The type of customer object that is present
+   * @type {string}
+   * @memberof CommonCustomer
+   */
+  customerUType: CommonCustomerCustomerUTypeEnum;
+  /**
+   *
+   * @type {CommonPersonDetail}
+   * @memberof CommonCustomer
+   */
+  person?: CommonPersonDetail;
+  /**
+   *
+   * @type {CommonOrganisationDetail}
+   * @memberof CommonCustomer
+   */
+  organisation?: CommonOrganisationDetail;
+  /**
+   *
+   * @type {Adatree}
+   * @memberof CommonCustomer
+   */
+  adatree: Adatree;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonCustomerCustomerUTypeEnum {
+  Person = 'person',
+  Organisation = 'organisation',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonEmailAddress
+ */
+export interface CommonEmailAddress {
+  /**
+   * May be true for one and only one email record in the collection. Denotes the default email address
+   * @type {boolean}
+   * @memberof CommonEmailAddress
+   */
+  isPreferred?: boolean;
+  /**
+   * The purpose for the email, as specified by the customer (Enumeration)
+   * @type {string}
+   * @memberof CommonEmailAddress
+   */
+  purpose: CommonEmailAddressPurposeEnum;
+  /**
+   * A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
+   * @type {string}
+   * @memberof CommonEmailAddress
+   */
+  address: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonEmailAddressPurposeEnum {
+  WORK = 'WORK',
+  HOME = 'HOME',
+  OTHER = 'OTHER',
+  UNSPECIFIED = 'UNSPECIFIED',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonOrganisation
+ */
+export interface CommonOrganisation {
+  /**
+   * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  lastUpdateTime?: string;
+  /**
+   * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  agentFirstName?: string;
+  /**
+   * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  agentLastName: string;
+  /**
+   * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display. Default to Unspecified if the role is not known
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  agentRole: string;
+  /**
+   * Name of the organisation
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  businessName: string;
+  /**
+   * Legal name, if different to the business name
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  legalName?: string;
+  /**
+   * Short name used for communication, if different to the business name
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  shortName?: string;
+  /**
+   * Australian Business Number for the organisation
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  abn?: string;
+  /**
+   * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  acn?: string;
+  /**
+   * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
+   * @type {boolean}
+   * @memberof CommonOrganisation
+   */
+  isACNCRegistered?: boolean;
+  /**
+   * A valid [ANZSIC](http://www.abs.gov.au/ANZSIC) code for the organisation. If the industry code held by the data holder is not one of the supported [ANZSIC](http://www.abs.gov.au/ANZSIC) versions, then it must not be supplied.
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  industryCode?: string;
+  /**
+   * Legal organisation type
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  organisationType: CommonOrganisationOrganisationTypeEnum;
+  /**
+   * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  registeredCountry?: string;
+  /**
+   * The date the organisation described was established
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  establishmentDate?: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonOrganisationOrganisationTypeEnum {
+  COMPANY = 'COMPANY',
+  GOVERNMENTENTITY = 'GOVERNMENT_ENTITY',
+  PARTNERSHIP = 'PARTNERSHIP',
+  SOLETRADER = 'SOLE_TRADER',
+  TRUST = 'TRUST',
+  OTHER = 'OTHER',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonOrganisationDetail
+ */
+export interface CommonOrganisationDetail {
+  /**
+   * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  lastUpdateTime?: string;
+  /**
+   * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  agentFirstName?: string;
+  /**
+   * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  agentLastName: string;
+  /**
+   * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display. Default to Unspecified if the role is not known
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  agentRole: string;
+  /**
+   * Name of the organisation
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  businessName: string;
+  /**
+   * Legal name, if different to the business name
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  legalName?: string;
+  /**
+   * Short name used for communication, if different to the business name
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  shortName?: string;
+  /**
+   * Australian Business Number for the organisation
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  abn?: string;
+  /**
+   * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  acn?: string;
+  /**
+   * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
+   * @type {boolean}
+   * @memberof CommonOrganisationDetail
+   */
+  isACNCRegistered?: boolean;
+  /**
+   * A valid [ANZSIC](http://www.abs.gov.au/ANZSIC) code for the organisation. If the industry code held by the data holder is not one of the supported [ANZSIC](http://www.abs.gov.au/ANZSIC) versions, then it must not be supplied.
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  industryCode?: string;
+  /**
+   * Legal organisation type
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  organisationType: CommonOrganisationDetailOrganisationTypeEnum;
+  /**
+   * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  registeredCountry?: string;
+  /**
+   * The date the organisation described was established
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  establishmentDate?: string;
+  /**
+   * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+   * @type {Array<CommonPhysicalAddressWithPurpose>}
+   * @memberof CommonOrganisationDetail
+   */
+  physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonOrganisationDetailOrganisationTypeEnum {
+  COMPANY = 'COMPANY',
+  GOVERNMENTENTITY = 'GOVERNMENT_ENTITY',
+  PARTNERSHIP = 'PARTNERSHIP',
+  SOLETRADER = 'SOLE_TRADER',
+  TRUST = 'TRUST',
+  OTHER = 'OTHER',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonOrganisationDetailAllOf
+ */
+export interface CommonOrganisationDetailAllOf {
+  /**
+   * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+   * @type {Array<CommonPhysicalAddressWithPurpose>}
+   * @memberof CommonOrganisationDetailAllOf
+   */
+  physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
+}
+/**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
  * @export
  * @interface CommonPAFAddress
@@ -2729,6 +3950,210 @@ export interface CommonPAFAddress {
 /**
  *
  * @export
+ * @interface CommonPerson
+ */
+export interface CommonPerson {
+  /**
+   * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  lastUpdateTime?: string;
+  /**
+   * For people with single names this field need not be present.  The single name should be in the lastName field
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  firstName?: string;
+  /**
+   * For people with single names the single name should be in this field
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  lastName: string;
+  /**
+   * Field is mandatory but array may be empty
+   * @type {Array<string>}
+   * @memberof CommonPerson
+   */
+  middleNames: Array<string>;
+  /**
+   * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  prefix?: string;
+  /**
+   * Used for a trailing suffix to the name (e.g. Jr)
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  suffix?: string;
+  /**
+   * Value is a valid [ANZSCO](http://www.abs.gov.au/ANZSCO) Standard Occupation classification code. If the occupation code held by the data holder is not one of the supported [ANZSCO](http://www.abs.gov.au/ANZSCO) versions, then it must not be supplied.
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  occupationCode?: string;
+}
+/**
+ *
+ * @export
+ * @interface CommonPersonDetail
+ */
+export interface CommonPersonDetail {
+  /**
+   * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  lastUpdateTime?: string;
+  /**
+   * For people with single names this field need not be present.  The single name should be in the lastName field
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  firstName?: string;
+  /**
+   * For people with single names the single name should be in this field
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  lastName: string;
+  /**
+   * Field is mandatory but array may be empty
+   * @type {Array<string>}
+   * @memberof CommonPersonDetail
+   */
+  middleNames: Array<string>;
+  /**
+   * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  prefix?: string;
+  /**
+   * Used for a trailing suffix to the name (e.g. Jr)
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  suffix?: string;
+  /**
+   * Value is a valid [ANZSCO](http://www.abs.gov.au/ANZSCO) Standard Occupation classification code. If the occupation code held by the data holder is not one of the supported [ANZSCO](http://www.abs.gov.au/ANZSCO) versions, then it must not be supplied.
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  occupationCode?: string;
+  /**
+   * Array is mandatory but may be empty if no phone numbers are held
+   * @type {Array<CommonPhoneNumber>}
+   * @memberof CommonPersonDetail
+   */
+  phoneNumbers: Array<CommonPhoneNumber>;
+  /**
+   * May be empty
+   * @type {Array<CommonEmailAddress>}
+   * @memberof CommonPersonDetail
+   */
+  emailAddresses: Array<CommonEmailAddress>;
+  /**
+   * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+   * @type {Array<CommonPhysicalAddressWithPurpose>}
+   * @memberof CommonPersonDetail
+   */
+  physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
+}
+/**
+ *
+ * @export
+ * @interface CommonPersonDetailAllOf
+ */
+export interface CommonPersonDetailAllOf {
+  /**
+   * Array is mandatory but may be empty if no phone numbers are held
+   * @type {Array<CommonPhoneNumber>}
+   * @memberof CommonPersonDetailAllOf
+   */
+  phoneNumbers: Array<CommonPhoneNumber>;
+  /**
+   * May be empty
+   * @type {Array<CommonEmailAddress>}
+   * @memberof CommonPersonDetailAllOf
+   */
+  emailAddresses: Array<CommonEmailAddress>;
+  /**
+   * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+   * @type {Array<CommonPhysicalAddressWithPurpose>}
+   * @memberof CommonPersonDetailAllOf
+   */
+  physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
+}
+/**
+ *
+ * @export
+ * @interface CommonPhoneNumber
+ */
+export interface CommonPhoneNumber {
+  /**
+   * May be true for one and only one entry to indicate the preferred phone number. Assumed to be \'false\' if not present
+   * @type {boolean}
+   * @memberof CommonPhoneNumber
+   */
+  isPreferred?: boolean;
+  /**
+   * The purpose of the number as specified by the customer
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  purpose: CommonPhoneNumberPurposeEnum;
+  /**
+   * If absent, assumed to be Australia (+61). The + should be included
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  countryCode?: string;
+  /**
+   * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  areaCode?: string;
+  /**
+   * The actual phone number, with leading zeros as appropriate
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  number: string;
+  /**
+   * An extension number (if applicable)
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  extension?: string;
+  /**
+   * Fully formatted phone number with country code, area code, number and extension incorporated. Formatted according to section 5.1.4. of [RFC 3966](https://www.ietf.org/rfc/rfc3966.txt)
+   * @type {string}
+   * @memberof CommonPhoneNumber
+   */
+  fullNumber: string;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonPhoneNumberPurposeEnum {
+  MOBILE = 'MOBILE',
+  HOME = 'HOME',
+  INTERNATIONAL = 'INTERNATIONAL',
+  WORK = 'WORK',
+  OTHER = 'OTHER',
+  UNSPECIFIED = 'UNSPECIFIED',
+}
+
+/**
+ *
+ * @export
  * @interface CommonPhysicalAddress
  */
 export interface CommonPhysicalAddress {
@@ -2759,6 +4184,84 @@ export interface CommonPhysicalAddress {
 export enum CommonPhysicalAddressAddressUTypeEnum {
   Simple = 'simple',
   Paf = 'paf',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonPhysicalAddressWithPurpose
+ */
+export interface CommonPhysicalAddressWithPurpose {
+  /**
+   * The type of address object present
+   * @type {string}
+   * @memberof CommonPhysicalAddressWithPurpose
+   */
+  addressUType: CommonPhysicalAddressWithPurposeAddressUTypeEnum;
+  /**
+   *
+   * @type {CommonSimpleAddress}
+   * @memberof CommonPhysicalAddressWithPurpose
+   */
+  simple?: CommonSimpleAddress;
+  /**
+   *
+   * @type {CommonPAFAddress}
+   * @memberof CommonPhysicalAddressWithPurpose
+   */
+  paf?: CommonPAFAddress;
+  /**
+   * Enumeration of values indicating the purpose of the physical address
+   * @type {string}
+   * @memberof CommonPhysicalAddressWithPurpose
+   */
+  purpose: CommonPhysicalAddressWithPurposePurposeEnum;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonPhysicalAddressWithPurposeAddressUTypeEnum {
+  Simple = 'simple',
+  Paf = 'paf',
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonPhysicalAddressWithPurposePurposeEnum {
+  MAIL = 'MAIL',
+  PHYSICAL = 'PHYSICAL',
+  REGISTERED = 'REGISTERED',
+  WORK = 'WORK',
+  OTHER = 'OTHER',
+}
+
+/**
+ *
+ * @export
+ * @interface CommonPhysicalAddressWithPurposeAllOf
+ */
+export interface CommonPhysicalAddressWithPurposeAllOf {
+  /**
+   * Enumeration of values indicating the purpose of the physical address
+   * @type {string}
+   * @memberof CommonPhysicalAddressWithPurposeAllOf
+   */
+  purpose: CommonPhysicalAddressWithPurposeAllOfPurposeEnum;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum CommonPhysicalAddressWithPurposeAllOfPurposeEnum {
+  MAIL = 'MAIL',
+  PHYSICAL = 'PHYSICAL',
+  REGISTERED = 'REGISTERED',
+  WORK = 'WORK',
+  OTHER = 'OTHER',
 }
 
 /**
@@ -7383,6 +8886,44 @@ export interface MetaPaginated {
 /**
  *
  * @export
+ * @interface ResponseCommonCustomerList
+ */
+export interface ResponseCommonCustomerList {
+  /**
+   *
+   * @type {ResponseCommonCustomerListData}
+   * @memberof ResponseCommonCustomerList
+   */
+  data: ResponseCommonCustomerListData;
+  /**
+   *
+   * @type {LinksPaginated}
+   * @memberof ResponseCommonCustomerList
+   */
+  links: LinksPaginated;
+  /**
+   *
+   * @type {MetaPaginated}
+   * @memberof ResponseCommonCustomerList
+   */
+  meta?: MetaPaginated;
+}
+/**
+ *
+ * @export
+ * @interface ResponseCommonCustomerListData
+ */
+export interface ResponseCommonCustomerListData {
+  /**
+   * The list of common customers returned returned. If the filter results in an empty set then this array may have no records
+   * @type {Array<CommonCustomer>}
+   * @memberof ResponseCommonCustomerListData
+   */
+  customers: Array<CommonCustomer>;
+}
+/**
+ *
+ * @export
  * @interface SecuredCdsDataApiError
  */
 export interface SecuredCdsDataApiError {
@@ -7405,11 +8946,11 @@ export interface SecuredCdsDataApiError {
    */
   detail: string;
   /**
-   * CDR arrangement id where data fetch error occurred
+   * \'Retry-After\' value if error code is \'THROTTLED_BY_DATA_HOLDER_ERROR\', which can either be a http-date or delay in seconds, as provided by data holder. Please note this value is not always provided by data holders, in which case this field will be null.
    * @type {string}
    * @memberof SecuredCdsDataApiError
    */
-  cdrArrangementId: string;
+  retryAfter?: string;
 }
 
 /**
@@ -7418,6 +8959,7 @@ export interface SecuredCdsDataApiError {
  */
 export enum SecuredCdsDataApiErrorCodeEnum {
   BALANCEREFRESHERROR = 'BALANCE_REFRESH_ERROR',
+  THROTTLEDBYDATAHOLDERERROR = 'THROTTLED_BY_DATA_HOLDER_ERROR',
 }
 
 /**
@@ -7440,9 +8982,9 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
-     * @param {string} [consumerAuthDate] The time when the customer last logged in.
-     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
-     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7471,9 +9013,9 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       >,
       page?: number,
       pageSize?: number,
-      consumerAuthDate?: string,
-      consumerIpAddress?: string,
-      userAgent?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
       options: any = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/accounts`;
@@ -7538,16 +9080,16 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      if (consumerAuthDate !== undefined && consumerAuthDate !== null) {
-        localVarHeaderParameter['Consumer-Auth-Date'] = String(consumerAuthDate);
+      if (adatreeConsumerAuthDate !== undefined && adatreeConsumerAuthDate !== null) {
+        localVarHeaderParameter['Adatree-Consumer-Auth-Date'] = String(adatreeConsumerAuthDate);
       }
 
-      if (consumerIpAddress !== undefined && consumerIpAddress !== null) {
-        localVarHeaderParameter['Consumer-Ip-Address'] = String(consumerIpAddress);
+      if (adatreeConsumerIpAddress !== undefined && adatreeConsumerIpAddress !== null) {
+        localVarHeaderParameter['Adatree-Consumer-Ip-Address'] = String(adatreeConsumerIpAddress);
       }
 
-      if (userAgent !== undefined && userAgent !== null) {
-        localVarHeaderParameter['User-Agent'] = String(userAgent);
+      if (adatreeConsumerUserAgent !== undefined && adatreeConsumerUserAgent !== null) {
+        localVarHeaderParameter['Adatree-Consumer-User-Agent'] = String(adatreeConsumerUserAgent);
       }
 
       localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
@@ -7605,7 +9147,7 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       pageSize?: number,
       options: any = {},
     ): Promise<RequestArgs> => {
-      const localVarPath = `/data/banking/direct-debits`;
+      const localVarPath = `/data/banking/payments/direct-debits`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
       if (configuration) {
@@ -7771,6 +9313,87 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
+     * Obtain the list of banking products across all data holders in banking industry
+     * @summary Get Banking Products
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {Array<string>} [productIds] IDs of the specific products
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBankingProducts: async (
+      dataHolderBrandIds?: Array<string>,
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      productIds?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/data/banking/products`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication bearerAuth required
+      // http bearer authentication required
+      if (configuration && configuration.accessToken) {
+        const accessToken =
+          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
+      }
+
+      if (dataHolderBrandIds) {
+        localVarQueryParameter['dataHolderBrandIds'] = dataHolderBrandIds;
+      }
+
+      if (productCategories) {
+        localVarQueryParameter['productCategories'] = productCategories;
+      }
+
+      if (productIds) {
+        localVarQueryParameter['productIds'] = productIds;
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter['pageSize'] = pageSize;
+      }
+
+      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Obtain the list of banking transactions that consumers have consented to share across all data holders
      * @summary Get Banking Transactions
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
@@ -7898,6 +9521,123 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         options: localVarRequestOptions,
       };
     },
+    /**
+     * Obtain the list of banking scheduled payments that consumers have consented to share across all data holders
+     * @summary Get Scheduled Payments
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
+     * @param {boolean} [isOwned] Filters accounts based on whether they are owned by the authorised customer. True for owned accounts, false for unowned accounts and absent for all accounts
+     * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getScheduledPayments: async (
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      accountIds?: Array<string>,
+      isOwned?: boolean,
+      openStatus?: 'OPEN' | 'CLOSED',
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      page?: number,
+      pageSize?: number,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/data/banking/payments/scheduled`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication bearerAuth required
+      // http bearer authentication required
+      if (configuration && configuration.accessToken) {
+        const accessToken =
+          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
+      }
+
+      if (useCaseIds) {
+        localVarQueryParameter['useCaseIds'] = useCaseIds;
+      }
+
+      if (cdrArrangementIds) {
+        localVarQueryParameter['cdrArrangementIds'] = cdrArrangementIds;
+      }
+
+      if (consentIds) {
+        localVarQueryParameter['consentIds'] = consentIds;
+      }
+
+      if (consumerIds) {
+        localVarQueryParameter['consumerIds'] = consumerIds;
+      }
+
+      if (dataHolderBrandIds) {
+        localVarQueryParameter['dataHolderBrandIds'] = dataHolderBrandIds;
+      }
+
+      if (accountIds) {
+        localVarQueryParameter['accountIds'] = accountIds;
+      }
+
+      if (isOwned !== undefined) {
+        localVarQueryParameter['isOwned'] = isOwned;
+      }
+
+      if (openStatus !== undefined) {
+        localVarQueryParameter['openStatus'] = openStatus;
+      }
+
+      if (productCategories) {
+        localVarQueryParameter['productCategories'] = productCategories;
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter['pageSize'] = pageSize;
+      }
+
+      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -7921,9 +9661,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
-     * @param {string} [consumerAuthDate] The time when the customer last logged in.
-     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
-     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7952,9 +9692,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       >,
       page?: number,
       pageSize?: number,
-      consumerAuthDate?: string,
-      consumerIpAddress?: string,
-      userAgent?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
       options?: any,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingAccountList>> {
       const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingAccounts(
@@ -7969,9 +9709,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
         productCategories,
         page,
         pageSize,
-        consumerAuthDate,
-        consumerIpAddress,
-        userAgent,
+        adatreeConsumerAuthDate,
+        adatreeConsumerIpAddress,
+        adatreeConsumerUserAgent,
         options,
       );
       return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
@@ -8087,6 +9827,51 @@ export const BankingApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * Obtain the list of banking products across all data holders in banking industry
+     * @summary Get Banking Products
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {Array<string>} [productIds] IDs of the specific products
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getBankingProducts(
+      dataHolderBrandIds?: Array<string>,
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      productIds?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      options?: any,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingProductList>> {
+      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingProducts(
+        dataHolderBrandIds,
+        productCategories,
+        productIds,
+        page,
+        pageSize,
+        options,
+      );
+      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Obtain the list of banking transactions that consumers have consented to share across all data holders
      * @summary Get Banking Transactions
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
@@ -8148,6 +9933,69 @@ export const BankingApiFp = function (configuration?: Configuration) {
         return axios.request(axiosRequestArgs);
       };
     },
+    /**
+     * Obtain the list of banking scheduled payments that consumers have consented to share across all data holders
+     * @summary Get Scheduled Payments
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
+     * @param {boolean} [isOwned] Filters accounts based on whether they are owned by the authorised customer. True for owned accounts, false for unowned accounts and absent for all accounts
+     * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getScheduledPayments(
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      accountIds?: Array<string>,
+      isOwned?: boolean,
+      openStatus?: 'OPEN' | 'CLOSED',
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      page?: number,
+      pageSize?: number,
+      options?: any,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingScheduledPaymentsList>> {
+      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getScheduledPayments(
+        useCaseIds,
+        cdrArrangementIds,
+        consentIds,
+        consumerIds,
+        dataHolderBrandIds,
+        accountIds,
+        isOwned,
+        openStatus,
+        productCategories,
+        page,
+        pageSize,
+        options,
+      );
+      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+        return axios.request(axiosRequestArgs);
+      };
+    },
   };
 };
 
@@ -8171,9 +10019,9 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
      * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
-     * @param {string} [consumerAuthDate] The time when the customer last logged in.
-     * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
-     * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8202,9 +10050,9 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       >,
       page?: number,
       pageSize?: number,
-      consumerAuthDate?: string,
-      consumerIpAddress?: string,
-      userAgent?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
       options?: any,
     ): AxiosPromise<BankingAccountList> {
       return BankingApiFp(configuration)
@@ -8220,9 +10068,9 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
           productCategories,
           page,
           pageSize,
-          consumerAuthDate,
-          consumerIpAddress,
-          userAgent,
+          adatreeConsumerAuthDate,
+          adatreeConsumerIpAddress,
+          adatreeConsumerUserAgent,
           options,
         )
         .then((request) => request(axios, basePath));
@@ -8331,6 +10179,42 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
         .then((request) => request(axios, basePath));
     },
     /**
+     * Obtain the list of banking products across all data holders in banking industry
+     * @summary Get Banking Products
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {Array<string>} [productIds] IDs of the specific products
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBankingProducts(
+      dataHolderBrandIds?: Array<string>,
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      productIds?: Array<string>,
+      page?: number,
+      pageSize?: number,
+      options?: any,
+    ): AxiosPromise<BankingProductList> {
+      return BankingApiFp(configuration)
+        .getBankingProducts(dataHolderBrandIds, productCategories, productIds, page, pageSize, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Obtain the list of banking transactions that consumers have consented to share across all data holders
      * @summary Get Banking Transactions
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
@@ -8390,6 +10274,67 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
         )
         .then((request) => request(axios, basePath));
     },
+    /**
+     * Obtain the list of banking scheduled payments that consumers have consented to share across all data holders
+     * @summary Get Scheduled Payments
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
+     * @param {boolean} [isOwned] Filters accounts based on whether they are owned by the authorised customer. True for owned accounts, false for unowned accounts and absent for all accounts
+     * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
+     * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+     * @param {number} [page] Page of results to request (standard pagination)
+     * @param {number} [pageSize] Page size to request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getScheduledPayments(
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      accountIds?: Array<string>,
+      isOwned?: boolean,
+      openStatus?: 'OPEN' | 'CLOSED',
+      productCategories?: Array<
+        | 'BUSINESS_LOANS'
+        | 'CRED_AND_CHRG_CARDS'
+        | 'LEASES'
+        | 'MARGIN_LOANS'
+        | 'OVERDRAFTS'
+        | 'PERS_LOANS'
+        | 'REGULATED_TRUST_ACCOUNTS'
+        | 'RESIDENTIAL_MORTGAGES'
+        | 'TERM_DEPOSITS'
+        | 'TRADE_FINANCE'
+        | 'TRAVEL_CARDS'
+        | 'TRANS_AND_SAVINGS_ACCOUNTS'
+      >,
+      page?: number,
+      pageSize?: number,
+      options?: any,
+    ): AxiosPromise<BankingScheduledPaymentsList> {
+      return BankingApiFp(configuration)
+        .getScheduledPayments(
+          useCaseIds,
+          cdrArrangementIds,
+          consentIds,
+          consumerIds,
+          dataHolderBrandIds,
+          accountIds,
+          isOwned,
+          openStatus,
+          productCategories,
+          page,
+          pageSize,
+          options,
+        )
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -8414,9 +10359,9 @@ export class BankingApi extends BaseAPI {
    * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
    * @param {number} [page] Page of results to request (standard pagination)
    * @param {number} [pageSize] Page size to request
-   * @param {string} [consumerAuthDate] The time when the customer last logged in.
-   * @param {string} [consumerIpAddress] The consumer\&#39;s original IP address. Mandatory for customer present calls.
-   * @param {string} [userAgent] Consumer User Agent. Mandatory for customer present calls.
+   * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+   * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+   * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof BankingApi
@@ -8446,9 +10391,9 @@ export class BankingApi extends BaseAPI {
     >,
     page?: number,
     pageSize?: number,
-    consumerAuthDate?: string,
-    consumerIpAddress?: string,
-    userAgent?: string,
+    adatreeConsumerAuthDate?: string,
+    adatreeConsumerIpAddress?: string,
+    adatreeConsumerUserAgent?: string,
     options?: any,
   ) {
     return BankingApiFp(this.configuration)
@@ -8464,9 +10409,9 @@ export class BankingApi extends BaseAPI {
         productCategories,
         page,
         pageSize,
-        consumerAuthDate,
-        consumerIpAddress,
-        userAgent,
+        adatreeConsumerAuthDate,
+        adatreeConsumerIpAddress,
+        adatreeConsumerUserAgent,
         options,
       )
       .then((request) => request(this.axios, this.basePath));
@@ -8580,6 +10525,44 @@ export class BankingApi extends BaseAPI {
   }
 
   /**
+   * Obtain the list of banking products across all data holders in banking industry
+   * @summary Get Banking Products
+   * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+   * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+   * @param {Array<string>} [productIds] IDs of the specific products
+   * @param {number} [page] Page of results to request (standard pagination)
+   * @param {number} [pageSize] Page size to request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof BankingApi
+   */
+  public getBankingProducts(
+    dataHolderBrandIds?: Array<string>,
+    productCategories?: Array<
+      | 'BUSINESS_LOANS'
+      | 'CRED_AND_CHRG_CARDS'
+      | 'LEASES'
+      | 'MARGIN_LOANS'
+      | 'OVERDRAFTS'
+      | 'PERS_LOANS'
+      | 'REGULATED_TRUST_ACCOUNTS'
+      | 'RESIDENTIAL_MORTGAGES'
+      | 'TERM_DEPOSITS'
+      | 'TRADE_FINANCE'
+      | 'TRAVEL_CARDS'
+      | 'TRANS_AND_SAVINGS_ACCOUNTS'
+    >,
+    productIds?: Array<string>,
+    page?: number,
+    pageSize?: number,
+    options?: any,
+  ) {
+    return BankingApiFp(this.configuration)
+      .getBankingProducts(dataHolderBrandIds, productCategories, productIds, page, pageSize, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * Obtain the list of banking transactions that consumers have consented to share across all data holders
    * @summary Get Banking Transactions
    * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
@@ -8638,6 +10621,265 @@ export class BankingApi extends BaseAPI {
         pageSize,
         options,
       )
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Obtain the list of banking scheduled payments that consumers have consented to share across all data holders
+   * @summary Get Scheduled Payments
+   * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+   * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+   * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+   * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+   * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+   * @param {Array<string>} [accountIds] Used to filter results on the accountId field.
+   * @param {boolean} [isOwned] Filters accounts based on whether they are owned by the authorised customer. True for owned accounts, false for unowned accounts and absent for all accounts
+   * @param {'OPEN' | 'CLOSED'} [openStatus] Used to filter results according to open/closed status. Values can be OPEN, CLOSED
+   * @param {Array<'BUSINESS_LOANS' | 'CRED_AND_CHRG_CARDS' | 'LEASES' | 'MARGIN_LOANS' | 'OVERDRAFTS' | 'PERS_LOANS' | 'REGULATED_TRUST_ACCOUNTS' | 'RESIDENTIAL_MORTGAGES' | 'TERM_DEPOSITS' | 'TRADE_FINANCE' | 'TRAVEL_CARDS' | 'TRANS_AND_SAVINGS_ACCOUNTS'>} [productCategories] Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+   * @param {number} [page] Page of results to request (standard pagination)
+   * @param {number} [pageSize] Page size to request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof BankingApi
+   */
+  public getScheduledPayments(
+    useCaseIds?: Array<string>,
+    cdrArrangementIds?: Array<string>,
+    consentIds?: Array<string>,
+    consumerIds?: Array<string>,
+    dataHolderBrandIds?: Array<string>,
+    accountIds?: Array<string>,
+    isOwned?: boolean,
+    openStatus?: 'OPEN' | 'CLOSED',
+    productCategories?: Array<
+      | 'BUSINESS_LOANS'
+      | 'CRED_AND_CHRG_CARDS'
+      | 'LEASES'
+      | 'MARGIN_LOANS'
+      | 'OVERDRAFTS'
+      | 'PERS_LOANS'
+      | 'REGULATED_TRUST_ACCOUNTS'
+      | 'RESIDENTIAL_MORTGAGES'
+      | 'TERM_DEPOSITS'
+      | 'TRADE_FINANCE'
+      | 'TRAVEL_CARDS'
+      | 'TRANS_AND_SAVINGS_ACCOUNTS'
+    >,
+    page?: number,
+    pageSize?: number,
+    options?: any,
+  ) {
+    return BankingApiFp(this.configuration)
+      .getScheduledPayments(
+        useCaseIds,
+        cdrArrangementIds,
+        consentIds,
+        consumerIds,
+        dataHolderBrandIds,
+        accountIds,
+        isOwned,
+        openStatus,
+        productCategories,
+        page,
+        pageSize,
+        options,
+      )
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * CommonApi - axios parameter creator
+ * @export
+ */
+export const CommonApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Obtain a list of consumers that have consented to share across all data holders
+     * @summary Get Customers
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'person' | 'organisation'>} [customerUTypes] Used to filter results on the customerUType field applicable to customers. Any one of the valid values for this field can be supplied.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCustomers: async (
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      customerUTypes?: Array<'person' | 'organisation'>,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/data/common/customers`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (useCaseIds) {
+        localVarQueryParameter['useCaseIds'] = useCaseIds;
+      }
+
+      if (cdrArrangementIds) {
+        localVarQueryParameter['cdrArrangementIds'] = cdrArrangementIds;
+      }
+
+      if (consentIds) {
+        localVarQueryParameter['consentIds'] = consentIds;
+      }
+
+      if (consumerIds) {
+        localVarQueryParameter['consumerIds'] = consumerIds;
+      }
+
+      if (dataHolderBrandIds) {
+        localVarQueryParameter['dataHolderBrandIds'] = dataHolderBrandIds;
+      }
+
+      if (customerUTypes) {
+        localVarQueryParameter['customerUTypes'] = customerUTypes;
+      }
+
+      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * CommonApi - functional programming interface
+ * @export
+ */
+export const CommonApiFp = function (configuration?: Configuration) {
+  return {
+    /**
+     * Obtain a list of consumers that have consented to share across all data holders
+     * @summary Get Customers
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'person' | 'organisation'>} [customerUTypes] Used to filter results on the customerUType field applicable to customers. Any one of the valid values for this field can be supplied.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getCustomers(
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      customerUTypes?: Array<'person' | 'organisation'>,
+      options?: any,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseCommonCustomerList>> {
+      const localVarAxiosArgs = await CommonApiAxiosParamCreator(configuration).getCustomers(
+        useCaseIds,
+        cdrArrangementIds,
+        consentIds,
+        consumerIds,
+        dataHolderBrandIds,
+        customerUTypes,
+        options,
+      );
+      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+  };
+};
+
+/**
+ * CommonApi - factory interface
+ * @export
+ */
+export const CommonApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  return {
+    /**
+     * Obtain a list of consumers that have consented to share across all data holders
+     * @summary Get Customers
+     * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+     * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+     * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+     * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+     * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+     * @param {Array<'person' | 'organisation'>} [customerUTypes] Used to filter results on the customerUType field applicable to customers. Any one of the valid values for this field can be supplied.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCustomers(
+      useCaseIds?: Array<string>,
+      cdrArrangementIds?: Array<string>,
+      consentIds?: Array<string>,
+      consumerIds?: Array<string>,
+      dataHolderBrandIds?: Array<string>,
+      customerUTypes?: Array<'person' | 'organisation'>,
+      options?: any,
+    ): AxiosPromise<ResponseCommonCustomerList> {
+      return CommonApiFp(configuration)
+        .getCustomers(
+          useCaseIds,
+          cdrArrangementIds,
+          consentIds,
+          consumerIds,
+          dataHolderBrandIds,
+          customerUTypes,
+          options,
+        )
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * CommonApi - object-oriented interface
+ * @export
+ * @class CommonApi
+ * @extends {BaseAPI}
+ */
+export class CommonApi extends BaseAPI {
+  /**
+   * Obtain a list of consumers that have consented to share across all data holders
+   * @summary Get Customers
+   * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
+   * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
+   * @param {Array<string>} [consentIds] Used to filter results on the consentId field.
+   * @param {Array<string>} [consumerIds] Used to filter results on the consumerId field.
+   * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
+   * @param {Array<'person' | 'organisation'>} [customerUTypes] Used to filter results on the customerUType field applicable to customers. Any one of the valid values for this field can be supplied.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CommonApi
+   */
+  public getCustomers(
+    useCaseIds?: Array<string>,
+    cdrArrangementIds?: Array<string>,
+    consentIds?: Array<string>,
+    consumerIds?: Array<string>,
+    dataHolderBrandIds?: Array<string>,
+    customerUTypes?: Array<'person' | 'organisation'>,
+    options?: any,
+  ) {
+    return CommonApiFp(this.configuration)
+      .getCustomers(useCaseIds, cdrArrangementIds, consentIds, consumerIds, dataHolderBrandIds, customerUTypes, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
