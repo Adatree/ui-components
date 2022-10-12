@@ -14,7 +14,7 @@ export const componentCopy = (
       list_data_policy: (name: string) => {
         return <>Speak to {name} for more information about how they will handle your data.</>;
       },
-      title: 'Who has access to my data?',
+      title: 'Who else has access to my data?',
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} use ${adrDataRecipient.name} to help you consent and access your data.`,
