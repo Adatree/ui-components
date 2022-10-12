@@ -36,7 +36,12 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
       <List>
         {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
           renderListItem(copy.component.general_information.list_adr_context)}
-        {renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
+        {primaryDataRecipient.type === DataRecipientType.TRUSTED_ADVISER &&
+          renderListItem(copy.component.general_information.list_cdr_protection)}
+        {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
+          renderListItem(copy.component.data_handling_info.list_data_policy(primaryDataRecipient.name))}
+        {!hideDuplicateListItem &&
+          renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
         {!hideDuplicateListItem &&
           renderListItem(copy.component.general_information.list_marketing(adrDataRecipient.name))}
         {renderListItem(copy.component.general_information.list_records)}

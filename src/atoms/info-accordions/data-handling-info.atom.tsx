@@ -34,10 +34,11 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     return (
       <List sx={{ mb: '2rem' }}>
         {renderListItem(copy.component.general_information.list_marketing(dataHandler.name), 0)}
-        {renderListItem(copy.component.general_information.list_deleted, 1)}
+        {renderListItem(copy.component.general_information.list_security(dataHandler.name), 1)}
+        {renderListItem(copy.component.general_information.list_deleted, 2)}
         {renderListItem(
           copy.component.general_information.list_third_party_more_info(dataHandler.name, dataHandler.cdrPolicyUrl),
-          2,
+          3,
         )}
       </List>
     );

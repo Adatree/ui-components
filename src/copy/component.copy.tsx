@@ -18,6 +18,7 @@ export const componentCopy = (
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} use ${adrDataRecipient.name} to help you consent and access your data.`,
+      list_cdr_protection: `Data shared with ${primaryDataRecipient.name} is not subject to CDR Protections.`,
       list_complaint: (
         <>
           If you would like to make a complaint, please email{' '}

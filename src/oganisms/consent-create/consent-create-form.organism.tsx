@@ -30,6 +30,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient } = useDataRecipients();
+  const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
+    return dataRecipient.type !== primaryDataRecipient.type;
+  });
 
   useEffect(() => {
     if (
@@ -106,7 +109,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
-          <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlers} />
+          <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
 
           <ConsentSectionActions
             actionButtonLabel={copy.consent.create.consent_label}
