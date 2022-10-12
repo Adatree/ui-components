@@ -47,15 +47,8 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     return (
       <List sx={{ mb: '2rem' }}>
         {renderListItem(
-          copy.component.data_handling_info.list_protection_framework(
-            dataHandler.name,
-            dataHandler.protectionFrameworkUrl,
-          ),
-          0,
-        )}
-        {renderListItem(
           copy.component.data_handling_info.list_data_policy(dataHandler.name, dataHandler.dataPolicyUrl),
-          1,
+          0,
         )}
       </List>
     );

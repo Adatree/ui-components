@@ -50,7 +50,6 @@ export interface Copy {
   component: {
     data_handling_info: {
       list_data_policy: (name: string, dataPolicyUrl: string) => ReactElement;
-      list_protection_framework: (dataHandlerName: string, protectionFrameworkUrl: string) => ReactElement;
       title: string;
     };
     general_information: {

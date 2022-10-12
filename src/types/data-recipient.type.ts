@@ -12,6 +12,5 @@ export interface DataRecipient {
   description: string;
   logo: string;
   name: string;
-  protectionFrameworkUrl: string;
   type: DataRecipientType;
 }

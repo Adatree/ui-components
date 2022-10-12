@@ -9,7 +9,6 @@ export const accreditedDataRecipient = (): DataRecipient => {
     description: 'This is an Accredited Data Recipient and they provide the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
     name: 'Accredited Company',
-    protectionFrameworkUrl: 'https://www.example.com/adr-protection-framework',
     type: DataRecipientType.ACCREDITED_DATA_RECIPIENT,
   };
 };
@@ -23,7 +22,6 @@ export const cdrRepresentative = (): DataRecipient => {
     description: 'This is a CDR representative and they provide the service X.',
     logo: '/assets/images/cdrr-test-company-logo.png',
     name: 'CDR Representative Company',
-    protectionFrameworkUrl: 'https://www.example.com/cdrr-protection-framework',
     type: DataRecipientType.CDR_REPRESENTATIVE,
   };
 };
@@ -37,7 +35,6 @@ export const trustedAdvisor = (): DataRecipient => {
     description: 'This is a Trusted Adviser and they provide the service X.',
     logo: '/assets/images/ta-test-company-logo.png',
     name: 'Trusted Advisor Company',
-    protectionFrameworkUrl: 'https://www.example.com/ta-protection-framework',
     type: DataRecipientType.TRUSTED_ADVISER,
   };
 };
@@ -51,7 +48,6 @@ export const trustedAdvisorServiceProvider = (): DataRecipient => {
     description: 'This is a Trusted Adviser Service Provider and they provide the service X.',
     logo: '/assets/images/tasp-test-company-logo.png',
     name: 'Trusted Advisor Service Provider Company',
-    protectionFrameworkUrl: 'https://www.example.com/tasp-protection-framework',
     type: DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
   };
 };

@@ -19,14 +19,6 @@ export const componentCopy = (
           </>
         );
       },
-      list_protection_framework: (dataHandlerName: string, protectionFrameworkUrl: string) => {
-        return (
-          <>
-            Your data will be subject to the protections provided under the {dataHandlerName}{' '}
-            <LinkExternal href={protectionFrameworkUrl} text={`protection framework policy`} /> rather than the CDR.
-          </>
-        );
-      },
       title: 'Who has access to my data?',
     },
     general_information: {
