@@ -17,7 +17,11 @@ export type ConsentSectionActionsProps = {
 
 export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (props) => {
   const { actionButtonLabel, cancelButtonLabel, cancelButtonMessage, isValid, showError, onCancel, onSubmit } = props;
-  const { accreditationNumber, primaryDataRecipient } = useDataRecipients();
+  const { accreditationNumber, primaryDataRecipient, adrDataRecipient } = useDataRecipients();
+  const accreditationName =
+    primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE
+      ? primaryDataRecipient.name
+      : adrDataRecipient.name;
 
   const handleSubmit = () => {
     onSubmit();
@@ -52,8 +56,8 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
       <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
         <Accreditation
           accreditationNumber={accreditationNumber}
-          cdrPolicyUrl={primaryDataRecipient.cdrPolicyUrl}
-          companyName={primaryDataRecipient.name}
+          cdrPolicyUrl={adrDataRecipient.cdrPolicyUrl}
+          companyName={accreditationName}
           underCdrPrincipal={primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE}
         />
       </Box>
