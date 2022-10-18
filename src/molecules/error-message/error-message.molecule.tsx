@@ -3,7 +3,7 @@ import React from 'react';
 import AlertCircle from 'mdi-material-ui/AlertCircle';
 import { FeedbackMessage } from '../../atoms/feedback-message/feedback-message.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { Formatter } from '../../utils/formatter/formater';
 
 export type ErrorMessageProps = {
@@ -18,7 +18,10 @@ export type ErrorMessageProps = {
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessageProps) => {
   const { message, code, data, type = 'UNKNOWN', timeStamp = new Date(), url, supportContact } = props;
+  const theme = useTheme();
+  const bgCode = theme.palette.mode === 'light' ? '#F6F6F6' : '#444B5C';
   const iconFontSize = '56px';
+
   let parsedData = undefined;
 
   if (typeof data === 'string') {
@@ -62,8 +65,15 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
       {parsedData && (
         <>
           <Typography variant="h3">Extra information</Typography>
-          <Box sx={{ code: { display: 'block', width: '100px' } }}>
-            <pre style={{ backgroundColor: '#F8F8FF', padding: '8px' }}>{parsedData}</pre>
+          <Box
+            sx={{
+              display: 'block',
+              width: { xs: 'calc(100vw - 100px)', md: 'auto' },
+              overflow: 'scroll',
+              backgroundColor: bgCode,
+            }}
+          >
+            <pre style={{ padding: '8px' }}>{parsedData}</pre>
           </Box>
         </>
       )}
