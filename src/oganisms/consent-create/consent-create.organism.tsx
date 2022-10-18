@@ -10,6 +10,7 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
+  blockedDataHolderList?: DataHolder[];
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
   onCancel: () => void;
@@ -20,6 +21,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
   const {
     existingConsents,
     useCase,
+    blockedDataHolderList = [],
     enablePartnerMessageDiscreetMode = false,
     favouriteDataHolders,
     onCancel,
@@ -52,6 +54,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               existingConsents={existingConsents}
               useCase={useCase}
               favouriteDataHolders={favouriteDataHolders}
+              blockedDataHolderList={blockedDataHolderList}
             />
           )}
           {consentForm.dataHolder && (

@@ -6,18 +6,24 @@ import { Helper } from '../../utils/helper/helper';
 import { Box, Typography } from '@mui/material';
 import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
 import { useCopy } from '../../context/copy.context';
+import { Logger } from '../../utils/logger/logger';
+import { BlockedDataholderDialog } from '../../molecules/blocked-dataholder-dialog/blocked-dataholder-dialog.molecule';
 
 export type ConsentInputDataHolderProps = {
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   favouriteDataHolders?: DataHolder[];
+  blockedDataHolderList?: DataHolder[];
 };
 
 export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
-  const { existingConsents, favouriteDataHolders, useCase } = props;
+  const { existingConsents, favouriteDataHolders, useCase, blockedDataHolderList = [] } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
+
+  const [blockedDataHolder, setBlockedDataHolder] = useState<DataHolder | undefined>(undefined);
+  const [isblockedDialogOpen, setBlockedDialogOpen] = useState(false);
 
   const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(
     useCase.dataHolders,
@@ -25,8 +31,24 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
     useCase,
   );
 
+  const isDataHolderBlocked = (dataHolder: DataHolder): boolean => {
+    const isBlocked =
+      blockedDataHolderList.length >= 1 &&
+      blockedDataHolderList.filter((blocked) => dataHolder.dataHolderBrandId === blocked.dataHolderBrandId).length > 0;
+
+    return isBlocked;
+  };
+
   const handleDataHolderChange = (dataHolder: DataHolder | null) => {
     if (dataHolder === null) {
+      consentForm.dataHolder = undefined;
+    } else if (isDataHolderBlocked(dataHolder)) {
+      Logger.warn(
+        `Data holder blocking enabled for ${dataHolder.brandName}, full list of blocked IDs`,
+        blockedDataHolderList,
+      );
+      setBlockedDataHolder(dataHolder);
+      setBlockedDialogOpen(true);
       consentForm.dataHolder = undefined;
     } else {
       setShowDataHolderError(false);
@@ -65,6 +87,17 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
             showError={showDataHolderError}
             label={copy.consent.create.data_holder_input_label}
           />
+
+          {blockedDataHolderList.length >= 1 && blockedDataHolder && (
+            <BlockedDataholderDialog
+              dataHolder={blockedDataHolder}
+              isOpen={isblockedDialogOpen}
+              onClose={(): void => {
+                setBlockedDialogOpen(false);
+                setBlockedDataHolder(undefined);
+              }}
+            />
+          )}
         </>
       )}
     </>

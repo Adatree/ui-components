@@ -186,6 +186,25 @@ WithNoFavouriteDataHolders.decorators = [
 
 // ########################################################################
 
+export const WithBlockedRedBank = Template.bind({});
+WithBlockedRedBank.decorators = [
+  (Story, context) => {
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+    };
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.blockedDataHolderList = [TestUtil.testData.dataHolder.redBank()];
+
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
   (Story, context) => {
