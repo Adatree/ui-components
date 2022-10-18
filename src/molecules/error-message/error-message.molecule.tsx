@@ -68,7 +68,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
           <Box
             sx={{
               display: 'block',
-              width: { xs: 'calc(100vw - 100px)', md: 'auto' },
+              width: { xs: 'calc(100vw - 125px)', sm: 'calc(100vw - 175px)', md: 'auto' },
               overflow: 'scroll',
               backgroundColor: bgCode,
             }}
