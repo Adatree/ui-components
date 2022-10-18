@@ -2,6 +2,7 @@
 
 export type AppTheme = {
   colour: {
+    darkMode: boolean;
     primary: string;
     secondary: string;
     backgrounds: {
@@ -29,6 +30,7 @@ export type AppTheme = {
 
 export const defaultTheme: AppTheme = {
   colour: {
+    darkMode: false,
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {
