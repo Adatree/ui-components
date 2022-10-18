@@ -10,6 +10,30 @@ export const componentCopy = (
   providerType: string,
 ): Copy['component'] => {
   return {
+    blocked_dataholder: {
+      message: (name: string) => {
+        return (
+          <>
+            Unfortunately, we could not connect you to <HL>{name}</HL>.
+          </>
+        );
+      },
+      reason: (name: string) => {
+        return (
+          <>
+            <HL>{name}</HL> have not fully implemented the data sharing feature as part of the Consumer Data Right (CDR)
+            specifications.
+          </>
+        );
+      },
+      action: (name: string) => {
+        return (
+          <>
+            Please contact <HL>{name}</HL> to enquire about when they will be able to fully support sharing your data.
+          </>
+        );
+      },
+    },
     data_handling_info: {
       list_data_policy: (name: string) => {
         return <>Speak to {name} for more information about how they will handle your data.</>;

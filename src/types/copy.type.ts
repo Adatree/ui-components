@@ -48,6 +48,11 @@ export interface Copy {
     };
   };
   component: {
+    blocked_dataholder: {
+      message: (name: string) => ReactElement;
+      reason: (name: string) => ReactElement;
+      action: (name: string) => ReactElement;
+    };
     data_handling_info: {
       list_data_policy: (name: string) => ReactElement;
       title: string;
