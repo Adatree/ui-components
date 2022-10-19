@@ -54,3 +54,30 @@ export const defaultTheme: AppTheme = {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
   },
 };
+
+export const darkTheme: AppTheme = {
+  colour: {
+    darkMode: true,
+    primary: '#48dfd2',
+    secondary: '#021c55',
+    backgrounds: {
+      card: '#283461',
+      hover: '#4a5271',
+      inputs: '#283461',
+      modal: '#1f294d',
+      page: '#182039',
+    },
+    buttons: {
+      background: '#48dfd2',
+      text: '#000',
+    },
+    text: {
+      main: '#f9f9f9',
+      link: '#f6ca6e',
+      highlight: '#48dfd2',
+    },
+  },
+  font: {
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+  },
+};
