@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chip, Grid } from '@mui/material';
+import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
 
@@ -11,6 +11,12 @@ export type DataHolderTilesProps = {
 
 export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   const { dataHolders, disableDataHolders = [], onClick } = props;
+  const theme = useTheme();
+
+  let titleBackground = '#fff';
+  if (theme.palette.mode === 'dark') {
+    titleBackground = '#dfdfdf';
+  }
 
   const handleClick = (dataHolder: DataHolder, disabled: boolean) => {
     if (!disabled) {
@@ -40,18 +46,13 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
           >
             <Card
               sx={{
-                height: '100%',
+                height: { xs: '44vw', sm: '48vw', md: '24vw' },
                 alignItems: 'center',
                 display: 'flex',
+                backgroundColor: titleBackground,
                 '&:hover': {
-                  backgroundColor:
-                    disabled === true
-                      ? (theme) => theme.palette.background_card.main
-                      : (theme) => theme.palette.background_hover.main,
-                  borderColor:
-                    disabled === true
-                      ? (theme) => theme.palette.background_card.main
-                      : (theme) => theme.palette.background_hover.main,
+                  backgroundColor: disabled === true ? titleBackground : (theme) => theme.palette.background_hover.main,
+                  borderColor: disabled === true ? titleBackground : (theme) => theme.palette.background_hover.main,
                 },
                 '&:hover img': {
                   opacity: disabled === true ? '1' : '0.3 !important',
