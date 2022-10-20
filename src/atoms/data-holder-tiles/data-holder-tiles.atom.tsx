@@ -46,7 +46,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
           >
             <Card
               sx={{
-                height: { xs: '44vw', sm: '48vw', md: '24vw' },
+                height: { xs: '45vw', sm: '44vw', md: '19rem' },
                 alignItems: 'center',
                 display: 'flex',
                 backgroundColor: titleBackground,
