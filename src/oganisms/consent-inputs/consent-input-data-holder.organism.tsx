@@ -66,7 +66,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
 
       {useCase.dataHolders && (
         <>
-          {favouriteDataHolders && (
+          {favouriteDataHolders && favouriteDataHolders.length > 0 && (
             <>
               <DataHolderTiles
                 dataHolders={favouriteDataHolders}
