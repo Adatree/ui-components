@@ -2,7 +2,7 @@
 
 export type AppTheme = {
   colour: {
-    darkMode: boolean;
+    mode: 'LIGHT' | 'DARK';
     primary: string;
     secondary: string;
     backgrounds: {
@@ -30,7 +30,7 @@ export type AppTheme = {
 
 export const defaultTheme: AppTheme = {
   colour: {
-    darkMode: false,
+    mode: 'LIGHT',
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {
@@ -57,7 +57,7 @@ export const defaultTheme: AppTheme = {
 
 export const darkTheme: AppTheme = {
   colour: {
-    darkMode: true,
+    mode: 'DARK',
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {

@@ -1,4 +1,3 @@
-import { getThemeProps } from '@mui/system';
 import React from 'react';
 import {
   CopyProvider,
