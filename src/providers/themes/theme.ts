@@ -34,7 +34,7 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
 
   const baseTheme: ThemeOptions = {
     palette: {
-      mode: appTheme.colour.mode === 'DARK' ? 'dark' : 'light',
+      mode: appTheme.mode === 'DARK' ? 'dark' : 'light',
       primary: generatePaletteColor(appTheme.colour.primary),
       secondary: generatePaletteColor(appTheme.colour.secondary),
       background_card: generatePaletteColor(appTheme.colour.backgrounds.card),

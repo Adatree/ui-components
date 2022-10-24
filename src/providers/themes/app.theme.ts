@@ -1,8 +1,8 @@
 // MUI colour generator https://material.io/resources/color/
 
 export type AppTheme = {
+  mode: 'LIGHT' | 'DARK';
   colour: {
-    mode: 'LIGHT' | 'DARK';
     primary: string;
     secondary: string;
     backgrounds: {
@@ -29,8 +29,8 @@ export type AppTheme = {
 };
 
 export const defaultTheme: AppTheme = {
+  mode: 'LIGHT',
   colour: {
-    mode: 'LIGHT',
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {
@@ -56,8 +56,8 @@ export const defaultTheme: AppTheme = {
 };
 
 export const darkTheme: AppTheme = {
+  mode: 'DARK',
   colour: {
-    mode: 'DARK',
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {
