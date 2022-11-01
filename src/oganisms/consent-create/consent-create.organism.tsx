@@ -13,6 +13,7 @@ export type ConsentCreateProps = {
   blockedDataHolderList?: DataHolder[];
   enablePartnerMessageDiscreetMode?: boolean;
   favouriteDataHolders?: DataHolder[];
+  hideMaxAccountConnectedBackButton?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -24,6 +25,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     blockedDataHolderList = [],
     enablePartnerMessageDiscreetMode = false,
     favouriteDataHolders,
+    hideMaxAccountConnectedBackButton = false,
     onCancel,
     onSubmit,
   } = props;
@@ -70,7 +72,11 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
       )}
 
       {useCase.dataHolders && useCase.dataHolders.length === disableDataHolders.length && (
-        <MaxAccountConnectedMessage useCase={useCase} onClick={handleCancel} />
+        <MaxAccountConnectedMessage
+          useCase={useCase}
+          hideBackButton={hideMaxAccountConnectedBackButton}
+          onClick={handleCancel}
+        />
       )}
     </section>
   );

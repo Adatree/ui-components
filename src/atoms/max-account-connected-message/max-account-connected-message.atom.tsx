@@ -5,11 +5,12 @@ import { useCopy } from '../../context/copy.context';
 
 export type PartnerMessageDialogProps = {
   useCase: UseCaseResponse;
+  hideBackButton?: boolean;
   onClick: () => void;
 };
 
 export const MaxAccountConnectedMessage: React.FC<PartnerMessageDialogProps> = (props) => {
-  const { useCase, onClick } = props;
+  const { useCase, hideBackButton = false, onClick } = props;
   const [copy] = useCopy();
 
   return (
@@ -33,9 +34,11 @@ export const MaxAccountConnectedMessage: React.FC<PartnerMessageDialogProps> = (
           ))}
         </ul>
       )}
-      <Button sx={{ my: 2, width: { xs: '100%', sm: '20rem' } }} variant="contained" color="button" onClick={onClick}>
-        {copy.common.button_label_back}
-      </Button>
+      {!hideBackButton && (
+        <Button sx={{ my: 2, width: { xs: '100%', sm: '20rem' } }} variant="contained" color="button" onClick={onClick}>
+          {copy.common.button_label_back}
+        </Button>
+      )}
     </Box>
   );
 };

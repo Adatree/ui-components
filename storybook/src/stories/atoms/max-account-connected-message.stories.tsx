@@ -20,3 +20,12 @@ Default.args = {
     alert('onClick fired');
   },
 };
+
+export const WithoutBackButton = Template.bind({});
+WithoutBackButton.args = {
+  useCase: TestUtil.testData.useCase.homeLoan(),
+  hideBackButton: true,
+  onClick: () => {
+    alert('onClick fired');
+  },
+};
