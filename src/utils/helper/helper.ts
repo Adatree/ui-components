@@ -184,9 +184,9 @@ const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): 
     }
   }
 
-  if (useCase.sharingDurations.length === 1 && isEqual(useCase.sharingDurations, consent.useCase?.sharingDurations)) {
-    return false;
-  }
+  // if (useCase.sharingDurations.length === 1 && isEqual(useCase.sharingDurations, consent.useCase?.sharingDurations)) {
+  //   return false;
+  // }
 
   return true;
 };
