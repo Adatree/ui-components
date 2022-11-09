@@ -1,5 +1,6 @@
 // @ts-nocheck
 // tslint:disable
+// eslint:disable
 /**
  * Adatree ADR Platform Data API
  * Adatree\'s Accredited Data Recipient (ADR) Platform Data API definition. Includes Banking and Energy.
@@ -559,13 +560,18 @@ export enum BankingAccountProductFeatureFeatureTypeEnum {
   BILLPAYMENT = 'BILL_PAYMENT',
   BONUSREWARDS = 'BONUS_REWARDS',
   CARDACCESS = 'CARD_ACCESS',
+  CASHBACKOFFER = 'CASHBACK_OFFER',
   COMPLEMENTARYPRODUCTDISCOUNTS = 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
   DIGITALBANKING = 'DIGITAL_BANKING',
   DIGITALWALLET = 'DIGITAL_WALLET',
   DONATEINTEREST = 'DONATE_INTEREST',
+  EXTRAREPAYMENTS = 'EXTRA_REPAYMENTS',
+  FRAUDPROTECTION = 'FRAUD_PROTECTION',
   FREETXNS = 'FREE_TXNS',
   FREETXNSALLOWANCE = 'FREE_TXNS_ALLOWANCE',
+  GUARANTOR = 'GUARANTOR',
   INSURANCE = 'INSURANCE',
+  INSTALMENTPLAN = 'INSTALMENT_PLAN',
   INTERESTFREE = 'INTEREST_FREE',
   INTERESTFREETRANSFERS = 'INTEREST_FREE_TRANSFERS',
   LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
@@ -573,10 +579,11 @@ export enum BankingAccountProductFeatureFeatureTypeEnum {
   NPPENABLED = 'NPP_ENABLED',
   NPPPAYID = 'NPP_PAYID',
   OFFSET = 'OFFSET',
+  OTHER = 'OTHER',
   OVERDRAFT = 'OVERDRAFT',
   REDRAW = 'REDRAW',
+  RELATIONSHIPMANAGEMENT = 'RELATIONSHIP_MANAGEMENT',
   UNLIMITEDTXNS = 'UNLIMITED_TXNS',
-  OTHER = 'OTHER',
 }
 
 /**
@@ -1994,13 +2001,18 @@ export enum BankingProductFeatureFeatureTypeEnum {
   BILLPAYMENT = 'BILL_PAYMENT',
   BONUSREWARDS = 'BONUS_REWARDS',
   CARDACCESS = 'CARD_ACCESS',
+  CASHBACKOFFER = 'CASHBACK_OFFER',
   COMPLEMENTARYPRODUCTDISCOUNTS = 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
   DIGITALBANKING = 'DIGITAL_BANKING',
   DIGITALWALLET = 'DIGITAL_WALLET',
   DONATEINTEREST = 'DONATE_INTEREST',
+  EXTRAREPAYMENTS = 'EXTRA_REPAYMENTS',
+  FRAUDPROTECTION = 'FRAUD_PROTECTION',
   FREETXNS = 'FREE_TXNS',
   FREETXNSALLOWANCE = 'FREE_TXNS_ALLOWANCE',
+  GUARANTOR = 'GUARANTOR',
   INSURANCE = 'INSURANCE',
+  INSTALMENTPLAN = 'INSTALMENT_PLAN',
   INTERESTFREE = 'INTEREST_FREE',
   INTERESTFREETRANSFERS = 'INTEREST_FREE_TRANSFERS',
   LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
@@ -2008,10 +2020,11 @@ export enum BankingProductFeatureFeatureTypeEnum {
   NPPENABLED = 'NPP_ENABLED',
   NPPPAYID = 'NPP_PAYID',
   OFFSET = 'OFFSET',
+  OTHER = 'OTHER',
   OVERDRAFT = 'OVERDRAFT',
   REDRAW = 'REDRAW',
+  RELATIONSHIPMANAGEMENT = 'RELATIONSHIP_MANAGEMENT',
   UNLIMITEDTXNS = 'UNLIMITED_TXNS',
-  OTHER = 'OTHER',
 }
 
 /**
@@ -2245,6 +2258,18 @@ export interface BankingProductList {
    * @memberof BankingProductList
    */
   data: BankingProductListData;
+  /**
+   *
+   * @type {LinksPaginated}
+   * @memberof BankingProductList
+   */
+  links: LinksPaginated;
+  /**
+   *
+   * @type {MetaPaginated}
+   * @memberof BankingProductList
+   */
+  meta: MetaPaginated;
 }
 /**
  *
@@ -3247,6 +3272,9 @@ export enum BankingTransactionAdatreePersoneticsCategoryNameEnum {
   KidsFamily = 'Kids & Family',
   LoanMortgage = 'Loan & Mortgage',
   OfficeExpenses = 'Office expenses',
+  OtherDeposits = 'Other Deposits',
+  OtherTransfers = 'Other transfers',
+  Other = 'Other',
   PaycheckPensionsAnnuity = 'Paycheck, Pensions & Annuity',
   PersonalCare = 'Personal Care',
   SavingsInvestments = 'Savings & Investments',
@@ -3256,9 +3284,6 @@ export enum BankingTransactionAdatreePersoneticsCategoryNameEnum {
   Transportation = 'Transportation',
   Travel = 'Travel',
   Utilities = 'Utilities',
-  OtherDeposits = 'Other Deposits',
-  OtherTransfers = 'Other transfers',
-  Other = 'Other',
 }
 /**
  * @export
@@ -3276,6 +3301,9 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   BarsPubs = 'Bars & Pubs',
   BeautyProducts = 'Beauty Products',
   BooksNewspapers = 'Books & Newspapers',
+  BusinessCreditCard = 'Business Credit Card',
+  BuyNowPayLater = 'Buy Now Pay Later',
+  CafesCoffeeShops = 'Cafes & Coffee Shops',
   CarFinance = 'Car Finance',
   CarInsurance = 'Car Insurance',
   CarRentals = 'Car Rentals',
@@ -3286,6 +3314,7 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   ChildCare = 'Child Care',
   ChildrensClothingsStores = "Children's Clothings Stores",
   Cleaning = 'Cleaning',
+  CommercialLoans = 'Commercial Loans',
   Construction = 'Construction',
   ConversionFees = 'Conversion Fees',
   CreditCardPayments = 'Credit Card Payments',
@@ -3295,12 +3324,14 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   DigitalEntertainment = 'Digital Entertainment',
   DigitalWallet = 'Digital Wallet',
   Dining = 'Dining',
+  DiningSubscriptions = 'Dining Subscriptions',
   DirectDebitStandingOrder = 'Direct Debit & Standing Order',
   DirectDeposit = 'Direct Deposit',
   Dividends = 'Dividends',
   Donations = 'Donations',
   DrugsPharmacy = 'Drugs & Pharmacy',
   Education = 'Education',
+  Electricity = 'Electricity',
   ElectricityWaterGas = 'Electricity, Water, Gas',
   ElectronicsComputers = 'Electronics & Computers',
   Electronics = 'Electronics',
@@ -3310,11 +3341,14 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   FastFood = 'Fast Food',
   FitnessLeisure = 'Fitness & Leisure',
   Furniture = 'Furniture',
+  Gas = 'Gas',
+  Gambling = 'Gambling',
   Games = 'Games',
   Gardening = 'Gardening',
   GasStation = 'Gas Station',
   GeneralOfficeExpenses = 'General Office Expenses',
   GovernmentServices = 'Government Services',
+  Groceries = 'Groceries',
   HairNailsBeautyShops = 'Hair, Nails & Beauty Shops',
   HardwareAppliances = 'Hardware & Appliances',
   HealthFitness = 'Health & fitness',
@@ -3353,7 +3387,9 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   P2P = 'P2P',
   ParkingTolls = 'Parking & Tolls',
   Paycheck = 'Paycheck',
+  PaycheckPensionsAnnuity = 'Paycheck, Pensions & Annuity',
   PaydayPawnTitleLoans = 'Payday & Pawn & Title Loans',
+  PaydayLoans = 'Payday Loans',
   Pension = 'Pension',
   PersonalCare = 'Personal Care',
   PersonalLoan = 'Personal Loan',
@@ -3366,19 +3402,25 @@ export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
   PublicTransportation = 'Public Transportation',
   RealEstate = 'Real Estate',
   Restaurants = 'Restaurants',
+  RewardsCreditCard = 'Rewards Credit Card',
   Savings = 'Savings',
+  SecuredCreditCard = 'Secured Credit Card',
   ServiceFees = 'Service Fees',
   ShippingDeliveries = 'Shipping & Deliveries',
   Shopping = 'Shopping',
   SportEntertainment = 'Sport Entertainment',
+  StudentCreditCard = 'Student Credit Card',
   StudentLoan = 'Student Loan',
   SupermarketGroceryConvenienceStores = 'Supermarket, Grocery & Convenience Stores',
   TaxesAuthorities = 'Taxes & Authorities',
   TaxesFinesBailBonds = 'Taxes, Fines & Bail Bonds',
   Taxi = 'Taxi',
+  TitleLoans = 'Title Loans',
   TransfersBetweenOwnAccounts = 'Transfers between own accounts',
   Transportation = 'Transportation',
   Travel = 'Travel',
+  TravelCreditCard = 'Travel Credit Card',
+  TravelInsurance = 'Travel Insurance',
   Utilities = 'Utilities',
   VehicleDealers = 'Vehicle Dealers',
   VehicleOperatingExpenses = 'Vehicle Operating Expenses',
@@ -11336,6 +11378,10 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * Obtain the list of energy plans across all data holders
      * @summary Get Energy Plans
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
+     * @param {Array<'STANDING' | 'MARKET' | 'REGULATED'>} [planTypes] Used to filter results on the type field.
+     * @param {Array<'ELECTRICITY' | 'GAS' | 'DUAL'>} [fuelTypes] Used to filter results on the fuel type field.
+     * @param {'CURRENT' | 'FUTURE'} [effective] Used to filter results on the effective field.
+     * @param {string} [updatedSince] Used to filter results on the updatedSince field
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
@@ -11344,6 +11390,10 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      */
     getEnergyPlans: async (
       planIds?: Array<string>,
+      planTypes?: Array<'STANDING' | 'MARKET' | 'REGULATED'>,
+      fuelTypes?: Array<'ELECTRICITY' | 'GAS' | 'DUAL'>,
+      effective?: 'CURRENT' | 'FUTURE',
+      updatedSince?: string,
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
@@ -11369,6 +11419,22 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
 
       if (planIds) {
         localVarQueryParameter['planIds'] = planIds;
+      }
+
+      if (planTypes) {
+        localVarQueryParameter['planTypes'] = planTypes;
+      }
+
+      if (fuelTypes) {
+        localVarQueryParameter['fuelTypes'] = fuelTypes;
+      }
+
+      if (effective !== undefined) {
+        localVarQueryParameter['effective'] = effective;
+      }
+
+      if (updatedSince !== undefined) {
+        localVarQueryParameter['updatedSince'] = updatedSince;
       }
 
       if (dataHolderBrandIds) {
@@ -11618,6 +11684,10 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * Obtain the list of energy plans across all data holders
      * @summary Get Energy Plans
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
+     * @param {Array<'STANDING' | 'MARKET' | 'REGULATED'>} [planTypes] Used to filter results on the type field.
+     * @param {Array<'ELECTRICITY' | 'GAS' | 'DUAL'>} [fuelTypes] Used to filter results on the fuel type field.
+     * @param {'CURRENT' | 'FUTURE'} [effective] Used to filter results on the effective field.
+     * @param {string} [updatedSince] Used to filter results on the updatedSince field
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
@@ -11626,6 +11696,10 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      */
     async getEnergyPlans(
       planIds?: Array<string>,
+      planTypes?: Array<'STANDING' | 'MARKET' | 'REGULATED'>,
+      fuelTypes?: Array<'ELECTRICITY' | 'GAS' | 'DUAL'>,
+      effective?: 'CURRENT' | 'FUTURE',
+      updatedSince?: string,
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
@@ -11633,6 +11707,10 @@ export const EnergyApiFp = function (configuration?: Configuration) {
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyPlanList>> {
       const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyPlans(
         planIds,
+        planTypes,
+        fuelTypes,
+        effective,
+        updatedSince,
         dataHolderBrandIds,
         page,
         pageSize,
@@ -11857,6 +11935,10 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * Obtain the list of energy plans across all data holders
      * @summary Get Energy Plans
      * @param {Array<string>} [planIds] Used to filter results on the planId field.
+     * @param {Array<'STANDING' | 'MARKET' | 'REGULATED'>} [planTypes] Used to filter results on the type field.
+     * @param {Array<'ELECTRICITY' | 'GAS' | 'DUAL'>} [fuelTypes] Used to filter results on the fuel type field.
+     * @param {'CURRENT' | 'FUTURE'} [effective] Used to filter results on the effective field.
+     * @param {string} [updatedSince] Used to filter results on the updatedSince field
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
@@ -11865,13 +11947,27 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      */
     getEnergyPlans(
       planIds?: Array<string>,
+      planTypes?: Array<'STANDING' | 'MARKET' | 'REGULATED'>,
+      fuelTypes?: Array<'ELECTRICITY' | 'GAS' | 'DUAL'>,
+      effective?: 'CURRENT' | 'FUTURE',
+      updatedSince?: string,
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyPlanList> {
       return EnergyApiFp(configuration)
-        .getEnergyPlans(planIds, dataHolderBrandIds, page, pageSize, options)
+        .getEnergyPlans(
+          planIds,
+          planTypes,
+          fuelTypes,
+          effective,
+          updatedSince,
+          dataHolderBrandIds,
+          page,
+          pageSize,
+          options,
+        )
         .then((request) => request(axios, basePath));
     },
   };
@@ -12099,6 +12195,10 @@ export class EnergyApi extends BaseAPI {
    * Obtain the list of energy plans across all data holders
    * @summary Get Energy Plans
    * @param {Array<string>} [planIds] Used to filter results on the planId field.
+   * @param {Array<'STANDING' | 'MARKET' | 'REGULATED'>} [planTypes] Used to filter results on the type field.
+   * @param {Array<'ELECTRICITY' | 'GAS' | 'DUAL'>} [fuelTypes] Used to filter results on the fuel type field.
+   * @param {'CURRENT' | 'FUTURE'} [effective] Used to filter results on the effective field.
+   * @param {string} [updatedSince] Used to filter results on the updatedSince field
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
    * @param {number} [pageSize] Page size to request
@@ -12108,13 +12208,27 @@ export class EnergyApi extends BaseAPI {
    */
   public getEnergyPlans(
     planIds?: Array<string>,
+    planTypes?: Array<'STANDING' | 'MARKET' | 'REGULATED'>,
+    fuelTypes?: Array<'ELECTRICITY' | 'GAS' | 'DUAL'>,
+    effective?: 'CURRENT' | 'FUTURE',
+    updatedSince?: string,
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
     options?: any,
   ) {
     return EnergyApiFp(this.configuration)
-      .getEnergyPlans(planIds, dataHolderBrandIds, page, pageSize, options)
+      .getEnergyPlans(
+        planIds,
+        planTypes,
+        fuelTypes,
+        effective,
+        updatedSince,
+        dataHolderBrandIds,
+        page,
+        pageSize,
+        options,
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 }
