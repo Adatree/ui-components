@@ -50,3 +50,19 @@ WithDisabledOptions.args = {
     }
   },
 };
+
+export const WithOddSizedLogosOptions = Template.bind({});
+const dataHoldersOddLogos = [
+  { ...TestUtil.testData.dataHolder.redBank(), logoUri: 'https://placehold.co/600x200/FF0000/FFF?text=Wide' },
+  { ...TestUtil.testData.dataHolder.yellowBank(), logoUri: 'https://placehold.co/200x600/FFFF00/000?text=Tall' },
+];
+WithOddSizedLogosOptions.args = {
+  dataHolders: dataHoldersOddLogos,
+  onChange: (dataHolder: DataHolder | null) => {
+    if (dataHolder) {
+      alert(`You have selected ${dataHolder.brandName} with ID ${dataHolder.dataHolderBrandId}.`);
+    } else {
+      alert(`You have cleared the selector.`);
+    }
+  },
+};

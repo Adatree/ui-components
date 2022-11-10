@@ -77,7 +77,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
               alt="Logo"
               src={option.logoUri}
               component={'span'}
-              sx={{ mr: 2, img: { height: 'auto' } }}
+              sx={{ mr: 2, img: { objectFit: 'contain' } }}
               variant="square"
             >
               <Bank />
