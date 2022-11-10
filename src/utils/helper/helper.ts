@@ -9,7 +9,6 @@ import {
   ScopeResponse,
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
-import isEqual from 'lodash/isEqual';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
