@@ -23,7 +23,7 @@ const HighResDataHoldersLogos = [
   },
 ];
 
-export const getHighResLogoUri = (dataholder: DataHolder): string => {
+const getHighResLogoUri = (dataholder: DataHolder): string => {
   let logoUri = dataholder.logoUri;
 
   for (let i = 0; i < HighResDataHoldersLogos.length; i++) {
@@ -34,4 +34,8 @@ export const getHighResLogoUri = (dataholder: DataHolder): string => {
   }
 
   return logoUri;
+};
+
+export const Images = {
+  getHighResLogoUri,
 };

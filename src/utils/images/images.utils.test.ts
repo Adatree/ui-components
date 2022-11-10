@@ -1,7 +1,7 @@
-import { getHighResLogoUri } from './images.utils';
+import { Images } from './images.utils';
 
 describe('Image Utils', () => {
-  describe('getHighResLogoUri', () => {
+  describe('Images.getHighResLogoUri', () => {
     it('should get the correct HD logo URI for ANZ', () => {
       const AnzDataHolder = {
         brandName: 'ANZ',
@@ -9,7 +9,7 @@ describe('Image Utils', () => {
         logoUri: '/some-url/logo.png',
       };
 
-      const logoUri = getHighResLogoUri(AnzDataHolder);
+      const logoUri = Images.getHighResLogoUri(AnzDataHolder);
 
       expect(logoUri).toEqual('https://design.adatree.com.au/assets/images/data-holders/banks/anz-logo.svg');
     });
@@ -21,7 +21,7 @@ describe('Image Utils', () => {
         logoUri: '/some-url/logo.png',
       };
 
-      const logoUri = getHighResLogoUri(AnzDataHolder);
+      const logoUri = Images.getHighResLogoUri(AnzDataHolder);
 
       expect(logoUri).toEqual('https://design.adatree.com.au/assets/images/data-holders/banks/commbank-logo.svg');
     });
@@ -33,7 +33,7 @@ describe('Image Utils', () => {
         logoUri: '/some-url/logo.png',
       };
 
-      const logoUri = getHighResLogoUri(AnzDataHolder);
+      const logoUri = Images.getHighResLogoUri(AnzDataHolder);
 
       expect(logoUri).toEqual('https://design.adatree.com.au/assets/images/data-holders/banks/nab-logo.svg');
     });
@@ -45,7 +45,7 @@ describe('Image Utils', () => {
         logoUri: '/some-url/logo.png',
       };
 
-      const logoUri = getHighResLogoUri(AnzDataHolder);
+      const logoUri = Images.getHighResLogoUri(AnzDataHolder);
 
       expect(logoUri).toEqual('https://design.adatree.com.au/assets/images/data-holders/banks/westpac-logo.svg');
     });
@@ -57,7 +57,7 @@ describe('Image Utils', () => {
         logoUri: '/some-url/logo.png',
       };
 
-      const logoUri = getHighResLogoUri(nonHdDataHolder);
+      const logoUri = Images.getHighResLogoUri(nonHdDataHolder);
 
       expect(logoUri).toEqual('/some-url/logo.png');
     });
