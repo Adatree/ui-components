@@ -7,6 +7,7 @@ type DataRecipientsContextType = {
   adrDataRecipient: DataRecipient;
   primaryDataRecipient: DataRecipient;
   dataRecipients: DataRecipient[];
+  addDataRecipient: (dataRecipient: DataRecipient) => void;
   setDataRecipients: React.Dispatch<React.SetStateAction<DataRecipient[]>>;
 };
 
@@ -28,13 +29,33 @@ type DataRecipientsProviderProps = {
 
 const DataRecipientsProvider = ({ accreditationNum, children, initialDataRecipients }: DataRecipientsProviderProps) => {
   const [accreditationNumber] = React.useState<string>(accreditationNum);
-  const [adrDataRecipient] = React.useState<DataRecipient>(Helper.getAdrDataRecipients(initialDataRecipients));
+  const [adrDataRecipient, setAdrDataRecipient] = React.useState<DataRecipient>(
+    Helper.getAdrDataRecipients(initialDataRecipients),
+  );
   const [dataRecipients, setDataRecipients] = React.useState<DataRecipient[]>(initialDataRecipients);
-  const [primaryDataRecipient] = React.useState<DataRecipient>(Helper.getPrimaryDataRecipients(initialDataRecipients));
+  const [primaryDataRecipient, setPrimaryDataRecipient] = React.useState<DataRecipient>(
+    Helper.getPrimaryDataRecipients(initialDataRecipients),
+  );
+
+  const addDataRecipient = (dataRecipient: DataRecipient) => {
+    const dataRecipientsClone = [...dataRecipients];
+    dataRecipientsClone.push(dataRecipient);
+
+    setDataRecipients(dataRecipientsClone);
+    setAdrDataRecipient(Helper.getAdrDataRecipients(dataRecipientsClone));
+    setPrimaryDataRecipient(Helper.getPrimaryDataRecipients(dataRecipientsClone));
+  };
 
   return (
     <DataRecipientsContext.Provider
-      value={{ accreditationNumber, adrDataRecipient, primaryDataRecipient, dataRecipients, setDataRecipients }}
+      value={{
+        accreditationNumber,
+        adrDataRecipient,
+        primaryDataRecipient,
+        dataRecipients,
+        addDataRecipient,
+        setDataRecipients,
+      }}
     >
       {children}
     </DataRecipientsContext.Provider>
