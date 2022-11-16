@@ -195,6 +195,14 @@ const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipien
     return dataRecipients[0];
   }
 
+  const foundGrantee = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.GRANTEE;
+  });
+
+  if (foundGrantee) {
+    return foundGrantee;
+  }
+
   const foundTrustedAdviser = dataRecipients.find((dataRecipient) => {
     return dataRecipient.type === DataRecipientType.TRUSTED_ADVISER;
   });

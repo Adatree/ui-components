@@ -134,6 +134,11 @@ describe('Helper Utils', () => {
   describe('getPrimaryDataRecipients', () => {
     it('should get the correct primary dataRecipient based the priority logic in the function', () => {
       const onelist = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const granteeList1 = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.granteeRepresentative(),
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
+      ];
       const cdrrList1 = [
         TestUtil.testData.dataRecipient.accreditedDataRecipient(),
         TestUtil.testData.dataRecipient.cdrRepresentative(),
@@ -161,6 +166,7 @@ describe('Helper Utils', () => {
 
       expect(Helper.getPrimaryDataRecipients(onelist).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
       expect(Helper.getPrimaryDataRecipients(cdrrList1).type).toEqual(DataRecipientType.CDR_REPRESENTATIVE);
+      expect(Helper.getPrimaryDataRecipients(granteeList1).type).toEqual(DataRecipientType.GRANTEE);
       expect(Helper.getPrimaryDataRecipients(taList1).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
       expect(Helper.getPrimaryDataRecipients(taList2).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
       expect(Helper.getPrimaryDataRecipients(taList3).type).toEqual(DataRecipientType.TRUSTED_ADVISER);

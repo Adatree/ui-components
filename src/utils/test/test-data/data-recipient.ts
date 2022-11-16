@@ -24,6 +24,18 @@ export const cdrRepresentative = (): DataRecipient => {
   };
 };
 
+export const granteeRepresentative = (): DataRecipient => {
+  return {
+    complaintEmail: 'adr-complaint@example.com',
+    cdrPolicyUrl: 'https://www.example.com/adr-cdr-policy',
+    dataSharingRevocationEmail: 'adr.data.sharing.revocation@example.com',
+    description: 'This is Grantee and they provide the service X.',
+    logo: '/assets/images/adr-test-company-logo.png',
+    name: 'Grantee Company',
+    type: DataRecipientType.GRANTEE,
+  };
+};
+
 export const trustedAdvisor = (): DataRecipient => {
   return {
     complaintEmail: 'adr-complaint@example.com',
@@ -49,13 +61,20 @@ export const trustedAdvisorServiceProvider = (): DataRecipient => {
 };
 
 const all = (): DataRecipient[] => {
-  return [accreditedDataRecipient(), cdrRepresentative(), trustedAdvisor(), trustedAdvisorServiceProvider()];
+  return [
+    accreditedDataRecipient(),
+    cdrRepresentative(),
+    granteeRepresentative(),
+    trustedAdvisor(),
+    trustedAdvisorServiceProvider(),
+  ];
 };
 
 export const dataRecipient = {
   all,
   accreditedDataRecipient,
   cdrRepresentative,
+  granteeRepresentative,
   trustedAdvisor,
   trustedAdvisorServiceProvider,
 };
