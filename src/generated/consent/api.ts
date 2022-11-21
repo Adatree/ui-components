@@ -337,6 +337,12 @@ export interface ConsentResponse {
    * @memberof ConsentResponse
    */
   grantee?: ConsentGrantee;
+  /**
+   *
+   * @type {ServiceProvider}
+   * @memberof ConsentResponse
+   */
+  serviceProvider?: ServiceProvider;
 }
 /**
  *
@@ -551,13 +557,13 @@ export interface Grantee {
    * @type {string}
    * @memberof Grantee
    */
-  name: string;
+  name?: string;
   /**
    * ACL number of a consent grantee, only applicable using a Machine token
    * @type {string}
    * @memberof Grantee
    */
-  licenceNumber: string;
+  licenceNumber?: string;
   /**
    * A grantee\'s UUID. When grantee id is supplied, name and licenceNumber must NOT be supplied. Applicable using a Machine token or a Consumer token
    * @type {string}
@@ -781,6 +787,31 @@ export interface ScopeResponse {
    * @memberof ScopeResponse
    */
   priority?: number;
+}
+/**
+ * Grantee\'s service provider
+ * @export
+ * @interface ServiceProvider
+ */
+export interface ServiceProvider {
+  /**
+   * trusted adviser service provider name
+   * @type {string}
+   * @memberof ServiceProvider
+   */
+  name?: string;
+  /**
+   * service provider\'s website or contact info (email, phone number & etc)
+   * @type {string}
+   * @memberof ServiceProvider
+   */
+  uri?: string;
+  /**
+   * description of the service provider
+   * @type {string}
+   * @memberof ServiceProvider
+   */
+  description?: string;
 }
 /**
  * sharingDuration for Once_off consent can only be \"ONCE_OFF\" <br/> sharingDuration for Ongoing consent could be one of predefined sharing durations or \"CUSTOM\" <br/> \"CUSTOM\" (Ongoing consent) means a consumer is free to choose a sharingEndDate
