@@ -29,6 +29,7 @@ export { ScopeListSwitch } from './atoms/scope-list/scope-list-switch.atom';
 export { Tooltip } from './atoms/tooltip/tooltip.atom';
 
 // Molecules
+export { AlertInputFrom } from './molecules/alert-input-form/alert-input-form';
 export { BlockedDataholderDialog } from './molecules/blocked-dataholder-dialog/blocked-dataholder-dialog.molecule';
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentDetails } from './molecules/consent-details/consent-details.molecule';
