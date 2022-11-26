@@ -15,14 +15,12 @@ const Template: ComponentStory<typeof Accreditation> = (args) => <Accreditation 
 export const CdrPrincipal = Template.bind({});
 CdrPrincipal.args = {
   accreditationNumber: '1234-5678',
-  cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
   companyName: 'TestCompany',
 };
 
 export const UnderCdrPrincipal = Template.bind({});
 UnderCdrPrincipal.args = {
   accreditationNumber: '1234-5678',
-  cdrPolicyUrl: 'https://www.adatree.com.au/cdrpolicy',
   companyName: 'TestCompany',
   underCdrPrincipal: true,
 };

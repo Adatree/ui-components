@@ -56,7 +56,6 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
       <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
         <Accreditation
           accreditationNumber={accreditationNumber}
-          cdrPolicyUrl={adrDataRecipient.cdrPolicyUrl}
           companyName={accreditationName}
           underCdrPrincipal={primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE}
         />

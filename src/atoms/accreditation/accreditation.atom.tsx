@@ -5,13 +5,12 @@ import { useCopy } from '../../context/copy.context';
 
 export type AccreditationProps = {
   accreditationNumber: string;
-  cdrPolicyUrl: string;
   companyName: string;
   underCdrPrincipal: boolean;
 };
 
 export const Accreditation: React.FC<AccreditationProps> = (props) => {
-  const { accreditationNumber, cdrPolicyUrl, companyName, underCdrPrincipal = false } = props;
+  const { accreditationNumber, companyName, underCdrPrincipal = false } = props;
   const [copy] = useCopy();
   const theme = useTheme();
 
@@ -25,6 +24,8 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
       ? 'https://design.adatree.com.au/assets/logos/cdr-blue-logo.svg'
       : 'https://design.adatree.com.au/assets/logos/cdr-white-logo.svg';
 
+  const cdrUrl = `https://www.cdr.gov.au/find-a-provider?provider=${accreditationNumber}`;
+
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -36,7 +37,7 @@ export const Accreditation: React.FC<AccreditationProps> = (props) => {
             {companyName}
           </Typography>
           <Typography variant="body2">
-            <LinkExternal href={cdrPolicyUrl} text={cdrText} />
+            <LinkExternal href={cdrUrl} text={cdrText} />
           </Typography>
         </Box>
       </Box>
