@@ -56,6 +56,20 @@ WithLoading.args = {
   },
 };
 
+export const WithNonFullWidth = Template.bind({});
+WithNonFullWidth.args = {
+  alertSeverity: 'success',
+  alertMessage: 'Enter some text and click the button to see it displayed in an alert box',
+  inputErrorMessage: '',
+  inputLabel: 'Enter some text',
+  isLoading: false,
+  primaryLabel: 'Click me',
+  primaryOnClick: (value) => {
+    alert(`You enter ${value}`);
+  },
+  fullWidth: false,
+};
+
 export const WithInputError = Template.bind({});
 WithInputError.args = {
   alertSeverity: 'success',

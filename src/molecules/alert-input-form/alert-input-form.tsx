@@ -15,6 +15,7 @@ export type AlertInputFromProps = {
   secondaryLabel?: string;
   secondaryMessage?: string;
   secondaryOnClick?: () => void;
+  fullWidth?: boolean;
 };
 
 export const AlertInputFrom: React.FC<AlertInputFromProps> = (props) => {
@@ -30,6 +31,7 @@ export const AlertInputFrom: React.FC<AlertInputFromProps> = (props) => {
     secondaryLabel,
     secondaryMessage,
     secondaryOnClick,
+    fullWidth = true,
   } = props;
   const [inputValue, setInputValue] = useState('');
   const [isInputError, setIsInputError] = useState(!!inputErrorMessage);
@@ -42,7 +44,7 @@ export const AlertInputFrom: React.FC<AlertInputFromProps> = (props) => {
           {alertMessage}
         </Alert>
         <TextField
-          sx={{ m: 2 }}
+          sx={{ m: 2, width: fullWidth ? '100%' : 'auto' }}
           label={inputLabel}
           type={inputType}
           variant="outlined"
