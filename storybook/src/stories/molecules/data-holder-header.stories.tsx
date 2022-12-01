@@ -20,6 +20,14 @@ WithActiveStatus.args = {
   },
 };
 
+export const WithActiveStatusAndGrantee = Template.bind({});
+WithActiveStatusAndGrantee.args = {
+  consent: TestUtil.testData.consent.activeWithGrantee(),
+  onRevokeClick: () => {
+    alert(`The revoke button was clicked`);
+  },
+};
+
 export const WithActiveStatusAndEditAction = Template.bind({});
 WithActiveStatusAndEditAction.args = {
   consent: TestUtil.testData.consent.active(),

@@ -17,19 +17,24 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   const { consent, editUrl = '', onRevokeClick } = props;
 
   let textDate = '';
+  let granteeName = '';
+
+  if (consent.grantee) {
+    granteeName = `to ${consent.grantee.name} `;
+  }
 
   switch (consent.status) {
     case Status.ACTIVE:
-      textDate = `Consent granted ${Formatter.formatDateTime(consent.created)}`;
+      textDate = `Consent ${granteeName}granted ${Formatter.formatDateTime(consent.created)}`;
       break;
     case Status.REQUESTED:
-      textDate = `Consent requested ${Formatter.formatDateTime(consent.created)}`;
+      textDate = `Consent ${granteeName}requested ${Formatter.formatDateTime(consent.created)}`;
       break;
     case Status.EXPIRED:
-      textDate = `Consent expired ${Formatter.formatDateTime(consent.sharingEndDate)}`;
+      textDate = `Consent ${granteeName}expired ${Formatter.formatDateTime(consent.sharingEndDate)}`;
       break;
     case Status.REVOKED:
-      textDate = `Consent revoked ${Formatter.formatDateTime(consent.revoked)}`;
+      textDate = `Consent ${granteeName}revoked ${Formatter.formatDateTime(consent.revoked)}`;
       break;
   }
   const handleonRevokeClick = () => {
