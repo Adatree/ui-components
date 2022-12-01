@@ -15,8 +15,10 @@ export type ListItemProps = {
 export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   const { consent, dataHolderLogoUrl, consentUrl } = props;
   const [copy] = useCopy();
+  const grantee = consent.grantee;
 
   let textDate = '';
+  let subtitle = 'Consent';
 
   switch (consent.status) {
     case Status.ACTIVE:
@@ -31,6 +33,10 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
     case Status.REVOKED:
       textDate = `${copy.common.status_revoked_label} ${Formatter.formatDate(consent.revoked)}`;
       break;
+  }
+
+  if (grantee) {
+    subtitle = `Consent to ${grantee.name}`;
   }
 
   return (
@@ -57,7 +63,9 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
         <Box>
           <Typography variant="h3">{consent.dataHolderName}</Typography>
           <Typography variant="subtitle1" variantMapping={{ subtitle1: 'h4' }}>
-            <span>Consent {textDate}</span>
+            <span>
+              {subtitle} {textDate}
+            </span>
           </Typography>
         </Box>
         <Box sx={{ ml: 'auto', display: 'flex' }}>

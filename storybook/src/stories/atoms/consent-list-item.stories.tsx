@@ -19,6 +19,13 @@ Active.args = {
   dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
 };
 
+export const ActiveWithGrantee = Template.bind({});
+ActiveWithGrantee.args = {
+  consent: TestUtil.testData.consent.activeWithGrantee(),
+  consentUrl: `/some-url/${TestUtil.testData.consent.active().consentId}`,
+  dataHolderLogoUrl: TestUtil.testData.dataHolder.yellowBank().logoUri,
+};
+
 export const Expired = Template.bind({});
 Expired.args = {
   consent: TestUtil.testData.consent.expired(),
