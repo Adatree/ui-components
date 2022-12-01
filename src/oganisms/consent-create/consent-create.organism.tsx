@@ -53,7 +53,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
         <>
           {!consentForm.dataHolder && (
             <ConsentInputDataHolder
-              existingConsents={existingConsents}
+              disableDataHolders={disableDataHolders}
               useCase={useCase}
               favouriteDataHolders={favouriteDataHolders}
               blockedDataHolderList={blockedDataHolderList}

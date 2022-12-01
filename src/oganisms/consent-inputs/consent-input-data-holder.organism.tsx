@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
+import { DataHolder, UseCaseResponse } from '../../generated/consent';
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { useConsentForm } from '../../context/consentForm.context';
-import { Helper } from '../../utils/helper/helper';
 import { Box, Typography } from '@mui/material';
 import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
 import { useCopy } from '../../context/copy.context';
@@ -10,26 +9,20 @@ import { Logger } from '../../utils/logger/logger';
 import { BlockedDataholderDialog } from '../../molecules/blocked-dataholder-dialog/blocked-dataholder-dialog.molecule';
 
 export type ConsentInputDataHolderProps = {
-  existingConsents: ConsentResponse[];
+  disableDataHolders: DataHolder[];
   useCase: UseCaseResponse;
   favouriteDataHolders?: DataHolder[];
   blockedDataHolderList?: DataHolder[];
 };
 
 export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
-  const { existingConsents, favouriteDataHolders, useCase, blockedDataHolderList = [] } = props;
+  const { disableDataHolders, favouriteDataHolders, useCase, blockedDataHolderList = [] } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
 
   const [blockedDataHolder, setBlockedDataHolder] = useState<DataHolder | undefined>(undefined);
   const [isblockedDialogOpen, setBlockedDialogOpen] = useState(false);
-
-  const disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(
-    useCase.dataHolders,
-    existingConsents,
-    useCase,
-  );
 
   const isDataHolderBlocked = (dataHolder: DataHolder): boolean => {
     const isBlocked =
