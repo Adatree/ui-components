@@ -22,3 +22,43 @@ WithAllDates.args = {
     alert('The revoke button has been clicked');
   },
 };
+
+export const WithActiveStatusAndGrantee = Template.bind({});
+WithActiveStatusAndGrantee.args = {
+  consent: TestUtil.testData.consent.activeWithGrantee(),
+  dateTitle: 'Key dates',
+  useCasetTitle: 'Data we are currently receiving',
+  onRevokeClick: () => {
+    alert('The revoke button has been clicked');
+  },
+};
+
+export const WithExpiredStatusAndGrantee = Template.bind({});
+WithExpiredStatusAndGrantee.args = {
+  consent: TestUtil.testData.consent.expiredWithGrantee(),
+  dateTitle: 'Key dates',
+  useCasetTitle: 'Data we are currently receiving',
+  onRevokeClick: () => {
+    alert('The revoke button has been clicked');
+  },
+};
+
+export const WithRequestedStatusAndGrantee = Template.bind({});
+WithRequestedStatusAndGrantee.args = {
+  consent: TestUtil.testData.consent.requestedWithGrantee(),
+  dateTitle: 'Key dates',
+  useCasetTitle: 'Data we are currently receiving',
+  onRevokeClick: () => {
+    alert('The revoke button has been clicked');
+  },
+};
+
+export const WithRevokedStatusAndGrantee = Template.bind({});
+WithRevokedStatusAndGrantee.args = {
+  consent: TestUtil.testData.consent.revokedWithGrantee(),
+  dateTitle: 'Key dates',
+  useCasetTitle: 'Data we are currently receiving',
+  onRevokeClick: () => {
+    alert('The revoke button has been clicked');
+  },
+};

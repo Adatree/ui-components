@@ -39,20 +39,8 @@ const active = (): ConsentResponse => {
 
 const activeWithGrantee = (): ConsentResponse => {
   return {
-    consentId: 'abc8d9c3-6527-4349-a8fb-d1f7f90f225d',
-    cdrArrangementId: '8e228588-5821-4a6f-8b39-fb9c346e2158',
-    consumerId: '2',
-    status: Status.ACTIVE,
-    created: new Date(2020, 10, 25).toISOString(),
-    consumerEmail: 'shane+test@adatree.com.au',
-    sharingEndDate: new Date(2023, 10, 2).toISOString(),
-    dataHolderName: dataHolder.yellowBank().brandName,
-    dataHolderBrandId: dataHolder.yellowBank().dataHolderBrandId,
-    dataHolderLogoUri: dataHolder.yellowBank().logoUri,
+    ...active(),
     grantee: { name: 'Nick the Broker', licenceNumber: '000999' },
-    useCase: useCase.homeLoan(),
-    postUsageAction: PostUsageAction.DELETION,
-    directMarketingAllowed: false,
   };
 };
 
@@ -73,6 +61,13 @@ const revoked = (): ConsentResponse => {
     useCase: useCase.ongoingConsentMinScopes(),
     postUsageAction: PostUsageAction.DELETION,
     directMarketingAllowed: false,
+  };
+};
+
+const revokedWithGrantee = (): ConsentResponse => {
+  return {
+    ...revoked(),
+    grantee: { name: 'Nick the Broker', licenceNumber: '000999' },
   };
 };
 
@@ -98,6 +93,13 @@ const requested = (): ConsentResponse => {
   };
 };
 
+const requestedWithGrantee = (): ConsentResponse => {
+  return {
+    ...requested(),
+    grantee: { name: 'Nick the Broker', licenceNumber: '000999' },
+  };
+};
+
 const expired = (): ConsentResponse => {
   return {
     version: undefined,
@@ -120,6 +122,12 @@ const expired = (): ConsentResponse => {
   };
 };
 
+const expiredWithGrantee = (): ConsentResponse => {
+  return {
+    ...expired(),
+    grantee: { name: 'Nick the Broker', licenceNumber: '000999' },
+  };
+};
 const all = (): ConsentResponse[] => {
   return [
     active(),
@@ -203,6 +211,9 @@ export const consent = {
   all,
   active,
   activeWithGrantee,
+  expiredWithGrantee,
+  requestedWithGrantee,
+  revokedWithGrantee,
   expired,
   requested,
   revoked,

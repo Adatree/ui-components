@@ -7,6 +7,7 @@ import { UseCaseSummary } from '../use-case-summary/use-case-summary.molecule';
 import { DateSummary } from '../date-summary/date-summary.molecule';
 import { DataRecipient } from '../../types/data-recipient.type';
 import { DataDisclosure } from '../data-disclosure/data-disclosure.molecule';
+import { GranteeSummary } from '../grantee-summary/grantee-summary.molecule';
 
 export type ConsentDetailsProps = {
   consent: ConsentResponse;
@@ -25,6 +26,8 @@ export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
       <Box sx={{ mb: 4 }}>
         <DataHolderHeader consent={consent} onRevokeClick={onRevokeClick} editUrl={editUrl} />
       </Box>
+
+      {consent.grantee && <GranteeSummary gantee={consent.grantee} status={consent.status} />}
 
       {consent.useCase && <UseCaseSummary title={useCasetTitle} useCase={consent.useCase} />}
 
