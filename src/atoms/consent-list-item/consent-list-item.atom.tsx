@@ -36,7 +36,7 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   }
 
   if (grantee) {
-    subtitle = `Consent to ${grantee.name}`;
+    subtitle = `Consent for ${grantee.name}`;
   }
 
   return (
