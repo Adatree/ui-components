@@ -20,7 +20,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   let granteeName = '';
 
   if (consent.grantee) {
-    granteeName = `to ${consent.grantee.name} `;
+    granteeName = `for ${consent.grantee.name} `;
   }
 
   switch (consent.status) {
