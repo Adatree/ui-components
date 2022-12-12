@@ -17,6 +17,6 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1-node16
         if: github.ref == 'refs/heads/main'
         with:
-          role-to-assume: arn:aws:iam::509445696409:role/WorkloadAccountDeployRole
+          role-to-assume: arn:aws:iam::509445696409:role/TenantAccountDeployRoleStrict
           aws-region: ${{ env.AWS_REGION }}
           role-duration-seconds: 1200
