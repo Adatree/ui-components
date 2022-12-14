@@ -43,8 +43,8 @@ jobs:
 
       - name: Deploy
         env:
-          FRONTEND_URL: test.developer.adatree.com.au
+          FRONTEND_URL: design.adatree.com.au
           STACK_NAME: design-site
-          CLOUDFRONT_ID: EPT31MLX7TYGA
+          CLOUDFRONT_ID: E1M34KAH85ULVF
         run: ci-cd/scripts/deploy.sh ${{ env.FRONTEND_URL }} ${{ env.STACK_NAME }} ${{ env.CLOUDFRONT_ID }} ${{ env.AWS_ACCOUNT }}
         shell: bash
