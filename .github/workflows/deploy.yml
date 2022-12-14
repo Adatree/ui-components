@@ -1,22 +1,50 @@
-name: Deploy
+name: Build & Deploy
 on: [push]
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ap-southeast-2
+  AWS_ACCOUNT: 509445696409
 
 jobs:
-  deploy:
-    name: deploy
+  build-and-deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Build Components
+        if: github.ref == 'refs/heads/main'
+        run: |
+          yarn install
+          yarn build
+
+      - name: Build Storybook
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd storybook
+          yarn install
+          yarn build-storybook
+
       - name: Configure AWS Credentials for tenant-adatree-saas-prod
         uses: aws-actions/configure-aws-credentials@v1-node16
         if: github.ref == 'refs/heads/main'
         with:
-          role-to-assume: arn:aws:iam::509445696409:role/TenantAccountDeployRoleStrict
+          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT}}:role/TenantAccountDeployRoleStrict
           aws-region: ${{ env.AWS_REGION }}
           role-duration-seconds: 1200
+
+      - name: Deploy
+        env:
+          FRONTEND_URL: test.developer.adatree.com.au
+          STACK_NAME: design-site
+          CLOUDFRONT_ID: EPT31MLX7TYGA
+        run: ci-cd/scripts/deploy.sh ${{ env.FRONTEND_URL }} ${{ env.STACK_NAME }} ${{ env.CLOUDFRONT_ID }} ${{ env.AWS_ACCOUNT }}
+        shell: bash
