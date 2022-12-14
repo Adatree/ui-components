@@ -16,7 +16,7 @@ This repo contains sharable Adatree react component based on [atomic design prin
 
 ## Prerequisites
 
-You need to be authorised to publish the npm package
+You need to be authorised to publish the npm package.
 
 Create a personal token, for details see [Gitlab docs](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
 
