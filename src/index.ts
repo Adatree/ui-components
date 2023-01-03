@@ -66,7 +66,7 @@ export { ThemeProvider } from './providers/theme.provider';
 
 // Themes
 export { CreateTheme } from './providers/themes/theme';
-export { AppTheme, darkTheme, defaultTheme } from './providers/themes/app.theme';
+export { AppTheme, darkTheme, defaultTheme, ThemeMode } from './providers/themes/app.theme';
 
 // Types
 export { Copy } from './types/copy.type';

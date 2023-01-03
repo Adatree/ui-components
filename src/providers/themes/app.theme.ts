@@ -1,7 +1,12 @@
 // MUI colour generator https://material.io/resources/color/
 
+export enum ThemeMode {
+  LIGHT = 'LIGHT',
+  DARK = 'DARK',
+}
+
 export type AppTheme = {
-  mode: 'LIGHT' | 'DARK';
+  mode: ThemeMode;
   colour: {
     primary: string;
     secondary: string;
@@ -29,7 +34,7 @@ export type AppTheme = {
 };
 
 export const defaultTheme: AppTheme = {
-  mode: 'LIGHT',
+  mode: ThemeMode.LIGHT,
   colour: {
     primary: '#48dfd2',
     secondary: '#021c55',
@@ -56,7 +61,7 @@ export const defaultTheme: AppTheme = {
 };
 
 export const darkTheme: AppTheme = {
-  mode: 'DARK',
+  mode: ThemeMode.DARK,
   colour: {
     primary: '#48dfd2',
     secondary: '#021c55',
