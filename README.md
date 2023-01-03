@@ -18,24 +18,17 @@ This repo contains sharable Adatree react component based on [atomic design prin
 
 You need to be authorised to publish the npm package.
 
-Create a personal token, for details see [Gitlab docs](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
-
-- In the top-right corner, select your avatar.
-- Select Edit profile.
-- On the left sidebar, select Access Tokens.
-- Enter `@adatree-oss/atomic-components` for the name and an optional expiry date for the token.
-- Select the `api` scope.
-- Select Create personal access token.
+Create a personal token (Classic), for details see [GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 Create a `.npmrc` file in the root of the project
 Copy the config below into the new file, updating YOUR_PERSONAL_ACCESS_TOKEN
 
 ```
 # Set URL for your scoped packages.
-@adatree-oss/atomic-components:registry=https://gitlab.com/api/v4/projects/32542974/packages/npm/
+@adatree/atomic-components:registry=https://npm.pkg.github.com
 
 # Set your token to allow you to publish the npm package
-//gitlab.com/api/v4/projects/32542974/packages/npm/:_authToken=<YOUR_PERSONAL_ACCESS_TOKEN>
+//npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
 ```
 
 ## How to publish
