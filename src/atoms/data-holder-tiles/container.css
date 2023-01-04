@@ -13,6 +13,12 @@
   }
 }
 
+@container (min-width: 0px) {
+  .adt-card {
+    flex-basis: 50%;
+  }
+}
+
 @container (min-width: 900px) {
   .adt-card {
     flex-basis: 25%;
