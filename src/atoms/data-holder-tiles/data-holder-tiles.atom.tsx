@@ -2,6 +2,7 @@ import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
+import './container.css';
 
 export type DataHolderTilesProps = {
   dataHolders: DataHolder[];
@@ -32,14 +33,13 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid className="adt-container" container spacing={2}>
       {dataHolders.map((dataHolder) => {
         const disabled = isDisabled(dataHolder);
         return (
           <Grid
+            className="adt-card"
             item
-            xs={6}
-            md={3}
             sx={{ cursor: 'pointer', position: 'relative' }}
             onClick={() => handleClick(dataHolder, disabled)}
             key={dataHolder.dataHolderBrandId}

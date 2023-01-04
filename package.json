@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "4.10.5",
+  "version": "4.10.6",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^1.0.10-4.2.3",
-    "@types/lodash": "4.14.184",
     "@types/jest": "^27.4.0",
+    "@types/lodash": "4.14.184",
     "@types/react": "^17.0.38",
     "@types/styled-components": "^5.1.19",
     "@types/uuid": "^8.3.4",
@@ -48,9 +48,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "jest": "^27.4.7",
+    "postcss": "^8.4.20",
     "prettier": "2.5.1",
     "process": "^0.11.10",
     "rollup": "^2.63.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "ts-jest": "^27.1.2",
     "typescript": "^4.5.4"

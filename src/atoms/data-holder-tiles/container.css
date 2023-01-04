@@ -1,0 +1,20 @@
+.adt-container {
+  container-type: inline-size;
+}
+
+.adt-card {
+  flex-basis: 50%;
+}
+
+/* Legacy browser's that do not support @container */
+@media (min-width: 900px) {
+  .adt-card {
+    flex-basis: 25%;
+  }
+}
+
+@container (min-width: 900px) {
+  .adt-card {
+    flex-basis: 25%;
+  }
+}
