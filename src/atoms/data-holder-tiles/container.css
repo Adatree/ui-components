@@ -15,11 +15,17 @@
 
 @container (min-width: 0px) {
   .adt-card {
+    flex-basis: 100%;
+  }
+}
+
+@container (min-width: 300px) {
+  .adt-card {
     flex-basis: 50%;
   }
 }
 
-@container (min-width: 900px) {
+@container (min-width: 600px) {
   .adt-card {
     flex-basis: 25%;
   }

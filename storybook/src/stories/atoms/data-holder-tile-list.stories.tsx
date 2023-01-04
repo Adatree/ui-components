@@ -29,3 +29,21 @@ WithTwoDisabled.args = {
     alert(`${dataHolder.brandName} was clicked.`);
   },
 };
+
+export const WithIrregularLogos = Template.bind({});
+WithIrregularLogos.args = {
+  dataHolders: [
+    TestUtil.testData.dataHolder.longBank(),
+    TestUtil.testData.dataHolder.redBank(),
+    TestUtil.testData.dataHolder.yellowBank(),
+    TestUtil.testData.dataHolder.originalEnergy(),
+    TestUtil.testData.dataHolder.yourPowerEnergy(),
+    TestUtil.testData.dataHolder.ecoPowerEnergy(),
+    TestUtil.testData.dataHolder.tallBank(),
+    TestUtil.testData.dataHolder.ozGasEnergy(),
+  ],
+
+  onClick: (dataHolder) => {
+    alert(`${dataHolder.brandName} was clicked.`);
+  },
+};

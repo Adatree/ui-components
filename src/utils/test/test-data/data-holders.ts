@@ -32,6 +32,22 @@ const greenBank = (): DataHolder => {
   };
 };
 
+const longBank = (): DataHolder => {
+  return {
+    dataHolderBrandId: '11111',
+    brandName: 'Long Bank of Australia',
+    logoUri: 'https://placehold.co/800x200/000000/FFF?text=Long+Bank',
+  };
+};
+
+const tallBank = (): DataHolder => {
+  return {
+    dataHolderBrandId: '22222',
+    brandName: 'Tall Bank of Australia',
+    logoUri: 'https://placehold.co/200x800/000000/FFF?text=Tall+Bank',
+  };
+};
+
 const ecoPowerEnergy = (): DataHolder => {
   return {
     dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
@@ -77,6 +93,8 @@ export const dataHolder = {
   allEngery,
   redBank,
   yellowBank,
+  longBank,
+  tallBank,
   ecoPowerEnergy,
   originalEnergy,
   ozGasEnergy,
