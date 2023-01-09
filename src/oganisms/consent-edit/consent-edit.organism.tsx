@@ -151,7 +151,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       <ConsentSectionInfo useCase={useCase} dataHandlers={dataRecipients} />
 
       {!isEditable && (
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="contained" onClick={handleCancel} sx={{ width: { xs: '100%', sm: '20rem' } }}>
             {copy.common.button_label_finished}
           </Button>

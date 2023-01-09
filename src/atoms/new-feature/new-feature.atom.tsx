@@ -39,7 +39,7 @@ export const NewFeature: React.FC<NewFeatureProps> = (props) => {
         size="small"
         variant="contained"
         color="info"
-        sx={{ mt: 1, color: 'common.white', alignSelf: 'end' }}
+        sx={{ mt: 1, color: 'common.white', alignSelf: 'flex-end' }}
         onClick={() => handleClose()}
       >
         OK

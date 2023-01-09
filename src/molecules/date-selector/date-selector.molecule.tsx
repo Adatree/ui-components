@@ -61,7 +61,7 @@ export const DateSelector = (props: DateSelectorProps) => {
 
       {((!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1) ||
         (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)) && (
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'end' } }}>
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' } }}>
           <DateButton
             sharingDurations={sharingDurations}
             onClick={handleDateButtonClick}
@@ -76,7 +76,7 @@ export const DateSelector = (props: DateSelectorProps) => {
             mt: 1,
             mr: { xs: 0, sm: 12 },
             display: 'flex',
-            justifyContent: { xs: 'center', sm: 'end' },
+            justifyContent: { xs: 'center', sm: 'flex-end' },
           }}
         >
           or
@@ -88,7 +88,7 @@ export const DateSelector = (props: DateSelectorProps) => {
             mt: 2,
             display: 'flex',
             width: { xs: '100%', sm: 'inherit' },
-            justifyContent: { xs: 'center', sm: 'end' },
+            justifyContent: { xs: 'center', sm: 'flex-end' },
           }}
         >
           <DatePicker date={sharingEndDate} label="Expire on" onChange={handleDatePickerChange} />
