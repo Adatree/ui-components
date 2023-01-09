@@ -26,10 +26,15 @@ const generatePaletteColor = (hexColour: string, contrastTextColour?: string): S
 
 export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptions>): Theme => {
   const fontFamilyBase = appTheme.font.fontFamily;
-  let fontFamilyHeadings = appTheme.font.fontFamily;
 
+  let fontFamilyHeadings = appTheme.font.fontFamily;
   if (appTheme.font.fontFamilyHeadings) {
     fontFamilyHeadings = appTheme.font.fontFamilyHeadings;
+  }
+
+  let buttonBorderRadius = '4px';
+  if (appTheme.components?.button?.borderRadius) {
+    buttonBorderRadius = appTheme.components?.button?.borderRadius;
   }
 
   const baseTheme: ThemeOptions = {
@@ -130,6 +135,7 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
         styleOverrides: {
           root: {
             textTransform: 'capitalize',
+            borderRadius: buttonBorderRadius,
           },
         },
       },

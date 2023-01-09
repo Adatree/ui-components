@@ -27,6 +27,11 @@ export type AppTheme = {
       highlight: string;
     };
   };
+  components?: {
+    button?: {
+      borderRadius?: string;
+    };
+  };
   font: {
     fontFamily: string;
     fontFamilyHeadings?: string;

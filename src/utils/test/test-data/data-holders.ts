@@ -34,7 +34,7 @@ const greenBank = (): DataHolder => {
 
 const longBank = (): DataHolder => {
   return {
-    dataHolderBrandId: '11111',
+    dataHolderBrandId: '11111-11111',
     brandName: 'Long Bank of Australia',
     logoUri: 'https://placehold.co/800x200/000000/FFF?text=Long+Bank',
   };
@@ -42,7 +42,7 @@ const longBank = (): DataHolder => {
 
 const tallBank = (): DataHolder => {
   return {
-    dataHolderBrandId: '22222',
+    dataHolderBrandId: '22222-22222',
     brandName: 'Tall Bank of Australia',
     logoUri: 'https://placehold.co/200x800/000000/FFF?text=Tall+Bank',
   };
