@@ -20,6 +20,17 @@ You need to be authorised to publish the npm package.
 
 Create a personal token (Classic), for details see [GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
+You will need the following scopes
+
+```
+ repo (Required - Full access)
+
+ write:packages (Required - For Publishing)
+    read:packages  (Required)
+
+ delete:packages (Optional)
+```
+
 Create a `.npmrc` file in the root of the project
 Copy the config below into the new file, updating YOUR_PERSONAL_ACCESS_TOKEN
 
