@@ -36,7 +36,7 @@ Copy the config below into the new file, updating YOUR_PERSONAL_ACCESS_TOKEN
 
 ```
 # Set URL for your scoped packages.
-@adatree/atomic-components:registry=https://npm.pkg.github.com
+@adatree:registry=https://npm.pkg.github.com
 
 # Set your token to allow you to publish the npm package
 //npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
