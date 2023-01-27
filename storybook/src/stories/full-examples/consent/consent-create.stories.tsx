@@ -37,7 +37,7 @@ const baseConsentFormValues = {
   allRemoveScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
-  postUsageAction: PostUsageAction.DELETION,
+  postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,
   useCaseId: undefined,
 };
@@ -68,8 +68,8 @@ WithOngoingAccess.decorators = [
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = {
       ...getUseCase(context.globals.industry),
-      sharingDurations: [SharingDuration.THREEMONTHS],
-      accessFrequency: AccessFrequency.ONGOING,
+      sharingDurations: [SharingDuration.ThreeMonths],
+      accessFrequency: AccessFrequency.Ongoing,
     };
 
     return (
@@ -88,8 +88,8 @@ WithOnceOffAccess.decorators = [
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = {
       ...getUseCase(context.globals.industry),
-      sharingDurations: [SharingDuration.ONCEOFF],
-      accessFrequency: AccessFrequency.ONCEOFF,
+      sharingDurations: [SharingDuration.OnceOff],
+      accessFrequency: AccessFrequency.OnceOff,
     };
 
     return (
@@ -109,8 +109,8 @@ WithSupportingParties.decorators = [
     context.args.useCase = {
       ...getUseCase(context.globals.industry),
       osps: TestUtil.testData.outsourcedServiceProvider.all(),
-      sharingDurations: [SharingDuration.ONCEOFF],
-      accessFrequency: AccessFrequency.ONCEOFF,
+      sharingDurations: [SharingDuration.OnceOff],
+      accessFrequency: AccessFrequency.OnceOff,
     };
 
     return (

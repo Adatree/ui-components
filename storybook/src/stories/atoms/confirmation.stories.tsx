@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof Confirmation> = (args) => <Confirmation {.
 export const WithPeriod = Template.bind({});
 WithPeriod.args = {
   companyName: companyName,
-  sharingDuration: SharingDuration.SIXMONTHS,
+  sharingDuration: SharingDuration.SixMonths,
   endDate: new Date(),
   onChange: (checked: boolean) => {
     alert(`Confirmation checkbox is ${checked === true ? 'checked' : 'unchecked'}`);
@@ -26,7 +26,7 @@ WithPeriod.args = {
 export const WithOnceOff = Template.bind({});
 WithOnceOff.args = {
   companyName: companyName,
-  sharingDuration: SharingDuration.ONCEOFF,
+  sharingDuration: SharingDuration.OnceOff,
   endDate: new Date(),
   onChange: (checked: boolean) => {
     alert(`Confirmation checkbox is ${checked === true ? 'checked' : 'unchecked'}`);
@@ -36,7 +36,7 @@ WithOnceOff.args = {
 export const WithCustom = Template.bind({});
 WithCustom.args = {
   companyName: companyName,
-  sharingDuration: SharingDuration.CUSTOM,
+  sharingDuration: SharingDuration.Custom,
   endDate: new Date(),
   onChange: (checked: boolean) => {
     alert(`Confirmation checkbox is ${checked === true ? 'checked' : 'unchecked'}`);

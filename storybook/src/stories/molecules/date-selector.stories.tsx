@@ -26,7 +26,7 @@ WithOnceOffDuration.decorators = [
 ];
 WithOnceOffDuration.args = {
   companyName: companyName,
-  sharingDurations: [SharingDuration.ONCEOFF],
+  sharingDurations: [SharingDuration.OnceOff],
 };
 
 export const WithOneWeekDuration = Template.bind({});
@@ -41,7 +41,7 @@ WithOneWeekDuration.decorators = [
 ];
 WithOneWeekDuration.args = {
   companyName: companyName,
-  sharingDurations: [SharingDuration.ONEWEEK],
+  sharingDurations: [SharingDuration.OneWeek],
 };
 
 export const WithTwoWeeksDuration = Template.bind({});
@@ -56,7 +56,7 @@ WithTwoWeeksDuration.decorators = [
 ];
 WithTwoWeeksDuration.args = {
   companyName: companyName,
-  sharingDurations: [SharingDuration.TWOWEEKS],
+  sharingDurations: [SharingDuration.TwoWeeks],
 };
 
 export const WithCustomDuration = Template.bind({});
@@ -71,7 +71,7 @@ WithCustomDuration.decorators = [
 ];
 WithCustomDuration.args = {
   companyName: companyName,
-  sharingDurations: [SharingDuration.CUSTOM],
+  sharingDurations: [SharingDuration.Custom],
 };
 
 export const WithManyDurations = Template.bind({});
@@ -87,10 +87,10 @@ WithManyDurations.decorators = [
 WithManyDurations.args = {
   companyName: companyName,
   sharingDurations: [
-    SharingDuration.ONEDAY,
-    SharingDuration.ONEWEEK,
-    SharingDuration.ONEMONTH,
-    SharingDuration.ONEYEAR,
+    SharingDuration.OneDay,
+    SharingDuration.OneWeek,
+    SharingDuration.OneMonth,
+    SharingDuration.OneYear,
   ],
 };
 
@@ -107,10 +107,10 @@ WithManyDurationsAndCustom.decorators = [
 WithManyDurationsAndCustom.args = {
   companyName: companyName,
   sharingDurations: [
-    SharingDuration.ONCEOFF,
-    SharingDuration.ONEDAY,
-    SharingDuration.TWOWEEKS,
-    SharingDuration.THREEMONTHS,
-    SharingDuration.CUSTOM,
+    SharingDuration.OnceOff,
+    SharingDuration.OneDay,
+    SharingDuration.TwoWeeks,
+    SharingDuration.ThreeMonths,
+    SharingDuration.Custom,
   ],
 };

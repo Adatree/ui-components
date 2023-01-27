@@ -23,7 +23,7 @@ const baseConsentFormValues = {
   allRemoveScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
-  postUsageAction: PostUsageAction.DELETION,
+  postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,
   useCaseId: undefined,
 };
@@ -54,7 +54,7 @@ WithNoChanges.args = {
   consent: TestUtil.testData.consent.active(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    accessFrequency: AccessFrequency.ONGOING,
+    accessFrequency: AccessFrequency.Ongoing,
   },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -77,7 +77,7 @@ WithNonActiveConsent.args = {
   consent: TestUtil.testData.consent.revoked(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    accessFrequency: AccessFrequency.ONGOING,
+    accessFrequency: AccessFrequency.Ongoing,
   },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -100,7 +100,7 @@ WithAdditionalUseCaseScopes.args = {
   consent: TestUtil.testData.consent.active(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    accessFrequency: AccessFrequency.ONGOING,
+    accessFrequency: AccessFrequency.Ongoing,
     scopes: [
       TestUtil.testData.scope.bankAccountsBasicRead(),
       TestUtil.testData.scope.bankTransactionsRead(),
@@ -172,7 +172,7 @@ WithCustomDate.decorators = [
 
 WithCustomDate.args = {
   consent: TestUtil.testData.consent.active(),
-  useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.CUSTOM] },
+  useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.Custom] },
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
@@ -194,7 +194,7 @@ WithMultiDates.args = {
   consent: TestUtil.testData.consent.active(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.ONEMONTH, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+    sharingDurations: [SharingDuration.OneMonth, SharingDuration.SixMonths, SharingDuration.OneYear],
   },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -217,7 +217,7 @@ WithMultiDatesAndCustom.args = {
   consent: TestUtil.testData.consent.active(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
   },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -240,7 +240,7 @@ WithAll.args = {
   consent: TestUtil.testData.consent.active(),
   useCase: {
     ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.CUSTOM, SharingDuration.SIXMONTHS, SharingDuration.ONEYEAR],
+    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
     scopes: [TestUtil.testData.scope.bankAccountsBasicRead(), TestUtil.testData.scope.bankAccountsDetailRead()],
   },
   onCancel: handleCancel,

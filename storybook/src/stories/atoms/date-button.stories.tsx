@@ -12,12 +12,12 @@ export default {
 } as ComponentMeta<typeof DateButton>;
 
 const sharingDurations = [
-  SharingDuration.ONCEOFF,
-  SharingDuration.ONEDAY,
-  SharingDuration.ONEWEEK,
-  SharingDuration.ONEMONTH,
-  SharingDuration.SIXMONTHS,
-  SharingDuration.ONEYEAR,
+  SharingDuration.OnceOff,
+  SharingDuration.OneDay,
+  SharingDuration.OneWeek,
+  SharingDuration.OneMonth,
+  SharingDuration.SixMonths,
+  SharingDuration.OneYear,
 ];
 const Template: ComponentStory<typeof DateButton> = (args) => <DateButton {...args} />;
 
@@ -32,7 +32,7 @@ WithValueUnselected.args = {
 export const WithValueSelected = Template.bind({});
 WithValueSelected.args = {
   sharingDurations: sharingDurations,
-  selectedSharingDuration: SharingDuration.ONEMONTH,
+  selectedSharingDuration: SharingDuration.OneMonth,
   onClick: (date) => {
     alert(`The computed date is ${date.toISOString()}`);
   },
