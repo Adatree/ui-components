@@ -15,7 +15,7 @@ export const DateSummary: React.FC<DateSummaryProps> = (props) => {
 
   let sharingEndDate: Date | string = 'After first use';
 
-  if (consent.useCase && consent.useCase.accessFrequency === AccessFrequency.ONGOING) {
+  if (consent.useCase && consent.useCase.accessFrequency === AccessFrequency.Ongoing) {
     sharingEndDate = Formatter.formatDateTime(consent.sharingEndDate);
   }
 

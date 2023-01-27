@@ -110,10 +110,10 @@ const getDataRecipients = (key) => {
 
 const getIndustry = (key) => {
   if (key === industryValues[0]) {
-    industry = Industry.BANKING;
+    industry = Industry.Banking;
     remountKey = Math.random();
   } else if (key === industryValues[1]) {
-    industry = Industry.ENERGY;
+    industry = Industry.Energy;
     remountKey = Math.random();
   }
 };

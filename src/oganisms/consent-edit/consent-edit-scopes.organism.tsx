@@ -49,7 +49,7 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
         scopes={userConsentedScopes}
         showError={false}
       />
-      {consent.status === Status.ACTIVE && additionalScopes.length >= 1 && (
+      {consent.status === Status.Active && additionalScopes.length >= 1 && (
         <ConsentSectionScopes
           message={copy.consent.edit.scope_additional_message}
           scopes={additionalScopes}
@@ -57,7 +57,7 @@ export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
           onChange={onAddScopeChange}
         />
       )}
-      {consent.status === Status.ACTIVE && removedScopes.length >= 1 && (
+      {consent.status === Status.Active && removedScopes.length >= 1 && (
         <ConsentSectionScopes
           message={copy.consent.edit.scope_remove_message}
           scopes={removedScopes}

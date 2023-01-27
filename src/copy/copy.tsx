@@ -13,9 +13,9 @@ const generateCopy = (
 ): Copy => {
   let providerType = 'data provider';
 
-  if (industry === Industry.BANKING) {
+  if (industry === Industry.Banking) {
     providerType = 'bank';
-  } else if (industry === Industry.ENERGY) {
+  } else if (industry === Industry.Energy) {
     providerType = 'energy provider';
   }
 

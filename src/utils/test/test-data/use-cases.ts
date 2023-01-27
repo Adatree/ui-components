@@ -15,18 +15,18 @@ const onceOffConsentMinScopes = (): UseCaseResponse => {
     name: 'Once Off Consent - Minimal Scopes',
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test a once off consent scenario for minimal scopes and APIs',
-    industries: [Industry.BANKING],
+    industries: [Industry.Banking],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
-    notificationType: NotificationType.EMAIL,
+    notificationType: NotificationType.Email,
     scopes: [
       scope.commonCustomerBasicRead(),
       scope.bankAccountsBasicRead(),
       scope.bankAccountsDetailRead(),
       scope.bankTransactionsRead(),
     ],
-    accessFrequency: AccessFrequency.ONCEOFF,
-    sharingDurations: [SharingDuration.ONCEOFF],
+    accessFrequency: AccessFrequency.OnceOff,
+    sharingDurations: [SharingDuration.OnceOff],
   };
 };
 
@@ -36,18 +36,18 @@ const ongoingConsentMinScopes = (): UseCaseResponse => {
     name: 'Ongoing Consent - Minimal Scopes',
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test an ongoing consent scenario for minimal scopes and APIs',
-    industries: [Industry.BANKING],
+    industries: [Industry.Banking],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
-    notificationType: NotificationType.EMAIL,
+    notificationType: NotificationType.Email,
     scopes: [
       scope.commonCustomerBasicRead(),
       scope.bankAccountsBasicRead(),
       scope.bankAccountsDetailRead(),
       scope.bankTransactionsRead(),
     ],
-    accessFrequency: AccessFrequency.ONGOING,
-    sharingDurations: [SharingDuration.CUSTOM, SharingDuration.ONEWEEK, SharingDuration.THREEMONTHS],
+    accessFrequency: AccessFrequency.Ongoing,
+    sharingDurations: [SharingDuration.Custom, SharingDuration.OneWeek, SharingDuration.ThreeMonths],
   };
 };
 
@@ -57,13 +57,13 @@ const homeLoan = (): UseCaseResponse => {
     name: 'Home Loan Application',
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess your suitability for a home loan',
-    industries: [Industry.BANKING],
+    industries: [Industry.Banking],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
-    notificationType: NotificationType.EMAIL,
+    notificationType: NotificationType.Email,
     scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
-    accessFrequency: AccessFrequency.ONCEOFF,
-    sharingDurations: [SharingDuration.ONCEOFF],
+    accessFrequency: AccessFrequency.OnceOff,
+    sharingDurations: [SharingDuration.OnceOff],
   };
 };
 
@@ -80,18 +80,18 @@ const openEnergyLite = (): UseCaseResponse => {
     name: 'Open Energy Lite',
     dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
-    industries: [Industry.ENERGY],
+    industries: [Industry.Energy],
     priority: 101,
     historicalCollectionPeriodInDays: 365,
-    notificationType: NotificationType.EMAIL,
+    notificationType: NotificationType.Email,
     scopes: [
       scope.commonCustomerBasicRead(),
       scope.energyAccountsBasicRead(),
       scope.energyBillingRead(),
       scope.energyElectricityUsageRead(),
     ],
-    accessFrequency: AccessFrequency.ONGOING,
-    sharingDurations: [SharingDuration.CUSTOM],
+    accessFrequency: AccessFrequency.Ongoing,
+    sharingDurations: [SharingDuration.Custom],
   };
 };
 
@@ -101,10 +101,10 @@ const openEnergy = (): UseCaseResponse => {
     name: 'Open Energy',
     dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
-    industries: [Industry.ENERGY],
+    industries: [Industry.Energy],
     priority: 100,
     historicalCollectionPeriodInDays: 365,
-    notificationType: NotificationType.EMAIL,
+    notificationType: NotificationType.Email,
     scopes: [
       scope.commonCustomerBasicRead(),
       scope.commonCustomerDetailRead(),
@@ -118,8 +118,8 @@ const openEnergy = (): UseCaseResponse => {
       scope.energyElectricityDerRead(),
       scope.energyElectricityUsageRead(),
     ],
-    accessFrequency: AccessFrequency.ONGOING,
-    sharingDurations: [SharingDuration.CUSTOM],
+    accessFrequency: AccessFrequency.Ongoing,
+    sharingDurations: [SharingDuration.Custom],
   };
 };
 

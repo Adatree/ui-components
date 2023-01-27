@@ -15,19 +15,19 @@ const confirmation = (
     </>
   );
 
-  if (endDate && sharingDuration === SharingDuration.CUSTOM) {
+  if (endDate && sharingDuration === SharingDuration.Custom) {
     return (
       <>
         {common} until the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
       </>
     );
-  } else if (sharingDuration === SharingDuration.ONCEOFF) {
+  } else if (sharingDuration === SharingDuration.OnceOff) {
     return (
       <>
         {common} <Highlight>once</Highlight>.
       </>
     );
-  } else if (sharingDuration && sharingDuration !== SharingDuration.CUSTOM) {
+  } else if (sharingDuration && sharingDuration !== SharingDuration.Custom) {
     return (
       <>
         {common} for a period of <Highlight>{Helper.sharingDurationToString(sharingDuration)}</Highlight>.
@@ -45,13 +45,13 @@ const accessFrequency = (companyName: string, accessFrequency: AccessFrequency |
     </>
   );
 
-  if (accessFrequency === AccessFrequency.ONCEOFF) {
+  if (accessFrequency === AccessFrequency.OnceOff) {
     return (
       <>
         Data sharing with <Highlight>{companyName}</Highlight> ends after first use.
       </>
     );
-  } else if (accessFrequency === AccessFrequency.ONGOING) {
+  } else if (accessFrequency === AccessFrequency.Ongoing) {
     return <>{common} multiple times during this period.</>;
   } else {
     return <>{common}.</>;

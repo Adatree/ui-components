@@ -1,7 +1,6 @@
 // @ts-nocheck
-// tslint:disable
-// eslint:disable
-
+/* tslint:disable */
+/* eslint-disable */
 /**
  * Adatree ADR Platform Consent API
  * Consent Dashboard REST APIs. This allows ADR / consumers to perform CDR consumer authorization flow with Data Holders
@@ -14,10 +13,22 @@
  * Do not edit the class manually.
  */
 
-import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
+// @ts-ignore
+import {
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
+} from './common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
@@ -26,10 +37,13 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  * @export
  * @enum {string}
  */
-export enum AccessFrequency {
-  ONCEOFF = 'ONCE_OFF',
-  ONGOING = 'ONGOING',
-}
+
+export const AccessFrequency = {
+  OnceOff: 'ONCE_OFF',
+  Ongoing: 'ONGOING',
+} as const;
+
+export type AccessFrequency = typeof AccessFrequency[keyof typeof AccessFrequency];
 
 /**
  *
@@ -135,17 +149,21 @@ export interface ConsentEvent {
    * @memberof ConsentEvent
    */
   consumerEmail?: string;
+  /**
+   *
+   * @type {ConsentGrantee}
+   * @memberof ConsentEvent
+   */
+  grantee?: ConsentGrantee;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum ConsentEventEventTypeEnum {
-  GRANTED = 'GRANTED',
-  REVOKED = 'REVOKED',
-  EXPIRED = 'EXPIRED',
-}
+export const ConsentEventEventTypeEnum = {
+  Granted: 'GRANTED',
+  Revoked: 'REVOKED',
+  Expired: 'EXPIRED',
+} as const;
+
+export type ConsentEventEventTypeEnum = typeof ConsentEventEventTypeEnum[keyof typeof ConsentEventEventTypeEnum];
 
 /**
  *
@@ -203,6 +221,12 @@ export interface ConsentGrantee {
    * @memberof ConsentGrantee
    */
   licenceNumber: string;
+  /**
+   * grantee id
+   * @type {string}
+   * @memberof ConsentGrantee
+   */
+  id?: string;
 }
 /**
  *
@@ -435,12 +459,15 @@ export interface ConsentUseCaseResponse {
  * @export
  * @enum {string}
  */
-export enum ConsumerType {
-  ALL = 'ALL',
-  INDIVIDUAL = 'INDIVIDUAL',
-  ORGANISATION = 'ORGANISATION',
-  ANY = 'ANY',
-}
+
+export const ConsumerType = {
+  All: 'ALL',
+  Individual: 'INDIVIDUAL',
+  Organisation: 'ORGANISATION',
+  Any: 'ANY',
+} as const;
+
+export type ConsumerType = typeof ConsumerType[keyof typeof ConsumerType];
 
 /**
  *
@@ -576,10 +603,13 @@ export interface Grantee {
  * @export
  * @enum {string}
  */
-export enum Industry {
-  BANKING = 'BANKING',
-  ENERGY = 'ENERGY',
-}
+
+export const Industry = {
+  Banking: 'BANKING',
+  Energy: 'ENERGY',
+} as const;
+
+export type Industry = typeof Industry[keyof typeof Industry];
 
 /**
  *
@@ -655,10 +685,13 @@ export interface MetaPaginated {
  * @export
  * @enum {string}
  */
-export enum NotificationType {
-  EMAIL = 'EMAIL',
-  SMS = 'SMS',
-}
+
+export const NotificationType = {
+  Email: 'EMAIL',
+  Sms: 'SMS',
+} as const;
+
+export type NotificationType = typeof NotificationType[keyof typeof NotificationType];
 
 /**
  *
@@ -696,10 +729,13 @@ export interface OutsourcedServiceProvider {
  * @export
  * @enum {string}
  */
-export enum PostUsageAction {
-  DELETION = 'DELETION',
-  DEIDENTIFICATION = 'DE_IDENTIFICATION',
-}
+
+export const PostUsageAction = {
+  Deletion: 'DELETION',
+  DeIdentification: 'DE_IDENTIFICATION',
+} as const;
+
+export type PostUsageAction = typeof PostUsageAction[keyof typeof PostUsageAction];
 
 /**
  *
@@ -818,30 +854,36 @@ export interface ServiceProvider {
  * @export
  * @enum {string}
  */
-export enum SharingDuration {
-  ONEDAY = 'ONE_DAY',
-  ONEWEEK = 'ONE_WEEK',
-  TWOWEEKS = 'TWO_WEEKS',
-  ONEMONTH = 'ONE_MONTH',
-  THREEMONTHS = 'THREE_MONTHS',
-  SIXMONTHS = 'SIX_MONTHS',
-  NINEMONTHS = 'NINE_MONTHS',
-  ONEYEAR = 'ONE_YEAR',
-  CUSTOM = 'CUSTOM',
-  ONCEOFF = 'ONCE_OFF',
-}
+
+export const SharingDuration = {
+  OneDay: 'ONE_DAY',
+  OneWeek: 'ONE_WEEK',
+  TwoWeeks: 'TWO_WEEKS',
+  OneMonth: 'ONE_MONTH',
+  ThreeMonths: 'THREE_MONTHS',
+  SixMonths: 'SIX_MONTHS',
+  NineMonths: 'NINE_MONTHS',
+  OneYear: 'ONE_YEAR',
+  Custom: 'CUSTOM',
+  OnceOff: 'ONCE_OFF',
+} as const;
+
+export type SharingDuration = typeof SharingDuration[keyof typeof SharingDuration];
 
 /**
  *
  * @export
  * @enum {string}
  */
-export enum Status {
-  REQUESTED = 'REQUESTED',
-  ACTIVE = 'ACTIVE',
-  EXPIRED = 'EXPIRED',
-  REVOKED = 'REVOKED',
-}
+
+export const Status = {
+  Requested: 'REQUESTED',
+  Active: 'ACTIVE',
+  Expired: 'EXPIRED',
+  Revoked: 'REVOKED',
+} as const;
+
+export type Status = typeof Status[keyof typeof Status];
 
 /**
  *
@@ -894,6 +936,12 @@ export interface UpdateConsentMachine {
    */
   externalId?: string;
 }
+/**
+ * @type UpdateConsentRequest
+ * @export
+ */
+export type UpdateConsentRequest = UpdateConsentConsumer | UpdateConsentMachine;
+
 /**
  *
  * @export
@@ -1030,59 +1078,45 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
       adatreeConsumerUserAgent?: string,
       adatreeConsumerIpAddress?: string,
       createConsent?: CreateConsent,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/consents`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:write'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
-      if (adatreeConsumerUserAgent !== undefined && adatreeConsumerUserAgent !== null) {
+      if (adatreeConsumerUserAgent != null) {
         localVarHeaderParameter['Adatree-Consumer-User-Agent'] = String(adatreeConsumerUserAgent);
       }
 
-      if (adatreeConsumerIpAddress !== undefined && adatreeConsumerIpAddress !== null) {
+      if (adatreeConsumerIpAddress != null) {
         localVarHeaderParameter['Adatree-Consumer-Ip-Address'] = String(adatreeConsumerIpAddress);
       }
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      const needsSerialization =
-        typeof createConsent !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-      localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(createConsent !== undefined ? createConsent : {})
-        : createConsent || '';
+      localVarRequestOptions.data = serializeDataIfNeeded(createConsent, localVarRequestOptions, configuration);
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1125,35 +1159,27 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
       oldestSharingEndDate?: string,
       newestSharingEndDate?: string,
       externalId?: string,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/consents`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
       if (consumerId !== undefined) {
         localVarQueryParameter['consumerId'] = consumerId;
@@ -1229,14 +1255,12 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['externalId'] = externalId;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1247,50 +1271,35 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    findConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
+    findConsent: async (consentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling findConsent.',
-        );
-      }
+      assertParamExists('findConsent', 'consentId', consentId);
       const localVarPath = `/consents/{consentId}`.replace(`{${'consentId'}}`, encodeURIComponent(String(consentId)));
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1301,50 +1310,35 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    revokeConsent: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
+    revokeConsent: async (consentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling revokeConsent.',
-        );
-      }
+      assertParamExists('revokeConsent', 'consentId', consentId);
       const localVarPath = `/consents/{consentId}`.replace(`{${'consentId'}}`, encodeURIComponent(String(consentId)));
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:write'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1352,68 +1346,46 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
      * <ul><li>Update postUsageAction, directMarketing option or sharing end date when a dashboard token is received</li><br/> <li>Update externalId when a machine (backchannel) token is received</li></ul>
      * @summary Update a consent\'s via dashboard or back channel
      * @param {string} consentId
-     * @param {UpdateConsentConsumer | UpdateConsentMachine} [updateConsentConsumerUpdateConsentMachine]
+     * @param {UpdateConsentRequest} [updateConsentRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateConsent: async (
       consentId: string,
-      updateConsentConsumerUpdateConsentMachine?: UpdateConsentConsumer | UpdateConsentMachine,
-      options: any = {},
+      updateConsentRequest?: UpdateConsentRequest,
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling updateConsent.',
-        );
-      }
+      assertParamExists('updateConsent', 'consentId', consentId);
       const localVarPath = `/consents/{consentId}`.replace(`{${'consentId'}}`, encodeURIComponent(String(consentId)));
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:write'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      const needsSerialization =
-        typeof updateConsentConsumerUpdateConsentMachine !== 'string' ||
-        localVarRequestOptions.headers['Content-Type'] === 'application/json';
-      localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(
-            updateConsentConsumerUpdateConsentMachine !== undefined ? updateConsentConsumerUpdateConsentMachine : {},
-          )
-        : updateConsentConsumerUpdateConsentMachine || '';
+      localVarRequestOptions.data = serializeDataIfNeeded(updateConsentRequest, localVarRequestOptions, configuration);
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1425,6 +1397,7 @@ export const ConsentApiAxiosParamCreator = function (configuration?: Configurati
  * @export
  */
 export const ConsentApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = ConsentApiAxiosParamCreator(configuration);
   return {
     /**
      * Create a consent record for consumer
@@ -1439,18 +1412,15 @@ export const ConsentApiFp = function (configuration?: Configuration) {
       adatreeConsumerUserAgent?: string,
       adatreeConsumerIpAddress?: string,
       createConsent?: CreateConsent,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).createConsent(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.createConsent(
         adatreeConsumerUserAgent,
         adatreeConsumerIpAddress,
         createConsent,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Get all consent records for this consumer
@@ -1491,9 +1461,9 @@ export const ConsentApiFp = function (configuration?: Configuration) {
       oldestSharingEndDate?: string,
       newestSharingEndDate?: string,
       externalId?: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConsentResponse>>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).findAllConsents(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.findAllConsents(
         consumerId,
         consentId,
         cdrArrangementId,
@@ -1512,10 +1482,7 @@ export const ConsentApiFp = function (configuration?: Configuration) {
         externalId,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Retreive a single consent record for this consumer
@@ -1526,13 +1493,10 @@ export const ConsentApiFp = function (configuration?: Configuration) {
      */
     async findConsent(
       consentId: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentResponse>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).findConsent(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.findConsent(consentId, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Revoke a single consent record for this consumer
@@ -1543,36 +1507,26 @@ export const ConsentApiFp = function (configuration?: Configuration) {
      */
     async revokeConsent(
       consentId: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).revokeConsent(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.revokeConsent(consentId, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * <ul><li>Update postUsageAction, directMarketing option or sharing end date when a dashboard token is received</li><br/> <li>Update externalId when a machine (backchannel) token is received</li></ul>
      * @summary Update a consent\'s via dashboard or back channel
      * @param {string} consentId
-     * @param {UpdateConsentConsumer | UpdateConsentMachine} [updateConsentConsumerUpdateConsentMachine]
+     * @param {UpdateConsentRequest} [updateConsentRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async updateConsent(
       consentId: string,
-      updateConsentConsumerUpdateConsentMachine?: UpdateConsentConsumer | UpdateConsentMachine,
-      options?: any,
+      updateConsentRequest?: UpdateConsentRequest,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await ConsentApiAxiosParamCreator(configuration).updateConsent(
-        consentId,
-        updateConsentConsumerUpdateConsentMachine,
-        options,
-      );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateConsent(consentId, updateConsentRequest, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -1582,6 +1536,7 @@ export const ConsentApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const ConsentApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = ConsentApiFp(configuration);
   return {
     /**
      * Create a consent record for consumer
@@ -1598,7 +1553,7 @@ export const ConsentApiFactory = function (configuration?: Configuration, basePa
       createConsent?: CreateConsent,
       options?: any,
     ): AxiosPromise<ConsentResponse> {
-      return ConsentApiFp(configuration)
+      return localVarFp
         .createConsent(adatreeConsumerUserAgent, adatreeConsumerIpAddress, createConsent, options)
         .then((request) => request(axios, basePath));
     },
@@ -1643,7 +1598,7 @@ export const ConsentApiFactory = function (configuration?: Configuration, basePa
       externalId?: string,
       options?: any,
     ): AxiosPromise<Array<ConsentResponse>> {
-      return ConsentApiFp(configuration)
+      return localVarFp
         .findAllConsents(
           consumerId,
           consentId,
@@ -1673,9 +1628,7 @@ export const ConsentApiFactory = function (configuration?: Configuration, basePa
      * @throws {RequiredError}
      */
     findConsent(consentId: string, options?: any): AxiosPromise<ConsentResponse> {
-      return ConsentApiFp(configuration)
-        .findConsent(consentId, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.findConsent(consentId, options).then((request) => request(axios, basePath));
     },
     /**
      * Revoke a single consent record for this consumer
@@ -1685,25 +1638,19 @@ export const ConsentApiFactory = function (configuration?: Configuration, basePa
      * @throws {RequiredError}
      */
     revokeConsent(consentId: string, options?: any): AxiosPromise<void> {
-      return ConsentApiFp(configuration)
-        .revokeConsent(consentId, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.revokeConsent(consentId, options).then((request) => request(axios, basePath));
     },
     /**
      * <ul><li>Update postUsageAction, directMarketing option or sharing end date when a dashboard token is received</li><br/> <li>Update externalId when a machine (backchannel) token is received</li></ul>
      * @summary Update a consent\'s via dashboard or back channel
      * @param {string} consentId
-     * @param {UpdateConsentConsumer | UpdateConsentMachine} [updateConsentConsumerUpdateConsentMachine]
+     * @param {UpdateConsentRequest} [updateConsentRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateConsent(
-      consentId: string,
-      updateConsentConsumerUpdateConsentMachine?: UpdateConsentConsumer | UpdateConsentMachine,
-      options?: any,
-    ): AxiosPromise<void> {
-      return ConsentApiFp(configuration)
-        .updateConsent(consentId, updateConsentConsumerUpdateConsentMachine, options)
+    updateConsent(consentId: string, updateConsentRequest?: UpdateConsentRequest, options?: any): AxiosPromise<void> {
+      return localVarFp
+        .updateConsent(consentId, updateConsentRequest, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -1730,7 +1677,7 @@ export class ConsentApi extends BaseAPI {
     adatreeConsumerUserAgent?: string,
     adatreeConsumerIpAddress?: string,
     createConsent?: CreateConsent,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return ConsentApiFp(this.configuration)
       .createConsent(adatreeConsumerUserAgent, adatreeConsumerIpAddress, createConsent, options)
@@ -1777,7 +1724,7 @@ export class ConsentApi extends BaseAPI {
     oldestSharingEndDate?: string,
     newestSharingEndDate?: string,
     externalId?: string,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return ConsentApiFp(this.configuration)
       .findAllConsents(
@@ -1810,7 +1757,7 @@ export class ConsentApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ConsentApi
    */
-  public findConsent(consentId: string, options?: any) {
+  public findConsent(consentId: string, options?: AxiosRequestConfig) {
     return ConsentApiFp(this.configuration)
       .findConsent(consentId, options)
       .then((request) => request(this.axios, this.basePath));
@@ -1824,7 +1771,7 @@ export class ConsentApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ConsentApi
    */
-  public revokeConsent(consentId: string, options?: any) {
+  public revokeConsent(consentId: string, options?: AxiosRequestConfig) {
     return ConsentApiFp(this.configuration)
       .revokeConsent(consentId, options)
       .then((request) => request(this.axios, this.basePath));
@@ -1834,18 +1781,14 @@ export class ConsentApi extends BaseAPI {
    * <ul><li>Update postUsageAction, directMarketing option or sharing end date when a dashboard token is received</li><br/> <li>Update externalId when a machine (backchannel) token is received</li></ul>
    * @summary Update a consent\'s via dashboard or back channel
    * @param {string} consentId
-   * @param {UpdateConsentConsumer | UpdateConsentMachine} [updateConsentConsumerUpdateConsentMachine]
+   * @param {UpdateConsentRequest} [updateConsentRequest]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ConsentApi
    */
-  public updateConsent(
-    consentId: string,
-    updateConsentConsumerUpdateConsentMachine?: UpdateConsentConsumer | UpdateConsentMachine,
-    options?: any,
-  ) {
+  public updateConsent(consentId: string, updateConsentRequest?: UpdateConsentRequest, options?: AxiosRequestConfig) {
     return ConsentApiFp(this.configuration)
-      .updateConsent(consentId, updateConsentConsumerUpdateConsentMachine, options)
+      .updateConsent(consentId, updateConsentRequest, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -1869,45 +1812,32 @@ export const ConsentAuthorizationApiAxiosParamCreator = function (configuration?
       consentId: string,
       state?: string,
       redirectUri?: string,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling getAuthorizationForConsent.',
-        );
-      }
+      assertParamExists('getAuthorizationForConsent', 'consentId', consentId);
       const localVarPath = `/consents/{consentId}/authorization`.replace(
         `{${'consentId'}}`,
         encodeURIComponent(String(consentId)),
       );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
       if (state !== undefined) {
         localVarQueryParameter['state'] = state;
@@ -1917,14 +1847,12 @@ export const ConsentAuthorizationApiAxiosParamCreator = function (configuration?
         localVarQueryParameter['redirectUri'] = redirectUri;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -1936,6 +1864,7 @@ export const ConsentAuthorizationApiAxiosParamCreator = function (configuration?
  * @export
  */
 export const ConsentAuthorizationApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = ConsentAuthorizationApiAxiosParamCreator(configuration);
   return {
     /**
      * Get the authorization redirect URL to send the consumer to the data holder
@@ -1950,15 +1879,15 @@ export const ConsentAuthorizationApiFp = function (configuration?: Configuration
       consentId: string,
       state?: string,
       redirectUri?: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentAuthorization>> {
-      const localVarAxiosArgs = await ConsentAuthorizationApiAxiosParamCreator(
-        configuration,
-      ).getAuthorizationForConsent(consentId, state, redirectUri, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthorizationForConsent(
+        consentId,
+        state,
+        redirectUri,
+        options,
+      );
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -1972,6 +1901,7 @@ export const ConsentAuthorizationApiFactory = function (
   basePath?: string,
   axios?: AxiosInstance,
 ) {
+  const localVarFp = ConsentAuthorizationApiFp(configuration);
   return {
     /**
      * Get the authorization redirect URL to send the consumer to the data holder
@@ -1988,7 +1918,7 @@ export const ConsentAuthorizationApiFactory = function (
       redirectUri?: string,
       options?: any,
     ): AxiosPromise<ConsentAuthorization> {
-      return ConsentAuthorizationApiFp(configuration)
+      return localVarFp
         .getAuthorizationForConsent(consentId, state, redirectUri, options)
         .then((request) => request(axios, basePath));
     },
@@ -2012,7 +1942,12 @@ export class ConsentAuthorizationApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ConsentAuthorizationApi
    */
-  public getAuthorizationForConsent(consentId: string, state?: string, redirectUri?: string, options?: any) {
+  public getAuthorizationForConsent(
+    consentId: string,
+    state?: string,
+    redirectUri?: string,
+    options?: AxiosRequestConfig,
+  ) {
     return ConsentAuthorizationApiFp(this.configuration)
       .getAuthorizationForConsent(consentId, state, redirectUri, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2032,45 +1967,34 @@ export const ConsentsApiAxiosParamCreator = function (configuration?: Configurat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getHistory: async (consentId: string, options: any = {}): Promise<RequestArgs> => {
+    getHistory: async (consentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'consentId' is not null or undefined
-      if (consentId === null || consentId === undefined) {
-        throw new RequiredError(
-          'consentId',
-          'Required parameter consentId was null or undefined when calling getHistory.',
-        );
-      }
+      assertParamExists('getHistory', 'consentId', consentId);
       const localVarPath = `/consents/{consentId}/history`.replace(
         `{${'consentId'}}`,
         encodeURIComponent(String(consentId)),
       );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -2082,6 +2006,7 @@ export const ConsentsApiAxiosParamCreator = function (configuration?: Configurat
  * @export
  */
 export const ConsentsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = ConsentsApiAxiosParamCreator(configuration);
   return {
     /**
      * Retreive an individual consent record\'s change history
@@ -2092,13 +2017,10 @@ export const ConsentsApiFp = function (configuration?: Configuration) {
      */
     async getHistory(
       consentId: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentHistoryResponse>> {
-      const localVarAxiosArgs = await ConsentsApiAxiosParamCreator(configuration).getHistory(consentId, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getHistory(consentId, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -2108,6 +2030,7 @@ export const ConsentsApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const ConsentsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = ConsentsApiFp(configuration);
   return {
     /**
      * Retreive an individual consent record\'s change history
@@ -2117,9 +2040,7 @@ export const ConsentsApiFactory = function (configuration?: Configuration, baseP
      * @throws {RequiredError}
      */
     getHistory(consentId: string, options?: any): AxiosPromise<ConsentHistoryResponse> {
-      return ConsentsApiFp(configuration)
-        .getHistory(consentId, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.getHistory(consentId, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2139,7 +2060,7 @@ export class ConsentsApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ConsentsApi
    */
-  public getHistory(consentId: string, options?: any) {
+  public getHistory(consentId: string, options?: AxiosRequestConfig) {
     return ConsentsApiFp(this.configuration)
       .getHistory(consentId, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2159,53 +2080,41 @@ export const DataHoldersApiAxiosParamCreator = function (configuration?: Configu
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getDataHoldersOfASoftwareProduct: async (softwareProductId: string, options: any = {}): Promise<RequestArgs> => {
+    getDataHoldersOfASoftwareProduct: async (
+      softwareProductId: string,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
       // verify required parameter 'softwareProductId' is not null or undefined
-      if (softwareProductId === null || softwareProductId === undefined) {
-        throw new RequiredError(
-          'softwareProductId',
-          'Required parameter softwareProductId was null or undefined when calling getDataHoldersOfASoftwareProduct.',
-        );
-      }
+      assertParamExists('getDataHoldersOfASoftwareProduct', 'softwareProductId', softwareProductId);
       const localVarPath = `/software-products/{softwareProductId}/data-holders`.replace(
         `{${'softwareProductId'}}`,
         encodeURIComponent(String(softwareProductId)),
       );
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['data-holders:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -2217,6 +2126,7 @@ export const DataHoldersApiAxiosParamCreator = function (configuration?: Configu
  * @export
  */
 export const DataHoldersApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = DataHoldersApiAxiosParamCreator(configuration);
   return {
     /**
      * Get the list of available data holders for a software product
@@ -2227,16 +2137,13 @@ export const DataHoldersApiFp = function (configuration?: Configuration) {
      */
     async getDataHoldersOfASoftwareProduct(
       softwareProductId: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataHolder>>> {
-      const localVarAxiosArgs = await DataHoldersApiAxiosParamCreator(configuration).getDataHoldersOfASoftwareProduct(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getDataHoldersOfASoftwareProduct(
         softwareProductId,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -2250,6 +2157,7 @@ export const DataHoldersApiFactory = function (
   basePath?: string,
   axios?: AxiosInstance,
 ) {
+  const localVarFp = DataHoldersApiFp(configuration);
   return {
     /**
      * Get the list of available data holders for a software product
@@ -2259,7 +2167,7 @@ export const DataHoldersApiFactory = function (
      * @throws {RequiredError}
      */
     getDataHoldersOfASoftwareProduct(softwareProductId: string, options?: any): AxiosPromise<Array<DataHolder>> {
-      return DataHoldersApiFp(configuration)
+      return localVarFp
         .getDataHoldersOfASoftwareProduct(softwareProductId, options)
         .then((request) => request(axios, basePath));
     },
@@ -2281,7 +2189,7 @@ export class DataHoldersApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof DataHoldersApi
    */
-  public getDataHoldersOfASoftwareProduct(softwareProductId: string, options?: any) {
+  public getDataHoldersOfASoftwareProduct(softwareProductId: string, options?: AxiosRequestConfig) {
     return DataHoldersApiFp(this.configuration)
       .getDataHoldersOfASoftwareProduct(softwareProductId, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2309,27 +2217,23 @@ export const GetConsentEventsApiAxiosParamCreator = function (configuration?: Co
       newest?: string,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/consents/events`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['consents:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
 
       if (oldest !== undefined) {
         localVarQueryParameter['oldest'] = (oldest as any) instanceof Date ? (oldest as any).toISOString() : oldest;
@@ -2347,14 +2251,12 @@ export const GetConsentEventsApiAxiosParamCreator = function (configuration?: Co
         localVarQueryParameter['page-size'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -2366,6 +2268,7 @@ export const GetConsentEventsApiAxiosParamCreator = function (configuration?: Co
  * @export
  */
 export const GetConsentEventsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = GetConsentEventsApiAxiosParamCreator(configuration);
   return {
     /**
      *
@@ -2382,19 +2285,16 @@ export const GetConsentEventsApiFp = function (configuration?: Configuration) {
       newest?: string,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentEventList>> {
-      const localVarAxiosArgs = await GetConsentEventsApiAxiosParamCreator(configuration).getConsentEvents(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getConsentEvents(
         oldest,
         newest,
         page,
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -2408,6 +2308,7 @@ export const GetConsentEventsApiFactory = function (
   basePath?: string,
   axios?: AxiosInstance,
 ) {
+  const localVarFp = GetConsentEventsApiFp(configuration);
   return {
     /**
      *
@@ -2426,7 +2327,7 @@ export const GetConsentEventsApiFactory = function (
       pageSize?: number,
       options?: any,
     ): AxiosPromise<ConsentEventList> {
-      return GetConsentEventsApiFp(configuration)
+      return localVarFp
         .getConsentEvents(oldest, newest, page, pageSize, options)
         .then((request) => request(axios, basePath));
     },
@@ -2451,7 +2352,13 @@ export class GetConsentEventsApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof GetConsentEventsApi
    */
-  public getConsentEvents(oldest?: string, newest?: string, page?: number, pageSize?: number, options?: any) {
+  public getConsentEvents(
+    oldest?: string,
+    newest?: string,
+    page?: number,
+    pageSize?: number,
+    options?: AxiosRequestConfig,
+  ) {
     return GetConsentEventsApiFp(this.configuration)
       .getConsentEvents(oldest, newest, page, pageSize, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2471,50 +2378,36 @@ export const TokensApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    persistToken: async (authorization?: Authorization, options: any = {}): Promise<RequestArgs> => {
+    persistToken: async (authorization?: Authorization, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/tokens`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['tokens:write'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
-      }
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', ['tokens:write'], configuration);
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      const needsSerialization =
-        typeof authorization !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-      localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(authorization !== undefined ? authorization : {})
-        : authorization || '';
+      localVarRequestOptions.data = serializeDataIfNeeded(authorization, localVarRequestOptions, configuration);
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -2526,6 +2419,7 @@ export const TokensApiAxiosParamCreator = function (configuration?: Configuratio
  * @export
  */
 export const TokensApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = TokensApiAxiosParamCreator(configuration);
   return {
     /**
      * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
@@ -2536,13 +2430,10 @@ export const TokensApiFp = function (configuration?: Configuration) {
      */
     async persistToken(
       authorization?: Authorization,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenCreatedResponse>> {
-      const localVarAxiosArgs = await TokensApiAxiosParamCreator(configuration).persistToken(authorization, options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.persistToken(authorization, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -2552,6 +2443,7 @@ export const TokensApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const TokensApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = TokensApiFp(configuration);
   return {
     /**
      * Send the required parameters from the data holder to the ADR Platform backend to finish extablishing data access
@@ -2561,9 +2453,7 @@ export const TokensApiFactory = function (configuration?: Configuration, basePat
      * @throws {RequiredError}
      */
     persistToken(authorization?: Authorization, options?: any): AxiosPromise<TokenCreatedResponse> {
-      return TokensApiFp(configuration)
-        .persistToken(authorization, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.persistToken(authorization, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2583,7 +2473,7 @@ export class TokensApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof TokensApi
    */
-  public persistToken(authorization?: Authorization, options?: any) {
+  public persistToken(authorization?: Authorization, options?: AxiosRequestConfig) {
     return TokensApiFp(this.configuration)
       .persistToken(authorization, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2599,46 +2489,41 @@ export const UseCaseApiAxiosParamCreator = function (configuration?: Configurati
     /**
      * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
      * @summary Get Use-cases
+     * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    findAllUseCases: async (options: any = {}): Promise<RequestArgs> => {
+    findAllUseCases: async (combineScopes?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/use-cases`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('m2m', ['use-cases:read'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + localVarAccessTokenValue;
+      await setOAuthToObject(localVarHeaderParameter, 'm2m', [], configuration);
+
+      if (combineScopes !== undefined) {
+        localVarQueryParameter['combineScopes'] = combineScopes;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -2650,21 +2535,21 @@ export const UseCaseApiAxiosParamCreator = function (configuration?: Configurati
  * @export
  */
 export const UseCaseApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = UseCaseApiAxiosParamCreator(configuration);
   return {
     /**
      * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
      * @summary Get Use-cases
+     * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async findAllUseCases(
-      options?: any,
+      combineScopes?: boolean,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UseCaseResponse>>> {
-      const localVarAxiosArgs = await UseCaseApiAxiosParamCreator(configuration).findAllUseCases(options);
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      const localVarAxiosArgs = await localVarAxiosParamCreator.findAllUseCases(combineScopes, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -2674,17 +2559,17 @@ export const UseCaseApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const UseCaseApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = UseCaseApiFp(configuration);
   return {
     /**
      * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
      * @summary Get Use-cases
+     * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    findAllUseCases(options?: any): AxiosPromise<Array<UseCaseResponse>> {
-      return UseCaseApiFp(configuration)
-        .findAllUseCases(options)
-        .then((request) => request(axios, basePath));
+    findAllUseCases(combineScopes?: boolean, options?: any): AxiosPromise<Array<UseCaseResponse>> {
+      return localVarFp.findAllUseCases(combineScopes, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2699,13 +2584,14 @@ export class UseCaseApi extends BaseAPI {
   /**
    * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
    * @summary Get Use-cases
+   * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UseCaseApi
    */
-  public findAllUseCases(options?: any) {
+  public findAllUseCases(combineScopes?: boolean, options?: AxiosRequestConfig) {
     return UseCaseApiFp(this.configuration)
-      .findAllUseCases(options)
+      .findAllUseCases(combineScopes, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

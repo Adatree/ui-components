@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -15,8 +15,8 @@
     "lint": "eslint './src/**/*.{tsx,ts}' './storybook/**/*.{tsx,ts}'",
     "package": "yarn test && yarn lint && yarn build && npm publish",
     "storybook": "yarn --cwd ./storybook/ storybook",
-    "generate-openapi-consent-client": "openapi-generator generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
-    "generate-openapi-data-client": "openapi-generator generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/data.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/data",
+    "generate-openapi-consent-client": "openapi-generator-cli generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
+    "generate-openapi-data-client": "openapi-generator-cli generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/data.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/data",
     "test": "jest"
   },
   "dependencies": {
@@ -33,7 +33,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^1.0.10-4.2.3",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@types/jest": "^27.4.0",
     "@types/lodash": "4.14.184",
     "@types/react": "^17.0.38",

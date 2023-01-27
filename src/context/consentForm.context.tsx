@@ -33,7 +33,7 @@ const ConsentFormDefaultValues: ConsentForm = {
   allRemoveScopesChecked: false,
   dataHolder: undefined,
   selectedSharingDurations: undefined,
-  postUsageAction: PostUsageAction.DELETION,
+  postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,
   useCaseId: undefined,
 };

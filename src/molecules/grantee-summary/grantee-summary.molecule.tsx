@@ -14,16 +14,16 @@ export const GranteeSummary: React.FC<GranteeSummaryProps> = (props) => {
   let text = gantee.name;
 
   switch (status) {
-    case Status.ACTIVE:
+    case Status.Active:
       text = `${gantee.name} has your consent to access your data.`;
       break;
-    case Status.REQUESTED:
+    case Status.Requested:
       text = `Your consent for ${gantee.name} to access your data is being processed.`;
       break;
-    case Status.EXPIRED:
+    case Status.Expired:
       text = `Your consent for ${gantee.name} to access your data has expired.`;
       break;
-    case Status.REVOKED:
+    case Status.Revoked:
       text = `Your consent for ${gantee.name} to access has been revoked.`;
       break;
   }

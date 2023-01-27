@@ -21,11 +21,11 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
   const { consents = [], isLoading = false, urlPrefix = '/consent/' } = props;
   const [value, setValue] = React.useState(0);
 
-  const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.ACTIVE));
-  const expiredConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.EXPIRED));
-  const revokedConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.REVOKED));
+  const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Active));
+  const expiredConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Expired));
+  const revokedConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Revoked));
 
-  Helper.filterListbyStatus(consents, Status.ACTIVE);
+  Helper.filterListbyStatus(consents, Status.Active);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (event) {
@@ -64,7 +64,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
             <ConsentList consents={activeConsents} url={urlPrefix} />
           </Card>
         )}
-        {!isLoading && activeConsents.length === 0 && noConsentItems(Status.ACTIVE)}
+        {!isLoading && activeConsents.length === 0 && noConsentItems(Status.Active)}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {isLoading && renderLoading()}
@@ -73,7 +73,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
             <ConsentList consents={expiredConsents} url={urlPrefix} />
           </Card>
         )}
-        {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.EXPIRED)}
+        {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.Expired)}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {isLoading && renderLoading()}
@@ -82,7 +82,7 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
             <ConsentList consents={revokedConsents} url={urlPrefix} />
           </Card>
         )}
-        {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.REVOKED)}
+        {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.Revoked)}
       </TabPanel>
     </Box>
   );

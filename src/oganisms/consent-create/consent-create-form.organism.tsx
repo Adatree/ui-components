@@ -38,7 +38,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     if (
       useCase.sharingDurations &&
       useCase.sharingDurations.length === 1 &&
-      !useCase.sharingDurations.includes(SharingDuration.CUSTOM)
+      !useCase.sharingDurations.includes(SharingDuration.Custom)
     ) {
       consentForm.selectedSharingDurations = useCase.sharingDurations[0];
       consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);

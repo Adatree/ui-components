@@ -24,16 +24,16 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
   }
 
   switch (consent.status) {
-    case Status.ACTIVE:
+    case Status.Active:
       textDate = `Consent ${granteeName}granted ${Formatter.formatDateTime(consent.created)}`;
       break;
-    case Status.REQUESTED:
+    case Status.Requested:
       textDate = `Consent ${granteeName}requested ${Formatter.formatDateTime(consent.created)}`;
       break;
-    case Status.EXPIRED:
+    case Status.Expired:
       textDate = `Consent ${granteeName}expired ${Formatter.formatDateTime(consent.sharingEndDate)}`;
       break;
-    case Status.REVOKED:
+    case Status.Revoked:
       textDate = `Consent ${granteeName}revoked ${Formatter.formatDateTime(consent.revoked)}`;
       break;
   }
@@ -77,7 +77,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
           justifyContent: 'flex-end',
         }}
       >
-        {consent.status === Status.ACTIVE && onRevokeClick && (
+        {consent.status === Status.Active && onRevokeClick && (
           <>
             {editUrl && (
               <Tooltip
@@ -101,7 +101,7 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
             />
           </>
         )}
-        {consent.status !== Status.ACTIVE && (
+        {consent.status !== Status.Active && (
           <Chip
             label={consent.status}
             size="small"
@@ -113,13 +113,13 @@ export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
               '& span:first-letter': {
                 textTransform: 'capitalize',
               },
-              ...(consent.status === Status.EXPIRED && {
+              ...(consent.status === Status.Expired && {
                 backgroundColor: 'warning.main',
               }),
-              ...(consent.status === Status.REQUESTED && {
+              ...(consent.status === Status.Requested && {
                 backgroundColor: 'info.main',
               }),
-              ...(consent.status === Status.REVOKED && {
+              ...(consent.status === Status.Revoked && {
                 backgroundColor: 'error.main',
               }),
             }}

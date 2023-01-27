@@ -26,10 +26,10 @@ const sortListbyDate = (list: ConsentResponse[]): ConsentResponse[] => {
 const getConsentSortingDate = (consent: ConsentResponse): string | undefined => {
   let sortDate = consent.created;
 
-  if (consent.status === Status.EXPIRED) {
+  if (consent.status === Status.Expired) {
     sortDate = consent.sharingEndDate;
   }
-  if (consent.status === Status.REVOKED) {
+  if (consent.status === Status.Revoked) {
     sortDate = consent.revoked;
   }
 
@@ -63,7 +63,7 @@ const doesConsentExistForDataHolderAndUseCase = (
 ): boolean => {
   const alreadyExists = consents.filter((consent) => {
     return (
-      consent.status === Status.ACTIVE &&
+      consent.status === Status.Active &&
       consent.useCase?.id === useCase.id &&
       consent.dataHolderBrandId === dataHolder.dataHolderBrandId
     );
@@ -72,7 +72,7 @@ const doesConsentExistForDataHolderAndUseCase = (
 };
 
 const accessFrequencyToString = (accessFrequency: AccessFrequency): string => {
-  if (accessFrequency === AccessFrequency.ONCEOFF) {
+  if (accessFrequency === AccessFrequency.OnceOff) {
     return 'Once-off';
   }
 
@@ -166,11 +166,11 @@ const getScopeDifference = (baseScopes: ScopeResponse[], compareWithBaseScopes: 
 };
 
 const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): boolean => {
-  if (!useCase.sharingDurations || consent.status !== Status.ACTIVE) {
+  if (!useCase.sharingDurations || consent.status !== Status.Active) {
     return false;
   }
 
-  if (useCase.sharingDurations.includes(SharingDuration.CUSTOM)) {
+  if (useCase.sharingDurations.includes(SharingDuration.Custom)) {
     return true;
   }
 

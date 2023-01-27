@@ -21,7 +21,7 @@ export const DateSelector = (props: DateSelectorProps) => {
   const [consentForm, setConsentForm] = useConsentForm();
 
   const handleDatePickerChange = (date: Date) => {
-    handleSharingEndDateChange(date, SharingDuration.CUSTOM);
+    handleSharingEndDateChange(date, SharingDuration.Custom);
   };
 
   const handleDateButtonClick = (date: Date, sharingDuration: SharingDuration) => {
@@ -38,29 +38,29 @@ export const DateSelector = (props: DateSelectorProps) => {
 
   return (
     <>
-      {(sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.CUSTOM)) && (
+      {(sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.Custom)) && (
         <Typography sx={{ mb: 2 }}>
           How long would you like <Highlight>{companyName}</Highlight> to be able to access your data?
         </Typography>
       )}
 
       {sharingDurations.length === 1 &&
-        !sharingDurations.includes(SharingDuration.CUSTOM) &&
-        !sharingDurations.includes(SharingDuration.ONCEOFF) && (
+        !sharingDurations.includes(SharingDuration.Custom) &&
+        !sharingDurations.includes(SharingDuration.OnceOff) && (
           <Typography sx={{ mb: 1.5 }}>
             <Highlight>{companyName}</Highlight> will be able to access your data for{' '}
             <Highlight>{Helper.sharingDurationToString(sharingDurations[0])}</Highlight>.
           </Typography>
         )}
 
-      {sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.ONCEOFF) && (
+      {sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.OnceOff) && (
         <Typography sx={{ mb: 1.5 }}>
           <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
         </Typography>
       )}
 
-      {((!sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1) ||
-        (sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1)) && (
+      {((!sharingDurations.includes(SharingDuration.Custom) && sharingDurations.length > 1) ||
+        (sharingDurations.includes(SharingDuration.Custom) && sharingDurations.length > 1)) && (
         <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' } }}>
           <DateButton
             sharingDurations={sharingDurations}
@@ -69,7 +69,7 @@ export const DateSelector = (props: DateSelectorProps) => {
           />
         </Box>
       )}
-      {sharingDurations.includes(SharingDuration.CUSTOM) && sharingDurations.length > 1 && (
+      {sharingDurations.includes(SharingDuration.Custom) && sharingDurations.length > 1 && (
         <Typography
           variant="body2"
           sx={{
@@ -82,7 +82,7 @@ export const DateSelector = (props: DateSelectorProps) => {
           or
         </Typography>
       )}
-      {sharingDurations.includes(SharingDuration.CUSTOM) && (
+      {sharingDurations.includes(SharingDuration.Custom) && (
         <Box
           sx={{
             mt: 2,
@@ -94,21 +94,21 @@ export const DateSelector = (props: DateSelectorProps) => {
           <DatePicker date={sharingEndDate} label="Expire on" onChange={handleDatePickerChange} />
         </Box>
       )}
-      {sharingEndDate && sharingDuration === SharingDuration.CUSTOM && (
+      {sharingEndDate && sharingDuration === SharingDuration.Custom && (
         <Typography sx={{ my: 1.5 }}>
           <Highlight>{companyName}</Highlight> will be able to access your data until the{' '}
           <Highlight>{Formatter.formatDateTime(sharingEndDate)}</Highlight>.
         </Typography>
       )}
-      {sharingDuration && sharingDuration !== SharingDuration.CUSTOM && (
+      {sharingDuration && sharingDuration !== SharingDuration.Custom && (
         <Typography sx={{ my: 1.5 }}>
           <Highlight>{companyName}</Highlight> will be able to access your data{' '}
-          {sharingDuration === SharingDuration.ONCEOFF && (
+          {sharingDuration === SharingDuration.OnceOff && (
             <>
               <Highlight>once</Highlight>.
             </>
           )}
-          {sharingDuration !== SharingDuration.ONCEOFF && (
+          {sharingDuration !== SharingDuration.OnceOff && (
             <>
               for <Highlight>{Helper.sharingDurationToString(sharingDuration)}</Highlight>.
             </>

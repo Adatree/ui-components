@@ -45,7 +45,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     if (
       useCase.sharingDurations &&
       useCase.sharingDurations.length === 1 &&
-      !useCase.sharingDurations.includes(SharingDuration.CUSTOM)
+      !useCase.sharingDurations.includes(SharingDuration.Custom)
     ) {
       consentForm.selectedSharingDurations = useCase.sharingDurations[0];
       consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);
@@ -116,12 +116,12 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     <section>
       {!isEditable && (
         <Box sx={{ mb: 3 }}>
-          {consent.status === Status.ACTIVE && (
+          {consent.status === Status.Active && (
             <Alert severity="success">
               <Typography>{copy.consent.edit.up_to_date_message}</Typography>
             </Alert>
           )}
-          {consent.status && consent.status !== Status.ACTIVE && (
+          {consent.status && consent.status !== Status.Active && (
             <Alert severity="error">
               <Typography>{copy.consent.edit.non_active_consent_message(consent.status.toLowerCase())}</Typography>
             </Alert>

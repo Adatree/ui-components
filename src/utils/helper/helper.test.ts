@@ -26,10 +26,10 @@ describe('Helper Utils', () => {
   it('should format date string into a human readable format', () => {
     const list = TestUtil.testData.consent.all();
 
-    const activeList = Helper.filterListbyStatus(list, Status.ACTIVE);
-    const expiredList = Helper.filterListbyStatus(list, Status.EXPIRED);
-    const requestedList = Helper.filterListbyStatus(list, Status.REQUESTED);
-    const revokedList = Helper.filterListbyStatus(list, Status.REVOKED);
+    const activeList = Helper.filterListbyStatus(list, Status.Active);
+    const expiredList = Helper.filterListbyStatus(list, Status.Expired);
+    const requestedList = Helper.filterListbyStatus(list, Status.Requested);
+    const revokedList = Helper.filterListbyStatus(list, Status.Revoked);
 
     expect(activeList.length).toEqual(3);
     expect(activeList[0].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
@@ -120,16 +120,16 @@ describe('Helper Utils', () => {
 
   describe('accessFrequencyToString', () => {
     it('should return the correct access frequency string', () => {
-      expect(Helper.accessFrequencyToString(AccessFrequency.ONGOING)).toEqual('Ongoing');
-      expect(Helper.accessFrequencyToString(AccessFrequency.ONCEOFF)).toEqual('Once-off');
+      expect(Helper.accessFrequencyToString(AccessFrequency.Ongoing)).toEqual('Ongoing');
+      expect(Helper.accessFrequencyToString(AccessFrequency.OnceOff)).toEqual('Once-off');
     });
   });
 
   describe('parseSharingDuration', () => {
     it('should parse the SharingDuration array amd return the correct DateDuration array', () => {
-      expect(Helper.parseSharingDuration(SharingDuration.ONEDAY)).toEqual(DateDurationList[0]);
-      expect(Helper.parseSharingDuration(SharingDuration.ONCEOFF)).toEqual(DateDurationList[8]);
-      expect(Helper.parseSharingDuration(SharingDuration.CUSTOM)).toEqual(DateDurationList[9]);
+      expect(Helper.parseSharingDuration(SharingDuration.OneDay)).toEqual(DateDurationList[0]);
+      expect(Helper.parseSharingDuration(SharingDuration.OnceOff)).toEqual(DateDurationList[8]);
+      expect(Helper.parseSharingDuration(SharingDuration.Custom)).toEqual(DateDurationList[9]);
     });
   });
 

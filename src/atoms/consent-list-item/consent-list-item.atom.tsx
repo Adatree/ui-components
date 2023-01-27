@@ -21,16 +21,16 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
   let subtitle = 'Consent';
 
   switch (consent.status) {
-    case Status.ACTIVE:
+    case Status.Active:
       textDate = `${copy.common.status_active_label} ${Formatter.formatDate(consent.created)}`;
       break;
-    case Status.REQUESTED:
+    case Status.Requested:
       textDate = `${copy.common.status_requested_label} ${Formatter.formatDate(consent.created)}`;
       break;
-    case Status.EXPIRED:
+    case Status.Expired:
       textDate = `${copy.common.status_expired_label} ${Formatter.formatDate(consent.sharingEndDate)}`;
       break;
-    case Status.REVOKED:
+    case Status.Revoked:
       textDate = `${copy.common.status_revoked_label} ${Formatter.formatDate(consent.revoked)}`;
       break;
   }
