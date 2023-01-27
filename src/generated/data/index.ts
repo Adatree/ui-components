@@ -1,4 +1,6 @@
-// tslint:disable
+// @ts-nocheck
+/* tslint:disable */
+/* eslint-disable */
 /**
  * Adatree ADR Platform Data API
  * Adatree\'s Accredited Data Recipient (ADR) Platform Data API definition. Includes Banking and Energy.
@@ -11,6 +13,5 @@
  * Do not edit the class manually.
  */
 
-
-export * from "./api";
-export * from "./configuration";
+export * from './api';
+export * from './configuration';

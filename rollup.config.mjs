@@ -1,6 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default [
   {
@@ -11,6 +12,7 @@ export default [
       postcss({
         plugins: [],
       }),
+      nodeResolve(),
     ],
     output: [
       {
