@@ -2,8 +2,7 @@ import React from 'react';
 import { Typography, Box, Avatar, ListItem, Button } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
-import ChevronRight from 'mdi-material-ui/ChevronRight';
-import Bank from 'mdi-material-ui/Bank';
+import { ChevronRight, Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
 
 export type ListItemProps = {

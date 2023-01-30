@@ -11,8 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { DataRecipient } from '../../types/data-recipient.type';
-import InfoIcon from 'mdi-material-ui/InformationOutline';
-import CloseIcon from 'mdi-material-ui/Close';
+import { InformationOutline, Close } from 'mdi-material-ui';
 
 export type DataHandlerListProps = {
   dataHandlers: DataRecipient[];
@@ -50,7 +49,7 @@ export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
                     >
                       <Typography variant="body2">{dataHandler.name}</Typography>
                       <Box onClick={() => handleInfoClick(dataHandler)} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <InfoIcon sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
+                        <InformationOutline sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
                       </Box>
                     </Box>
                   </>
@@ -76,7 +75,7 @@ export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
                 color: (theme) => theme.palette.grey[500],
               }}
             >
-              <CloseIcon />
+              <Close />
             </IconButton>
           </DialogTitle>
           <DialogContent>

@@ -14,8 +14,7 @@ import {
 } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
 import { useCopy } from '../../context/copy.context';
-import InfoIcon from 'mdi-material-ui/InformationOutline';
-import CloseIcon from 'mdi-material-ui/Close';
+import { InformationOutline, Close } from 'mdi-material-ui';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
@@ -77,7 +76,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
                     >
                       <Typography variant="body2">{scope.name}</Typography>
                       <Box onClick={() => handleInfoClick(scope)} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <InfoIcon sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
+                        <InformationOutline sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
                       </Box>
                     </Box>
                   </>
@@ -112,7 +111,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
               color: (theme) => theme.palette.grey[500],
             }}
           >
-            <CloseIcon />
+            <Close />
           </IconButton>
         </DialogTitle>
         <DialogContent>

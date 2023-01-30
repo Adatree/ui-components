@@ -2,8 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { FeedbackMessage } from '../../lib';
 import { Typography } from '@mui/material';
-import Check from 'mdi-material-ui/Check';
-import AlertCircle from 'mdi-material-ui/AlertCircle';
+import { Check, AlertCircle } from 'mdi-material-ui';
 
 export default {
   title: 'Components/Atoms/Feedback Message',

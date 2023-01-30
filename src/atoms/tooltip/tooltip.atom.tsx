@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Tooltip as MuiTooltip, Typography } from '@mui/material';
-import InfoIcon from 'mdi-material-ui/InformationOutline';
+import { InformationOutline } from 'mdi-material-ui';
 
 export type TooltipProps = {
   content: ReactElement | string;
@@ -25,7 +25,7 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
   const text = title ? (
     <span style={{ cursor: 'pointer' }}>{title}</span>
   ) : (
-    <InfoIcon sx={{ ml: 1, pb: '2px', cursor: 'pointer', color: '#08A4E4' }} />
+    <InformationOutline sx={{ ml: 1, pb: '2px', cursor: 'pointer', color: '#08A4E4' }} />
   );
 
   return (

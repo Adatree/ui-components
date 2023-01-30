@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Accordion as MuiAccordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
-import ChevronDown from 'mdi-material-ui/ChevronDown';
+import { ChevronDown } from 'mdi-material-ui';
 
 export type AccordionProps = {
   title: string;

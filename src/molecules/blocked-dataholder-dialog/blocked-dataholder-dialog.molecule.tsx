@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { DataHolder } from '../../generated/consent';
 import { useCopy } from '../../context/copy.context';
-import Close from 'mdi-material-ui/Close';
+import { Close } from 'mdi-material-ui';
 
 export type BlockedDataholderDialogProps = {
   dataHolder: DataHolder;

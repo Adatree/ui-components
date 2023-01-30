@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AlertCircle from 'mdi-material-ui/AlertCircle';
+import { AlertCircle } from 'mdi-material-ui';
 import { FeedbackMessage } from '../../atoms/feedback-message/feedback-message.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { Box, Typography, useTheme } from '@mui/material';

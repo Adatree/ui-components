@@ -5,7 +5,7 @@ import {
   ThemeOptions,
   darken,
   lighten,
-} from '@mui/material/styles';
+} from '@mui/material';
 import { AppTheme } from './app.theme';
 
 const scalingFactor = 8;

@@ -3,9 +3,7 @@ import { Avatar, Box, Chip, IconButton, Link, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
 import { Formatter } from '../../utils/formatter/formater';
 import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
-import Bank from 'mdi-material-ui/Bank';
-import Delete from 'mdi-material-ui/Delete';
-import Pencil from 'mdi-material-ui/Pencil';
+import { Bank, Delete, Pencil } from 'mdi-material-ui';
 
 export type DataHolderHeaderProps = {
   consent: ConsentResponse;

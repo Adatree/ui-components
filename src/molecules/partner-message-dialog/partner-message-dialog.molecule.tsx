@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton } from '@mui/material';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
-import Close from 'mdi-material-ui/Close';
+import { Close } from 'mdi-material-ui';
 
 export type PartnerMessageDialogProps = {
   dataHolderName: string;

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Typography, Avatar, Box } from '@mui/material';
-import CheckboxMultipleMarked from 'mdi-material-ui/CheckboxMultipleMarked';
-import BankCheck from 'mdi-material-ui/BankCheck';
-import BankRemove from 'mdi-material-ui/BankRemove';
-import BankTransferOut from 'mdi-material-ui/BankTransferOut';
-import Connection from 'mdi-material-ui/Connection';
-import CloudLock from 'mdi-material-ui/CloudLock';
-import Tablet from 'mdi-material-ui/TabletAndroid';
+import {
+  CheckboxMultipleMarked,
+  BankCheck,
+  BankRemove,
+  BankTransferOut,
+  Connection,
+  CloudLock,
+  Tablet,
+} from 'mdi-material-ui';
 
 export type IconWithTextProps = {
   icon:

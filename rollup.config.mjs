@@ -26,6 +26,6 @@ export default [
         banner: '/* eslint-disable */',
       },
     ],
-    external: (id) => /react|@mui|mdi-material-ui|axios|date-fns|url/.test(id),
+    external: (id) => /react|@emotion|@mui|mdi-material-ui|axios|date-fns/.test(id),
   },
 ];

@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { Typography, Box, Collapse } from '@mui/material';
-import ChevronDown from 'mdi-material-ui/ChevronDown';
-import Circle from 'mdi-material-ui/Circle';
+import { ChevronDown, Circle } from 'mdi-material-ui';
 
 export type AccordionBasicProps = {
   title: string;
