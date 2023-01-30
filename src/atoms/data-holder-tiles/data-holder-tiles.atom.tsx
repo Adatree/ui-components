@@ -2,7 +2,6 @@ import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
-import './container.css';
 
 export type DataHolderTilesProps = {
   dataHolders: DataHolder[];
