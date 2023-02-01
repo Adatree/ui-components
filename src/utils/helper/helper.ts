@@ -170,21 +170,14 @@ const isConsentEditable = (consent: ConsentResponse, useCase: UseCaseResponse): 
     return false;
   }
 
-  if (useCase.sharingDurations.includes(SharingDuration.Custom)) {
-    return true;
-  }
+  // ADA-3005: API does not support updating scopes
+  // if (consent.useCase && consent.useCase.scopes && useCase.scopes) {
+  //   const differenceA = getScopeDifference(consent.useCase?.scopes, useCase.scopes);
+  //   const differenceB = getScopeDifference(useCase.scopes, consent.useCase?.scopes);
 
-  if (consent.useCase && consent.useCase.scopes && useCase.scopes) {
-    const differenceA = getScopeDifference(consent.useCase?.scopes, useCase.scopes);
-    const differenceB = getScopeDifference(useCase.scopes, consent.useCase?.scopes);
-
-    if (differenceA.length > 0 || differenceB.length > 0) {
-      return true;
-    }
-  }
-
-  // if (useCase.sharingDurations.length === 1 && isEqual(useCase.sharingDurations, consent.useCase?.sharingDurations)) {
-  //   return false;
+  //   if (differenceA.length > 0 || differenceB.length > 0) {
+  //     return true;
+  //   }
   // }
 
   return true;

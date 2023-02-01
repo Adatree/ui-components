@@ -1,6 +1,6 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import { AccessFrequency, SharingDuration, Status } from '../../generated/consent';
+import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { DateDurationList } from '../../consts/duration.const';
 import { DataRecipientType } from '../../types/data-recipient.type';
 
@@ -257,6 +257,34 @@ describe('Helper Utils', () => {
           ],
         ),
       ).toEqual([]);
+    });
+  });
+
+  describe('isConsentEditable', () => {
+    it('should return false if a consent is not active', () => {
+      let consent: ConsentResponse = { status: Status.Expired };
+      let useCase: UseCaseResponse = { sharingDurations: [SharingDuration.Custom] };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
+      consent = { status: Status.Requested };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
+      consent = { status: Status.Revoked };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
+    });
+
+    it('should return false if a use case does not have any Sharing Durations', () => {
+      let consent: ConsentResponse = { status: Status.Active };
+      let useCase: UseCaseResponse = {};
+      expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
+    });
+
+    it('should return true if a use case one or more Sharing Durations and the consent is Active', () => {
+      let consent: ConsentResponse = { status: Status.Active };
+      let useCase: UseCaseResponse = { sharingDurations: [SharingDuration.OneDay] };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
+      useCase = { sharingDurations: [SharingDuration.SixMonths] };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
+      useCase = { sharingDurations: [SharingDuration.Custom] };
+      expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
     });
   });
 });
