@@ -10,17 +10,22 @@ export type ConsentSectionDatesProps = {
   useCase: UseCaseResponse;
   showError: boolean;
   editMessage?: string;
+  showSharingDurationsOptions?: boolean;
 };
 
 export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) => {
-  const { useCase, showError } = props;
+  const { useCase, showError, showSharingDurationsOptions = false } = props;
   const { primaryDataRecipient } = useDataRecipients();
 
   return (
     <>
       <Card error={showError}>
         {useCase.sharingDurations && (
-          <DateSelector companyName={primaryDataRecipient.name} sharingDurations={useCase.sharingDurations} />
+          <DateSelector
+            companyName={primaryDataRecipient.name}
+            sharingDurations={useCase.sharingDurations}
+            showSharingDurationsOptions={showSharingDurationsOptions}
+          />
         )}
         <Typography sx={{ mt: 1.5, mb: 0 }}>
           {TextBuilder.accessFrequency(primaryDataRecipient.name, useCase.accessFrequency)}

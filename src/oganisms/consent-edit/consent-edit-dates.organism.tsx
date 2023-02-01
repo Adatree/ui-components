@@ -24,7 +24,7 @@ export const ConsentEditDates = (props: ConsentEditDatesProps) => {
         </Typography>
       </Card>
 
-      <ConsentSectionDates useCase={useCase} showError={showError} />
+      <ConsentSectionDates useCase={useCase} showError={showError} showSharingDurationsOptions={true} />
     </section>
   );
 };
