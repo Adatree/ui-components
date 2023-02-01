@@ -21,6 +21,12 @@ export const DateSelector = (props: DateSelectorProps) => {
   const [sharingDuration, setSharingDuration] = useState<SharingDuration>();
   const [consentForm, setConsentForm] = useConsentForm();
 
+  let showAllOptions = showSharingDurationsOptions;
+
+  if (sharingDurations.length === 1 && sharingDurations[0] === SharingDuration.OnceOff) {
+    showAllOptions = false;
+  }
+
   const handleDatePickerChange = (date: Date) => {
     handleSharingEndDateChange(date, SharingDuration.Custom);
   };
@@ -39,15 +45,13 @@ export const DateSelector = (props: DateSelectorProps) => {
 
   return (
     <>
-      {(showSharingDurationsOptions ||
-        sharingDurations.length > 1 ||
-        sharingDurations.includes(SharingDuration.Custom)) && (
+      {(showAllOptions || sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.Custom)) && (
         <Typography sx={{ mb: 2 }}>
           How long would you like <Highlight>{companyName}</Highlight> to be able to access your data?
         </Typography>
       )}
 
-      {!showSharingDurationsOptions &&
+      {!showAllOptions &&
         sharingDurations.length === 1 &&
         !sharingDurations.includes(SharingDuration.Custom) &&
         !sharingDurations.includes(SharingDuration.OnceOff) && (
@@ -57,15 +61,13 @@ export const DateSelector = (props: DateSelectorProps) => {
           </Typography>
         )}
 
-      {!showSharingDurationsOptions &&
-        sharingDurations.length === 1 &&
-        sharingDurations.includes(SharingDuration.OnceOff) && (
-          <Typography sx={{ mb: 1.5 }}>
-            <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
-          </Typography>
-        )}
+      {!showAllOptions && sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.OnceOff) && (
+        <Typography sx={{ mb: 1.5 }}>
+          <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
+        </Typography>
+      )}
 
-      {(showSharingDurationsOptions || sharingDurations.length > 1) && (
+      {(showAllOptions || sharingDurations.length > 1) && (
         <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' } }}>
           <DateButton
             sharingDurations={sharingDurations}
