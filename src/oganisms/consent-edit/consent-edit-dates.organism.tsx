@@ -10,10 +10,11 @@ export type ConsentEditDatesProps = {
   consent: ConsentResponse;
   showError: boolean;
   useCase: UseCaseResponse;
+  showSharingDurationsOptions?: boolean;
 };
 
 export const ConsentEditDates = (props: ConsentEditDatesProps) => {
-  const { consent, showError = false, useCase } = props;
+  const { consent, showError = false, useCase, showSharingDurationsOptions = false } = props;
   const { primaryDataRecipient } = useDataRecipients();
 
   return (
@@ -24,7 +25,11 @@ export const ConsentEditDates = (props: ConsentEditDatesProps) => {
         </Typography>
       </Card>
 
-      <ConsentSectionDates useCase={useCase} showError={showError} showSharingDurationsOptions={true} />
+      <ConsentSectionDates
+        useCase={useCase}
+        showError={showError}
+        showSharingDurationsOptions={showSharingDurationsOptions}
+      />
     </section>
   );
 };

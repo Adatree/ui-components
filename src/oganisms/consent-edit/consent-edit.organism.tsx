@@ -16,12 +16,20 @@ export type ConsentEditProps = {
   consent: ConsentResponse;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
+  showSharingDurationsOptions?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentEdit = (props: ConsentEditProps) => {
-  const { consent, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
+  const {
+    consent,
+    useCase,
+    enablePartnerMessageDiscreetMode = false,
+    showSharingDurationsOptions = false,
+    onCancel,
+    onSubmit,
+  } = props;
   const [isEditable, setIsEditable] = useState(true);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
@@ -136,7 +144,12 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </section>
       )}
 
-      <ConsentEditDates consent={consent} showError={showDateError} useCase={useCase} />
+      <ConsentEditDates
+        consent={consent}
+        showError={showDateError}
+        useCase={useCase}
+        showSharingDurationsOptions={showSharingDurationsOptions}
+      />
 
       <ConsentSectionInfo useCase={useCase} dataHandlers={dataRecipients} />
 
