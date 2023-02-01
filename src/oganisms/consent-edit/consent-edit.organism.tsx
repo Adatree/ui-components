@@ -6,11 +6,11 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { Alert, Box, Button, Typography } from '@mui/material';
-import { ConsentEditScopes } from './consent-edit-scopes.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
+import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -76,18 +76,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
     setIsPartnerDialogOpen(false);
   };
 
-  const handleAddScopeChange = (isAllScopesClicked: boolean) => {
-    consentForm.allAddScopesChecked = isAllScopesClicked;
-    setConsentForm({ ...consentForm });
-    setShowAddScopeError(false);
-  };
-
-  const handleRemoveScopeChange = (isAllScopesClicked: boolean) => {
-    consentForm.allRemoveScopesChecked = isAllScopesClicked;
-    setConsentForm({ ...consentForm });
-    setShowRemoveScopeError(false);
-  };
-
   const handleCancel = () => {
     onCancel();
   };
@@ -137,14 +125,16 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </Box>
       )}
 
-      <ConsentEditScopes
-        consent={consent}
-        useCase={useCase}
-        showAddScopeError={showAddScopeError}
-        showRemoveScopeError={showRemoveScopeError}
-        onAddScopeChange={handleAddScopeChange}
-        onRemoveScopeChange={handleRemoveScopeChange}
-      />
+      {consent.useCase && consent.useCase.scopes && (
+        <section>
+          <ConsentSectionScopes
+            message={copy.consent.edit.scope_read_only_message}
+            readOnly={true}
+            scopes={consent.useCase.scopes}
+            showError={false}
+          />
+        </section>
+      )}
 
       <ConsentEditDates consent={consent} showError={showDateError} useCase={useCase} />
 
