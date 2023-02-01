@@ -263,7 +263,7 @@ describe('Helper Utils', () => {
   describe('isConsentEditable', () => {
     it('should return false if a consent is not active', () => {
       let consent: ConsentResponse = { status: Status.Expired };
-      let useCase: UseCaseResponse = { sharingDurations: [SharingDuration.Custom] };
+      const useCase: UseCaseResponse = { sharingDurations: [SharingDuration.Custom] };
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
       consent = { status: Status.Requested };
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
@@ -272,13 +272,13 @@ describe('Helper Utils', () => {
     });
 
     it('should return false if a use case does not have any Sharing Durations', () => {
-      let consent: ConsentResponse = { status: Status.Active };
-      let useCase: UseCaseResponse = {};
+      const consent: ConsentResponse = { status: Status.Active };
+      const useCase: UseCaseResponse = {};
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
     });
 
     it('should return true if a use case one or more Sharing Durations and the consent is Active', () => {
-      let consent: ConsentResponse = { status: Status.Active };
+      const consent: ConsentResponse = { status: Status.Active };
       let useCase: UseCaseResponse = { sharingDurations: [SharingDuration.OneDay] };
       expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
       useCase = { sharingDurations: [SharingDuration.SixMonths] };
