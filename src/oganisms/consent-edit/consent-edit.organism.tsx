@@ -34,8 +34,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
-  const [showAddScopeError, setShowAddScopeError] = useState(false);
-  const [showRemoveScopeError, setShowRemoveScopeError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient } = useDataRecipients();
@@ -68,12 +66,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       setShowDateError(false);
     }
 
-    if (
-      consentForm.dataHolder &&
-      consentForm.selectedSharingDurations &&
-      consentForm.allAddScopesChecked &&
-      consentForm.allRemoveScopesChecked
-    ) {
+    if (consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -99,8 +92,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       }
     } else {
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowAddScopeError(consentForm.allAddScopesChecked === true ? false : true);
-      setShowRemoveScopeError(consentForm.allRemoveScopesChecked === true ? false : true);
     }
   };
 
@@ -166,7 +157,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
           cancelButtonLabel={copy.consent.create.cancel_label}
           cancelButtonMessage={copy.consent.create.cancel_edit_message}
           isValid={isFormValid}
-          showError={showAddScopeError || showDateError || showRemoveScopeError}
+          showError={showDateError}
           onCancel={handleCancel}
           onSubmit={handlePreSubmit}
         />
