@@ -59,6 +59,22 @@ WithTwoWeeksDuration.args = {
   sharingDurations: [SharingDuration.TwoWeeks],
 };
 
+export const WithOneDurationAndShowOptionsTrue = Template.bind({});
+WithOneDurationAndShowOptionsTrue.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+WithOneDurationAndShowOptionsTrue.args = {
+  companyName: companyName,
+  sharingDurations: [SharingDuration.TwoWeeks],
+  showSharingDurationsOptions: true,
+};
+
 export const WithCustomDuration = Template.bind({});
 WithCustomDuration.decorators = [
   (Story) => {

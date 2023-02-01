@@ -12,10 +12,11 @@ import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 export type DateSelectorProps = {
   companyName: string;
   sharingDurations: SharingDuration[];
+  showSharingDurationsOptions?: boolean;
 };
 
 export const DateSelector = (props: DateSelectorProps) => {
-  const { companyName, sharingDurations } = props;
+  const { companyName, sharingDurations, showSharingDurationsOptions = false } = props;
   const [sharingEndDate, setSharingEndDate] = useState<Date>();
   const [sharingDuration, setSharingDuration] = useState<SharingDuration>();
   const [consentForm, setConsentForm] = useConsentForm();
@@ -38,13 +39,16 @@ export const DateSelector = (props: DateSelectorProps) => {
 
   return (
     <>
-      {(sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.Custom)) && (
+      {(showSharingDurationsOptions ||
+        sharingDurations.length > 1 ||
+        sharingDurations.includes(SharingDuration.Custom)) && (
         <Typography sx={{ mb: 2 }}>
           How long would you like <Highlight>{companyName}</Highlight> to be able to access your data?
         </Typography>
       )}
 
-      {sharingDurations.length === 1 &&
+      {!showSharingDurationsOptions &&
+        sharingDurations.length === 1 &&
         !sharingDurations.includes(SharingDuration.Custom) &&
         !sharingDurations.includes(SharingDuration.OnceOff) && (
           <Typography sx={{ mb: 1.5 }}>
@@ -53,14 +57,15 @@ export const DateSelector = (props: DateSelectorProps) => {
           </Typography>
         )}
 
-      {sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.OnceOff) && (
-        <Typography sx={{ mb: 1.5 }}>
-          <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
-        </Typography>
-      )}
+      {!showSharingDurationsOptions &&
+        sharingDurations.length === 1 &&
+        sharingDurations.includes(SharingDuration.OnceOff) && (
+          <Typography sx={{ mb: 1.5 }}>
+            <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
+          </Typography>
+        )}
 
-      {((!sharingDurations.includes(SharingDuration.Custom) && sharingDurations.length > 1) ||
-        (sharingDurations.includes(SharingDuration.Custom) && sharingDurations.length > 1)) && (
+      {(showSharingDurationsOptions || sharingDurations.length > 1) && (
         <Box sx={{ mt: 2, display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' } }}>
           <DateButton
             sharingDurations={sharingDurations}
