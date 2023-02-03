@@ -21,6 +21,27 @@ describe('Helper Utils', () => {
       expect(sortedList[5].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
       expect(sortedList[6].consentId).toEqual('3ad2f7ce-18f4-451f-afb6-0077b339ddb4');
     });
+
+    it('should handle Consents with undefined dates', () => {
+      let consentA = TestUtil.testData.consent.active();
+      let consentB = TestUtil.testData.consent.expired();
+      consentA.created = undefined;
+      let sortedList = Helper.sortListbyDate([consentA, consentB]);
+
+      expect(sortedList[0].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
+
+      consentA = TestUtil.testData.consent.active();
+      consentA.sharingEndDate = undefined;
+      sortedList = Helper.sortListbyDate([consentA, consentB]);
+
+      expect(sortedList[0].consentId).toEqual('6e485649-3113-468d-8067-5f18580476f6');
+
+      consentA = TestUtil.testData.consent.active();
+      consentA.revoked = undefined;
+      sortedList = Helper.sortListbyDate([consentA, consentB]);
+
+      expect(sortedList[0].consentId).toEqual('6e485649-3113-468d-8067-5f18580476f6');
+    });
   });
 
   it('should format date string into a human readable format', () => {
