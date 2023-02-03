@@ -1,15 +1,9 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import {
-  AccessFrequency,
-  ConsentResponse,
-  DataHolder,
-  SharingDuration,
-  Status,
-  UseCaseResponse,
-} from '../../generated/consent';
+import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { DateDurationList } from '../../consts/duration.const';
 import { DataRecipientType } from '../../types/data-recipient.type';
+import { addDays, addHours, addMonths, addWeeks, addYears, isWithinInterval } from 'date-fns';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -190,6 +184,49 @@ describe('Helper Utils', () => {
     it('should return the undefined for invalid SharingDuration', () => {
       // @ts-ignore
       expect(Helper.sharingDurationToString('INVALID')).toEqual(undefined);
+    });
+  });
+
+  describe('sharingDurationToDate', () => {
+    it('should return the correct date for the SharingDuration', () => {
+      const curDate = new Date();
+      expect(Helper.sharingDurationToDate(SharingDuration.OneDay)).toEqual(addDays(curDate, 1));
+      expect(Helper.sharingDurationToDate(SharingDuration.OneWeek)).toEqual(addWeeks(curDate, 1));
+      expect(Helper.sharingDurationToDate(SharingDuration.OneMonth)).toEqual(addMonths(curDate, 1));
+      expect(Helper.sharingDurationToDate(SharingDuration.OneYear)).toEqual(addYears(curDate, 1));
+    });
+  });
+
+  describe('dateDurationToDate', () => {
+    it('should return the correct date for the SharingDuration', () => {
+      const curDate = new Date();
+      expect(
+        isWithinInterval(Helper.dateDurationToDate(DateDurationList[0]), {
+          start: addHours(curDate, 23),
+          end: addHours(curDate, 25),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.dateDurationToDate(DateDurationList[1]), {
+          start: addDays(curDate, 6),
+          end: addDays(curDate, 8),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.dateDurationToDate(DateDurationList[3]), {
+          start: addDays(curDate, 27),
+          end: addDays(curDate, 31),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.dateDurationToDate(DateDurationList[7]), {
+          start: addDays(curDate, 364),
+          end: addDays(curDate, 366),
+        }),
+      ).toBeTruthy();
     });
   });
 
