@@ -232,7 +232,11 @@ describe('Helper Utils', () => {
 
   describe('getPrimaryDataRecipients', () => {
     it('should get the correct primary dataRecipient based the priority logic in the function', () => {
-      const onelist = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const oneList = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const twoList = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      ];
       const granteeList1 = [
         TestUtil.testData.dataRecipient.accreditedDataRecipient(),
         TestUtil.testData.dataRecipient.granteeRepresentative(),
@@ -262,8 +266,13 @@ describe('Helper Utils', () => {
         TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
         TestUtil.testData.dataRecipient.cdrRepresentative(),
       ];
+      const invalidList = [
+        { ...TestUtil.testData.dataRecipient.accreditedDataRecipient(), type: 'INVALID_01' },
+        { ...TestUtil.testData.dataRecipient.accreditedDataRecipient(), type: 'INVALID_02' },
+      ];
 
-      expect(Helper.getPrimaryDataRecipients(onelist).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getPrimaryDataRecipients(oneList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getPrimaryDataRecipients(twoList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
       expect(Helper.getPrimaryDataRecipients(cdrrList1).type).toEqual(DataRecipientType.CDR_REPRESENTATIVE);
       expect(Helper.getPrimaryDataRecipients(granteeList1).type).toEqual(DataRecipientType.GRANTEE);
       expect(Helper.getPrimaryDataRecipients(taList1).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
@@ -275,6 +284,8 @@ describe('Helper Utils', () => {
       expect(Helper.getPrimaryDataRecipients(taspList2).type).toEqual(
         DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
       );
+      // @ts-ignore
+      expect(Helper.getPrimaryDataRecipients(invalidList).type).toEqual('INVALID_01');
     });
   });
 
