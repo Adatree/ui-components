@@ -170,6 +170,15 @@ describe('Helper Utils', () => {
     });
   });
 
+  describe('parseSharingDurations', () => {
+    it('should parse the SharingDurations array amd return the correct DateDuration array', () => {
+      expect(Helper.parseSharingDurations([SharingDuration.OneDay, SharingDuration.OneWeek])).toEqual([
+        DateDurationList[0],
+        DateDurationList[1],
+      ]);
+    });
+  });
+
   describe('getPrimaryDataRecipients', () => {
     it('should get the correct primary dataRecipient based the priority logic in the function', () => {
       const onelist = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
