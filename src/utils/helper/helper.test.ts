@@ -179,6 +179,20 @@ describe('Helper Utils', () => {
     });
   });
 
+  describe('sharingDurationToString', () => {
+    it('should return the correct string for the SharingDuration', () => {
+      expect(Helper.sharingDurationToString(SharingDuration.OneDay)).toEqual('1 day');
+      expect(Helper.sharingDurationToString(SharingDuration.TwoWeeks)).toEqual('2 weeks');
+      expect(Helper.sharingDurationToString(SharingDuration.OnceOff)).toEqual('Once off');
+      expect(Helper.sharingDurationToString(SharingDuration.Custom)).toEqual('Custom');
+    });
+
+    it('should return the undefined for invalid SharingDuration', () => {
+      // @ts-ignore
+      expect(Helper.sharingDurationToString('INVALID')).toEqual(undefined);
+    });
+  });
+
   describe('getPrimaryDataRecipients', () => {
     it('should get the correct primary dataRecipient based the priority logic in the function', () => {
       const onelist = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
