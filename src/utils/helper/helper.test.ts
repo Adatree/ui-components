@@ -1,6 +1,13 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
+import {
+  AccessFrequency,
+  ConsentResponse,
+  DataHolder,
+  SharingDuration,
+  Status,
+  UseCaseResponse,
+} from '../../generated/consent';
 import { DateDurationList } from '../../consts/duration.const';
 import { DataRecipientType } from '../../types/data-recipient.type';
 
@@ -136,6 +143,15 @@ describe('Helper Utils', () => {
 
       const filteredDataHolders05 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [], useCase);
       expect(filteredDataHolders05.length).toEqual(0);
+    });
+
+    it('should not return DataHolders if no Data Holders are provided', () => {
+      const dataHolders = undefined;
+      const consents = TestUtil.testData.consent.all();
+      const useCase = TestUtil.testData.useCase.homeLoan();
+
+      const filteredDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, useCase);
+      expect(filteredDataHolders.length).toEqual(0);
     });
   });
 
