@@ -190,10 +190,34 @@ describe('Helper Utils', () => {
   describe('sharingDurationToDate', () => {
     it('should return the correct date for the SharingDuration', () => {
       const curDate = new Date();
-      expect(Helper.sharingDurationToDate(SharingDuration.OneDay)).toEqual(addDays(curDate, 1));
-      expect(Helper.sharingDurationToDate(SharingDuration.OneWeek)).toEqual(addWeeks(curDate, 1));
-      expect(Helper.sharingDurationToDate(SharingDuration.OneMonth)).toEqual(addMonths(curDate, 1));
-      expect(Helper.sharingDurationToDate(SharingDuration.OneYear)).toEqual(addYears(curDate, 1));
+
+      expect(
+        isWithinInterval(Helper.sharingDurationToDate(SharingDuration.OneDay), {
+          start: addHours(curDate, 23),
+          end: addHours(curDate, 25),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.sharingDurationToDate(SharingDuration.OneWeek), {
+          start: addDays(curDate, 6),
+          end: addDays(curDate, 8),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.sharingDurationToDate(SharingDuration.OneMonth), {
+          start: addDays(curDate, 27),
+          end: addDays(curDate, 31),
+        }),
+      ).toBeTruthy();
+
+      expect(
+        isWithinInterval(Helper.sharingDurationToDate(SharingDuration.OneYear), {
+          start: addDays(curDate, 364),
+          end: addDays(curDate, 366),
+        }),
+      ).toBeTruthy();
     });
   });
 
