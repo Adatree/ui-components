@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '@testing-library/jest-dom';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '../../utils/test/test-render';
 import { Accordion } from './accordion.molecule';
 
 test('Open the Accordion when the button is clicked', () => {
