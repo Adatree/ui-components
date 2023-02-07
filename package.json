@@ -32,15 +32,21 @@
     "mdi-material-ui": "7.6.0",
     "uuid": "^9.0.0"
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@types/jest": "^27.4.0",
     "@types/lodash": "4.14.184",
     "@types/react": "^17.0.38",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
