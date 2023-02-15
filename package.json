@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -54,6 +54,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.11.0",
+    "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "ts-jest": "^27.1.2",

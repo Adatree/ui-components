@@ -25,7 +25,7 @@ describe('Helper Utils', () => {
 
     it('should handle Consents with undefined dates', () => {
       let consentA = TestUtil.testData.consent.active();
-      let consentB = TestUtil.testData.consent.expired();
+      const consentB = TestUtil.testData.consent.expired();
       consentA.created = undefined;
       let sortedList = Helper.sortListbyDate([consentA, consentB]);
 
@@ -182,7 +182,7 @@ describe('Helper Utils', () => {
     });
 
     it('should return the undefined for invalid SharingDuration', () => {
-      // @ts-ignore
+      // @ts-expect-error INVALID is not a valid SharingDuration
       expect(Helper.sharingDurationToString('INVALID')).toEqual(undefined);
     });
   });
@@ -308,7 +308,7 @@ describe('Helper Utils', () => {
       expect(Helper.getPrimaryDataRecipients(taspList2).type).toEqual(
         DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
       );
-      // @ts-ignore
+      // @ts-expect-error invalidList contains invalid DataRecipients
       expect(Helper.getPrimaryDataRecipients(invalidList).type).toEqual('INVALID_01');
     });
   });
