@@ -155,6 +155,12 @@ export interface ConsentEvent {
    * @memberof ConsentEvent
    */
   grantee?: ConsentGrantee;
+  /**
+   *
+   * @type {object}
+   * @memberof ConsentEvent
+   */
+  customData?: object;
 }
 
 export const ConsentEventEventTypeEnum = {
@@ -367,6 +373,12 @@ export interface ConsentResponse {
    * @memberof ConsentResponse
    */
   serviceProvider?: ServiceProvider;
+  /**
+   *
+   * @type {object}
+   * @memberof ConsentResponse
+   */
+  customData?: object;
 }
 /**
  *
@@ -453,6 +465,12 @@ export interface ConsentUseCaseResponse {
    * @memberof ConsentUseCaseResponse
    */
   accessFrequency?: AccessFrequency;
+  /**
+   * Stringified JSON Schema for customData
+   * @type {string}
+   * @memberof ConsentUseCaseResponse
+   */
+  customDataSchema?: string;
 }
 /**
  * consumer types that will be consenting to the various scopes (data clusters)
@@ -529,6 +547,12 @@ export interface CreateConsent {
    * @memberof CreateConsent
    */
   grantee?: Grantee;
+  /**
+   *
+   * @type {object}
+   * @memberof CreateConsent
+   */
+  customData?: object;
 }
 /**
  *
@@ -1057,6 +1081,12 @@ export interface UseCaseResponse {
    * @memberof UseCaseResponse
    */
   osps?: Array<OutsourcedServiceProvider>;
+  /**
+   * Stringified JSON Schema for customData
+   * @type {string}
+   * @memberof UseCaseResponse
+   */
+  customDataSchema?: string;
 }
 
 /**
@@ -2230,6 +2260,10 @@ export const GetConsentEventsApiAxiosParamCreator = function (configuration?: Co
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      // authentication bearerAuth required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       // authentication m2m required
       // oauth required

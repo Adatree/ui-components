@@ -9,6 +9,7 @@ type ConsentForm = {
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date | undefined;
   useCaseId: string | undefined;
+  customData?: Record<string, string>;
 };
 
 const ConsentFormContext = React.createContext<
