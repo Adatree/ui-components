@@ -1,11 +1,9 @@
 import {
-  BankingTransactionAdatreePersoneticsCategoryNameEnum,
   BankingTransactionExtendedDataExtensionUTypeEnum,
   BankingTransactionExtendedDataServiceEnum,
   BankingTransactionList,
   BankingTransactionStatusEnum,
   BankingTransactionTypeEnum,
-  BankingTransactionAdatreePersoneticsSubCategoryNameEnum,
   BankingTransaction,
 } from '../../../generated/data/api';
 import { v4 as uuidv4 } from 'uuid';
@@ -66,12 +64,6 @@ const generateTransaction = (): BankingTransaction => {
       dataHolderBrandId: '1234',
       useCaseId: 'HOME_LOAN',
       resourceId: uuidv4(),
-      categorisation: {
-        personetics: {
-          categoryName: randomEnum(BankingTransactionAdatreePersoneticsCategoryNameEnum),
-          subCategoryName: randomEnum(BankingTransactionAdatreePersoneticsSubCategoryNameEnum),
-        },
-      },
     },
   };
 };
