@@ -1,6 +1,6 @@
 // @ts-nocheck
-// tslint:disable
-// eslint:disable
+/* tslint:disable */
+/* eslint-disable */
 /**
  * Adatree ADR Platform Data API
  * Adatree\'s Accredited Data Recipient (ADR) Platform Data API definition. Includes Banking and Energy.
@@ -13,10 +13,22 @@
  * Do not edit the class manually.
  */
 
-import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
+// @ts-ignore
+import {
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
+} from './common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
@@ -100,6 +112,12 @@ export interface BankingAccount {
    */
   isOwned?: boolean;
   /**
+   * Value indicating the number of customers that have ownership of the account, according to the data holder\'s definition of account ownership. Does not indicate that all account owners are eligible consumers
+   * @type {string}
+   * @memberof BankingAccount
+   */
+  accountOwnership?: BankingAccountAccountOwnershipEnum;
+  /**
    * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
    * @type {string}
    * @memberof BankingAccount
@@ -119,14 +137,23 @@ export interface BankingAccount {
   productName: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingAccountOpenStatusEnum {
-  OPEN = 'OPEN',
-  CLOSED = 'CLOSED',
-}
+export const BankingAccountOpenStatusEnum = {
+  Open: 'OPEN',
+  Closed: 'CLOSED',
+} as const;
+
+export type BankingAccountOpenStatusEnum =
+  typeof BankingAccountOpenStatusEnum[keyof typeof BankingAccountOpenStatusEnum];
+export const BankingAccountAccountOwnershipEnum = {
+  Unknown: 'UNKNOWN',
+  OneParty: 'ONE_PARTY',
+  TwoParty: 'TWO_PARTY',
+  ManyParty: 'MANY_PARTY',
+  Other: 'OTHER',
+} as const;
+
+export type BankingAccountAccountOwnershipEnum =
+  typeof BankingAccountAccountOwnershipEnum[keyof typeof BankingAccountAccountOwnershipEnum];
 
 /**
  *
@@ -170,6 +197,12 @@ export interface BankingAccountDetail {
    * @memberof BankingAccountDetail
    */
   isOwned?: boolean;
+  /**
+   * Value indicating the number of customers that have ownership of the account, according to the data holder\'s definition of account ownership. Does not indicate that all account owners are eligible consumers
+   * @type {string}
+   * @memberof BankingAccountDetail
+   */
+  accountOwnership?: BankingAccountDetailAccountOwnershipEnum;
   /**
    * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
    * @type {string}
@@ -286,23 +319,31 @@ export interface BankingAccountDetail {
   adatree?: BankingAccountDetailAdatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingAccountDetailOpenStatusEnum {
-  OPEN = 'OPEN',
-  CLOSED = 'CLOSED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingAccountDetailSpecificAccountUTypeEnum {
-  TermDeposit = 'termDeposit',
-  CreditCard = 'creditCard',
-  Loan = 'loan',
-}
+export const BankingAccountDetailOpenStatusEnum = {
+  Open: 'OPEN',
+  Closed: 'CLOSED',
+} as const;
+
+export type BankingAccountDetailOpenStatusEnum =
+  typeof BankingAccountDetailOpenStatusEnum[keyof typeof BankingAccountDetailOpenStatusEnum];
+export const BankingAccountDetailAccountOwnershipEnum = {
+  Unknown: 'UNKNOWN',
+  OneParty: 'ONE_PARTY',
+  TwoParty: 'TWO_PARTY',
+  ManyParty: 'MANY_PARTY',
+  Other: 'OTHER',
+} as const;
+
+export type BankingAccountDetailAccountOwnershipEnum =
+  typeof BankingAccountDetailAccountOwnershipEnum[keyof typeof BankingAccountDetailAccountOwnershipEnum];
+export const BankingAccountDetailSpecificAccountUTypeEnum = {
+  TermDeposit: 'termDeposit',
+  CreditCard: 'creditCard',
+  Loan: 'loan',
+} as const;
+
+export type BankingAccountDetailSpecificAccountUTypeEnum =
+  typeof BankingAccountDetailSpecificAccountUTypeEnum[keyof typeof BankingAccountDetailSpecificAccountUTypeEnum];
 
 /**
  * Extra data and metadata provided by Adatree for accounts
@@ -464,15 +505,14 @@ export interface BankingAccountDetailAllOf {
   adatree?: BankingAccountDetailAdatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingAccountDetailAllOfSpecificAccountUTypeEnum {
-  TermDeposit = 'termDeposit',
-  CreditCard = 'creditCard',
-  Loan = 'loan',
-}
+export const BankingAccountDetailAllOfSpecificAccountUTypeEnum = {
+  TermDeposit: 'termDeposit',
+  CreditCard: 'creditCard',
+  Loan: 'loan',
+} as const;
+
+export type BankingAccountDetailAllOfSpecificAccountUTypeEnum =
+  typeof BankingAccountDetailAllOfSpecificAccountUTypeEnum[keyof typeof BankingAccountDetailAllOfSpecificAccountUTypeEnum];
 
 /**
  *
@@ -550,41 +590,40 @@ export interface BankingAccountProductFeature {
   isActivated?: boolean;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingAccountProductFeatureFeatureTypeEnum {
-  ADDITIONALCARDS = 'ADDITIONAL_CARDS',
-  BALANCETRANSFERS = 'BALANCE_TRANSFERS',
-  BILLPAYMENT = 'BILL_PAYMENT',
-  BONUSREWARDS = 'BONUS_REWARDS',
-  CARDACCESS = 'CARD_ACCESS',
-  CASHBACKOFFER = 'CASHBACK_OFFER',
-  COMPLEMENTARYPRODUCTDISCOUNTS = 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
-  DIGITALBANKING = 'DIGITAL_BANKING',
-  DIGITALWALLET = 'DIGITAL_WALLET',
-  DONATEINTEREST = 'DONATE_INTEREST',
-  EXTRAREPAYMENTS = 'EXTRA_REPAYMENTS',
-  FRAUDPROTECTION = 'FRAUD_PROTECTION',
-  FREETXNS = 'FREE_TXNS',
-  FREETXNSALLOWANCE = 'FREE_TXNS_ALLOWANCE',
-  GUARANTOR = 'GUARANTOR',
-  INSURANCE = 'INSURANCE',
-  INSTALMENTPLAN = 'INSTALMENT_PLAN',
-  INTERESTFREE = 'INTEREST_FREE',
-  INTERESTFREETRANSFERS = 'INTEREST_FREE_TRANSFERS',
-  LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
-  NOTIFICATIONS = 'NOTIFICATIONS',
-  NPPENABLED = 'NPP_ENABLED',
-  NPPPAYID = 'NPP_PAYID',
-  OFFSET = 'OFFSET',
-  OTHER = 'OTHER',
-  OVERDRAFT = 'OVERDRAFT',
-  REDRAW = 'REDRAW',
-  RELATIONSHIPMANAGEMENT = 'RELATIONSHIP_MANAGEMENT',
-  UNLIMITEDTXNS = 'UNLIMITED_TXNS',
-}
+export const BankingAccountProductFeatureFeatureTypeEnum = {
+  AdditionalCards: 'ADDITIONAL_CARDS',
+  BalanceTransfers: 'BALANCE_TRANSFERS',
+  BillPayment: 'BILL_PAYMENT',
+  BonusRewards: 'BONUS_REWARDS',
+  CardAccess: 'CARD_ACCESS',
+  CashbackOffer: 'CASHBACK_OFFER',
+  ComplementaryProductDiscounts: 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
+  DigitalBanking: 'DIGITAL_BANKING',
+  DigitalWallet: 'DIGITAL_WALLET',
+  DonateInterest: 'DONATE_INTEREST',
+  ExtraRepayments: 'EXTRA_REPAYMENTS',
+  FraudProtection: 'FRAUD_PROTECTION',
+  FreeTxns: 'FREE_TXNS',
+  FreeTxnsAllowance: 'FREE_TXNS_ALLOWANCE',
+  Guarantor: 'GUARANTOR',
+  Insurance: 'INSURANCE',
+  InstalmentPlan: 'INSTALMENT_PLAN',
+  InterestFree: 'INTEREST_FREE',
+  InterestFreeTransfers: 'INTEREST_FREE_TRANSFERS',
+  LoyaltyProgram: 'LOYALTY_PROGRAM',
+  Notifications: 'NOTIFICATIONS',
+  NppEnabled: 'NPP_ENABLED',
+  NppPayid: 'NPP_PAYID',
+  Offset: 'OFFSET',
+  Other: 'OTHER',
+  Overdraft: 'OVERDRAFT',
+  Redraw: 'REDRAW',
+  RelationshipManagement: 'RELATIONSHIP_MANAGEMENT',
+  UnlimitedTxns: 'UNLIMITED_TXNS',
+} as const;
+
+export type BankingAccountProductFeatureFeatureTypeEnum =
+  typeof BankingAccountProductFeatureFeatureTypeEnum[keyof typeof BankingAccountProductFeatureFeatureTypeEnum];
 
 /**
  *
@@ -763,6 +802,54 @@ export interface BankingCreditCardAccount {
 /**
  *
  * @export
+ * @interface BankingDigitalWalletPayee
+ */
+export interface BankingDigitalWalletPayee {
+  /**
+   * The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider
+   * @type {string}
+   * @memberof BankingDigitalWalletPayee
+   */
+  name: string;
+  /**
+   * The identifier of the digital wallet (dependent on type)
+   * @type {string}
+   * @memberof BankingDigitalWalletPayee
+   */
+  identifier: string;
+  /**
+   * The type of the digital wallet identifier
+   * @type {string}
+   * @memberof BankingDigitalWalletPayee
+   */
+  type: BankingDigitalWalletPayeeTypeEnum;
+  /**
+   * The provider of the digital wallet
+   * @type {string}
+   * @memberof BankingDigitalWalletPayee
+   */
+  provider: BankingDigitalWalletPayeeProviderEnum;
+}
+
+export const BankingDigitalWalletPayeeTypeEnum = {
+  Email: 'EMAIL',
+  ContactName: 'CONTACT_NAME',
+  Telephone: 'TELEPHONE',
+} as const;
+
+export type BankingDigitalWalletPayeeTypeEnum =
+  typeof BankingDigitalWalletPayeeTypeEnum[keyof typeof BankingDigitalWalletPayeeTypeEnum];
+export const BankingDigitalWalletPayeeProviderEnum = {
+  PaypalAu: 'PAYPAL_AU',
+  Other: 'OTHER',
+} as const;
+
+export type BankingDigitalWalletPayeeProviderEnum =
+  typeof BankingDigitalWalletPayeeProviderEnum[keyof typeof BankingDigitalWalletPayeeProviderEnum];
+
+/**
+ *
+ * @export
  * @interface BankingDirectDebit
  */
 export interface BankingDirectDebit {
@@ -867,15 +954,14 @@ export interface BankingDomesticPayee {
   payId?: BankingDomesticPayeePayId;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingDomesticPayeePayeeAccountUTypeEnum {
-  Account = 'account',
-  Card = 'card',
-  PayId = 'payId',
-}
+export const BankingDomesticPayeePayeeAccountUTypeEnum = {
+  Account: 'account',
+  Card: 'card',
+  PayId: 'payId',
+} as const;
+
+export type BankingDomesticPayeePayeeAccountUTypeEnum =
+  typeof BankingDomesticPayeePayeeAccountUTypeEnum[keyof typeof BankingDomesticPayeePayeeAccountUTypeEnum];
 
 /**
  *
@@ -941,16 +1027,15 @@ export interface BankingDomesticPayeePayId {
   type: BankingDomesticPayeePayIdTypeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingDomesticPayeePayIdTypeEnum {
-  ABN = 'ABN',
-  EMAIL = 'EMAIL',
-  ORGIDENTIFIER = 'ORG_IDENTIFIER',
-  TELEPHONE = 'TELEPHONE',
-}
+export const BankingDomesticPayeePayIdTypeEnum = {
+  Abn: 'ABN',
+  Email: 'EMAIL',
+  OrgIdentifier: 'ORG_IDENTIFIER',
+  Telephone: 'TELEPHONE',
+} as const;
+
+export type BankingDomesticPayeePayIdTypeEnum =
+  typeof BankingDomesticPayeePayIdTypeEnum[keyof typeof BankingDomesticPayeePayIdTypeEnum];
 
 /**
  *
@@ -1174,14 +1259,13 @@ export interface BankingLoanAccount {
   repaymentFrequency: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingLoanAccountRepaymentTypeEnum {
-  INTERESTONLY = 'INTEREST_ONLY',
-  PRINCIPALANDINTEREST = 'PRINCIPAL_AND_INTEREST',
-}
+export const BankingLoanAccountRepaymentTypeEnum = {
+  InterestOnly: 'INTEREST_ONLY',
+  PrincipalAndInterest: 'PRINCIPAL_AND_INTEREST',
+} as const;
+
+export type BankingLoanAccountRepaymentTypeEnum =
+  typeof BankingLoanAccountRepaymentTypeEnum[keyof typeof BankingLoanAccountRepaymentTypeEnum];
 
 /**
  *
@@ -1221,15 +1305,14 @@ export interface BankingPayee {
   creationDate?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingPayeeTypeEnum {
-  BILLER = 'BILLER',
-  DOMESTIC = 'DOMESTIC',
-  INTERNATIONAL = 'INTERNATIONAL',
-}
+export const BankingPayeeTypeEnum = {
+  Biller: 'BILLER',
+  DigitalWallet: 'DIGITAL_WALLET',
+  Domestic: 'DOMESTIC',
+  International: 'INTERNATIONAL',
+} as const;
+
+export type BankingPayeeTypeEnum = typeof BankingPayeeTypeEnum[keyof typeof BankingPayeeTypeEnum];
 
 /**
  *
@@ -1281,6 +1364,12 @@ export interface BankingPayeeDetail {
   biller?: BankingBillerPayee;
   /**
    *
+   * @type {BankingDigitalWalletPayee}
+   * @memberof BankingPayeeDetail
+   */
+  digitalWallet?: BankingDigitalWalletPayee;
+  /**
+   *
    * @type {BankingDomesticPayee}
    * @memberof BankingPayeeDetail
    */
@@ -1299,24 +1388,23 @@ export interface BankingPayeeDetail {
   adatree?: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingPayeeDetailTypeEnum {
-  BILLER = 'BILLER',
-  DOMESTIC = 'DOMESTIC',
-  INTERNATIONAL = 'INTERNATIONAL',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingPayeeDetailPayeeUTypeEnum {
-  Biller = 'biller',
-  Domestic = 'domestic',
-  International = 'international',
-}
+export const BankingPayeeDetailTypeEnum = {
+  Biller: 'BILLER',
+  DigitalWallet: 'DIGITAL_WALLET',
+  Domestic: 'DOMESTIC',
+  International: 'INTERNATIONAL',
+} as const;
+
+export type BankingPayeeDetailTypeEnum = typeof BankingPayeeDetailTypeEnum[keyof typeof BankingPayeeDetailTypeEnum];
+export const BankingPayeeDetailPayeeUTypeEnum = {
+  Biller: 'biller',
+  DigitalWallet: 'digitalWallet',
+  Domestic: 'domestic',
+  International: 'international',
+} as const;
+
+export type BankingPayeeDetailPayeeUTypeEnum =
+  typeof BankingPayeeDetailPayeeUTypeEnum[keyof typeof BankingPayeeDetailPayeeUTypeEnum];
 
 /**
  *
@@ -1338,6 +1426,12 @@ export interface BankingPayeeDetailAllOf {
   biller?: BankingBillerPayee;
   /**
    *
+   * @type {BankingDigitalWalletPayee}
+   * @memberof BankingPayeeDetailAllOf
+   */
+  digitalWallet?: BankingDigitalWalletPayee;
+  /**
+   *
    * @type {BankingDomesticPayee}
    * @memberof BankingPayeeDetailAllOf
    */
@@ -1350,15 +1444,15 @@ export interface BankingPayeeDetailAllOf {
   international?: BankingInternationalPayee;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingPayeeDetailAllOfPayeeUTypeEnum {
-  Biller = 'biller',
-  Domestic = 'domestic',
-  International = 'international',
-}
+export const BankingPayeeDetailAllOfPayeeUTypeEnum = {
+  Biller: 'biller',
+  DigitalWallet: 'digitalWallet',
+  Domestic: 'domestic',
+  International: 'international',
+} as const;
+
+export type BankingPayeeDetailAllOfPayeeUTypeEnum =
+  typeof BankingPayeeDetailAllOfPayeeUTypeEnum[keyof typeof BankingPayeeDetailAllOfPayeeUTypeEnum];
 
 /**
  *
@@ -1414,6 +1508,25 @@ export interface BankingPayeeListData {
 /**
  *
  * @export
+ * @interface BankingProductAdditionalInformationV2AdditionalInformationUris
+ */
+export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
+  /**
+   * Display text providing more information about the document URI
+   * @type {string}
+   * @memberof BankingProductAdditionalInformationV2AdditionalInformationUris
+   */
+  description?: string;
+  /**
+   * The URI describing the additional information
+   * @type {string}
+   * @memberof BankingProductAdditionalInformationV2AdditionalInformationUris
+   */
+  additionalInfoUri: string;
+}
+/**
+ *
+ * @export
  * @interface BankingProductBundle
  */
 export interface BankingProductBundle {
@@ -1453,20 +1566,23 @@ export interface BankingProductBundle {
  * @export
  * @enum {string}
  */
-export enum BankingProductCategory {
-  BUSINESSLOANS = 'BUSINESS_LOANS',
-  CREDANDCHRGCARDS = 'CRED_AND_CHRG_CARDS',
-  LEASES = 'LEASES',
-  MARGINLOANS = 'MARGIN_LOANS',
-  OVERDRAFTS = 'OVERDRAFTS',
-  PERSLOANS = 'PERS_LOANS',
-  REGULATEDTRUSTACCOUNTS = 'REGULATED_TRUST_ACCOUNTS',
-  RESIDENTIALMORTGAGES = 'RESIDENTIAL_MORTGAGES',
-  TERMDEPOSITS = 'TERM_DEPOSITS',
-  TRADEFINANCE = 'TRADE_FINANCE',
-  TRAVELCARDS = 'TRAVEL_CARDS',
-  TRANSANDSAVINGSACCOUNTS = 'TRANS_AND_SAVINGS_ACCOUNTS',
-}
+
+export const BankingProductCategory = {
+  BusinessLoans: 'BUSINESS_LOANS',
+  CredAndChrgCards: 'CRED_AND_CHRG_CARDS',
+  Leases: 'LEASES',
+  MarginLoans: 'MARGIN_LOANS',
+  Overdrafts: 'OVERDRAFTS',
+  PersLoans: 'PERS_LOANS',
+  RegulatedTrustAccounts: 'REGULATED_TRUST_ACCOUNTS',
+  ResidentialMortgages: 'RESIDENTIAL_MORTGAGES',
+  TermDeposits: 'TERM_DEPOSITS',
+  TradeFinance: 'TRADE_FINANCE',
+  TravelCards: 'TRAVEL_CARDS',
+  TransAndSavingsAccounts: 'TRANS_AND_SAVINGS_ACCOUNTS',
+} as const;
+
+export type BankingProductCategory = typeof BankingProductCategory[keyof typeof BankingProductCategory];
 
 /**
  *
@@ -1500,17 +1616,16 @@ export interface BankingProductConstraint {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductConstraintConstraintTypeEnum {
-  MINBALANCE = 'MIN_BALANCE',
-  MINLIMIT = 'MIN_LIMIT',
-  MAXBALANCE = 'MAX_BALANCE',
-  MAXLIMIT = 'MAX_LIMIT',
-  OPENINGBALANCE = 'OPENING_BALANCE',
-}
+export const BankingProductConstraintConstraintTypeEnum = {
+  MinBalance: 'MIN_BALANCE',
+  MinLimit: 'MIN_LIMIT',
+  MaxBalance: 'MAX_BALANCE',
+  MaxLimit: 'MAX_LIMIT',
+  OpeningBalance: 'OPENING_BALANCE',
+} as const;
+
+export type BankingProductConstraintConstraintTypeEnum =
+  typeof BankingProductConstraintConstraintTypeEnum[keyof typeof BankingProductConstraintConstraintTypeEnum];
 
 /**
  *
@@ -1568,19 +1683,18 @@ export interface BankingProductDepositRate {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductDepositRateDepositRateTypeEnum {
-  BONUS = 'BONUS',
-  BUNDLEBONUS = 'BUNDLE_BONUS',
-  FIXED = 'FIXED',
-  FLOATING = 'FLOATING',
-  INTRODUCTORY = 'INTRODUCTORY',
-  MARKETLINKED = 'MARKET_LINKED',
-  VARIABLE = 'VARIABLE',
-}
+export const BankingProductDepositRateDepositRateTypeEnum = {
+  Bonus: 'BONUS',
+  BundleBonus: 'BUNDLE_BONUS',
+  Fixed: 'FIXED',
+  Floating: 'FLOATING',
+  Introductory: 'INTRODUCTORY',
+  MarketLinked: 'MARKET_LINKED',
+  Variable: 'VARIABLE',
+} as const;
+
+export type BankingProductDepositRateDepositRateTypeEnum =
+  typeof BankingProductDepositRateDepositRateTypeEnum[keyof typeof BankingProductDepositRateDepositRateTypeEnum];
 
 /**
  *
@@ -1844,17 +1958,16 @@ export interface BankingProductDiscount {
   eligibility?: Array<BankingProductDiscountEligibility>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductDiscountDiscountTypeEnum {
-  BALANCE = 'BALANCE',
-  DEPOSITS = 'DEPOSITS',
-  ELIGIBILITYONLY = 'ELIGIBILITY_ONLY',
-  FEECAP = 'FEE_CAP',
-  PAYMENTS = 'PAYMENTS',
-}
+export const BankingProductDiscountDiscountTypeEnum = {
+  Balance: 'BALANCE',
+  Deposits: 'DEPOSITS',
+  EligibilityOnly: 'ELIGIBILITY_ONLY',
+  FeeCap: 'FEE_CAP',
+  Payments: 'PAYMENTS',
+} as const;
+
+export type BankingProductDiscountDiscountTypeEnum =
+  typeof BankingProductDiscountDiscountTypeEnum[keyof typeof BankingProductDiscountDiscountTypeEnum];
 
 /**
  *
@@ -1888,25 +2001,24 @@ export interface BankingProductDiscountEligibility {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductDiscountEligibilityDiscountEligibilityTypeEnum {
-  BUSINESS = 'BUSINESS',
-  EMPLOYMENTSTATUS = 'EMPLOYMENT_STATUS',
-  INTRODUCTORY = 'INTRODUCTORY',
-  MAXAGE = 'MAX_AGE',
-  MINAGE = 'MIN_AGE',
-  MININCOME = 'MIN_INCOME',
-  MINTURNOVER = 'MIN_TURNOVER',
-  NATURALPERSON = 'NATURAL_PERSON',
-  PENSIONRECIPIENT = 'PENSION_RECIPIENT',
-  RESIDENCYSTATUS = 'RESIDENCY_STATUS',
-  STAFF = 'STAFF',
-  STUDENT = 'STUDENT',
-  OTHER = 'OTHER',
-}
+export const BankingProductDiscountEligibilityDiscountEligibilityTypeEnum = {
+  Business: 'BUSINESS',
+  EmploymentStatus: 'EMPLOYMENT_STATUS',
+  Introductory: 'INTRODUCTORY',
+  MaxAge: 'MAX_AGE',
+  MinAge: 'MIN_AGE',
+  MinIncome: 'MIN_INCOME',
+  MinTurnover: 'MIN_TURNOVER',
+  NaturalPerson: 'NATURAL_PERSON',
+  PensionRecipient: 'PENSION_RECIPIENT',
+  ResidencyStatus: 'RESIDENCY_STATUS',
+  Staff: 'STAFF',
+  Student: 'STUDENT',
+  Other: 'OTHER',
+} as const;
+
+export type BankingProductDiscountEligibilityDiscountEligibilityTypeEnum =
+  typeof BankingProductDiscountEligibilityDiscountEligibilityTypeEnum[keyof typeof BankingProductDiscountEligibilityDiscountEligibilityTypeEnum];
 
 /**
  *
@@ -1940,24 +2052,23 @@ export interface BankingProductEligibility {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductEligibilityEligibilityTypeEnum {
-  BUSINESS = 'BUSINESS',
-  EMPLOYMENTSTATUS = 'EMPLOYMENT_STATUS',
-  MAXAGE = 'MAX_AGE',
-  MINAGE = 'MIN_AGE',
-  MININCOME = 'MIN_INCOME',
-  MINTURNOVER = 'MIN_TURNOVER',
-  NATURALPERSON = 'NATURAL_PERSON',
-  PENSIONRECIPIENT = 'PENSION_RECIPIENT',
-  RESIDENCYSTATUS = 'RESIDENCY_STATUS',
-  STAFF = 'STAFF',
-  STUDENT = 'STUDENT',
-  OTHER = 'OTHER',
-}
+export const BankingProductEligibilityEligibilityTypeEnum = {
+  Business: 'BUSINESS',
+  EmploymentStatus: 'EMPLOYMENT_STATUS',
+  MaxAge: 'MAX_AGE',
+  MinAge: 'MIN_AGE',
+  MinIncome: 'MIN_INCOME',
+  MinTurnover: 'MIN_TURNOVER',
+  NaturalPerson: 'NATURAL_PERSON',
+  PensionRecipient: 'PENSION_RECIPIENT',
+  ResidencyStatus: 'RESIDENCY_STATUS',
+  Staff: 'STAFF',
+  Student: 'STUDENT',
+  Other: 'OTHER',
+} as const;
+
+export type BankingProductEligibilityEligibilityTypeEnum =
+  typeof BankingProductEligibilityEligibilityTypeEnum[keyof typeof BankingProductEligibilityEligibilityTypeEnum];
 
 /**
  *
@@ -1991,41 +2102,40 @@ export interface BankingProductFeature {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductFeatureFeatureTypeEnum {
-  ADDITIONALCARDS = 'ADDITIONAL_CARDS',
-  BALANCETRANSFERS = 'BALANCE_TRANSFERS',
-  BILLPAYMENT = 'BILL_PAYMENT',
-  BONUSREWARDS = 'BONUS_REWARDS',
-  CARDACCESS = 'CARD_ACCESS',
-  CASHBACKOFFER = 'CASHBACK_OFFER',
-  COMPLEMENTARYPRODUCTDISCOUNTS = 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
-  DIGITALBANKING = 'DIGITAL_BANKING',
-  DIGITALWALLET = 'DIGITAL_WALLET',
-  DONATEINTEREST = 'DONATE_INTEREST',
-  EXTRAREPAYMENTS = 'EXTRA_REPAYMENTS',
-  FRAUDPROTECTION = 'FRAUD_PROTECTION',
-  FREETXNS = 'FREE_TXNS',
-  FREETXNSALLOWANCE = 'FREE_TXNS_ALLOWANCE',
-  GUARANTOR = 'GUARANTOR',
-  INSURANCE = 'INSURANCE',
-  INSTALMENTPLAN = 'INSTALMENT_PLAN',
-  INTERESTFREE = 'INTEREST_FREE',
-  INTERESTFREETRANSFERS = 'INTEREST_FREE_TRANSFERS',
-  LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
-  NOTIFICATIONS = 'NOTIFICATIONS',
-  NPPENABLED = 'NPP_ENABLED',
-  NPPPAYID = 'NPP_PAYID',
-  OFFSET = 'OFFSET',
-  OTHER = 'OTHER',
-  OVERDRAFT = 'OVERDRAFT',
-  REDRAW = 'REDRAW',
-  RELATIONSHIPMANAGEMENT = 'RELATIONSHIP_MANAGEMENT',
-  UNLIMITEDTXNS = 'UNLIMITED_TXNS',
-}
+export const BankingProductFeatureFeatureTypeEnum = {
+  AdditionalCards: 'ADDITIONAL_CARDS',
+  BalanceTransfers: 'BALANCE_TRANSFERS',
+  BillPayment: 'BILL_PAYMENT',
+  BonusRewards: 'BONUS_REWARDS',
+  CardAccess: 'CARD_ACCESS',
+  CashbackOffer: 'CASHBACK_OFFER',
+  ComplementaryProductDiscounts: 'COMPLEMENTARY_PRODUCT_DISCOUNTS',
+  DigitalBanking: 'DIGITAL_BANKING',
+  DigitalWallet: 'DIGITAL_WALLET',
+  DonateInterest: 'DONATE_INTEREST',
+  ExtraRepayments: 'EXTRA_REPAYMENTS',
+  FraudProtection: 'FRAUD_PROTECTION',
+  FreeTxns: 'FREE_TXNS',
+  FreeTxnsAllowance: 'FREE_TXNS_ALLOWANCE',
+  Guarantor: 'GUARANTOR',
+  Insurance: 'INSURANCE',
+  InstalmentPlan: 'INSTALMENT_PLAN',
+  InterestFree: 'INTEREST_FREE',
+  InterestFreeTransfers: 'INTEREST_FREE_TRANSFERS',
+  LoyaltyProgram: 'LOYALTY_PROGRAM',
+  Notifications: 'NOTIFICATIONS',
+  NppEnabled: 'NPP_ENABLED',
+  NppPayid: 'NPP_PAYID',
+  Offset: 'OFFSET',
+  Other: 'OTHER',
+  Overdraft: 'OVERDRAFT',
+  Redraw: 'REDRAW',
+  RelationshipManagement: 'RELATIONSHIP_MANAGEMENT',
+  UnlimitedTxns: 'UNLIMITED_TXNS',
+} as const;
+
+export type BankingProductFeatureFeatureTypeEnum =
+  typeof BankingProductFeatureFeatureTypeEnum[keyof typeof BankingProductFeatureFeatureTypeEnum];
 
 /**
  *
@@ -2107,22 +2217,21 @@ export interface BankingProductFee {
   discounts?: Array<BankingProductDiscount>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductFeeFeeTypeEnum {
-  DEPOSIT = 'DEPOSIT',
-  EVENT = 'EVENT',
-  EXIT = 'EXIT',
-  PAYMENT = 'PAYMENT',
-  PERIODIC = 'PERIODIC',
-  PURCHASE = 'PURCHASE',
-  TRANSACTION = 'TRANSACTION',
-  UPFRONT = 'UPFRONT',
-  VARIABLE = 'VARIABLE',
-  WITHDRAWAL = 'WITHDRAWAL',
-}
+export const BankingProductFeeFeeTypeEnum = {
+  Deposit: 'DEPOSIT',
+  Event: 'EVENT',
+  Exit: 'EXIT',
+  Payment: 'PAYMENT',
+  Periodic: 'PERIODIC',
+  Purchase: 'PURCHASE',
+  Transaction: 'TRANSACTION',
+  Upfront: 'UPFRONT',
+  Variable: 'VARIABLE',
+  Withdrawal: 'WITHDRAWAL',
+} as const;
+
+export type BankingProductFeeFeeTypeEnum =
+  typeof BankingProductFeeFeeTypeEnum[keyof typeof BankingProductFeeFeeTypeEnum];
 
 /**
  *
@@ -2204,47 +2313,43 @@ export interface BankingProductLendingRateV2 {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductLendingRateV2LendingRateTypeEnum {
-  BUNDLEDISCOUNTFIXED = 'BUNDLE_DISCOUNT_FIXED',
-  BUNDLEDISCOUNTVARIABLE = 'BUNDLE_DISCOUNT_VARIABLE',
-  CASHADVANCE = 'CASH_ADVANCE',
-  DISCOUNT = 'DISCOUNT',
-  FLOATING = 'FLOATING',
-  INTRODUCTORY = 'INTRODUCTORY',
-  MARKETLINKED = 'MARKET_LINKED',
-  PENALTY = 'PENALTY',
-  PURCHASE = 'PURCHASE',
-  VARIABLE = 'VARIABLE',
-  FIXED = 'FIXED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductLendingRateV2InterestPaymentDueEnum {
-  ADVANCE = 'IN_ADVANCE',
-  ARREARS = 'IN_ARREARS',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductLendingRateV2RepaymentTypeEnum {
-  INTERESTONLY = 'INTEREST_ONLY',
-  PRINCIPALANDINTEREST = 'PRINCIPAL_AND_INTEREST',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductLendingRateV2LoanPurposeEnum {
-  OWNEROCCUPIED = 'OWNER_OCCUPIED',
-  INVESTMENT = 'INVESTMENT',
-}
+export const BankingProductLendingRateV2LendingRateTypeEnum = {
+  BundleDiscountFixed: 'BUNDLE_DISCOUNT_FIXED',
+  BundleDiscountVariable: 'BUNDLE_DISCOUNT_VARIABLE',
+  CashAdvance: 'CASH_ADVANCE',
+  Discount: 'DISCOUNT',
+  Floating: 'FLOATING',
+  Introductory: 'INTRODUCTORY',
+  MarketLinked: 'MARKET_LINKED',
+  Penalty: 'PENALTY',
+  Purchase: 'PURCHASE',
+  Variable: 'VARIABLE',
+  Fixed: 'FIXED',
+} as const;
+
+export type BankingProductLendingRateV2LendingRateTypeEnum =
+  typeof BankingProductLendingRateV2LendingRateTypeEnum[keyof typeof BankingProductLendingRateV2LendingRateTypeEnum];
+export const BankingProductLendingRateV2InterestPaymentDueEnum = {
+  Advance: 'IN_ADVANCE',
+  Arrears: 'IN_ARREARS',
+} as const;
+
+export type BankingProductLendingRateV2InterestPaymentDueEnum =
+  typeof BankingProductLendingRateV2InterestPaymentDueEnum[keyof typeof BankingProductLendingRateV2InterestPaymentDueEnum];
+export const BankingProductLendingRateV2RepaymentTypeEnum = {
+  InterestOnly: 'INTEREST_ONLY',
+  PrincipalAndInterest: 'PRINCIPAL_AND_INTEREST',
+} as const;
+
+export type BankingProductLendingRateV2RepaymentTypeEnum =
+  typeof BankingProductLendingRateV2RepaymentTypeEnum[keyof typeof BankingProductLendingRateV2RepaymentTypeEnum];
+export const BankingProductLendingRateV2LoanPurposeEnum = {
+  OwnerOccupied: 'OWNER_OCCUPIED',
+  Investment: 'INVESTMENT',
+} as const;
+
+export type BankingProductLendingRateV2LoanPurposeEnum =
+  typeof BankingProductLendingRateV2LoanPurposeEnum[keyof typeof BankingProductLendingRateV2LoanPurposeEnum];
 
 /**
  *
@@ -2359,24 +2464,22 @@ export interface BankingProductRateTierV3 {
   additionalInfoUri?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductRateTierV3UnitOfMeasureEnum {
-  DOLLAR = 'DOLLAR',
-  PERCENT = 'PERCENT',
-  DAY = 'DAY',
-  MONTH = 'MONTH',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingProductRateTierV3RateApplicationMethodEnum {
-  PERTIER = 'PER_TIER',
-  WHOLEBALANCE = 'WHOLE_BALANCE',
-}
+export const BankingProductRateTierV3UnitOfMeasureEnum = {
+  Dollar: 'DOLLAR',
+  Percent: 'PERCENT',
+  Day: 'DAY',
+  Month: 'MONTH',
+} as const;
+
+export type BankingProductRateTierV3UnitOfMeasureEnum =
+  typeof BankingProductRateTierV3UnitOfMeasureEnum[keyof typeof BankingProductRateTierV3UnitOfMeasureEnum];
+export const BankingProductRateTierV3RateApplicationMethodEnum = {
+  PerTier: 'PER_TIER',
+  WholeBalance: 'WHOLE_BALANCE',
+} as const;
+
+export type BankingProductRateTierV3RateApplicationMethodEnum =
+  typeof BankingProductRateTierV3RateApplicationMethodEnum[keyof typeof BankingProductRateTierV3RateApplicationMethodEnum];
 
 /**
  *
@@ -2511,6 +2614,36 @@ export interface BankingProductV3AdditionalInformation {
    * @memberof BankingProductV3AdditionalInformation
    */
   bundleUri?: string;
+  /**
+   * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
+   * @type {Array<BankingProductAdditionalInformationV2AdditionalInformationUris>}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  additionalOverviewUris?: Array<BankingProductAdditionalInformationV2AdditionalInformationUris>;
+  /**
+   * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
+   * @type {Array<BankingProductAdditionalInformationV2AdditionalInformationUris>}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  additionalTermsUris?: Array<BankingProductAdditionalInformationV2AdditionalInformationUris>;
+  /**
+   * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
+   * @type {Array<BankingProductAdditionalInformationV2AdditionalInformationUris>}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  additionalEligibilityUris?: Array<BankingProductAdditionalInformationV2AdditionalInformationUris>;
+  /**
+   * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
+   * @type {Array<BankingProductAdditionalInformationV2AdditionalInformationUris>}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  additionalFeesAndPricingUris?: Array<BankingProductAdditionalInformationV2AdditionalInformationUris>;
+  /**
+   * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
+   * @type {Array<BankingProductAdditionalInformationV2AdditionalInformationUris>}
+   * @memberof BankingProductV3AdditionalInformation
+   */
+  additionalBundleUris?: Array<BankingProductAdditionalInformationV2AdditionalInformationUris>;
 }
 /**
  *
@@ -2593,15 +2726,14 @@ export interface BankingScheduledPayment {
   adatree: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentStatusEnum {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  SKIP = 'SKIP',
-}
+export const BankingScheduledPaymentStatusEnum = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE',
+  Skip: 'SKIP',
+} as const;
+
+export type BankingScheduledPaymentStatusEnum =
+  typeof BankingScheduledPaymentStatusEnum[keyof typeof BankingScheduledPaymentStatusEnum];
 
 /**
  * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
@@ -2679,16 +2811,15 @@ export interface BankingScheduledPaymentRecurrence {
   eventBased?: BankingScheduledPaymentRecurrenceEventBased;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum {
-  OnceOff = 'onceOff',
-  IntervalSchedule = 'intervalSchedule',
-  LastWeekDay = 'lastWeekDay',
-  EventBased = 'eventBased',
-}
+export const BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum = {
+  OnceOff: 'onceOff',
+  IntervalSchedule: 'intervalSchedule',
+  LastWeekDay: 'lastWeekDay',
+  EventBased: 'eventBased',
+} as const;
+
+export type BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum =
+  typeof BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum[keyof typeof BankingScheduledPaymentRecurrenceRecurrenceUTypeEnum];
 
 /**
  * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased
@@ -2735,16 +2866,15 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
   intervals: Array<BankingScheduledPaymentInterval>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum {
-  AFTER = 'AFTER',
-  BEFORE = 'BEFORE',
-  ON = 'ON',
-  ONLY = 'ONLY',
-}
+export const BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum = {
+  After: 'AFTER',
+  Before: 'BEFORE',
+  On: 'ON',
+  Only: 'ONLY',
+} as const;
+
+export type BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum =
+  typeof BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum[keyof typeof BankingScheduledPaymentRecurrenceIntervalScheduleNonBusinessDayTreatmentEnum];
 
 /**
  * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if recurrenceUType is set to lastWeekDay
@@ -2784,29 +2914,27 @@ export interface BankingScheduledPaymentRecurrenceLastWeekday {
   nonBusinessDayTreatment?: BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum {
-  MON = 'MON',
-  TUE = 'TUE',
-  WED = 'WED',
-  THU = 'THU',
-  FRI = 'FRI',
-  SAT = 'SAT',
-  SUN = 'SUN',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum {
-  AFTER = 'AFTER',
-  BEFORE = 'BEFORE',
-  ON = 'ON',
-  ONLY = 'ONLY',
-}
+export const BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum = {
+  Mon: 'MON',
+  Tue: 'TUE',
+  Wed: 'WED',
+  Thu: 'THU',
+  Fri: 'FRI',
+  Sat: 'SAT',
+  Sun: 'SUN',
+} as const;
+
+export type BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum =
+  typeof BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum[keyof typeof BankingScheduledPaymentRecurrenceLastWeekdayLastWeekDayEnum];
+export const BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum = {
+  After: 'AFTER',
+  Before: 'BEFORE',
+  On: 'ON',
+  Only: 'ONLY',
+} as const;
+
+export type BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum =
+  typeof BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum[keyof typeof BankingScheduledPaymentRecurrenceLastWeekdayNonBusinessDayTreatmentEnum];
 
 /**
  * Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff
@@ -2896,17 +3024,16 @@ export interface BankingScheduledPaymentTo {
   international?: BankingInternationalPayee;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingScheduledPaymentToToUTypeEnum {
-  AccountId = 'accountId',
-  PayeeId = 'payeeId',
-  Domestic = 'domestic',
-  Biller = 'biller',
-  International = 'international',
-}
+export const BankingScheduledPaymentToToUTypeEnum = {
+  AccountId: 'accountId',
+  PayeeId: 'payeeId',
+  Domestic: 'domestic',
+  Biller: 'biller',
+  International: 'international',
+} as const;
+
+export type BankingScheduledPaymentToToUTypeEnum =
+  typeof BankingScheduledPaymentToToUTypeEnum[keyof typeof BankingScheduledPaymentToToUTypeEnum];
 
 /**
  *
@@ -2984,15 +3111,14 @@ export interface BankingTermDepositAccount {
   maturityInstructions: BankingTermDepositAccountMaturityInstructionsEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTermDepositAccountMaturityInstructionsEnum {
-  ROLLEDOVER = 'ROLLED_OVER',
-  PAIDOUTATMATURITY = 'PAID_OUT_AT_MATURITY',
-  HOLDONMATURITY = 'HOLD_ON_MATURITY',
-}
+export const BankingTermDepositAccountMaturityInstructionsEnum = {
+  RolledOver: 'ROLLED_OVER',
+  PaidOutAtMaturity: 'PAID_OUT_AT_MATURITY',
+  HoldOnMaturity: 'HOLD_ON_MATURITY',
+} as const;
+
+export type BankingTermDepositAccountMaturityInstructionsEnum =
+  typeof BankingTermDepositAccountMaturityInstructionsEnum[keyof typeof BankingTermDepositAccountMaturityInstructionsEnum];
 
 /**
  *
@@ -3122,28 +3248,25 @@ export interface BankingTransaction {
   adatree?: BankingTransactionAdatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionTypeEnum {
-  DIRECTDEBIT = 'DIRECT_DEBIT',
-  FEE = 'FEE',
-  INTERESTCHARGED = 'INTEREST_CHARGED',
-  INTERESTPAID = 'INTEREST_PAID',
-  PAYMENT = 'PAYMENT',
-  TRANSFEROUTGOING = 'TRANSFER_OUTGOING',
-  TRANSFERINCOMING = 'TRANSFER_INCOMING',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionStatusEnum {
-  PENDING = 'PENDING',
-  POSTED = 'POSTED',
-}
+export const BankingTransactionTypeEnum = {
+  DirectDebit: 'DIRECT_DEBIT',
+  Fee: 'FEE',
+  InterestCharged: 'INTEREST_CHARGED',
+  InterestPaid: 'INTEREST_PAID',
+  Payment: 'PAYMENT',
+  TransferOutgoing: 'TRANSFER_OUTGOING',
+  TransferIncoming: 'TRANSFER_INCOMING',
+  Other: 'OTHER',
+} as const;
+
+export type BankingTransactionTypeEnum = typeof BankingTransactionTypeEnum[keyof typeof BankingTransactionTypeEnum];
+export const BankingTransactionStatusEnum = {
+  Pending: 'PENDING',
+  Posted: 'POSTED',
+} as const;
+
+export type BankingTransactionStatusEnum =
+  typeof BankingTransactionStatusEnum[keyof typeof BankingTransactionStatusEnum];
 
 /**
  * Extra data and metadata provided by Adatree for transactions
@@ -3187,12 +3310,6 @@ export interface BankingTransactionAdatree {
    * @memberof BankingTransactionAdatree
    */
   resourceId: string;
-  /**
-   *
-   * @type {BankingTransactionAdatreeCategorisation}
-   * @memberof BankingTransactionAdatree
-   */
-  categorisation?: BankingTransactionAdatreeCategorisation;
 }
 /**
  *
@@ -3206,227 +3323,7 @@ export interface BankingTransactionAdatreeAllOf {
    * @memberof BankingTransactionAdatreeAllOf
    */
   resourceId?: string;
-  /**
-   *
-   * @type {BankingTransactionAdatreeCategorisation}
-   * @memberof BankingTransactionAdatreeAllOf
-   */
-  categorisation?: BankingTransactionAdatreeCategorisation;
 }
-/**
- *
- * @export
- * @interface BankingTransactionAdatreeCategorisation
- */
-export interface BankingTransactionAdatreeCategorisation {
-  /**
-   *
-   * @type {BankingTransactionAdatreePersonetics}
-   * @memberof BankingTransactionAdatreeCategorisation
-   */
-  personetics?: BankingTransactionAdatreePersonetics;
-}
-/**
- * Personetics is Adatree\'s transaction categorisation partner
- * @export
- * @interface BankingTransactionAdatreePersonetics
- */
-export interface BankingTransactionAdatreePersonetics {
-  /**
-   *
-   * @type {string}
-   * @memberof BankingTransactionAdatreePersonetics
-   */
-  categoryName: BankingTransactionAdatreePersoneticsCategoryNameEnum;
-  /**
-   *
-   * @type {string}
-   * @memberof BankingTransactionAdatreePersonetics
-   */
-  subCategoryName?: BankingTransactionAdatreePersoneticsSubCategoryNameEnum;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionAdatreePersoneticsCategoryNameEnum {
-  CashDeposit = 'Cash Deposit',
-  CashWithdrawal = 'Cash Withdrawal',
-  CheckDeposit = 'Check Deposit',
-  ChecksPosted = 'Checks Posted',
-  CreditCardPayments = 'Credit Card Payments',
-  DigitalWallet = 'Digital Wallet',
-  Dining = 'Dining',
-  DirectDebitStandingOrder = 'Direct Debit & Standing Order',
-  DirectDeposit = 'Direct Deposit',
-  Donations = 'Donations',
-  Education = 'Education',
-  Entertainment = 'Entertainment',
-  FeesOtherCharges = 'Fees & Other charges',
-  Groceries = 'Groceries',
-  HealthFitness = 'Health & Fitness',
-  Household = 'Household',
-  Insurance = 'Insurance',
-  InterestDividends = 'Interest & Dividends',
-  KidsFamily = 'Kids & Family',
-  LoanMortgage = 'Loan & Mortgage',
-  OfficeExpenses = 'Office expenses',
-  OtherDeposits = 'Other Deposits',
-  OtherTransfers = 'Other transfers',
-  Other = 'Other',
-  PaycheckPensionsAnnuity = 'Paycheck, Pensions & Annuity',
-  PersonalCare = 'Personal Care',
-  SavingsInvestments = 'Savings & Investments',
-  Shopping = 'Shopping',
-  TaxesAuthorities = 'Taxes & Authorities',
-  TransfersBetweenOwnAccounts = 'Transfers Between Own Accounts',
-  Transportation = 'Transportation',
-  Travel = 'Travel',
-  Utilities = 'Utilities',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionAdatreePersoneticsSubCategoryNameEnum {
-  ActivitiesAttractions = 'Activities & Attractions',
-  Airlines = 'Airlines',
-  Annuities = 'Annuities',
-  ApparelClothingShoesAccessories = 'Apparel - Clothing, Shoes & Accessories',
-  ArtGalleriesAntiques = 'Art Galleries & Antiques',
-  ATMFees = 'ATM Fees',
-  Attractions = 'Attractions',
-  Bakeries = 'Bakeries',
-  BarsPubs = 'Bars & Pubs',
-  BeautyProducts = 'Beauty Products',
-  BooksNewspapers = 'Books & Newspapers',
-  BusinessCreditCard = 'Business Credit Card',
-  BuyNowPayLater = 'Buy Now Pay Later',
-  CafesCoffeeShops = 'Cafes & Coffee Shops',
-  CarFinance = 'Car Finance',
-  CarInsurance = 'Car Insurance',
-  CarRentals = 'Car Rentals',
-  CashDeposit = 'Cash Deposit',
-  CashWithdrawal = 'Cash Withdrawal',
-  CheckDeposit = 'Check Deposit',
-  ChecksPosted = 'Checks Posted',
-  ChildCare = 'Child Care',
-  ChildrensClothingsStores = "Children's Clothings Stores",
-  Cleaning = 'Cleaning',
-  CommercialLoans = 'Commercial Loans',
-  Construction = 'Construction',
-  ConversionFees = 'Conversion Fees',
-  CreditCardPayments = 'Credit Card Payments',
-  CurrencyExchange = 'Currency Exchange',
-  Deli = 'Deli',
-  DepartmentDiscountStores = 'Department & Discount Stores',
-  DigitalEntertainment = 'Digital Entertainment',
-  DigitalWallet = 'Digital Wallet',
-  Dining = 'Dining',
-  DiningSubscriptions = 'Dining Subscriptions',
-  DirectDebitStandingOrder = 'Direct Debit & Standing Order',
-  DirectDeposit = 'Direct Deposit',
-  Dividends = 'Dividends',
-  Donations = 'Donations',
-  DrugsPharmacy = 'Drugs & Pharmacy',
-  Education = 'Education',
-  Electricity = 'Electricity',
-  ElectricityWaterGas = 'Electricity, Water, Gas',
-  ElectronicsComputers = 'Electronics & Computers',
-  Electronics = 'Electronics',
-  ElementarySecondarySchool = 'Elementary & Secondary School',
-  Entertainment = 'Entertainment',
-  EquipmentFinance = 'Equipment Finance',
-  FastFood = 'Fast Food',
-  FitnessLeisure = 'Fitness & Leisure',
-  Furniture = 'Furniture',
-  Gas = 'Gas',
-  Gambling = 'Gambling',
-  Games = 'Games',
-  Gardening = 'Gardening',
-  GasStation = 'Gas Station',
-  GeneralOfficeExpenses = 'General Office Expenses',
-  GovernmentServices = 'Government Services',
-  Groceries = 'Groceries',
-  HairNailsBeautyShops = 'Hair, Nails & Beauty Shops',
-  HardwareAppliances = 'Hardware & Appliances',
-  HealthFitness = 'Health & fitness',
-  HealthcareFinance = 'Healthcare Finance',
-  HeatingPlumbingElectricity = 'Heating, Plumbing, Electricity',
-  HigherEducation = 'Higher Education',
-  HobbiesGifts = 'Hobbies & Gifts',
-  HotelsResortsLodgings = 'Hotels, Resorts & Lodgings',
-  HouseholdServices = 'Household Services',
-  Household = 'Household',
-  Insurance = 'Insurance',
-  InterestDeposit = 'Interest deposit',
-  InvestmentDeposit = 'Investment deposit',
-  Investments = 'Investments',
-  Jewelry = 'Jewelry',
-  KidsFamily = 'Kids & Family',
-  LaundryDryCleaning = 'Laundry & Dry Cleaning',
-  LifeInsurance = 'Life Insurance',
-  LineOfCredit = 'Line of Credit',
-  LiquorStores = 'Liquor Stores',
-  Loans = 'Loans',
-  MedicalHealthcare = 'Medical & Healthcare',
-  MedicalInsurance = 'Medical Insurance',
-  Mortgage = 'Mortgage',
-  MoviesMusicShows = 'Movies, Music & Shows',
-  OfficeExpenses = 'Office expenses',
-  OfficeSupplies = 'Office Supplies',
-  OtherDeposits = 'Other Deposits',
-  OtherFeesAndCharges = 'Other Fees and Charges',
-  OtherInsurance = 'Other Insurance',
-  OtherLoans = 'Other Loans',
-  OtherSavingsInvestments = 'Other Savings & Investments',
-  OtherTransfers = 'Other Transfers',
-  Other = 'Other',
-  OverdraftFees = 'Overdraft Fees',
-  P2P = 'P2P',
-  ParkingTolls = 'Parking & Tolls',
-  Paycheck = 'Paycheck',
-  PaycheckPensionsAnnuity = 'Paycheck, Pensions & Annuity',
-  PaydayPawnTitleLoans = 'Payday & Pawn & Title Loans',
-  PaydayLoans = 'Payday Loans',
-  Pension = 'Pension',
-  PersonalCare = 'Personal Care',
-  PersonalLoan = 'Personal Loan',
-  PetCareSupplies = 'Pet Care & Supplies',
-  PetInsurance = 'Pet Insurance',
-  PhoneInternet = 'Phone & Internet',
-  PhotographyPublishingPrinting = 'Photography, Publishing & Printing',
-  ProfessionalServices = 'Professional Services',
-  PropertyCasualtyInsurance = 'Property & Casualty Insurance',
-  PublicTransportation = 'Public Transportation',
-  RealEstate = 'Real Estate',
-  Restaurants = 'Restaurants',
-  RewardsCreditCard = 'Rewards Credit Card',
-  Savings = 'Savings',
-  SecuredCreditCard = 'Secured Credit Card',
-  ServiceFees = 'Service Fees',
-  ShippingDeliveries = 'Shipping & Deliveries',
-  Shopping = 'Shopping',
-  SportEntertainment = 'Sport Entertainment',
-  StudentCreditCard = 'Student Credit Card',
-  StudentLoan = 'Student Loan',
-  SupermarketGroceryConvenienceStores = 'Supermarket, Grocery & Convenience Stores',
-  TaxesAuthorities = 'Taxes & Authorities',
-  TaxesFinesBailBonds = 'Taxes, Fines & Bail Bonds',
-  Taxi = 'Taxi',
-  TitleLoans = 'Title Loans',
-  TransfersBetweenOwnAccounts = 'Transfers between own accounts',
-  Transportation = 'Transportation',
-  Travel = 'Travel',
-  TravelCreditCard = 'Travel Credit Card',
-  TravelInsurance = 'Travel Insurance',
-  Utilities = 'Utilities',
-  VehicleDealers = 'Vehicle Dealers',
-  VehicleOperatingExpenses = 'Vehicle Operating Expenses',
-  VocationalSchools = 'Vocational Schools',
-}
-
 /**
  *
  * @export
@@ -3465,20 +3362,18 @@ export interface BankingTransactionExtendedData {
   service: BankingTransactionExtendedDataServiceEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionExtendedDataExtensionUTypeEnum {
-  X2p101Payload = 'x2p101Payload',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum BankingTransactionExtendedDataServiceEnum {
-  X2P101 = 'X2P1.01',
-}
+export const BankingTransactionExtendedDataExtensionUTypeEnum = {
+  X2p101Payload: 'x2p101Payload',
+} as const;
+
+export type BankingTransactionExtendedDataExtensionUTypeEnum =
+  typeof BankingTransactionExtendedDataExtensionUTypeEnum[keyof typeof BankingTransactionExtendedDataExtensionUTypeEnum];
+export const BankingTransactionExtendedDataServiceEnum = {
+  X2P101: 'X2P1.01',
+} as const;
+
+export type BankingTransactionExtendedDataServiceEnum =
+  typeof BankingTransactionExtendedDataServiceEnum[keyof typeof BankingTransactionExtendedDataServiceEnum];
 
 /**
  *
@@ -3575,14 +3470,13 @@ export interface CommonCustomer {
   adatree: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonCustomerCustomerUTypeEnum {
-  Person = 'person',
-  Organisation = 'organisation',
-}
+export const CommonCustomerCustomerUTypeEnum = {
+  Person: 'person',
+  Organisation: 'organisation',
+} as const;
+
+export type CommonCustomerCustomerUTypeEnum =
+  typeof CommonCustomerCustomerUTypeEnum[keyof typeof CommonCustomerCustomerUTypeEnum];
 
 /**
  *
@@ -3610,16 +3504,15 @@ export interface CommonEmailAddress {
   address: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonEmailAddressPurposeEnum {
-  WORK = 'WORK',
-  HOME = 'HOME',
-  OTHER = 'OTHER',
-  UNSPECIFIED = 'UNSPECIFIED',
-}
+export const CommonEmailAddressPurposeEnum = {
+  Work: 'WORK',
+  Home: 'HOME',
+  Other: 'OTHER',
+  Unspecified: 'UNSPECIFIED',
+} as const;
+
+export type CommonEmailAddressPurposeEnum =
+  typeof CommonEmailAddressPurposeEnum[keyof typeof CommonEmailAddressPurposeEnum];
 
 /**
  *
@@ -3694,6 +3587,12 @@ export interface CommonOrganisation {
    */
   industryCode?: string;
   /**
+   * The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if ``industryCode`` is also supplied. If ``industryCode`` is supplied but ``industryCodeVersion`` is absent, default is ``ANZSIC_1292.0_2006_V2.0``
+   * @type {string}
+   * @memberof CommonOrganisation
+   */
+  industryCodeVersion?: CommonOrganisationIndustryCodeVersionEnum;
+  /**
    * Legal organisation type
    * @type {string}
    * @memberof CommonOrganisation
@@ -3713,18 +3612,24 @@ export interface CommonOrganisation {
   establishmentDate?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonOrganisationOrganisationTypeEnum {
-  COMPANY = 'COMPANY',
-  GOVERNMENTENTITY = 'GOVERNMENT_ENTITY',
-  PARTNERSHIP = 'PARTNERSHIP',
-  SOLETRADER = 'SOLE_TRADER',
-  TRUST = 'TRUST',
-  OTHER = 'OTHER',
-}
+export const CommonOrganisationIndustryCodeVersionEnum = {
+  V10: 'ANZSIC_1292.0_2006_V1.0',
+  V20: 'ANZSIC_1292.0_2006_V2.0',
+} as const;
+
+export type CommonOrganisationIndustryCodeVersionEnum =
+  typeof CommonOrganisationIndustryCodeVersionEnum[keyof typeof CommonOrganisationIndustryCodeVersionEnum];
+export const CommonOrganisationOrganisationTypeEnum = {
+  Company: 'COMPANY',
+  GovernmentEntity: 'GOVERNMENT_ENTITY',
+  Partnership: 'PARTNERSHIP',
+  SoleTrader: 'SOLE_TRADER',
+  Trust: 'TRUST',
+  Other: 'OTHER',
+} as const;
+
+export type CommonOrganisationOrganisationTypeEnum =
+  typeof CommonOrganisationOrganisationTypeEnum[keyof typeof CommonOrganisationOrganisationTypeEnum];
 
 /**
  *
@@ -3799,6 +3704,12 @@ export interface CommonOrganisationDetail {
    */
   industryCode?: string;
   /**
+   * The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if ``industryCode`` is also supplied. If ``industryCode`` is supplied but ``industryCodeVersion`` is absent, default is ``ANZSIC_1292.0_2006_V2.0``
+   * @type {string}
+   * @memberof CommonOrganisationDetail
+   */
+  industryCodeVersion?: CommonOrganisationDetailIndustryCodeVersionEnum;
+  /**
    * Legal organisation type
    * @type {string}
    * @memberof CommonOrganisationDetail
@@ -3824,18 +3735,24 @@ export interface CommonOrganisationDetail {
   physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonOrganisationDetailOrganisationTypeEnum {
-  COMPANY = 'COMPANY',
-  GOVERNMENTENTITY = 'GOVERNMENT_ENTITY',
-  PARTNERSHIP = 'PARTNERSHIP',
-  SOLETRADER = 'SOLE_TRADER',
-  TRUST = 'TRUST',
-  OTHER = 'OTHER',
-}
+export const CommonOrganisationDetailIndustryCodeVersionEnum = {
+  V10: 'ANZSIC_1292.0_2006_V1.0',
+  V20: 'ANZSIC_1292.0_2006_V2.0',
+} as const;
+
+export type CommonOrganisationDetailIndustryCodeVersionEnum =
+  typeof CommonOrganisationDetailIndustryCodeVersionEnum[keyof typeof CommonOrganisationDetailIndustryCodeVersionEnum];
+export const CommonOrganisationDetailOrganisationTypeEnum = {
+  Company: 'COMPANY',
+  GovernmentEntity: 'GOVERNMENT_ENTITY',
+  Partnership: 'PARTNERSHIP',
+  SoleTrader: 'SOLE_TRADER',
+  Trust: 'TRUST',
+  Other: 'OTHER',
+} as const;
+
+export type CommonOrganisationDetailOrganisationTypeEnum =
+  typeof CommonOrganisationDetailOrganisationTypeEnum[keyof typeof CommonOrganisationDetailOrganisationTypeEnum];
 
 /**
  *
@@ -4037,7 +3954,24 @@ export interface CommonPerson {
    * @memberof CommonPerson
    */
   occupationCode?: string;
+  /**
+   * The applicable **[[ANZSCO]](#iref-ANZSCO)** release version of the occupation code provided. Mandatory if an ``occupationCode`` is supplied. If ``occupationCode`` is supplied but ``occupationCodeVersion`` is absent, default is ``ANZSCO_1220.0_2013_V1.2``
+   * @type {string}
+   * @memberof CommonPerson
+   */
+  occupationCodeVersion?: CommonPersonOccupationCodeVersionEnum;
 }
+
+export const CommonPersonOccupationCodeVersionEnum = {
+  _2006V10: 'ANZSCO_1220.0_2006_V1.0',
+  _2006V11: 'ANZSCO_1220.0_2006_V1.1',
+  _2013V12: 'ANZSCO_1220.0_2013_V1.2',
+  _2013V13: 'ANZSCO_1220.0_2013_V1.3',
+} as const;
+
+export type CommonPersonOccupationCodeVersionEnum =
+  typeof CommonPersonOccupationCodeVersionEnum[keyof typeof CommonPersonOccupationCodeVersionEnum];
+
 /**
  *
  * @export
@@ -4087,6 +4021,12 @@ export interface CommonPersonDetail {
    */
   occupationCode?: string;
   /**
+   * The applicable **[[ANZSCO]](#iref-ANZSCO)** release version of the occupation code provided. Mandatory if an ``occupationCode`` is supplied. If ``occupationCode`` is supplied but ``occupationCodeVersion`` is absent, default is ``ANZSCO_1220.0_2013_V1.2``
+   * @type {string}
+   * @memberof CommonPersonDetail
+   */
+  occupationCodeVersion?: CommonPersonDetailOccupationCodeVersionEnum;
+  /**
    * Array is mandatory but may be empty if no phone numbers are held
    * @type {Array<CommonPhoneNumber>}
    * @memberof CommonPersonDetail
@@ -4105,6 +4045,17 @@ export interface CommonPersonDetail {
    */
   physicalAddresses: Array<CommonPhysicalAddressWithPurpose>;
 }
+
+export const CommonPersonDetailOccupationCodeVersionEnum = {
+  _2006V10: 'ANZSCO_1220.0_2006_V1.0',
+  _2006V11: 'ANZSCO_1220.0_2006_V1.1',
+  _2013V12: 'ANZSCO_1220.0_2013_V1.2',
+  _2013V13: 'ANZSCO_1220.0_2013_V1.3',
+} as const;
+
+export type CommonPersonDetailOccupationCodeVersionEnum =
+  typeof CommonPersonDetailOccupationCodeVersionEnum[keyof typeof CommonPersonDetailOccupationCodeVersionEnum];
+
 /**
  *
  * @export
@@ -4180,18 +4131,17 @@ export interface CommonPhoneNumber {
   fullNumber: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonPhoneNumberPurposeEnum {
-  MOBILE = 'MOBILE',
-  HOME = 'HOME',
-  INTERNATIONAL = 'INTERNATIONAL',
-  WORK = 'WORK',
-  OTHER = 'OTHER',
-  UNSPECIFIED = 'UNSPECIFIED',
-}
+export const CommonPhoneNumberPurposeEnum = {
+  Mobile: 'MOBILE',
+  Home: 'HOME',
+  International: 'INTERNATIONAL',
+  Work: 'WORK',
+  Other: 'OTHER',
+  Unspecified: 'UNSPECIFIED',
+} as const;
+
+export type CommonPhoneNumberPurposeEnum =
+  typeof CommonPhoneNumberPurposeEnum[keyof typeof CommonPhoneNumberPurposeEnum];
 
 /**
  *
@@ -4219,14 +4169,13 @@ export interface CommonPhysicalAddress {
   paf?: CommonPAFAddress;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonPhysicalAddressAddressUTypeEnum {
-  Simple = 'simple',
-  Paf = 'paf',
-}
+export const CommonPhysicalAddressAddressUTypeEnum = {
+  Simple: 'simple',
+  Paf: 'paf',
+} as const;
+
+export type CommonPhysicalAddressAddressUTypeEnum =
+  typeof CommonPhysicalAddressAddressUTypeEnum[keyof typeof CommonPhysicalAddressAddressUTypeEnum];
 
 /**
  *
@@ -4260,25 +4209,23 @@ export interface CommonPhysicalAddressWithPurpose {
   purpose: CommonPhysicalAddressWithPurposePurposeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonPhysicalAddressWithPurposeAddressUTypeEnum {
-  Simple = 'simple',
-  Paf = 'paf',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum CommonPhysicalAddressWithPurposePurposeEnum {
-  MAIL = 'MAIL',
-  PHYSICAL = 'PHYSICAL',
-  REGISTERED = 'REGISTERED',
-  WORK = 'WORK',
-  OTHER = 'OTHER',
-}
+export const CommonPhysicalAddressWithPurposeAddressUTypeEnum = {
+  Simple: 'simple',
+  Paf: 'paf',
+} as const;
+
+export type CommonPhysicalAddressWithPurposeAddressUTypeEnum =
+  typeof CommonPhysicalAddressWithPurposeAddressUTypeEnum[keyof typeof CommonPhysicalAddressWithPurposeAddressUTypeEnum];
+export const CommonPhysicalAddressWithPurposePurposeEnum = {
+  Mail: 'MAIL',
+  Physical: 'PHYSICAL',
+  Registered: 'REGISTERED',
+  Work: 'WORK',
+  Other: 'OTHER',
+} as const;
+
+export type CommonPhysicalAddressWithPurposePurposeEnum =
+  typeof CommonPhysicalAddressWithPurposePurposeEnum[keyof typeof CommonPhysicalAddressWithPurposePurposeEnum];
 
 /**
  *
@@ -4294,17 +4241,16 @@ export interface CommonPhysicalAddressWithPurposeAllOf {
   purpose: CommonPhysicalAddressWithPurposeAllOfPurposeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum CommonPhysicalAddressWithPurposeAllOfPurposeEnum {
-  MAIL = 'MAIL',
-  PHYSICAL = 'PHYSICAL',
-  REGISTERED = 'REGISTERED',
-  WORK = 'WORK',
-  OTHER = 'OTHER',
-}
+export const CommonPhysicalAddressWithPurposeAllOfPurposeEnum = {
+  Mail: 'MAIL',
+  Physical: 'PHYSICAL',
+  Registered: 'REGISTERED',
+  Work: 'WORK',
+  Other: 'OTHER',
+} as const;
+
+export type CommonPhysicalAddressWithPurposeAllOfPurposeEnum =
+  typeof CommonPhysicalAddressWithPurposeAllOfPurposeEnum[keyof typeof CommonPhysicalAddressWithPurposeAllOfPurposeEnum];
 
 /**
  *
@@ -4364,186 +4310,283 @@ export interface CommonSimpleAddress {
 /**
  *
  * @export
- * @interface EnergyAccountDetail
+ * @interface EnergyAccountBaseV2
  */
-export interface EnergyAccountDetail {
+export interface EnergyAccountBaseV2 {
   /**
    * The ID of the account.  To be created in accordance with CDR ID permanence requirements
    * @type {string}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountBaseV2
    */
   accountId: string;
   /**
    * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
    * @type {string}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountBaseV2
    */
   accountNumber?: string;
   /**
    * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
    * @type {string}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountBaseV2
    */
   displayName?: string;
   /**
-   * The date that the account was created or opened
+   * Open or closed status for the account. If not present then OPEN is assumed
    * @type {string}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountBaseV2
+   */
+  openStatus?: EnergyAccountBaseV2OpenStatusEnum;
+  /**
+   * The date that the account was created or opened. Mandatory if openStatus is OPEN
+   * @type {string}
+   * @memberof EnergyAccountBaseV2
+   */
+  creationDate: string;
+}
+
+export const EnergyAccountBaseV2OpenStatusEnum = {
+  Closed: 'CLOSED',
+  Open: 'OPEN',
+} as const;
+
+export type EnergyAccountBaseV2OpenStatusEnum =
+  typeof EnergyAccountBaseV2OpenStatusEnum[keyof typeof EnergyAccountBaseV2OpenStatusEnum];
+
+/**
+ *
+ * @export
+ * @interface EnergyAccountDetailV2
+ */
+export interface EnergyAccountDetailV2 {
+  /**
+   * The ID of the account.  To be created in accordance with CDR ID permanence requirements
+   * @type {string}
+   * @memberof EnergyAccountDetailV2
+   */
+  accountId: string;
+  /**
+   * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
+   * @type {string}
+   * @memberof EnergyAccountDetailV2
+   */
+  accountNumber?: string;
+  /**
+   * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
+   * @type {string}
+   * @memberof EnergyAccountDetailV2
+   */
+  displayName?: string;
+  /**
+   * Open or closed status for the account. If not present then OPEN is assumed
+   * @type {string}
+   * @memberof EnergyAccountDetailV2
+   */
+  openStatus?: EnergyAccountDetailV2OpenStatusEnum;
+  /**
+   * The date that the account was created or opened. Mandatory if openStatus is OPEN
+   * @type {string}
+   * @memberof EnergyAccountDetailV2
    */
   creationDate: string;
   /**
    * The current balance of the account.  A positive value indicates that amount is owing to be paid.  A negative value indicates that the account is in credit
    * @type {string}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountDetailV2
    */
   balance?: string;
   /**
    * The array of plans containing service points and associated plan details
-   * @type {Array<EnergyAccountDetailPlan>}
-   * @memberof EnergyAccountDetail
+   * @type {Array<EnergyAccountDetailV2AllOfPlans>}
+   * @memberof EnergyAccountDetailV2
    */
-  plans: Array<EnergyAccountDetailPlan>;
+  plans: Array<EnergyAccountDetailV2AllOfPlans>;
   /**
-   *
-   * @type {EnergyPaymentSchedule}
-   * @memberof EnergyAccountDetail
+   * The array of agreed payment schedules
+   * @type {Array<EnergyPaymentSchedule>}
+   * @memberof EnergyAccountDetailV2
    */
-  paymentSchedule?: EnergyPaymentSchedule;
+  paymentSchedules?: Array<EnergyPaymentSchedule>;
   /**
    * Array may be empty if no concessions exist
    * @type {Array<EnergyConcession>}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountDetailV2
    */
   concessions?: Array<EnergyConcession>;
   /**
    *
    * @type {Adatree}
-   * @memberof EnergyAccountDetail
+   * @memberof EnergyAccountDetailV2
+   */
+  adatree: Adatree;
+}
+
+export const EnergyAccountDetailV2OpenStatusEnum = {
+  Closed: 'CLOSED',
+  Open: 'OPEN',
+} as const;
+
+export type EnergyAccountDetailV2OpenStatusEnum =
+  typeof EnergyAccountDetailV2OpenStatusEnum[keyof typeof EnergyAccountDetailV2OpenStatusEnum];
+
+/**
+ * The array of plans containing service points and associated plan details
+ * @export
+ * @interface EnergyAccountDetailV2AllOf
+ */
+export interface EnergyAccountDetailV2AllOf {
+  /**
+   * The current balance of the account.  A positive value indicates that amount is owing to be paid.  A negative value indicates that the account is in credit
+   * @type {string}
+   * @memberof EnergyAccountDetailV2AllOf
+   */
+  balance?: string;
+  /**
+   * The array of plans containing service points and associated plan details
+   * @type {Array<EnergyAccountDetailV2AllOfPlans>}
+   * @memberof EnergyAccountDetailV2AllOf
+   */
+  plans: Array<EnergyAccountDetailV2AllOfPlans>;
+  /**
+   * The array of agreed payment schedules
+   * @type {Array<EnergyPaymentSchedule>}
+   * @memberof EnergyAccountDetailV2AllOf
+   */
+  paymentSchedules?: Array<EnergyPaymentSchedule>;
+  /**
+   * Array may be empty if no concessions exist
+   * @type {Array<EnergyConcession>}
+   * @memberof EnergyAccountDetailV2AllOf
+   */
+  concessions?: Array<EnergyConcession>;
+  /**
+   *
+   * @type {Adatree}
+   * @memberof EnergyAccountDetailV2AllOf
    */
   adatree: Adatree;
 }
 /**
  *
  * @export
- * @interface EnergyAccountDetailAuthorisedContacts
+ * @interface EnergyAccountDetailV2AllOfAuthorisedContacts
  */
-export interface EnergyAccountDetailAuthorisedContacts {
+export interface EnergyAccountDetailV2AllOfAuthorisedContacts {
   /**
    * For people with single names this field need not be present. The single name should be in the lastName field
    * @type {string}
-   * @memberof EnergyAccountDetailAuthorisedContacts
+   * @memberof EnergyAccountDetailV2AllOfAuthorisedContacts
    */
   firstName?: string;
   /**
    * For people with single names the single name should be in this field
    * @type {string}
-   * @memberof EnergyAccountDetailAuthorisedContacts
+   * @memberof EnergyAccountDetailV2AllOfAuthorisedContacts
    */
   lastName: string;
   /**
    * Field is mandatory but array may be empty
    * @type {Array<string>}
-   * @memberof EnergyAccountDetailAuthorisedContacts
+   * @memberof EnergyAccountDetailV2AllOfAuthorisedContacts
    */
   middleNames?: Array<string>;
   /**
    * Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
    * @type {string}
-   * @memberof EnergyAccountDetailAuthorisedContacts
+   * @memberof EnergyAccountDetailV2AllOfAuthorisedContacts
    */
   prefix?: string;
   /**
    * Used for a trailing suffix to the name (e.g. Jr)
    * @type {string}
-   * @memberof EnergyAccountDetailAuthorisedContacts
+   * @memberof EnergyAccountDetailV2AllOfAuthorisedContacts
    */
   suffix?: string;
 }
 /**
- *
+ * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
  * @export
- * @interface EnergyAccountDetailPlan
+ * @interface EnergyAccountDetailV2AllOfPlanDetail
  */
-export interface EnergyAccountDetailPlan {
-  /**
-   * Optional display name for the plan provided by the customer to help differentiate multiple plans
-   * @type {string}
-   * @memberof EnergyAccountDetailPlan
-   */
-  nickname?: string;
-  /**
-   * An array of servicePointIds, representing NMIs, that this account is linked to
-   * @type {Array<string>}
-   * @memberof EnergyAccountDetailPlan
-   */
-  servicePointIds: Array<string>;
-  /**
-   *
-   * @type {EnergyAccountPlanOverview}
-   * @memberof EnergyAccountDetailPlan
-   */
-  planOverview: EnergyAccountPlanOverview;
-  /**
-   *
-   * @type {EnergyAccountDetailPlanDetail}
-   * @memberof EnergyAccountDetailPlan
-   */
-  planDetail: EnergyAccountDetailPlanDetail;
-  /**
-   * An array of additional contacts that are authorised to act on this account
-   * @type {Array<EnergyAccountDetailAuthorisedContacts>}
-   * @memberof EnergyAccountDetailPlan
-   */
-  authorisedContacts?: Array<EnergyAccountDetailAuthorisedContacts>;
-}
-/**
- * Detail on the plan applicable to this account
- * @export
- * @interface EnergyAccountDetailPlanDetail
- */
-export interface EnergyAccountDetailPlanDetail {
+export interface EnergyAccountDetailV2AllOfPlanDetail {
   /**
    * The fuel types covered by the plan
    * @type {string}
-   * @memberof EnergyAccountDetailPlanDetail
+   * @memberof EnergyAccountDetailV2AllOfPlanDetail
    */
-  fuelType: EnergyAccountDetailPlanDetailFuelTypeEnum;
+  fuelType: EnergyAccountDetailV2AllOfPlanDetailFuelTypeEnum;
   /**
    * Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false
    * @type {boolean}
-   * @memberof EnergyAccountDetailPlanDetail
+   * @memberof EnergyAccountDetailV2AllOfPlanDetail
    */
   isContingentPlan?: boolean;
   /**
    * Charges for metering included in the plan
    * @type {Array<EnergyPlanDetailAllOfMeteringCharges>}
-   * @memberof EnergyAccountDetailPlanDetail
+   * @memberof EnergyAccountDetailV2AllOfPlanDetail
    */
   meteringCharges?: Array<EnergyPlanDetailAllOfMeteringCharges>;
   /**
    *
    * @type {EnergyPlanContract}
-   * @memberof EnergyAccountDetailPlanDetail
+   * @memberof EnergyAccountDetailV2AllOfPlanDetail
    */
   gasContract?: EnergyPlanContract;
   /**
    *
    * @type {EnergyPlanContract}
-   * @memberof EnergyAccountDetailPlanDetail
+   * @memberof EnergyAccountDetailV2AllOfPlanDetail
    */
   electricityContract?: EnergyPlanContract;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyAccountDetailPlanDetailFuelTypeEnum {
-  ELECTRICITY = 'ELECTRICITY',
-  GAS = 'GAS',
-  DUAL = 'DUAL',
-}
+export const EnergyAccountDetailV2AllOfPlanDetailFuelTypeEnum = {
+  Electricity: 'ELECTRICITY',
+  Gas: 'GAS',
+  Dual: 'DUAL',
+} as const;
 
+export type EnergyAccountDetailV2AllOfPlanDetailFuelTypeEnum =
+  typeof EnergyAccountDetailV2AllOfPlanDetailFuelTypeEnum[keyof typeof EnergyAccountDetailV2AllOfPlanDetailFuelTypeEnum];
+
+/**
+ *
+ * @export
+ * @interface EnergyAccountDetailV2AllOfPlans
+ */
+export interface EnergyAccountDetailV2AllOfPlans {
+  /**
+   * Optional display name for the plan provided by the customer to help differentiate multiple plans
+   * @type {string}
+   * @memberof EnergyAccountDetailV2AllOfPlans
+   */
+  nickname?: string;
+  /**
+   * An array of servicePointIds, representing NMIs, that this account is linked to
+   * @type {Array<string>}
+   * @memberof EnergyAccountDetailV2AllOfPlans
+   */
+  servicePointIds: Array<string>;
+  /**
+   *
+   * @type {EnergyAccountV2AllOfPlanOverview}
+   * @memberof EnergyAccountDetailV2AllOfPlans
+   */
+  planOverview?: EnergyAccountV2AllOfPlanOverview;
+  /**
+   *
+   * @type {EnergyAccountDetailV2AllOfPlanDetail}
+   * @memberof EnergyAccountDetailV2AllOfPlans
+   */
+  planDetail?: EnergyAccountDetailV2AllOfPlanDetail;
+  /**
+   * An array of additional contacts that are authorised to act on this account
+   * @type {Array<EnergyAccountDetailV2AllOfAuthorisedContacts>}
+   * @memberof EnergyAccountDetailV2AllOfPlans
+   */
+  authorisedContacts?: Array<EnergyAccountDetailV2AllOfAuthorisedContacts>;
+}
 /**
  *
  * @export
@@ -4577,35 +4620,125 @@ export interface EnergyAccountList {
 export interface EnergyAccountListData {
   /**
    * The list of energy accounts returned. If the filter results in an empty set then this array may have no records
-   * @type {Array<EnergyAccountDetail>}
+   * @type {Array<EnergyAccountDetailV2>}
    * @memberof EnergyAccountListData
    */
-  accounts: Array<EnergyAccountDetail>;
+  accounts: Array<EnergyAccountDetailV2>;
 }
 /**
  *
  * @export
- * @interface EnergyAccountPlanOverview
+ * @interface EnergyAccountV2
  */
-export interface EnergyAccountPlanOverview {
+export interface EnergyAccountV2 {
+  /**
+   * The ID of the account.  To be created in accordance with CDR ID permanence requirements
+   * @type {string}
+   * @memberof EnergyAccountV2
+   */
+  accountId: string;
+  /**
+   * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
+   * @type {string}
+   * @memberof EnergyAccountV2
+   */
+  accountNumber?: string;
+  /**
+   * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
+   * @type {string}
+   * @memberof EnergyAccountV2
+   */
+  displayName?: string;
+  /**
+   * Open or closed status for the account. If not present then OPEN is assumed
+   * @type {string}
+   * @memberof EnergyAccountV2
+   */
+  openStatus?: EnergyAccountV2OpenStatusEnum;
+  /**
+   * The date that the account was created or opened. Mandatory if openStatus is OPEN
+   * @type {string}
+   * @memberof EnergyAccountV2
+   */
+  creationDate: string;
+  /**
+   * The array of plans containing service points and associated plan details
+   * @type {Array<EnergyAccountV2AllOfPlans>}
+   * @memberof EnergyAccountV2
+   */
+  plans: Array<EnergyAccountV2AllOfPlans>;
+}
+
+export const EnergyAccountV2OpenStatusEnum = {
+  Closed: 'CLOSED',
+  Open: 'OPEN',
+} as const;
+
+export type EnergyAccountV2OpenStatusEnum =
+  typeof EnergyAccountV2OpenStatusEnum[keyof typeof EnergyAccountV2OpenStatusEnum];
+
+/**
+ * The array of plans containing service points and associated plan details
+ * @export
+ * @interface EnergyAccountV2AllOf
+ */
+export interface EnergyAccountV2AllOf {
+  /**
+   * The array of plans containing service points and associated plan details
+   * @type {Array<EnergyAccountV2AllOfPlans>}
+   * @memberof EnergyAccountV2AllOf
+   */
+  plans: Array<EnergyAccountV2AllOfPlans>;
+}
+/**
+ * Mandatory if openStatus is OPEN
+ * @export
+ * @interface EnergyAccountV2AllOfPlanOverview
+ */
+export interface EnergyAccountV2AllOfPlanOverview {
   /**
    * The name of the plan if one exists
    * @type {string}
-   * @memberof EnergyAccountPlanOverview
+   * @memberof EnergyAccountV2AllOfPlanOverview
    */
   displayName?: string;
   /**
    * The start date of the applicability of this plan
    * @type {string}
-   * @memberof EnergyAccountPlanOverview
+   * @memberof EnergyAccountV2AllOfPlanOverview
    */
   startDate: string;
   /**
    * The end date of the applicability of this plan
    * @type {string}
-   * @memberof EnergyAccountPlanOverview
+   * @memberof EnergyAccountV2AllOfPlanOverview
    */
   endDate?: string;
+}
+/**
+ *
+ * @export
+ * @interface EnergyAccountV2AllOfPlans
+ */
+export interface EnergyAccountV2AllOfPlans {
+  /**
+   * Optional display name for the plan provided by the customer to help differentiate multiple plans
+   * @type {string}
+   * @memberof EnergyAccountV2AllOfPlans
+   */
+  nickname?: string;
+  /**
+   * An array of servicePointIds, representing NMIs, that this plan is linked to.  If there are no service points allocated to this plan then an empty array would be expected
+   * @type {Array<string>}
+   * @memberof EnergyAccountV2AllOfPlans
+   */
+  servicePointIds: Array<string>;
+  /**
+   *
+   * @type {EnergyAccountV2AllOfPlanOverview}
+   * @memberof EnergyAccountV2AllOfPlans
+   */
+  planOverview?: EnergyAccountV2AllOfPlanOverview;
 }
 /**
  *
@@ -4681,21 +4814,20 @@ export interface EnergyBillingDemandTransaction {
   adjustments?: Array<EnergyBillingUsageTransactionAdjustments>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingDemandTransactionTimeOfUseTypeEnum {
-  PEAK = 'PEAK',
-  OFFPEAK = 'OFF_PEAK',
-  OFFPEAKDEMANDCHARGE = 'OFF_PEAK_DEMAND_CHARGE',
-  SHOULDER = 'SHOULDER',
-  SHOULDER1 = 'SHOULDER1',
-  SHOULDER2 = 'SHOULDER2',
-  CONTROLLEDLOAD = 'CONTROLLED_LOAD',
-  SOLAR = 'SOLAR',
-  AGGREGATE = 'AGGREGATE',
-}
+export const EnergyBillingDemandTransactionTimeOfUseTypeEnum = {
+  Peak: 'PEAK',
+  OffPeak: 'OFF_PEAK',
+  OffPeakDemandCharge: 'OFF_PEAK_DEMAND_CHARGE',
+  Shoulder: 'SHOULDER',
+  Shoulder1: 'SHOULDER1',
+  Shoulder2: 'SHOULDER2',
+  ControlledLoad: 'CONTROLLED_LOAD',
+  Solar: 'SOLAR',
+  Aggregate: 'AGGREGATE',
+} as const;
+
+export type EnergyBillingDemandTransactionTimeOfUseTypeEnum =
+  typeof EnergyBillingDemandTransactionTimeOfUseTypeEnum[keyof typeof EnergyBillingDemandTransactionTimeOfUseTypeEnum];
 
 /**
  *
@@ -4814,21 +4946,32 @@ export interface EnergyBillingOtherTransaction {
    * @memberof EnergyBillingOtherTransaction
    */
   description: string;
+  /**
+   * Additional calculation factors that inform the transaction
+   * @type {Array<EnergyBillingUsageTransactionCalculationFactors>}
+   * @memberof EnergyBillingOtherTransaction
+   */
+  calculationFactors?: Array<EnergyBillingUsageTransactionCalculationFactors>;
+  /**
+   * Optional array of adjustments arising for this transaction
+   * @type {Array<EnergyBillingUsageTransactionAdjustments>}
+   * @memberof EnergyBillingOtherTransaction
+   */
+  adjustments?: Array<EnergyBillingUsageTransactionAdjustments>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingOtherTransactionTypeEnum {
-  ENVIRONMENTAL = 'ENVIRONMENTAL',
-  REGULATED = 'REGULATED',
-  NETWORK = 'NETWORK',
-  METERING = 'METERING',
-  RETAILSERVICE = 'RETAIL_SERVICE',
-  RCTI = 'RCTI',
-  OTHER = 'OTHER',
-}
+export const EnergyBillingOtherTransactionTypeEnum = {
+  Environmental: 'ENVIRONMENTAL',
+  Regulated: 'REGULATED',
+  Network: 'NETWORK',
+  Metering: 'METERING',
+  RetailService: 'RETAIL_SERVICE',
+  Rcti: 'RCTI',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyBillingOtherTransactionTypeEnum =
+  typeof EnergyBillingOtherTransactionTypeEnum[keyof typeof EnergyBillingOtherTransactionTypeEnum];
 
 /**
  *
@@ -4850,19 +4993,18 @@ export interface EnergyBillingPaymentTransaction {
   method: EnergyBillingPaymentTransactionMethodEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingPaymentTransactionMethodEnum {
-  DIRECTDEBIT = 'DIRECT_DEBIT',
-  CARD = 'CARD',
-  TRANSFER = 'TRANSFER',
-  BPAY = 'BPAY',
-  CASH = 'CASH',
-  CHEQUE = 'CHEQUE',
-  OTHER = 'OTHER',
-}
+export const EnergyBillingPaymentTransactionMethodEnum = {
+  DirectDebit: 'DIRECT_DEBIT',
+  Card: 'CARD',
+  Transfer: 'TRANSFER',
+  Bpay: 'BPAY',
+  Cash: 'CASH',
+  Cheque: 'CHEQUE',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyBillingPaymentTransactionMethodEnum =
+  typeof EnergyBillingPaymentTransactionMethodEnum[keyof typeof EnergyBillingPaymentTransactionMethodEnum];
 
 /**
  *
@@ -4932,17 +5074,16 @@ export interface EnergyBillingTransaction {
   adatree: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingTransactionTransactionUTypeEnum {
-  Usage = 'usage',
-  Demand = 'demand',
-  OnceOff = 'onceOff',
-  OtherCharges = 'otherCharges',
-  Payment = 'payment',
-}
+export const EnergyBillingTransactionTransactionUTypeEnum = {
+  Usage: 'usage',
+  Demand: 'demand',
+  OnceOff: 'onceOff',
+  OtherCharges: 'otherCharges',
+  Payment: 'payment',
+} as const;
+
+export type EnergyBillingTransactionTransactionUTypeEnum =
+  typeof EnergyBillingTransactionTransactionUTypeEnum[keyof typeof EnergyBillingTransactionTransactionUTypeEnum];
 
 /**
  *
@@ -5024,35 +5165,33 @@ export interface EnergyBillingUsageTransaction {
   adjustments?: Array<EnergyBillingUsageTransactionAdjustments>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingUsageTransactionTimeOfUseTypeEnum {
-  PEAK = 'PEAK',
-  OFFPEAK = 'OFF_PEAK',
-  OFFPEAKDEMANDCHARGE = 'OFF_PEAK_DEMAND_CHARGE',
-  SHOULDER = 'SHOULDER',
-  SHOULDER1 = 'SHOULDER1',
-  SHOULDER2 = 'SHOULDER2',
-  CONTROLLEDLOAD = 'CONTROLLED_LOAD',
-  SOLAR = 'SOLAR',
-  AGGREGATE = 'AGGREGATE',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingUsageTransactionMeasureUnitEnum {
-  KWH = 'KWH',
-  KVA = 'KVA',
-  KVAR = 'KVAR',
-  KVARH = 'KVARH',
-  KW = 'KW',
-  DAYS = 'DAYS',
-  METER = 'METER',
-  MONTH = 'MONTH',
-}
+export const EnergyBillingUsageTransactionTimeOfUseTypeEnum = {
+  Peak: 'PEAK',
+  OffPeak: 'OFF_PEAK',
+  OffPeakDemandCharge: 'OFF_PEAK_DEMAND_CHARGE',
+  Shoulder: 'SHOULDER',
+  Shoulder1: 'SHOULDER1',
+  Shoulder2: 'SHOULDER2',
+  ControlledLoad: 'CONTROLLED_LOAD',
+  Solar: 'SOLAR',
+  Aggregate: 'AGGREGATE',
+} as const;
+
+export type EnergyBillingUsageTransactionTimeOfUseTypeEnum =
+  typeof EnergyBillingUsageTransactionTimeOfUseTypeEnum[keyof typeof EnergyBillingUsageTransactionTimeOfUseTypeEnum];
+export const EnergyBillingUsageTransactionMeasureUnitEnum = {
+  Kwh: 'KWH',
+  Kva: 'KVA',
+  Kvar: 'KVAR',
+  Kvarh: 'KVARH',
+  Kw: 'KW',
+  Days: 'DAYS',
+  Meter: 'METER',
+  Month: 'MONTH',
+} as const;
+
+export type EnergyBillingUsageTransactionMeasureUnitEnum =
+  typeof EnergyBillingUsageTransactionMeasureUnitEnum[keyof typeof EnergyBillingUsageTransactionMeasureUnitEnum];
 
 /**
  *
@@ -5093,14 +5232,13 @@ export interface EnergyBillingUsageTransactionCalculationFactors {
   type: EnergyBillingUsageTransactionCalculationFactorsTypeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyBillingUsageTransactionCalculationFactorsTypeEnum {
-  DLF = 'DLF',
-  MLF = 'MLF',
-}
+export const EnergyBillingUsageTransactionCalculationFactorsTypeEnum = {
+  Dlf: 'DLF',
+  Mlf: 'MLF',
+} as const;
+
+export type EnergyBillingUsageTransactionCalculationFactorsTypeEnum =
+  typeof EnergyBillingUsageTransactionCalculationFactorsTypeEnum[keyof typeof EnergyBillingUsageTransactionCalculationFactorsTypeEnum];
 
 /**
  *
@@ -5170,25 +5308,22 @@ export interface EnergyConcession {
   appliedTo?: Array<EnergyConcessionAppliedToEnum>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyConcessionTypeEnum {
-  FIXEDAMOUNT = 'FIXED_AMOUNT',
-  FIXEDPERCENTAGE = 'FIXED_PERCENTAGE',
-  VARIABLE = 'VARIABLE',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyConcessionAppliedToEnum {
-  INVOICE = 'INVOICE',
-  USAGE = 'USAGE',
-  SERVICECHARGE = 'SERVICE_CHARGE',
-  CONTROLLEDLOAD = 'CONTROLLED_LOAD',
-}
+export const EnergyConcessionTypeEnum = {
+  FixedAmount: 'FIXED_AMOUNT',
+  FixedPercentage: 'FIXED_PERCENTAGE',
+  Variable: 'VARIABLE',
+} as const;
+
+export type EnergyConcessionTypeEnum = typeof EnergyConcessionTypeEnum[keyof typeof EnergyConcessionTypeEnum];
+export const EnergyConcessionAppliedToEnum = {
+  Invoice: 'INVOICE',
+  Usage: 'USAGE',
+  ServiceCharge: 'SERVICE_CHARGE',
+  ControlledLoad: 'CONTROLLED_LOAD',
+} as const;
+
+export type EnergyConcessionAppliedToEnum =
+  typeof EnergyConcessionAppliedToEnum[keyof typeof EnergyConcessionAppliedToEnum];
 
 /**
  *
@@ -5203,29 +5338,29 @@ export interface EnergyDerRecord {
    */
   servicePointId: string;
   /**
-   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
+   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
    * @type {number}
    * @memberof EnergyDerRecord
    */
   approvedCapacity: number;
   /**
-   * The number of phases available for the installation of DER
+   * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    * @type {number}
    * @memberof EnergyDerRecord
    */
   availablePhasesCount: number;
   /**
-   * The number of phases that DER is connected to
+   * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    * @type {number}
    * @memberof EnergyDerRecord
    */
   installedPhasesCount: number;
   /**
    * For identification of small generating units designed with the ability to operate in an islanded mode
-   * @type {string}
+   * @type {boolean}
    * @memberof EnergyDerRecord
    */
-  islandableInstallation: string;
+  islandableInstallation: boolean;
   /**
    * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false
    * @type {boolean}
@@ -5300,7 +5435,7 @@ export interface EnergyDerRecordAcConnections {
    */
   status: EnergyDerRecordAcConnectionsStatusEnum;
   /**
-   * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER
+   * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER. Default is 0 if value not known
    * @type {number}
    * @memberof EnergyDerRecordAcConnections
    */
@@ -5313,23 +5448,21 @@ export interface EnergyDerRecordAcConnections {
   derDevices: Array<EnergyDerRecordDerDevices>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyDerRecordAcConnectionsEquipmentTypeEnum {
-  INVERTER = 'INVERTER',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyDerRecordAcConnectionsStatusEnum {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  DECOMMISSIONED = 'DECOMMISSIONED',
-}
+export const EnergyDerRecordAcConnectionsEquipmentTypeEnum = {
+  Inverter: 'INVERTER',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyDerRecordAcConnectionsEquipmentTypeEnum =
+  typeof EnergyDerRecordAcConnectionsEquipmentTypeEnum[keyof typeof EnergyDerRecordAcConnectionsEquipmentTypeEnum];
+export const EnergyDerRecordAcConnectionsStatusEnum = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE',
+  Decommissioned: 'DECOMMISSIONED',
+} as const;
+
+export type EnergyDerRecordAcConnectionsStatusEnum =
+  typeof EnergyDerRecordAcConnectionsStatusEnum[keyof typeof EnergyDerRecordAcConnectionsStatusEnum];
 
 /**
  *
@@ -5380,42 +5513,40 @@ export interface EnergyDerRecordDerDevices {
    */
   subtype?: string;
   /**
-   * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group
+   * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is 0 if value not known
    * @type {number}
    * @memberof EnergyDerRecordDerDevices
    */
   nominalRatedCapacity: number;
   /**
-   * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to STORAGE
+   * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to STORAGE. Default is 0 if value not known
    * @type {number}
    * @memberof EnergyDerRecordDerDevices
    */
   nominalStorageCapacity?: number;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyDerRecordDerDevicesStatusEnum {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  DECOMMISSIONED = 'DECOMMISSIONED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyDerRecordDerDevicesTypeEnum {
-  FOSSIL = 'FOSSIL',
-  HYDRO = 'HYDRO',
-  WIND = 'WIND',
-  SOLARPV = 'SOLAR_PV',
-  RENEWABLE = 'RENEWABLE',
-  GEOTHERMAL = 'GEOTHERMAL',
-  STORAGE = 'STORAGE',
-  OTHER = 'OTHER',
-}
+export const EnergyDerRecordDerDevicesStatusEnum = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE',
+  Decommissioned: 'DECOMMISSIONED',
+} as const;
+
+export type EnergyDerRecordDerDevicesStatusEnum =
+  typeof EnergyDerRecordDerDevicesStatusEnum[keyof typeof EnergyDerRecordDerDevicesStatusEnum];
+export const EnergyDerRecordDerDevicesTypeEnum = {
+  Fossil: 'FOSSIL',
+  Hydro: 'HYDRO',
+  Wind: 'WIND',
+  SolarPv: 'SOLAR_PV',
+  Renewable: 'RENEWABLE',
+  Geothermal: 'GEOTHERMAL',
+  Storage: 'STORAGE',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyDerRecordDerDevicesTypeEnum =
+  typeof EnergyDerRecordDerDevicesTypeEnum[keyof typeof EnergyDerRecordDerDevicesTypeEnum];
 
 /**
  * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
@@ -5428,7 +5559,7 @@ export interface EnergyDerRecordProtectionMode {
    * @type {number}
    * @memberof EnergyDerRecordProtectionMode
    */
-  exportLimitkva?: number;
+  exportLimitKva?: number;
   /**
    * Protective function limit in Hz.
    * @type {number}
@@ -5484,7 +5615,7 @@ export interface EnergyDerRecordProtectionMode {
    */
   sustainedOverVoltage?: number;
   /**
-   * Trip delay time in seconds.
+   * Sustained Over voltage protection delay in seconds.
    * @type {number}
    * @memberof EnergyDerRecordProtectionMode
    */
@@ -5612,15 +5743,14 @@ export interface EnergyInvoice {
   adatree: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyInvoicePaymentStatusEnum {
-  PAID = 'PAID',
-  PARTIALLYPAID = 'PARTIALLY_PAID',
-  NOTPAID = 'NOT_PAID',
-}
+export const EnergyInvoicePaymentStatusEnum = {
+  Paid: 'PAID',
+  PartiallyPaid: 'PARTIALLY_PAID',
+  NotPaid: 'NOT_PAID',
+} as const;
+
+export type EnergyInvoicePaymentStatusEnum =
+  typeof EnergyInvoicePaymentStatusEnum[keyof typeof EnergyInvoicePaymentStatusEnum];
 
 /**
  * Object contain charges and credits related to electricity usage
@@ -5666,13 +5796,13 @@ export interface EnergyInvoiceElectricityUsageCharges {
    */
   totalGenerationCredits: string;
   /**
-   * The aggregate total of any once-off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)
+   * The aggregate total of any once off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)
    * @type {string}
    * @memberof EnergyInvoiceElectricityUsageCharges
    */
   totalOnceOffCharges: string;
   /**
-   * The aggregate total of any once-off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)
+   * The aggregate total of any once off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)
    * @type {string}
    * @memberof EnergyInvoiceElectricityUsageCharges
    */
@@ -5709,13 +5839,13 @@ export interface EnergyInvoiceGasUsageCharges {
    */
   totalGenerationCredits: string;
   /**
-   * The aggregate total of any once-off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)
+   * The aggregate total of any once off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)
    * @type {string}
    * @memberof EnergyInvoiceGasUsageCharges
    */
   totalOnceOffCharges: string;
   /**
-   * The aggregate total of any once-off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)
+   * The aggregate total of any once off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)
    * @type {string}
    * @memberof EnergyInvoiceGasUsageCharges
    */
@@ -5759,19 +5889,18 @@ export interface EnergyInvoiceGasUsageChargesOtherCharges {
   description: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyInvoiceGasUsageChargesOtherChargesTypeEnum {
-  ENVIRONMENTAL = 'ENVIRONMENTAL',
-  REGULATED = 'REGULATED',
-  NETWORK = 'NETWORK',
-  METERING = 'METERING',
-  RETAILSERVICE = 'RETAIL_SERVICE',
-  RCTI = 'RCTI',
-  OTHER = 'OTHER',
-}
+export const EnergyInvoiceGasUsageChargesOtherChargesTypeEnum = {
+  Environmental: 'ENVIRONMENTAL',
+  Regulated: 'REGULATED',
+  Network: 'NETWORK',
+  Metering: 'METERING',
+  RetailService: 'RETAIL_SERVICE',
+  Rcti: 'RCTI',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyInvoiceGasUsageChargesOtherChargesTypeEnum =
+  typeof EnergyInvoiceGasUsageChargesOtherChargesTypeEnum[keyof typeof EnergyInvoiceGasUsageChargesOtherChargesTypeEnum];
 
 /**
  *
@@ -5805,7 +5934,7 @@ export interface EnergyInvoiceList {
  */
 export interface EnergyInvoiceListData {
   /**
-   * Array of invoices sorted by date in descending order
+   * Array of invoices sorted by issue date in descending order
    * @type {Array<EnergyInvoice>}
    * @memberof EnergyInvoiceListData
    */
@@ -5887,21 +6016,27 @@ export interface EnergyPaymentSchedule {
   directDebit?: EnergyPaymentScheduleDirectDebit;
   /**
    *
+   * @type {EnergyPaymentScheduleDigitalWallet}
+   * @memberof EnergyPaymentSchedule
+   */
+  digitalWallet?: EnergyPaymentScheduleDigitalWallet;
+  /**
+   *
    * @type {EnergyPaymentScheduleManualPayment}
    * @memberof EnergyPaymentSchedule
    */
   manualPayment?: EnergyPaymentScheduleManualPayment;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPaymentSchedulePaymentScheduleUTypeEnum {
-  CardDebit = 'cardDebit',
-  DirectDebit = 'directDebit',
-  ManualPayment = 'manualPayment',
-}
+export const EnergyPaymentSchedulePaymentScheduleUTypeEnum = {
+  CardDebit: 'cardDebit',
+  DirectDebit: 'directDebit',
+  ManualPayment: 'manualPayment',
+  DigitalWallet: 'digitalWallet',
+} as const;
+
+export type EnergyPaymentSchedulePaymentScheduleUTypeEnum =
+  typeof EnergyPaymentSchedulePaymentScheduleUTypeEnum[keyof typeof EnergyPaymentSchedulePaymentScheduleUTypeEnum];
 
 /**
  * Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit
@@ -5929,27 +6064,93 @@ export interface EnergyPaymentScheduleCardDebit {
   calculationType: EnergyPaymentScheduleCardDebitCalculationTypeEnum;
 }
 
+export const EnergyPaymentScheduleCardDebitCardSchemeEnum = {
+  Visa: 'VISA',
+  Mastercard: 'MASTERCARD',
+  Amex: 'AMEX',
+  Diners: 'DINERS',
+  Other: 'OTHER',
+  Unknown: 'UNKNOWN',
+} as const;
+
+export type EnergyPaymentScheduleCardDebitCardSchemeEnum =
+  typeof EnergyPaymentScheduleCardDebitCardSchemeEnum[keyof typeof EnergyPaymentScheduleCardDebitCardSchemeEnum];
+export const EnergyPaymentScheduleCardDebitCalculationTypeEnum = {
+  Static: 'STATIC',
+  Balance: 'BALANCE',
+  Calculated: 'CALCULATED',
+} as const;
+
+export type EnergyPaymentScheduleCardDebitCalculationTypeEnum =
+  typeof EnergyPaymentScheduleCardDebitCalculationTypeEnum[keyof typeof EnergyPaymentScheduleCardDebitCalculationTypeEnum];
+
 /**
+ * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
  * @export
- * @enum {string}
+ * @interface EnergyPaymentScheduleDigitalWallet
  */
-export enum EnergyPaymentScheduleCardDebitCardSchemeEnum {
-  VISA = 'VISA',
-  MASTERCARD = 'MASTERCARD',
-  AMEX = 'AMEX',
-  DINERS = 'DINERS',
-  OTHER = 'OTHER',
-  UNKNOWN = 'UNKNOWN',
+export interface EnergyPaymentScheduleDigitalWallet {
+  /**
+   * The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  name: string;
+  /**
+   * The identifier of the digital wallet (dependent on type)
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  identifier: string;
+  /**
+   * The type of the digital wallet identifier
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  type: EnergyPaymentScheduleDigitalWalletTypeEnum;
+  /**
+   * The provider of the digital wallet
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  provider: EnergyPaymentScheduleDigitalWalletProviderEnum;
+  /**
+   * The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  paymentFrequency: string;
+  /**
+   * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+   * @type {string}
+   * @memberof EnergyPaymentScheduleDigitalWallet
+   */
+  calculationType: EnergyPaymentScheduleDigitalWalletCalculationTypeEnum;
 }
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPaymentScheduleCardDebitCalculationTypeEnum {
-  STATIC = 'STATIC',
-  BALANCE = 'BALANCE',
-  CALCULATED = 'CALCULATED',
-}
+
+export const EnergyPaymentScheduleDigitalWalletTypeEnum = {
+  Email: 'EMAIL',
+  ContactName: 'CONTACT_NAME',
+  Telephone: 'TELEPHONE',
+} as const;
+
+export type EnergyPaymentScheduleDigitalWalletTypeEnum =
+  typeof EnergyPaymentScheduleDigitalWalletTypeEnum[keyof typeof EnergyPaymentScheduleDigitalWalletTypeEnum];
+export const EnergyPaymentScheduleDigitalWalletProviderEnum = {
+  PaypalAu: 'PAYPAL_AU',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPaymentScheduleDigitalWalletProviderEnum =
+  typeof EnergyPaymentScheduleDigitalWalletProviderEnum[keyof typeof EnergyPaymentScheduleDigitalWalletProviderEnum];
+export const EnergyPaymentScheduleDigitalWalletCalculationTypeEnum = {
+  Static: 'STATIC',
+  Balance: 'BALANCE',
+  Calculated: 'CALCULATED',
+} as const;
+
+export type EnergyPaymentScheduleDigitalWalletCalculationTypeEnum =
+  typeof EnergyPaymentScheduleDigitalWalletCalculationTypeEnum[keyof typeof EnergyPaymentScheduleDigitalWalletCalculationTypeEnum];
 
 /**
  * Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit
@@ -5958,7 +6159,7 @@ export enum EnergyPaymentScheduleCardDebitCalculationTypeEnum {
  */
 export interface EnergyPaymentScheduleDirectDebit {
   /**
-   * Flag indicating that the account details are tokenised and cannot be shared.  False if absent.  If false then bsb and accountNumber should not be expected to be included
+   * Flag indicating that the account details are tokenised and cannot be shared.  False if absent
    * @type {boolean}
    * @memberof EnergyPaymentScheduleDirectDebit
    */
@@ -5989,15 +6190,14 @@ export interface EnergyPaymentScheduleDirectDebit {
   calculationType: EnergyPaymentScheduleDirectDebitCalculationTypeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPaymentScheduleDirectDebitCalculationTypeEnum {
-  STATIC = 'STATIC',
-  BALANCE = 'BALANCE',
-  CALCULATED = 'CALCULATED',
-}
+export const EnergyPaymentScheduleDirectDebitCalculationTypeEnum = {
+  Static: 'STATIC',
+  Balance: 'BALANCE',
+  Calculated: 'CALCULATED',
+} as const;
+
+export type EnergyPaymentScheduleDirectDebitCalculationTypeEnum =
+  typeof EnergyPaymentScheduleDirectDebitCalculationTypeEnum[keyof typeof EnergyPaymentScheduleDirectDebitCalculationTypeEnum];
 
 /**
  * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment
@@ -6025,7 +6225,7 @@ export interface EnergyPlan {
    */
   planId: string;
   /**
-   * The date and time from which this plan is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
+   * The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
    * @type {string}
    * @memberof EnergyPlan
    */
@@ -6104,32 +6304,26 @@ export interface EnergyPlan {
   geography?: EnergyPlanGeography;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanTypeEnum {
-  STANDING = 'STANDING',
-  MARKET = 'MARKET',
-  REGULATED = 'REGULATED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanFuelTypeEnum {
-  ELECTRICITY = 'ELECTRICITY',
-  GAS = 'GAS',
-  DUAL = 'DUAL',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanCustomerTypeEnum {
-  RESIDENTIAL = 'RESIDENTIAL',
-  BUSINESS = 'BUSINESS',
-}
+export const EnergyPlanTypeEnum = {
+  Standing: 'STANDING',
+  Market: 'MARKET',
+  Regulated: 'REGULATED',
+} as const;
+
+export type EnergyPlanTypeEnum = typeof EnergyPlanTypeEnum[keyof typeof EnergyPlanTypeEnum];
+export const EnergyPlanFuelTypeEnum = {
+  Electricity: 'ELECTRICITY',
+  Gas: 'GAS',
+  Dual: 'DUAL',
+} as const;
+
+export type EnergyPlanFuelTypeEnum = typeof EnergyPlanFuelTypeEnum[keyof typeof EnergyPlanFuelTypeEnum];
+export const EnergyPlanCustomerTypeEnum = {
+  Residential: 'RESIDENTIAL',
+  Business: 'BUSINESS',
+} as const;
+
+export type EnergyPlanCustomerTypeEnum = typeof EnergyPlanCustomerTypeEnum[keyof typeof EnergyPlanCustomerTypeEnum];
 
 /**
  * Object that contains links to additional information on specific topics
@@ -6181,13 +6375,13 @@ export interface EnergyPlanContract {
    */
   additionalFeeInformation?: string;
   /**
-   * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a block or step tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE**  usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE**  usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a subscription or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
+   * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a block or step tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a subscription or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
    * @type {string}
    * @memberof EnergyPlanContract
    */
   pricingModel: EnergyPlanContractPricingModelEnum;
   /**
-   * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds
+   * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
    * @type {string}
    * @memberof EnergyPlanContract
    */
@@ -6199,7 +6393,7 @@ export interface EnergyPlanContract {
    */
   isFixed: boolean;
   /**
-   * Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true
+   * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    * @type {string}
    * @memberof EnergyPlanContract
    */
@@ -6223,465 +6417,598 @@ export interface EnergyPlanContract {
    */
   intrinsicGreenPower?: EnergyPlanContractIntrinsicGreenPower;
   /**
-   *
-   * @type {EnergyPlanControlledLoad}
+   * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
+   * @type {Array<EnergyPlanContractControlledLoadInner>}
    * @memberof EnergyPlanContract
    */
-  controlledLoad?: EnergyPlanControlledLoad;
+  controlledLoad?: Array<EnergyPlanContractControlledLoadInner>;
   /**
    * Optional list of incentives available for the contract
-   * @type {Array<EnergyPlanContractIncentives>}
+   * @type {Array<EnergyPlanContractIncentivesInner>}
    * @memberof EnergyPlanContract
    */
-  incentives?: Array<EnergyPlanContractIncentives>;
+  incentives?: Array<EnergyPlanContractIncentivesInner>;
   /**
    * Optional list of discounts available for the contract
-   * @type {Array<EnergyPlanContractDiscounts>}
+   * @type {Array<EnergyPlanContractDiscountsInner>}
    * @memberof EnergyPlanContract
    */
-  discounts?: Array<EnergyPlanContractDiscounts>;
+  discounts?: Array<EnergyPlanContractDiscountsInner>;
   /**
    * Optional list of charges applicable to green power
-   * @type {Array<EnergyPlanContractGreenPowerCharges>}
+   * @type {Array<EnergyPlanContractGreenPowerChargesInner>}
    * @memberof EnergyPlanContract
    */
-  greenPowerCharges?: Array<EnergyPlanContractGreenPowerCharges>;
+  greenPowerCharges?: Array<EnergyPlanContractGreenPowerChargesInner>;
   /**
    * Eligibility restrictions or requirements
-   * @type {Array<EnergyPlanContractEligibility>}
+   * @type {Array<EnergyPlanContractEligibilityInner>}
    * @memberof EnergyPlanContract
    */
-  eligibility?: Array<EnergyPlanContractEligibility>;
+  eligibility?: Array<EnergyPlanContractEligibilityInner>;
   /**
    * An array of fees applicable to the plan
-   * @type {Array<EnergyPlanContractFees>}
+   * @type {Array<EnergyPlanContractFeesInner>}
    * @memberof EnergyPlanContract
    */
-  fees?: Array<EnergyPlanContractFees>;
+  fees?: Array<EnergyPlanContractFeesInner>;
   /**
    * Array of feed in tariffs for solar power
-   * @type {Array<EnergyPlanContractSolarFeedInTariff>}
+   * @type {Array<EnergyPlanContractSolarFeedInTariffInner>}
    * @memberof EnergyPlanContract
    */
-  solarFeedInTariff?: Array<EnergyPlanContractSolarFeedInTariff>;
+  solarFeedInTariff?: Array<EnergyPlanContractSolarFeedInTariffInner>;
   /**
    * Array of tariff periods
-   * @type {Array<EnergyPlanContractTariffPeriod>}
+   * @type {Array<EnergyPlanContractTariffPeriodInner>}
    * @memberof EnergyPlanContract
    */
-  tariffPeriod: Array<EnergyPlanContractTariffPeriod>;
+  tariffPeriod: Array<EnergyPlanContractTariffPeriodInner>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractPricingModelEnum {
-  SINGLERATE = 'SINGLE_RATE',
-  SINGLERATECONTLOAD = 'SINGLE_RATE_CONT_LOAD',
-  TIMEOFUSE = 'TIME_OF_USE',
-  TIMEOFUSECONTLOAD = 'TIME_OF_USE_CONT_LOAD',
-  FLEXIBLE = 'FLEXIBLE',
-  FLEXIBLECONTLOAD = 'FLEXIBLE_CONT_LOAD',
-  QUOTA = 'QUOTA',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTimeZoneEnum {
-  LOCAL = 'LOCAL',
-  AEST = 'AEST',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractPaymentOptionEnum {
-  PAPERBILL = 'PAPER_BILL',
-  CREDITCARD = 'CREDIT_CARD',
-  DIRECTDEBIT = 'DIRECT_DEBIT',
-  BPAY = 'BPAY',
-  OTHER = 'OTHER',
-}
+export const EnergyPlanContractPricingModelEnum = {
+  SingleRate: 'SINGLE_RATE',
+  SingleRateContLoad: 'SINGLE_RATE_CONT_LOAD',
+  TimeOfUse: 'TIME_OF_USE',
+  TimeOfUseContLoad: 'TIME_OF_USE_CONT_LOAD',
+  Flexible: 'FLEXIBLE',
+  FlexibleContLoad: 'FLEXIBLE_CONT_LOAD',
+  Quota: 'QUOTA',
+} as const;
 
-/**
- * Object containing demand tariff by day of week
- * @export
- * @interface EnergyPlanContractDays
- */
-export interface EnergyPlanContractDays {
-  /**
-   * Indicates the demand tariff is applicable on weekdays
-   * @type {boolean}
-   * @memberof EnergyPlanContractDays
-   */
-  weekdays: boolean;
-  /**
-   * Indicates the demand tariff is applicable on Saturdays
-   * @type {boolean}
-   * @memberof EnergyPlanContractDays
-   */
-  saturday: boolean;
-  /**
-   * Indicates the demand tariff is applicable on Sundays
-   * @type {boolean}
-   * @memberof EnergyPlanContractDays
-   */
-  sunday: boolean;
-}
+export type EnergyPlanContractPricingModelEnum =
+  typeof EnergyPlanContractPricingModelEnum[keyof typeof EnergyPlanContractPricingModelEnum];
+export const EnergyPlanContractTimeZoneEnum = {
+  Local: 'LOCAL',
+  Aest: 'AEST',
+} as const;
+
+export type EnergyPlanContractTimeZoneEnum =
+  typeof EnergyPlanContractTimeZoneEnum[keyof typeof EnergyPlanContractTimeZoneEnum];
+export const EnergyPlanContractPaymentOptionEnum = {
+  PaperBill: 'PAPER_BILL',
+  CreditCard: 'CREDIT_CARD',
+  DirectDebit: 'DIRECT_DEBIT',
+  Bpay: 'BPAY',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractPaymentOptionEnum =
+  typeof EnergyPlanContractPaymentOptionEnum[keyof typeof EnergyPlanContractPaymentOptionEnum];
+
 /**
  *
  * @export
- * @interface EnergyPlanContractDemandCharges
+ * @interface EnergyPlanContractControlledLoadInner
  */
-export interface EnergyPlanContractDemandCharges {
+export interface EnergyPlanContractControlledLoadInner {
   /**
-   * Display name of the charge
+   * A display name for the controlled load
    * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * @memberof EnergyPlanContractControlledLoadInner
    */
   displayName: string;
   /**
-   * Description of the charge
+   * Specifies the type of controlloed load rate
    * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * @memberof EnergyPlanContractControlledLoadInner
+   */
+  rateBlockUType: EnergyPlanContractControlledLoadInnerRateBlockUTypeEnum;
+  /**
+   * Optional start date of the application of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInner
+   */
+  startDate?: string;
+  /**
+   * Optional end date of the application of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInner
+   */
+  endDate?: string;
+  /**
+   *
+   * @type {EnergyPlanContractControlledLoadInnerSingleRate}
+   * @memberof EnergyPlanContractControlledLoadInner
+   */
+  singleRate?: EnergyPlanContractControlledLoadInnerSingleRate;
+  /**
+   * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
+   * @type {Array<EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner>}
+   * @memberof EnergyPlanContractControlledLoadInner
+   */
+  timeOfUseRates?: Array<EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner>;
+}
+
+export const EnergyPlanContractControlledLoadInnerRateBlockUTypeEnum = {
+  SingleRate: 'singleRate',
+  TimeOfUseRates: 'timeOfUseRates',
+} as const;
+
+export type EnergyPlanContractControlledLoadInnerRateBlockUTypeEnum =
+  typeof EnergyPlanContractControlledLoadInnerRateBlockUTypeEnum[keyof typeof EnergyPlanContractControlledLoadInnerRateBlockUTypeEnum];
+
+/**
+ * Object representing a single controlled load rate.  Required if rateBlockUType is singleRate
+ * @export
+ * @interface EnergyPlanContractControlledLoadInnerSingleRate
+ */
+export interface EnergyPlanContractControlledLoadInnerSingleRate {
+  /**
+   * Display name of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRate
+   */
+  displayName: string;
+  /**
+   * Description of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRate
    */
   description?: string;
   /**
-   * The charge amount per  measure unit exclusive of GST
+   * The daily supply charge (exclusive of GST) for this controlled load tier
    * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRate
    */
-  amount: string;
+  dailySupplyCharge?: string;
   /**
-   * The measurement unit of charge amount. Assumed to be KWH if absent
+   * Array of controlled load rates in order of usage volume
+   * @type {Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>}
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRate
+   */
+  rates: Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>;
+}
+/**
+ *
+ * @export
+ * @interface EnergyPlanContractControlledLoadInnerSingleRateRatesInner
+ */
+export interface EnergyPlanContractControlledLoadInnerSingleRateRatesInner {
+  /**
+   * Unit price of usage per  measure unit (exclusive of GST)
    * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRateRatesInner
    */
-  measureUnit?: EnergyPlanContractDemandChargesMeasureUnitEnum;
+  unitPrice: string;
   /**
-   * Start of the period in HHMM format using 24 hour clock format
+   * The measurement unit of rate. Assumed to be KWH if absent
    * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRateRatesInner
    */
-  startTime: string;
+  measureUnit?: EnergyPlanContractControlledLoadInnerSingleRateRatesInnerMeasureUnitEnum;
   /**
-   * End of the period in HHMM format using 24 hour clock format
-   * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
+   * Volume in kWh that this rate applies to.  Only applicable for stepped rates where different rates apply for different volumes of usage in a period
+   * @type {number}
+   * @memberof EnergyPlanContractControlledLoadInnerSingleRateRatesInner
    */
-  endTime: string;
-  /**
-   *
-   * @type {EnergyPlanContractDays}
-   * @memberof EnergyPlanContractDemandCharges
-   */
-  days?: EnergyPlanContractDays;
-  /**
-   * Minimum demand for this demand tariff in kW.  If absent then 0 is assumed
-   * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
-   */
-  minDemand?: string;
-  /**
-   * Maximum demand for this demand tariff in kW.  If present, must be higher than the value of the minDemand field
-   * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
-   */
-  maxDemand?: string;
-  /**
-   * Application period for the demand tariff
-   * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
-   */
-  measurementPeriod: EnergyPlanContractDemandChargesMeasurementPeriodEnum;
-  /**
-   * Charge period for the demand tariff
-   * @type {string}
-   * @memberof EnergyPlanContractDemandCharges
-   */
-  chargePeriod: EnergyPlanContractDemandChargesChargePeriodEnum;
+  volume?: number;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDemandChargesMeasureUnitEnum {
-  KWH = 'KWH',
-  KVA = 'KVA',
-  KVAR = 'KVAR',
-  KVARH = 'KVARH',
-  KW = 'KW',
-  DAYS = 'DAYS',
-  METER = 'METER',
-  MONTH = 'MONTH',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDemandChargesMeasurementPeriodEnum {
-  DAY = 'DAY',
-  MONTH = 'MONTH',
-  TARIFFPERIOD = 'TARIFF_PERIOD',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDemandChargesChargePeriodEnum {
-  DAY = 'DAY',
-  MONTH = 'MONTH',
-  TARIFFPERIOD = 'TARIFF_PERIOD',
-}
+export const EnergyPlanContractControlledLoadInnerSingleRateRatesInnerMeasureUnitEnum = {
+  Kwh: 'KWH',
+  Kva: 'KVA',
+  Kvar: 'KVAR',
+  Kvarh: 'KVARH',
+  Kw: 'KW',
+  Days: 'DAYS',
+  Meter: 'METER',
+  Month: 'MONTH',
+} as const;
+
+export type EnergyPlanContractControlledLoadInnerSingleRateRatesInnerMeasureUnitEnum =
+  typeof EnergyPlanContractControlledLoadInnerSingleRateRatesInnerMeasureUnitEnum[keyof typeof EnergyPlanContractControlledLoadInnerSingleRateRatesInnerMeasureUnitEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractDiscounts
+ * @interface EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
  */
-export interface EnergyPlanContractDiscounts {
+export interface EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner {
+  /**
+   * Display name of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  displayName: string;
+  /**
+   * Description of the controlled load rate
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  description?: string;
+  /**
+   * The daily supply charge (exclusive of GST) for this controlled load tier
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  dailySupplyCharge?: string;
+  /**
+   * Array of controlled load rates in order of usage volume
+   * @type {Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  rates: Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>;
+  /**
+   * Array of times of use.
+   * @type {Array<EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner>}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  timeOfUse: Array<EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner>;
+  /**
+   * The type of usage that the rate applies to
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInner
+   */
+  type: EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTypeEnum;
+}
+
+export const EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTypeEnum = {
+  Peak: 'PEAK',
+  OffPeak: 'OFF_PEAK',
+  Shoulder: 'SHOULDER',
+  SolarSponge: 'SOLAR_SPONGE',
+} as const;
+
+export type EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTypeEnum =
+  typeof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTypeEnum[keyof typeof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTypeEnum];
+
+/**
+ *
+ * @export
+ * @interface EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+ */
+export interface EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner {
+  /**
+   * The days that the rate applies to
+   * @type {Array<string>}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  days?: Array<EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum>;
+  /**
+   * The beginning of the time period per day for which the controlled load rate applies. Required if endTime provided
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  startTime?: string;
+  /**
+   * The end of the time period per day for which the controlled load rate applies. Required if startTime provided
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  endTime?: string;
+  /**
+   * Display text providing more information on the contrlled load, for e.g. controlled load availability if specific day/time is not known. Required if startTime and endTime absent or if additionalInfoUri provided
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  additionalInfo?: string;
+  /**
+   * Optional link to additional information regarding the controlled load
+   * @type {string}
+   * @memberof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  additionalInfoUri?: string;
+}
+
+export const EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum = {
+  Sun: 'SUN',
+  Mon: 'MON',
+  Tue: 'TUE',
+  Wed: 'WED',
+  Thu: 'THU',
+  Fri: 'FRI',
+  Sat: 'SAT',
+  PublicHolidays: 'PUBLIC_HOLIDAYS',
+} as const;
+
+export type EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum =
+  typeof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum[keyof typeof EnergyPlanContractControlledLoadInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum];
+
+/**
+ *
+ * @export
+ * @interface EnergyPlanContractDiscountsInner
+ */
+export interface EnergyPlanContractDiscountsInner {
   /**
    * The display name of the discount
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
   displayName: string;
   /**
    * The description of the discount
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
   description?: string;
   /**
    * The type of the discount
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  type: EnergyPlanContractDiscountsTypeEnum;
+  type: EnergyPlanContractDiscountsInnerTypeEnum;
   /**
    * The type of the discount.  Mandatory if the discount type is CONDITIONAL
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  category?: EnergyPlanContractDiscountsCategoryEnum;
+  category?: EnergyPlanContractDiscountsInnerCategoryEnum;
   /**
    * Optional end date for the discount after which the discount is no longer available
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
   endDate?: string;
   /**
    * The method of calculation of the discount
    * @type {string}
-   * @memberof EnergyPlanContractDiscounts
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  methodUType: EnergyPlanContractDiscountsMethodUTypeEnum;
+  methodUType: EnergyPlanContractDiscountsInnerMethodUTypeEnum;
   /**
    *
-   * @type {EnergyPlanContractPercentOfBill}
-   * @memberof EnergyPlanContractDiscounts
+   * @type {EnergyPlanContractDiscountsInnerPercentOfBill}
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  percentOfBill?: EnergyPlanContractPercentOfBill;
+  percentOfBill?: EnergyPlanContractDiscountsInnerPercentOfBill;
   /**
    *
-   * @type {EnergyPlanContractPercentOfUse}
-   * @memberof EnergyPlanContractDiscounts
+   * @type {EnergyPlanContractDiscountsInnerPercentOfUse}
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  percentOfUse?: EnergyPlanContractPercentOfUse;
+  percentOfUse?: EnergyPlanContractDiscountsInnerPercentOfUse;
   /**
    *
-   * @type {EnergyPlanContractFixedAmount}
-   * @memberof EnergyPlanContractDiscounts
+   * @type {EnergyPlanContractDiscountsInnerFixedAmount}
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  fixedAmount?: EnergyPlanContractFixedAmount;
+  fixedAmount?: EnergyPlanContractDiscountsInnerFixedAmount;
   /**
    *
-   * @type {EnergyPlanContractPercentOverThreshold}
-   * @memberof EnergyPlanContractDiscounts
+   * @type {EnergyPlanContractDiscountsInnerPercentOverThreshold}
+   * @memberof EnergyPlanContractDiscountsInner
    */
-  percentOverThreshold?: EnergyPlanContractPercentOverThreshold;
+  percentOverThreshold?: EnergyPlanContractDiscountsInnerPercentOverThreshold;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDiscountsTypeEnum {
-  CONDITIONAL = 'CONDITIONAL',
-  GUARANTEED = 'GUARANTEED',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDiscountsCategoryEnum {
-  PAYONTIME = 'PAY_ON_TIME',
-  DIRECTDEBIT = 'DIRECT_DEBIT',
-  GUARANTEEDDISCOUNT = 'GUARANTEED_DISCOUNT',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractDiscountsMethodUTypeEnum {
-  PercentOfBill = 'percentOfBill',
-  PercentOfUse = 'percentOfUse',
-  FixedAmount = 'fixedAmount',
-  PercentOverThreshold = 'percentOverThreshold',
-}
+export const EnergyPlanContractDiscountsInnerTypeEnum = {
+  Conditional: 'CONDITIONAL',
+  Guaranteed: 'GUARANTEED',
+  Other: 'OTHER',
+} as const;
 
+export type EnergyPlanContractDiscountsInnerTypeEnum =
+  typeof EnergyPlanContractDiscountsInnerTypeEnum[keyof typeof EnergyPlanContractDiscountsInnerTypeEnum];
+export const EnergyPlanContractDiscountsInnerCategoryEnum = {
+  PayOnTime: 'PAY_ON_TIME',
+  DirectDebit: 'DIRECT_DEBIT',
+  GuaranteedDiscount: 'GUARANTEED_DISCOUNT',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractDiscountsInnerCategoryEnum =
+  typeof EnergyPlanContractDiscountsInnerCategoryEnum[keyof typeof EnergyPlanContractDiscountsInnerCategoryEnum];
+export const EnergyPlanContractDiscountsInnerMethodUTypeEnum = {
+  PercentOfBill: 'percentOfBill',
+  PercentOfUse: 'percentOfUse',
+  FixedAmount: 'fixedAmount',
+  PercentOverThreshold: 'percentOverThreshold',
+} as const;
+
+export type EnergyPlanContractDiscountsInnerMethodUTypeEnum =
+  typeof EnergyPlanContractDiscountsInnerMethodUTypeEnum[keyof typeof EnergyPlanContractDiscountsInnerMethodUTypeEnum];
+
+/**
+ * Required if methodUType is fixedAmount
+ * @export
+ * @interface EnergyPlanContractDiscountsInnerFixedAmount
+ */
+export interface EnergyPlanContractDiscountsInnerFixedAmount {
+  /**
+   * The amount of the discount
+   * @type {string}
+   * @memberof EnergyPlanContractDiscountsInnerFixedAmount
+   */
+  amount: string;
+}
+/**
+ * Required if methodUType is percentOfBill
+ * @export
+ * @interface EnergyPlanContractDiscountsInnerPercentOfBill
+ */
+export interface EnergyPlanContractDiscountsInnerPercentOfBill {
+  /**
+   * The rate of the discount applied to the bill amount
+   * @type {string}
+   * @memberof EnergyPlanContractDiscountsInnerPercentOfBill
+   */
+  rate: string;
+}
+/**
+ * Required if methodUType is percentOfUse
+ * @export
+ * @interface EnergyPlanContractDiscountsInnerPercentOfUse
+ */
+export interface EnergyPlanContractDiscountsInnerPercentOfUse {
+  /**
+   * The rate of the discount applied to the usageamount
+   * @type {string}
+   * @memberof EnergyPlanContractDiscountsInnerPercentOfUse
+   */
+  rate: string;
+}
+/**
+ * Required if methodUType is percentOverThreshold
+ * @export
+ * @interface EnergyPlanContractDiscountsInnerPercentOverThreshold
+ */
+export interface EnergyPlanContractDiscountsInnerPercentOverThreshold {
+  /**
+   * The rate of the discount over the usage amount
+   * @type {string}
+   * @memberof EnergyPlanContractDiscountsInnerPercentOverThreshold
+   */
+  rate: string;
+  /**
+   * The usage amount threshold above which the discount applies
+   * @type {string}
+   * @memberof EnergyPlanContractDiscountsInnerPercentOverThreshold
+   */
+  usageAmount: string;
+}
 /**
  *
  * @export
- * @interface EnergyPlanContractEligibility
+ * @interface EnergyPlanContractEligibilityInner
  */
-export interface EnergyPlanContractEligibility {
+export interface EnergyPlanContractEligibilityInner {
   /**
    * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
    * @type {string}
-   * @memberof EnergyPlanContractEligibility
+   * @memberof EnergyPlanContractEligibilityInner
    */
-  type: EnergyPlanContractEligibilityTypeEnum;
+  type: EnergyPlanContractEligibilityInnerTypeEnum;
   /**
    * Information of the eligibility restriction specific to the type of the restriction
    * @type {string}
-   * @memberof EnergyPlanContractEligibility
+   * @memberof EnergyPlanContractEligibilityInner
    */
   information: string;
   /**
    * A description of the eligibility restriction
    * @type {string}
-   * @memberof EnergyPlanContractEligibility
+   * @memberof EnergyPlanContractEligibilityInner
    */
   description?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractEligibilityTypeEnum {
-  EXISTINGCUST = 'EXISTING_CUST',
-  EXISTINGPOOL = 'EXISTING_POOL',
-  EXISTINGSOLAR = 'EXISTING_SOLAR',
-  EXISTINGBATTERY = 'EXISTING_BATTERY',
-  EXISTINGSMARTMETER = 'EXISTING_SMART_METER',
-  EXISTINGBASICMETER = 'EXISTING_BASIC_METER',
-  SENIORCARD = 'SENIOR_CARD',
-  SMALLBUSINESS = 'SMALL_BUSINESS',
-  NOSOLARFIT = 'NO_SOLAR_FIT',
-  NEWCUSTOMER = 'NEW_CUSTOMER',
-  ONLINEONLY = 'ONLINE_ONLY',
-  REQEQUIPSUPPLIER = 'REQ_EQUIP_SUPPLIER',
-  THIRDPARTYONLY = 'THIRD_PARTY_ONLY',
-  SPORTCLUBMEMBER = 'SPORT_CLUB_MEMBER',
-  ORGMEMBER = 'ORG_MEMBER',
-  SPECIFICLOCATION = 'SPECIFIC_LOCATION',
-  MINIMUMUSAGE = 'MINIMUM_USAGE',
-  LOYALTYMEMBER = 'LOYALTY_MEMBER',
-  GROUPBUYMEMBER = 'GROUP_BUY_MEMBER',
-  CONTINGENTPLAN = 'CONTINGENT_PLAN',
-  OTHER = 'OTHER',
-}
+export const EnergyPlanContractEligibilityInnerTypeEnum = {
+  ExistingCust: 'EXISTING_CUST',
+  ExistingPool: 'EXISTING_POOL',
+  ExistingSolar: 'EXISTING_SOLAR',
+  ExistingBattery: 'EXISTING_BATTERY',
+  ExistingSmartMeter: 'EXISTING_SMART_METER',
+  ExistingBasicMeter: 'EXISTING_BASIC_METER',
+  SeniorCard: 'SENIOR_CARD',
+  SmallBusiness: 'SMALL_BUSINESS',
+  NoSolarFit: 'NO_SOLAR_FIT',
+  NewCustomer: 'NEW_CUSTOMER',
+  OnlineOnly: 'ONLINE_ONLY',
+  ReqEquipSupplier: 'REQ_EQUIP_SUPPLIER',
+  ThirdPartyOnly: 'THIRD_PARTY_ONLY',
+  SportClubMember: 'SPORT_CLUB_MEMBER',
+  OrgMember: 'ORG_MEMBER',
+  SpecificLocation: 'SPECIFIC_LOCATION',
+  MinimumUsage: 'MINIMUM_USAGE',
+  LoyaltyMember: 'LOYALTY_MEMBER',
+  GroupBuyMember: 'GROUP_BUY_MEMBER',
+  ContingentPlan: 'CONTINGENT_PLAN',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractEligibilityInnerTypeEnum =
+  typeof EnergyPlanContractEligibilityInnerTypeEnum[keyof typeof EnergyPlanContractEligibilityInnerTypeEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractFees
+ * @interface EnergyPlanContractFeesInner
  */
-export interface EnergyPlanContractFees {
+export interface EnergyPlanContractFeesInner {
   /**
    * The type of the fee
    * @type {string}
-   * @memberof EnergyPlanContractFees
+   * @memberof EnergyPlanContractFeesInner
    */
-  type: EnergyPlanContractFeesTypeEnum;
+  type: EnergyPlanContractFeesInnerTypeEnum;
   /**
    * The term of the fee
    * @type {string}
-   * @memberof EnergyPlanContractFees
+   * @memberof EnergyPlanContractFeesInner
    */
-  term: EnergyPlanContractFeesTermEnum;
+  term: EnergyPlanContractFeesInnerTermEnum;
   /**
    * The fee amount. Required if term is not PERCENT_OF_BILL
    * @type {string}
-   * @memberof EnergyPlanContractFees
+   * @memberof EnergyPlanContractFeesInner
    */
   amount?: string;
   /**
    * The fee rate. Required if term is PERCENT_OF_BILL
    * @type {string}
-   * @memberof EnergyPlanContractFees
+   * @memberof EnergyPlanContractFeesInner
    */
   rate?: string;
   /**
    * A description of the fee
    * @type {string}
-   * @memberof EnergyPlanContractFees
+   * @memberof EnergyPlanContractFeesInner
    */
   description?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFeesTypeEnum {
-  EXIT = 'EXIT',
-  ESTABLISHMENT = 'ESTABLISHMENT',
-  LATEPAYMENT = 'LATE_PAYMENT',
-  DISCONNECTION = 'DISCONNECTION',
-  DISCONNECTMOVEOUT = 'DISCONNECT_MOVE_OUT',
-  DISCONNECTNONPAY = 'DISCONNECT_NON_PAY',
-  RECONNECTION = 'RECONNECTION',
-  CONNECTION = 'CONNECTION',
-  PAYMENTPROCESSING = 'PAYMENT_PROCESSING',
-  CCPROCESSING = 'CC_PROCESSING',
-  CHEQUEDISHONOUR = 'CHEQUE_DISHONOUR',
-  DDDISHONOUR = 'DD_DISHONOUR',
-  MEMBERSHIP = 'MEMBERSHIP',
-  CONTRIBUTION = 'CONTRIBUTION',
-  PAPERBILL = 'PAPER_BILL',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFeesTermEnum {
-  FIXED = 'FIXED',
-  _1YEAR = '1_YEAR',
-  _2YEAR = '2_YEAR',
-  _3YEAR = '3_YEAR',
-  _4YEAR = '4_YEAR',
-  _5YEAR = '5_YEAR',
-  PERCENTOFBILL = 'PERCENT_OF_BILL',
-  ANNUAL = 'ANNUAL',
-  DAILY = 'DAILY',
-  WEEKLY = 'WEEKLY',
-  MONTHLY = 'MONTHLY',
-  BIANNUAL = 'BIANNUAL',
-  VARIABLE = 'VARIABLE',
-}
+export const EnergyPlanContractFeesInnerTypeEnum = {
+  Exit: 'EXIT',
+  Establishment: 'ESTABLISHMENT',
+  LatePayment: 'LATE_PAYMENT',
+  Disconnection: 'DISCONNECTION',
+  DisconnectMoveOut: 'DISCONNECT_MOVE_OUT',
+  DisconnectNonPay: 'DISCONNECT_NON_PAY',
+  Reconnection: 'RECONNECTION',
+  Connection: 'CONNECTION',
+  PaymentProcessing: 'PAYMENT_PROCESSING',
+  CcProcessing: 'CC_PROCESSING',
+  ChequeDishonour: 'CHEQUE_DISHONOUR',
+  DdDishonour: 'DD_DISHONOUR',
+  Membership: 'MEMBERSHIP',
+  Contribution: 'CONTRIBUTION',
+  PaperBill: 'PAPER_BILL',
+  Other: 'OTHER',
+} as const;
 
-/**
- * Required if methodUType is fixedAmount
- * @export
- * @interface EnergyPlanContractFixedAmount
- */
-export interface EnergyPlanContractFixedAmount {
-  /**
-   * The amount of the discount
-   * @type {string}
-   * @memberof EnergyPlanContractFixedAmount
-   */
-  amount: string;
-}
+export type EnergyPlanContractFeesInnerTypeEnum =
+  typeof EnergyPlanContractFeesInnerTypeEnum[keyof typeof EnergyPlanContractFeesInnerTypeEnum];
+export const EnergyPlanContractFeesInnerTermEnum = {
+  Fixed: 'FIXED',
+  _1Year: '1_YEAR',
+  _2Year: '2_YEAR',
+  _3Year: '3_YEAR',
+  _4Year: '4_YEAR',
+  _5Year: '5_YEAR',
+  PercentOfBill: 'PERCENT_OF_BILL',
+  Annual: 'ANNUAL',
+  Daily: 'DAILY',
+  Weekly: 'WEEKLY',
+  Monthly: 'MONTHLY',
+  Biannual: 'BIANNUAL',
+  Variable: 'VARIABLE',
+} as const;
+
+export type EnergyPlanContractFeesInnerTermEnum =
+  typeof EnergyPlanContractFeesInnerTermEnum[keyof typeof EnergyPlanContractFeesInnerTermEnum];
+
 /**
  *
  * @export
@@ -6695,13 +7022,13 @@ export interface EnergyPlanContractFull {
    */
   additionalFeeInformation?: string;
   /**
-   * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a block or step tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE**  usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE**  usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a subscription or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
+   * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a block or step tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a subscription or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
    * @type {string}
    * @memberof EnergyPlanContractFull
    */
   pricingModel: EnergyPlanContractFullPricingModelEnum;
   /**
-   * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds
+   * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
    * @type {string}
    * @memberof EnergyPlanContractFull
    */
@@ -6713,7 +7040,7 @@ export interface EnergyPlanContractFull {
    */
   isFixed: boolean;
   /**
-   * Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true
+   * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    * @type {string}
    * @memberof EnergyPlanContractFull
    */
@@ -6737,53 +7064,53 @@ export interface EnergyPlanContractFull {
    */
   intrinsicGreenPower?: EnergyPlanContractIntrinsicGreenPower;
   /**
-   *
-   * @type {EnergyPlanControlledLoad}
+   * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
+   * @type {Array<EnergyPlanContractControlledLoadInner>}
    * @memberof EnergyPlanContractFull
    */
-  controlledLoad?: EnergyPlanControlledLoad;
+  controlledLoad?: Array<EnergyPlanContractControlledLoadInner>;
   /**
    * Optional list of incentives available for the contract
-   * @type {Array<EnergyPlanContractIncentives>}
+   * @type {Array<EnergyPlanContractIncentivesInner>}
    * @memberof EnergyPlanContractFull
    */
-  incentives?: Array<EnergyPlanContractIncentives>;
+  incentives?: Array<EnergyPlanContractIncentivesInner>;
   /**
    * Optional list of discounts available for the contract
-   * @type {Array<EnergyPlanContractDiscounts>}
+   * @type {Array<EnergyPlanContractDiscountsInner>}
    * @memberof EnergyPlanContractFull
    */
-  discounts?: Array<EnergyPlanContractDiscounts>;
+  discounts?: Array<EnergyPlanContractDiscountsInner>;
   /**
    * Optional list of charges applicable to green power
-   * @type {Array<EnergyPlanContractGreenPowerCharges>}
+   * @type {Array<EnergyPlanContractGreenPowerChargesInner>}
    * @memberof EnergyPlanContractFull
    */
-  greenPowerCharges?: Array<EnergyPlanContractGreenPowerCharges>;
+  greenPowerCharges?: Array<EnergyPlanContractGreenPowerChargesInner>;
   /**
    * Eligibility restrictions or requirements
-   * @type {Array<EnergyPlanContractEligibility>}
+   * @type {Array<EnergyPlanContractEligibilityInner>}
    * @memberof EnergyPlanContractFull
    */
-  eligibility?: Array<EnergyPlanContractEligibility>;
+  eligibility?: Array<EnergyPlanContractEligibilityInner>;
   /**
    * An array of fees applicable to the plan
-   * @type {Array<EnergyPlanContractFees>}
+   * @type {Array<EnergyPlanContractFeesInner>}
    * @memberof EnergyPlanContractFull
    */
-  fees?: Array<EnergyPlanContractFees>;
+  fees?: Array<EnergyPlanContractFeesInner>;
   /**
    * Array of feed in tariffs for solar power
-   * @type {Array<EnergyPlanContractSolarFeedInTariff>}
+   * @type {Array<EnergyPlanContractSolarFeedInTariffInner>}
    * @memberof EnergyPlanContractFull
    */
-  solarFeedInTariff?: Array<EnergyPlanContractSolarFeedInTariff>;
+  solarFeedInTariff?: Array<EnergyPlanContractSolarFeedInTariffInner>;
   /**
    * Array of tariff periods
-   * @type {Array<EnergyPlanContractTariffPeriod>}
+   * @type {Array<EnergyPlanContractTariffPeriodInner>}
    * @memberof EnergyPlanContractFull
    */
-  tariffPeriod: Array<EnergyPlanContractTariffPeriod>;
+  tariffPeriod: Array<EnergyPlanContractTariffPeriodInner>;
   /**
    * The term for the contract.  If absent assumes no specified term
    * @type {string}
@@ -6822,51 +7149,47 @@ export interface EnergyPlanContractFull {
   billFrequency: Array<string>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFullPricingModelEnum {
-  SINGLERATE = 'SINGLE_RATE',
-  SINGLERATECONTLOAD = 'SINGLE_RATE_CONT_LOAD',
-  TIMEOFUSE = 'TIME_OF_USE',
-  TIMEOFUSECONTLOAD = 'TIME_OF_USE_CONT_LOAD',
-  FLEXIBLE = 'FLEXIBLE',
-  FLEXIBLECONTLOAD = 'FLEXIBLE_CONT_LOAD',
-  QUOTA = 'QUOTA',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFullTimeZoneEnum {
-  LOCAL = 'LOCAL',
-  AEST = 'AEST',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFullPaymentOptionEnum {
-  PAPERBILL = 'PAPER_BILL',
-  CREDITCARD = 'CREDIT_CARD',
-  DIRECTDEBIT = 'DIRECT_DEBIT',
-  BPAY = 'BPAY',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFullTermTypeEnum {
-  _1YEAR = '1_YEAR',
-  _2YEAR = '2_YEAR',
-  _3YEAR = '3_YEAR',
-  _4YEAR = '4_YEAR',
-  _5YEAR = '5_YEAR',
-  ONGOING = 'ONGOING',
-  OTHER = 'OTHER',
-}
+export const EnergyPlanContractFullPricingModelEnum = {
+  SingleRate: 'SINGLE_RATE',
+  SingleRateContLoad: 'SINGLE_RATE_CONT_LOAD',
+  TimeOfUse: 'TIME_OF_USE',
+  TimeOfUseContLoad: 'TIME_OF_USE_CONT_LOAD',
+  Flexible: 'FLEXIBLE',
+  FlexibleContLoad: 'FLEXIBLE_CONT_LOAD',
+  Quota: 'QUOTA',
+} as const;
+
+export type EnergyPlanContractFullPricingModelEnum =
+  typeof EnergyPlanContractFullPricingModelEnum[keyof typeof EnergyPlanContractFullPricingModelEnum];
+export const EnergyPlanContractFullTimeZoneEnum = {
+  Local: 'LOCAL',
+  Aest: 'AEST',
+} as const;
+
+export type EnergyPlanContractFullTimeZoneEnum =
+  typeof EnergyPlanContractFullTimeZoneEnum[keyof typeof EnergyPlanContractFullTimeZoneEnum];
+export const EnergyPlanContractFullPaymentOptionEnum = {
+  PaperBill: 'PAPER_BILL',
+  CreditCard: 'CREDIT_CARD',
+  DirectDebit: 'DIRECT_DEBIT',
+  Bpay: 'BPAY',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractFullPaymentOptionEnum =
+  typeof EnergyPlanContractFullPaymentOptionEnum[keyof typeof EnergyPlanContractFullPaymentOptionEnum];
+export const EnergyPlanContractFullTermTypeEnum = {
+  _1Year: '1_YEAR',
+  _2Year: '2_YEAR',
+  _3Year: '3_YEAR',
+  _4Year: '4_YEAR',
+  _5Year: '5_YEAR',
+  Ongoing: 'ONGOING',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractFullTermTypeEnum =
+  typeof EnergyPlanContractFullTermTypeEnum[keyof typeof EnergyPlanContractFullTermTypeEnum];
 
 /**
  *
@@ -6912,120 +7235,141 @@ export interface EnergyPlanContractFullAllOf {
   billFrequency: Array<string>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractFullAllOfTermTypeEnum {
-  _1YEAR = '1_YEAR',
-  _2YEAR = '2_YEAR',
-  _3YEAR = '3_YEAR',
-  _4YEAR = '4_YEAR',
-  _5YEAR = '5_YEAR',
-  ONGOING = 'ONGOING',
-  OTHER = 'OTHER',
-}
+export const EnergyPlanContractFullAllOfTermTypeEnum = {
+  _1Year: '1_YEAR',
+  _2Year: '2_YEAR',
+  _3Year: '3_YEAR',
+  _4Year: '4_YEAR',
+  _5Year: '5_YEAR',
+  Ongoing: 'ONGOING',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractFullAllOfTermTypeEnum =
+  typeof EnergyPlanContractFullAllOfTermTypeEnum[keyof typeof EnergyPlanContractFullAllOfTermTypeEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractGreenPowerCharges
+ * @interface EnergyPlanContractGreenPowerChargesInner
  */
-export interface EnergyPlanContractGreenPowerCharges {
+export interface EnergyPlanContractGreenPowerChargesInner {
   /**
    * The display name of the charge
    * @type {string}
-   * @memberof EnergyPlanContractGreenPowerCharges
+   * @memberof EnergyPlanContractGreenPowerChargesInner
    */
   displayName: string;
   /**
    * The description of the charge
    * @type {string}
-   * @memberof EnergyPlanContractGreenPowerCharges
+   * @memberof EnergyPlanContractGreenPowerChargesInner
    */
   description?: string;
   /**
    * The applicable green power scheme
    * @type {string}
-   * @memberof EnergyPlanContractGreenPowerCharges
+   * @memberof EnergyPlanContractGreenPowerChargesInner
    */
-  scheme: EnergyPlanContractGreenPowerChargesSchemeEnum;
+  scheme: EnergyPlanContractGreenPowerChargesInnerSchemeEnum;
   /**
    * The type of charge
    * @type {string}
-   * @memberof EnergyPlanContractGreenPowerCharges
+   * @memberof EnergyPlanContractGreenPowerChargesInner
    */
-  type: EnergyPlanContractGreenPowerChargesTypeEnum;
+  type: EnergyPlanContractGreenPowerChargesInnerTypeEnum;
   /**
    * Array of charge tiers based on the percentage of green power used for the period implied by the type.  Array is in order of increasing percentage of green power
-   * @type {Array<EnergyPlanContractTiers>}
-   * @memberof EnergyPlanContractGreenPowerCharges
+   * @type {Array<EnergyPlanContractGreenPowerChargesInnerTiersInner>}
+   * @memberof EnergyPlanContractGreenPowerChargesInner
    */
-  tiers: Array<EnergyPlanContractTiers>;
+  tiers: Array<EnergyPlanContractGreenPowerChargesInnerTiersInner>;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractGreenPowerChargesSchemeEnum {
-  GREENPOWER = 'GREENPOWER',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractGreenPowerChargesTypeEnum {
-  FIXEDPERDAY = 'FIXED_PER_DAY',
-  FIXEDPERWEEK = 'FIXED_PER_WEEK',
-  FIXEDPERMONTH = 'FIXED_PER_MONTH',
-  FIXEDPERUNIT = 'FIXED_PER_UNIT',
-  PERCENTOFUSE = 'PERCENT_OF_USE',
-  PERCENTOFBILL = 'PERCENT_OF_BILL',
-}
+export const EnergyPlanContractGreenPowerChargesInnerSchemeEnum = {
+  Greenpower: 'GREENPOWER',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractGreenPowerChargesInnerSchemeEnum =
+  typeof EnergyPlanContractGreenPowerChargesInnerSchemeEnum[keyof typeof EnergyPlanContractGreenPowerChargesInnerSchemeEnum];
+export const EnergyPlanContractGreenPowerChargesInnerTypeEnum = {
+  FixedPerDay: 'FIXED_PER_DAY',
+  FixedPerWeek: 'FIXED_PER_WEEK',
+  FixedPerMonth: 'FIXED_PER_MONTH',
+  FixedPerUnit: 'FIXED_PER_UNIT',
+  PercentOfUse: 'PERCENT_OF_USE',
+  PercentOfBill: 'PERCENT_OF_BILL',
+} as const;
+
+export type EnergyPlanContractGreenPowerChargesInnerTypeEnum =
+  typeof EnergyPlanContractGreenPowerChargesInnerTypeEnum[keyof typeof EnergyPlanContractGreenPowerChargesInnerTypeEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractIncentives
+ * @interface EnergyPlanContractGreenPowerChargesInnerTiersInner
  */
-export interface EnergyPlanContractIncentives {
+export interface EnergyPlanContractGreenPowerChargesInnerTiersInner {
+  /**
+   * The upper percentage of green power used applicable for this tier
+   * @type {string}
+   * @memberof EnergyPlanContractGreenPowerChargesInnerTiersInner
+   */
+  percentGreen: string;
+  /**
+   * The rate of the charge if the type implies the application of a rate
+   * @type {string}
+   * @memberof EnergyPlanContractGreenPowerChargesInnerTiersInner
+   */
+  rate?: string;
+  /**
+   * The amount of the charge if the type implies the application of a fixed amount
+   * @type {string}
+   * @memberof EnergyPlanContractGreenPowerChargesInnerTiersInner
+   */
+  amount?: string;
+}
+/**
+ *
+ * @export
+ * @interface EnergyPlanContractIncentivesInner
+ */
+export interface EnergyPlanContractIncentivesInner {
   /**
    * The display name of the incentive
    * @type {string}
-   * @memberof EnergyPlanContractIncentives
+   * @memberof EnergyPlanContractIncentivesInner
    */
   displayName: string;
   /**
    * The description of the incentive
    * @type {string}
-   * @memberof EnergyPlanContractIncentives
+   * @memberof EnergyPlanContractIncentivesInner
    */
   description: string;
   /**
    * The type of the incentive
    * @type {string}
-   * @memberof EnergyPlanContractIncentives
+   * @memberof EnergyPlanContractIncentivesInner
    */
-  category: EnergyPlanContractIncentivesCategoryEnum;
+  category: EnergyPlanContractIncentivesInnerCategoryEnum;
   /**
    * A display message outlining an eligibility criteria that may apply
    * @type {string}
-   * @memberof EnergyPlanContractIncentives
+   * @memberof EnergyPlanContractIncentivesInner
    */
   eligibility?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractIncentivesCategoryEnum {
-  GIFT = 'GIFT',
-  ACCOUNTCREDIT = 'ACCOUNT_CREDIT',
-  OTHER = 'OTHER',
-}
+export const EnergyPlanContractIncentivesInnerCategoryEnum = {
+  Gift: 'GIFT',
+  AccountCredit: 'ACCOUNT_CREDIT',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractIncentivesInnerCategoryEnum =
+  typeof EnergyPlanContractIncentivesInnerCategoryEnum[keyof typeof EnergyPlanContractIncentivesInnerCategoryEnum];
 
 /**
  * Describes intrinsic green power for the plan.  If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts
@@ -7041,608 +7385,544 @@ export interface EnergyPlanContractIntrinsicGreenPower {
   greenPercentage: string;
 }
 /**
- * Required if methodUType is percentOfBill
+ *
  * @export
- * @interface EnergyPlanContractPercentOfBill
+ * @interface EnergyPlanContractSolarFeedInTariffInner
  */
-export interface EnergyPlanContractPercentOfBill {
+export interface EnergyPlanContractSolarFeedInTariffInner {
   /**
-   * The rate of the discount applied to the bill amount
+   * The name of the tariff
    * @type {string}
-   * @memberof EnergyPlanContractPercentOfBill
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
    */
-  rate: string;
+  displayName: string;
+  /**
+   * A description of the tariff
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  description?: string;
+  /**
+   * The applicable scheme
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  scheme: EnergyPlanContractSolarFeedInTariffInnerSchemeEnum;
+  /**
+   * The type of the payer
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  payerType: EnergyPlanContractSolarFeedInTariffInnerPayerTypeEnum;
+  /**
+   * The type of the payer
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  tariffUType: EnergyPlanContractSolarFeedInTariffInnerTariffUTypeEnum;
+  /**
+   *
+   * @type {EnergyPlanContractSolarFeedInTariffInnerSingleTariff}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  singleTariff?: EnergyPlanContractSolarFeedInTariffInnerSingleTariff;
+  /**
+   *
+   * @type {EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs}
+   * @memberof EnergyPlanContractSolarFeedInTariffInner
+   */
+  timeVaryingTariffs?: EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs;
+}
+
+export const EnergyPlanContractSolarFeedInTariffInnerSchemeEnum = {
+  Premium: 'PREMIUM',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractSolarFeedInTariffInnerSchemeEnum =
+  typeof EnergyPlanContractSolarFeedInTariffInnerSchemeEnum[keyof typeof EnergyPlanContractSolarFeedInTariffInnerSchemeEnum];
+export const EnergyPlanContractSolarFeedInTariffInnerPayerTypeEnum = {
+  Government: 'GOVERNMENT',
+  Retailer: 'RETAILER',
+} as const;
+
+export type EnergyPlanContractSolarFeedInTariffInnerPayerTypeEnum =
+  typeof EnergyPlanContractSolarFeedInTariffInnerPayerTypeEnum[keyof typeof EnergyPlanContractSolarFeedInTariffInnerPayerTypeEnum];
+export const EnergyPlanContractSolarFeedInTariffInnerTariffUTypeEnum = {
+  SingleTariff: 'singleTariff',
+  TimeVaryingTariffs: 'timeVaryingTariffs',
+} as const;
+
+export type EnergyPlanContractSolarFeedInTariffInnerTariffUTypeEnum =
+  typeof EnergyPlanContractSolarFeedInTariffInnerTariffUTypeEnum[keyof typeof EnergyPlanContractSolarFeedInTariffInnerTariffUTypeEnum];
+
+/**
+ * Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff
+ * @export
+ * @interface EnergyPlanContractSolarFeedInTariffInnerSingleTariff
+ */
+export interface EnergyPlanContractSolarFeedInTariffInnerSingleTariff {
+  /**
+   * The tariff amount
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerSingleTariff
+   */
+  amount: string;
 }
 /**
- * Required if methodUType is percentOfUse
+ * Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs
  * @export
- * @interface EnergyPlanContractPercentOfUse
+ * @interface EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs
  */
-export interface EnergyPlanContractPercentOfUse {
+export interface EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs {
   /**
-   * The rate of the discount applied to the usageamount
+   * The type of the charging time period. If absent applies to all periods
    * @type {string}
-   * @memberof EnergyPlanContractPercentOfUse
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs
    */
-  rate: string;
+  type?: EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTypeEnum;
+  /**
+   * The tariff amount
+   * @type {string}
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs
+   */
+  amount: string;
+  /**
+   * Array of time periods for which this tariff is applicable
+   * @type {Array<EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner>}
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffs
+   */
+  timeVariations: Array<EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner>;
 }
-/**
- * Required if methodUType is percentOverThreshold
- * @export
- * @interface EnergyPlanContractPercentOverThreshold
- */
-export interface EnergyPlanContractPercentOverThreshold {
-  /**
-   * The rate of the discount over the usage amount
-   * @type {string}
-   * @memberof EnergyPlanContractPercentOverThreshold
-   */
-  rate: string;
-  /**
-   * The usage amount threshold above which the discount applies
-   * @type {string}
-   * @memberof EnergyPlanContractPercentOverThreshold
-   */
-  usageAmount: string;
-}
+
+export const EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTypeEnum = {
+  Peak: 'PEAK',
+  OffPeak: 'OFF_PEAK',
+  Shoulder: 'SHOULDER',
+} as const;
+
+export type EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTypeEnum =
+  typeof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTypeEnum[keyof typeof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTypeEnum];
+
 /**
  *
  * @export
- * @interface EnergyPlanContractRates
+ * @interface EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner
  */
-export interface EnergyPlanContractRates {
+export interface EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner {
   /**
-   * Unit price of usage per  measure unit (exclusive of GST)
+   * The days that the tariff applies to. At least one entry required
+   * @type {Array<string>}
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner
+   */
+  days: Array<EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInnerDaysEnum>;
+  /**
+   * The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight)
    * @type {string}
-   * @memberof EnergyPlanContractRates
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner
    */
-  unitPrice: string;
+  startTime?: string;
   /**
-   * The measurement unit of rate. Assumed to be KWH if absent
+   * The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight)
    * @type {string}
-   * @memberof EnergyPlanContractRates
+   * @memberof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInner
    */
-  measureUnit?: EnergyPlanContractRatesMeasureUnitEnum;
-  /**
-   * Volume in kWh that this rate applies to.  Only applicable for stepped rates where different rates apply for different volumes of usage in a period
-   * @type {number}
-   * @memberof EnergyPlanContractRates
-   */
-  volume?: number;
+  endTime?: string;
 }
 
+export const EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInnerDaysEnum = {
+  Sun: 'SUN',
+  Mon: 'MON',
+  Tue: 'TUE',
+  Wed: 'WED',
+  Thu: 'THU',
+  Fri: 'FRI',
+  Sat: 'SAT',
+  PublicHolidays: 'PUBLIC_HOLIDAYS',
+} as const;
+
+export type EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInnerDaysEnum =
+  typeof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInnerDaysEnum[keyof typeof EnergyPlanContractSolarFeedInTariffInnerTimeVaryingTariffsTimeVariationsInnerDaysEnum];
+
 /**
+ *
  * @export
- * @enum {string}
+ * @interface EnergyPlanContractTariffPeriodInner
  */
-export enum EnergyPlanContractRatesMeasureUnitEnum {
-  KWH = 'KWH',
-  KVA = 'KVA',
-  KVAR = 'KVAR',
-  KVARH = 'KVARH',
-  KW = 'KW',
-  DAYS = 'DAYS',
-  METER = 'METER',
-  MONTH = 'MONTH',
+export interface EnergyPlanContractTariffPeriodInner {
+  /**
+   * Type of charge. Assumed to be other if absent
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  type?: EnergyPlanContractTariffPeriodInnerTypeEnum;
+  /**
+   * The name of the tariff period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  displayName: string;
+  /**
+   * The start date of the tariff period in a calendar year.  Formatted in mm-dd format
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  startDate: string;
+  /**
+   * The end date of the tariff period in a calendar year.  Formatted in mm-dd format
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  endDate: string;
+  /**
+   * The amount of access charge for the tariff period, in dollars per day exclusive of GST.
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  dailySupplyCharges?: string;
+  /**
+   * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  timeZone?: EnergyPlanContractTariffPeriodInnerTimeZoneEnum;
+  /**
+   * Specifies the type of rate applicable to this tariff period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  rateBlockUType: EnergyPlanContractTariffPeriodInnerRateBlockUTypeEnum;
+  /**
+   *
+   * @type {EnergyPlanContractTariffPeriodInnerSingleRate}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  singleRate?: EnergyPlanContractTariffPeriodInnerSingleRate;
+  /**
+   * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
+   * @type {Array<EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner>}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  timeOfUseRates?: Array<EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner>;
+  /**
+   * Array of demand charges.  Required if rateBlockUType is demandCharges
+   * @type {Array<EnergyPlanContractTariffPeriodInnerDemandChargesInner>}
+   * @memberof EnergyPlanContractTariffPeriodInner
+   */
+  demandCharges?: Array<EnergyPlanContractTariffPeriodInnerDemandChargesInner>;
 }
+
+export const EnergyPlanContractTariffPeriodInnerTypeEnum = {
+  Environmental: 'ENVIRONMENTAL',
+  Regulated: 'REGULATED',
+  Network: 'NETWORK',
+  Metering: 'METERING',
+  RetailService: 'RETAIL_SERVICE',
+  Rcti: 'RCTI',
+  Other: 'OTHER',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerTypeEnum =
+  typeof EnergyPlanContractTariffPeriodInnerTypeEnum[keyof typeof EnergyPlanContractTariffPeriodInnerTypeEnum];
+export const EnergyPlanContractTariffPeriodInnerTimeZoneEnum = {
+  Local: 'LOCAL',
+  Aest: 'AEST',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerTimeZoneEnum =
+  typeof EnergyPlanContractTariffPeriodInnerTimeZoneEnum[keyof typeof EnergyPlanContractTariffPeriodInnerTimeZoneEnum];
+export const EnergyPlanContractTariffPeriodInnerRateBlockUTypeEnum = {
+  SingleRate: 'singleRate',
+  TimeOfUseRates: 'timeOfUseRates',
+  DemandCharges: 'demandCharges',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerRateBlockUTypeEnum =
+  typeof EnergyPlanContractTariffPeriodInnerRateBlockUTypeEnum[keyof typeof EnergyPlanContractTariffPeriodInnerRateBlockUTypeEnum];
+
+/**
+ *
+ * @export
+ * @interface EnergyPlanContractTariffPeriodInnerDemandChargesInner
+ */
+export interface EnergyPlanContractTariffPeriodInnerDemandChargesInner {
+  /**
+   * Display name of the charge
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  displayName: string;
+  /**
+   * Description of the charge
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  description?: string;
+  /**
+   * The charge amount per  measure unit exclusive of GST
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  amount: string;
+  /**
+   * The measurement unit of charge amount. Assumed to be KWH if absent
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  measureUnit?: EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasureUnitEnum;
+  /**
+   * Start of the period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  startTime: string;
+  /**
+   * End of the period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  endTime: string;
+  /**
+   * The days that the demand tariff applies to
+   * @type {Array<string>}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  days?: Array<EnergyPlanContractTariffPeriodInnerDemandChargesInnerDaysEnum>;
+  /**
+   * Minimum demand for this demand tariff in kW.  If absent then 0 is assumed
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  minDemand?: string;
+  /**
+   * Maximum demand for this demand tariff in kW.  If present, must be higher than the value of the minDemand field
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  maxDemand?: string;
+  /**
+   * Application period for the demand tariff
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  measurementPeriod: EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasurementPeriodEnum;
+  /**
+   * Charge period for the demand tariff
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerDemandChargesInner
+   */
+  chargePeriod: EnergyPlanContractTariffPeriodInnerDemandChargesInnerChargePeriodEnum;
+}
+
+export const EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasureUnitEnum = {
+  Kwh: 'KWH',
+  Kva: 'KVA',
+  Kvar: 'KVAR',
+  Kvarh: 'KVARH',
+  Kw: 'KW',
+  Days: 'DAYS',
+  Meter: 'METER',
+  Month: 'MONTH',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasureUnitEnum =
+  typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasureUnitEnum[keyof typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasureUnitEnum];
+export const EnergyPlanContractTariffPeriodInnerDemandChargesInnerDaysEnum = {
+  Sun: 'SUN',
+  Mon: 'MON',
+  Tue: 'TUE',
+  Wed: 'WED',
+  Thu: 'THU',
+  Fri: 'FRI',
+  Sat: 'SAT',
+  PublicHolidays: 'PUBLIC_HOLIDAYS',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerDemandChargesInnerDaysEnum =
+  typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerDaysEnum[keyof typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerDaysEnum];
+export const EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasurementPeriodEnum = {
+  Day: 'DAY',
+  Month: 'MONTH',
+  TariffPeriod: 'TARIFF_PERIOD',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasurementPeriodEnum =
+  typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasurementPeriodEnum[keyof typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerMeasurementPeriodEnum];
+export const EnergyPlanContractTariffPeriodInnerDemandChargesInnerChargePeriodEnum = {
+  Day: 'DAY',
+  Month: 'MONTH',
+  TariffPeriod: 'TARIFF_PERIOD',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerDemandChargesInnerChargePeriodEnum =
+  typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerChargePeriodEnum[keyof typeof EnergyPlanContractTariffPeriodInnerDemandChargesInnerChargePeriodEnum];
 
 /**
  * Object representing a single rate.  Required if rateBlockUType is singleRate
  * @export
- * @interface EnergyPlanContractSingleRate
+ * @interface EnergyPlanContractTariffPeriodInnerSingleRate
  */
-export interface EnergyPlanContractSingleRate {
+export interface EnergyPlanContractTariffPeriodInnerSingleRate {
   /**
    * Display name of the rate
    * @type {string}
-   * @memberof EnergyPlanContractSingleRate
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRate
    */
   displayName: string;
   /**
    * Description of the rate
    * @type {string}
-   * @memberof EnergyPlanContractSingleRate
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRate
    */
   description?: string;
   /**
    * The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST.  Only required if pricingModel field is QUOTA
    * @type {string}
-   * @memberof EnergyPlanContractSingleRate
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRate
    */
   generalUnitPrice?: string;
   /**
    * Array of controlled load rates in order of usage volume
-   * @type {Array<EnergyPlanContractSingleRateRates>}
-   * @memberof EnergyPlanContractSingleRate
+   * @type {Array<EnergyPlanContractTariffPeriodInnerSingleRateRatesInner>}
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRate
    */
-  rates: Array<EnergyPlanContractSingleRateRates>;
+  rates: Array<EnergyPlanContractTariffPeriodInnerSingleRateRatesInner>;
   /**
    * Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
    * @type {string}
-   * @memberof EnergyPlanContractSingleRate
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRate
    */
   period?: string;
 }
 /**
  *
  * @export
- * @interface EnergyPlanContractSingleRateRates
+ * @interface EnergyPlanContractTariffPeriodInnerSingleRateRatesInner
  */
-export interface EnergyPlanContractSingleRateRates {
+export interface EnergyPlanContractTariffPeriodInnerSingleRateRatesInner {
   /**
    * Unit price of usage per measure unit (exclusive of GST)
    * @type {string}
-   * @memberof EnergyPlanContractSingleRateRates
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRateRatesInner
    */
   unitPrice: string;
   /**
    * The measurement unit of rate. Assumed to be KWH if absent
    * @type {string}
-   * @memberof EnergyPlanContractSingleRateRates
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRateRatesInner
    */
-  measureUnit?: EnergyPlanContractSingleRateRatesMeasureUnitEnum;
+  measureUnit?: EnergyPlanContractTariffPeriodInnerSingleRateRatesInnerMeasureUnitEnum;
   /**
    * Volume in kWh that this rate applies to.  Only applicable for stepped rates where different rates apply for different volumes of usage in a period
    * @type {number}
-   * @memberof EnergyPlanContractSingleRateRates
+   * @memberof EnergyPlanContractTariffPeriodInnerSingleRateRatesInner
    */
   volume?: number;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractSingleRateRatesMeasureUnitEnum {
-  KWH = 'KWH',
-  KVA = 'KVA',
-  KVAR = 'KVAR',
-  KVARH = 'KVARH',
-  KW = 'KW',
-  DAYS = 'DAYS',
-  METER = 'METER',
-  MONTH = 'MONTH',
-}
+export const EnergyPlanContractTariffPeriodInnerSingleRateRatesInnerMeasureUnitEnum = {
+  Kwh: 'KWH',
+  Kva: 'KVA',
+  Kvar: 'KVAR',
+  Kvarh: 'KVARH',
+  Kw: 'KW',
+  Days: 'DAYS',
+  Meter: 'METER',
+  Month: 'MONTH',
+} as const;
 
-/**
- * Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff
- * @export
- * @interface EnergyPlanContractSingleTariff
- */
-export interface EnergyPlanContractSingleTariff {
-  /**
-   * The tariff amount
-   * @type {string}
-   * @memberof EnergyPlanContractSingleTariff
-   */
-  amount: string;
-}
-/**
- *
- * @export
- * @interface EnergyPlanContractSolarFeedInTariff
- */
-export interface EnergyPlanContractSolarFeedInTariff {
-  /**
-   * The name of the tariff
-   * @type {string}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  displayName: string;
-  /**
-   * A description of the tariff
-   * @type {string}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  description?: string;
-  /**
-   * The applicable scheme
-   * @type {string}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  scheme: EnergyPlanContractSolarFeedInTariffSchemeEnum;
-  /**
-   * The type of the payer
-   * @type {string}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  payerType: EnergyPlanContractSolarFeedInTariffPayerTypeEnum;
-  /**
-   * The type of the payer
-   * @type {string}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  tariffUType: EnergyPlanContractSolarFeedInTariffTariffUTypeEnum;
-  /**
-   *
-   * @type {EnergyPlanContractSingleTariff}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  singleTariff?: EnergyPlanContractSingleTariff;
-  /**
-   *
-   * @type {EnergyPlanContractTimeVaryingTariffs}
-   * @memberof EnergyPlanContractSolarFeedInTariff
-   */
-  timeVaryingTariffs?: EnergyPlanContractTimeVaryingTariffs;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractSolarFeedInTariffSchemeEnum {
-  PREMIUM = 'PREMIUM',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractSolarFeedInTariffPayerTypeEnum {
-  GOVERNMENT = 'GOVERNMENT',
-  RETAILER = 'RETAILER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractSolarFeedInTariffTariffUTypeEnum {
-  SingleTariff = 'singleTariff',
-  TimeVaryingTariffs = 'timeVaryingTariffs',
-}
+export type EnergyPlanContractTariffPeriodInnerSingleRateRatesInnerMeasureUnitEnum =
+  typeof EnergyPlanContractTariffPeriodInnerSingleRateRatesInnerMeasureUnitEnum[keyof typeof EnergyPlanContractTariffPeriodInnerSingleRateRatesInnerMeasureUnitEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractTariffPeriod
+ * @interface EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
  */
-export interface EnergyPlanContractTariffPeriod {
-  /**
-   * Type of charge. Assumed to be other if absent
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  type?: EnergyPlanContractTariffPeriodTypeEnum;
-  /**
-   * The name of the tariff period
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  displayName: string;
-  /**
-   * The start date of the tariff period in a calendar year.  Formatted in mm-dd format
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  startDate: string;
-  /**
-   * The end date of the tariff period in a calendar year.  Formatted in mm-dd format
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  endDate: string;
-  /**
-   * The amount of access charge for the tariff period, in dollars per day exclusive of GST.
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  dailySupplyCharges?: string;
-  /**
-   * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  timeZone?: EnergyPlanContractTariffPeriodTimeZoneEnum;
-  /**
-   * Specifies the type of rate applicable to this tariff period
-   * @type {string}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  rateBlockUType: EnergyPlanContractTariffPeriodRateBlockUTypeEnum;
-  /**
-   *
-   * @type {EnergyPlanContractSingleRate}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  singleRate?: EnergyPlanContractSingleRate;
-  /**
-   * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
-   * @type {Array<EnergyPlanContractTimeOfUseRates>}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  timeOfUseRates?: Array<EnergyPlanContractTimeOfUseRates>;
-  /**
-   * Array of demand charges.  Required if rateBlockUType is demandCharges
-   * @type {Array<EnergyPlanContractDemandCharges>}
-   * @memberof EnergyPlanContractTariffPeriod
-   */
-  demandCharges?: Array<EnergyPlanContractDemandCharges>;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTariffPeriodTypeEnum {
-  ENVIRONMENTAL = 'ENVIRONMENTAL',
-  REGULATED = 'REGULATED',
-  NETWORK = 'NETWORK',
-  METERING = 'METERING',
-  RETAILSERVICE = 'RETAIL_SERVICE',
-  RCTI = 'RCTI',
-  OTHER = 'OTHER',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTariffPeriodTimeZoneEnum {
-  LOCAL = 'LOCAL',
-  AEST = 'AEST',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTariffPeriodRateBlockUTypeEnum {
-  SingleRate = 'singleRate',
-  TimeOfUseRates = 'timeOfUseRates',
-  DemandCharges = 'demandCharges',
-}
-
-/**
- *
- * @export
- * @interface EnergyPlanContractTiers
- */
-export interface EnergyPlanContractTiers {
-  /**
-   * The upper percentage of green power used applicable for this tier
-   * @type {string}
-   * @memberof EnergyPlanContractTiers
-   */
-  percentGreen: string;
-  /**
-   * The rate of the charge if the type implies the application of a rate
-   * @type {string}
-   * @memberof EnergyPlanContractTiers
-   */
-  rate?: string;
-  /**
-   * The amount of the charge if the type implies the application of a fixed amount
-   * @type {string}
-   * @memberof EnergyPlanContractTiers
-   */
-  amount?: string;
-}
-/**
- *
- * @export
- * @interface EnergyPlanContractTimeOfUse
- */
-export interface EnergyPlanContractTimeOfUse {
-  /**
-   * The days that the rate applies to
-   * @type {Array<string>}
-   * @memberof EnergyPlanContractTimeOfUse
-   */
-  days: Array<EnergyPlanContractTimeOfUseDaysEnum>;
-  /**
-   * Start of the period in HHMM format using 24 hour clock format
-   * @type {string}
-   * @memberof EnergyPlanContractTimeOfUse
-   */
-  startTime: string;
-  /**
-   * End of the period in HHMM format using 24 hour clock format
-   * @type {string}
-   * @memberof EnergyPlanContractTimeOfUse
-   */
-  endTime: string;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTimeOfUseDaysEnum {
-  SUNDAY = 'SUNDAY',
-  MONDAY = 'MONDAY',
-  TUESDAY = 'TUESDAY',
-  WEDNESDAY = 'WEDNESDAY',
-  THURSDAY = 'THURSDAY',
-  FRIDAY = 'FRIDAY',
-  SATURDAY = 'SATURDAY',
-  BUSINESSDAYS = 'BUSINESS_DAYS',
-}
-
-/**
- *
- * @export
- * @interface EnergyPlanContractTimeOfUseRates
- */
-export interface EnergyPlanContractTimeOfUseRates {
+export interface EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner {
   /**
    * Display name of the rate
    * @type {string}
-   * @memberof EnergyPlanContractTimeOfUseRates
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
    */
   displayName: string;
   /**
    * Description of the rate
    * @type {string}
-   * @memberof EnergyPlanContractTimeOfUseRates
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
    */
   description?: string;
   /**
    * Array of controlled load rates in order of usage volume
-   * @type {Array<EnergyPlanContractRates>}
-   * @memberof EnergyPlanContractTimeOfUseRates
+   * @type {Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>}
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
    */
-  rates: Array<EnergyPlanContractRates>;
+  rates: Array<EnergyPlanContractControlledLoadInnerSingleRateRatesInner>;
   /**
    * Array of times of use
-   * @type {Array<EnergyPlanContractTimeOfUse>}
-   * @memberof EnergyPlanContractTimeOfUseRates
+   * @type {Array<EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner>}
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
    */
-  timeOfUse: Array<EnergyPlanContractTimeOfUse>;
+  timeOfUse: Array<EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner>;
   /**
    * The type of usage that the rate applies to
    * @type {string}
-   * @memberof EnergyPlanContractTimeOfUseRates
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInner
    */
-  type: EnergyPlanContractTimeOfUseRatesTypeEnum;
+  type: EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTypeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTimeOfUseRatesTypeEnum {
-  PEAK = 'PEAK',
-  OFFPEAK = 'OFF_PEAK',
-  SHOULDER = 'SHOULDER',
-  SHOULDER1 = 'SHOULDER1',
-  SHOULDER2 = 'SHOULDER2',
-}
+export const EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTypeEnum = {
+  Peak: 'PEAK',
+  OffPeak: 'OFF_PEAK',
+  Shoulder: 'SHOULDER',
+  Shoulder1: 'SHOULDER1',
+  Shoulder2: 'SHOULDER2',
+} as const;
 
-/**
- * Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs
- * @export
- * @interface EnergyPlanContractTimeVaryingTariffs
- */
-export interface EnergyPlanContractTimeVaryingTariffs {
-  /**
-   * The type of the charging time period. If absent applies to all periods
-   * @type {string}
-   * @memberof EnergyPlanContractTimeVaryingTariffs
-   */
-  type?: EnergyPlanContractTimeVaryingTariffsTypeEnum;
-  /**
-   * The tariff amount
-   * @type {string}
-   * @memberof EnergyPlanContractTimeVaryingTariffs
-   */
-  amount: string;
-  /**
-   * Array of time periods for which this tariff is applicable
-   * @type {Array<EnergyPlanContractTimeVaryingTariffsTimeVariations>}
-   * @memberof EnergyPlanContractTimeVaryingTariffs
-   */
-  timeVariations: Array<EnergyPlanContractTimeVaryingTariffsTimeVariations>;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanContractTimeVaryingTariffsTypeEnum {
-  PEAK = 'PEAK',
-  OFFPEAK = 'OFF_PEAK',
-  SHOULDER = 'SHOULDER',
-}
+export type EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTypeEnum =
+  typeof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTypeEnum[keyof typeof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTypeEnum];
 
 /**
  *
  * @export
- * @interface EnergyPlanContractTimeVaryingTariffsDays
+ * @interface EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner
  */
-export interface EnergyPlanContractTimeVaryingTariffsDays {
+export interface EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner {
   /**
-   * Indicates whether the tariff is applicable Monday to Friday
-   * @type {boolean}
-   * @memberof EnergyPlanContractTimeVaryingTariffsDays
+   * The days that the rate applies to
+   * @type {Array<string>}
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner
    */
-  weekdays: boolean;
+  days: Array<EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum>;
   /**
-   * Indicates whether the tariff is applicable Saturday and Sunday
-   * @type {boolean}
-   * @memberof EnergyPlanContractTimeVaryingTariffsDays
+   * Start of the period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner
    */
-  weekend: boolean;
+  startTime: string;
+  /**
+   * End of the period
+   * @type {string}
+   * @memberof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInner
+   */
+  endTime: string;
 }
-/**
- *
- * @export
- * @interface EnergyPlanContractTimeVaryingTariffsTimeVariations
- */
-export interface EnergyPlanContractTimeVaryingTariffsTimeVariations {
-  /**
-   *
-   * @type {EnergyPlanContractTimeVaryingTariffsDays}
-   * @memberof EnergyPlanContractTimeVaryingTariffsTimeVariations
-   */
-  days?: EnergyPlanContractTimeVaryingTariffsDays;
-  /**
-   * The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (i.e. midnight)
-   * @type {string}
-   * @memberof EnergyPlanContractTimeVaryingTariffsTimeVariations
-   */
-  startTime?: string;
-  /**
-   * The end of the time period per day for which the tariff applies.  If absent assumes end of day (i.e. one second before midnight)
-   * @type {string}
-   * @memberof EnergyPlanContractTimeVaryingTariffsTimeVariations
-   */
-  endTime?: string;
-}
-/**
- * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
- * @export
- * @interface EnergyPlanControlledLoad
- */
-export interface EnergyPlanControlledLoad {
-  /**
-   * A display name for the controlled load tier
-   * @type {string}
-   * @memberof EnergyPlanControlledLoad
-   */
-  displayName: string;
-  /**
-   * A description of the controlled load tier
-   * @type {string}
-   * @memberof EnergyPlanControlledLoad
-   */
-  description?: string;
-  /**
-   * The daily supply charge (exclusive of GST) for this controlled load tier
-   * @type {string}
-   * @memberof EnergyPlanControlledLoad
-   */
-  dailyCharge: string;
-  /**
-   * The period for which the controlled load rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
-   * @type {string}
-   * @memberof EnergyPlanControlledLoad
-   */
-  period: string;
-  /**
-   * Array of controlled load rates in order of usage volume
-   * @type {Array<EnergyPlanControlledLoadRates>}
-   * @memberof EnergyPlanControlledLoad
-   */
-  rates: Array<EnergyPlanControlledLoadRates>;
-}
-/**
- *
- * @export
- * @interface EnergyPlanControlledLoadRates
- */
-export interface EnergyPlanControlledLoadRates {
-  /**
-   * Unit price of usage per kWh (exclusive of GST)
-   * @type {string}
-   * @memberof EnergyPlanControlledLoadRates
-   */
-  unitPrice: string;
-  /**
-   * Volume in kWh that this rate applies to.  Only applicable for stepped rates where different rates apply for different volumes of usage in a period
-   * @type {number}
-   * @memberof EnergyPlanControlledLoadRates
-   */
-  volume?: number;
-}
+
+export const EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum = {
+  Sun: 'SUN',
+  Mon: 'MON',
+  Tue: 'TUE',
+  Wed: 'WED',
+  Thu: 'THU',
+  Fri: 'FRI',
+  Sat: 'SAT',
+  PublicHolidays: 'PUBLIC_HOLIDAYS',
+} as const;
+
+export type EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum =
+  typeof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum[keyof typeof EnergyPlanContractTariffPeriodInnerTimeOfUseRatesInnerTimeOfUseInnerDaysEnum];
+
 /**
  *
  * @export
@@ -7656,7 +7936,7 @@ export interface EnergyPlanDetail {
    */
   planId: string;
   /**
-   * The date and time from which this plan is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
+   * The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
    * @type {string}
    * @memberof EnergyPlanDetail
    */
@@ -7753,32 +8033,28 @@ export interface EnergyPlanDetail {
   electricityContract?: EnergyPlanContractFull;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanDetailTypeEnum {
-  STANDING = 'STANDING',
-  MARKET = 'MARKET',
-  REGULATED = 'REGULATED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanDetailFuelTypeEnum {
-  ELECTRICITY = 'ELECTRICITY',
-  GAS = 'GAS',
-  DUAL = 'DUAL',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyPlanDetailCustomerTypeEnum {
-  RESIDENTIAL = 'RESIDENTIAL',
-  BUSINESS = 'BUSINESS',
-}
+export const EnergyPlanDetailTypeEnum = {
+  Standing: 'STANDING',
+  Market: 'MARKET',
+  Regulated: 'REGULATED',
+} as const;
+
+export type EnergyPlanDetailTypeEnum = typeof EnergyPlanDetailTypeEnum[keyof typeof EnergyPlanDetailTypeEnum];
+export const EnergyPlanDetailFuelTypeEnum = {
+  Electricity: 'ELECTRICITY',
+  Gas: 'GAS',
+  Dual: 'DUAL',
+} as const;
+
+export type EnergyPlanDetailFuelTypeEnum =
+  typeof EnergyPlanDetailFuelTypeEnum[keyof typeof EnergyPlanDetailFuelTypeEnum];
+export const EnergyPlanDetailCustomerTypeEnum = {
+  Residential: 'RESIDENTIAL',
+  Business: 'BUSINESS',
+} as const;
+
+export type EnergyPlanDetailCustomerTypeEnum =
+  typeof EnergyPlanDetailCustomerTypeEnum[keyof typeof EnergyPlanDetailCustomerTypeEnum];
 
 /**
  *
@@ -7860,6 +8136,12 @@ export interface EnergyPlanGeography {
    * @memberof EnergyPlanGeography
    */
   includedPostcodes?: Array<string>;
+  /**
+   * Array of distributors for the plan. Must have at least one entry
+   * @type {Array<string>}
+   * @memberof EnergyPlanGeography
+   */
+  distributors: Array<string>;
 }
 /**
  *
@@ -7902,6 +8184,105 @@ export interface EnergyPlanListData {
 /**
  *
  * @export
+ * @interface EnergyServicePoint
+ */
+export interface EnergyServicePoint {
+  /**
+   * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  servicePointId: string;
+  /**
+   * The independent ID of the service point, known in the industry as the NMI
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  nationalMeteringId: string;
+  /**
+   * The classification of the service point as defined in MSATS procedures
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  servicePointClassification: EnergyServicePointServicePointClassificationEnum;
+  /**
+   * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul>
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  servicePointStatus: EnergyServicePointServicePointStatusEnum;
+  /**
+   * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  jurisdictionCode: EnergyServicePointJurisdictionCodeEnum;
+  /**
+   * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
+   * @type {boolean}
+   * @memberof EnergyServicePoint
+   */
+  isGenerator?: boolean;
+  /**
+   * The latest start date from which the constituent data sets of this service point became valid
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  validFromDate: string;
+  /**
+   * The date and time that the information for this service point was modified
+   * @type {string}
+   * @memberof EnergyServicePoint
+   */
+  lastUpdateDateTime: string;
+  /**
+   *
+   * @type {EnergyServicePointConsumerProfile}
+   * @memberof EnergyServicePoint
+   */
+  consumerProfile?: EnergyServicePointConsumerProfile;
+}
+
+export const EnergyServicePointServicePointClassificationEnum = {
+  ExternalProfile: 'EXTERNAL_PROFILE',
+  Generator: 'GENERATOR',
+  Large: 'LARGE',
+  Small: 'SMALL',
+  Wholesale: 'WHOLESALE',
+  NonContestUnmeteredLoad: 'NON_CONTEST_UNMETERED_LOAD',
+  NonRegisteredEmbeddedGenerator: 'NON_REGISTERED_EMBEDDED_GENERATOR',
+  DistributionWholesale: 'DISTRIBUTION_WHOLESALE',
+} as const;
+
+export type EnergyServicePointServicePointClassificationEnum =
+  typeof EnergyServicePointServicePointClassificationEnum[keyof typeof EnergyServicePointServicePointClassificationEnum];
+export const EnergyServicePointServicePointStatusEnum = {
+  Active: 'ACTIVE',
+  DeEnergised: 'DE_ENERGISED',
+  Extinct: 'EXTINCT',
+  Greenfield: 'GREENFIELD',
+  OffMarket: 'OFF_MARKET',
+} as const;
+
+export type EnergyServicePointServicePointStatusEnum =
+  typeof EnergyServicePointServicePointStatusEnum[keyof typeof EnergyServicePointServicePointStatusEnum];
+export const EnergyServicePointJurisdictionCodeEnum = {
+  All: 'ALL',
+  Act: 'ACT',
+  Nem: 'NEM',
+  Nsw: 'NSW',
+  Qld: 'QLD',
+  Sa: 'SA',
+  Tas: 'TAS',
+  Vic: 'VIC',
+} as const;
+
+export type EnergyServicePointJurisdictionCodeEnum =
+  typeof EnergyServicePointJurisdictionCodeEnum[keyof typeof EnergyServicePointJurisdictionCodeEnum];
+
+/**
+ *
+ * @export
  * @interface EnergyServicePointConsumerProfile
  */
 export interface EnergyServicePointConsumerProfile {
@@ -7919,23 +8300,21 @@ export interface EnergyServicePointConsumerProfile {
   threshold?: EnergyServicePointConsumerProfileThresholdEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointConsumerProfileClassificationEnum {
-  BUSINESS = 'BUSINESS',
-  RESIDENTIAL = 'RESIDENTIAL',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointConsumerProfileThresholdEnum {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
-}
+export const EnergyServicePointConsumerProfileClassificationEnum = {
+  Business: 'BUSINESS',
+  Residential: 'RESIDENTIAL',
+} as const;
+
+export type EnergyServicePointConsumerProfileClassificationEnum =
+  typeof EnergyServicePointConsumerProfileClassificationEnum[keyof typeof EnergyServicePointConsumerProfileClassificationEnum];
+export const EnergyServicePointConsumerProfileThresholdEnum = {
+  Low: 'LOW',
+  Medium: 'MEDIUM',
+  High: 'HIGH',
+} as const;
+
+export type EnergyServicePointConsumerProfileThresholdEnum =
+  typeof EnergyServicePointConsumerProfileThresholdEnum[keyof typeof EnergyServicePointConsumerProfileThresholdEnum];
 
 /**
  *
@@ -7980,7 +8359,7 @@ export interface EnergyServicePointDetail {
    */
   isGenerator?: boolean;
   /**
-   * The start date from which this service point first became valid
+   * The latest start date from which the constituent data sets of this service point became valid
    * @type {string}
    * @memberof EnergyServicePointDetail
    */
@@ -8011,12 +8390,12 @@ export interface EnergyServicePointDetail {
   relatedParticipants: Array<EnergyServicePointDetailRelatedParticipants>;
   /**
    *
-   * @type {EnergyServicePointDetailLocation}
+   * @type {CommonPhysicalAddress}
    * @memberof EnergyServicePointDetail
    */
-  location: EnergyServicePointDetailLocation;
+  location: CommonPhysicalAddress;
   /**
-   *
+   * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
    * @type {Array<EnergyServicePointDetailMeters>}
    * @memberof EnergyServicePointDetail
    */
@@ -8035,45 +8414,42 @@ export interface EnergyServicePointDetail {
   adatree?: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailServicePointClassificationEnum {
-  EXTERNALPROFILE = 'EXTERNAL_PROFILE',
-  GENERATOR = 'GENERATOR',
-  LARGE = 'LARGE',
-  SMALL = 'SMALL',
-  WHOLESALE = 'WHOLESALE',
-  NONCONTESTUNMETEREDLOAD = 'NON_CONTEST_UNMETERED_LOAD',
-  NONREGISTEREDEMBEDDEDGENERATOR = 'NON_REGISTERED_EMBEDDED_GENERATOR',
-  DISTRIBUTIONWHOLESALE = 'DISTRIBUTION_WHOLESALE',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailServicePointStatusEnum {
-  ACTIVE = 'ACTIVE',
-  DEENERGISED = 'DE_ENERGISED',
-  EXTINCT = 'EXTINCT',
-  GREENFIELD = 'GREENFIELD',
-  OFFMARKET = 'OFF_MARKET',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailJurisdictionCodeEnum {
-  ALL = 'ALL',
-  ACT = 'ACT',
-  NEM = 'NEM',
-  NSW = 'NSW',
-  QLD = 'QLD',
-  SA = 'SA',
-  TAS = 'TAS',
-  VIC = 'VIC',
-}
+export const EnergyServicePointDetailServicePointClassificationEnum = {
+  ExternalProfile: 'EXTERNAL_PROFILE',
+  Generator: 'GENERATOR',
+  Large: 'LARGE',
+  Small: 'SMALL',
+  Wholesale: 'WHOLESALE',
+  NonContestUnmeteredLoad: 'NON_CONTEST_UNMETERED_LOAD',
+  NonRegisteredEmbeddedGenerator: 'NON_REGISTERED_EMBEDDED_GENERATOR',
+  DistributionWholesale: 'DISTRIBUTION_WHOLESALE',
+} as const;
+
+export type EnergyServicePointDetailServicePointClassificationEnum =
+  typeof EnergyServicePointDetailServicePointClassificationEnum[keyof typeof EnergyServicePointDetailServicePointClassificationEnum];
+export const EnergyServicePointDetailServicePointStatusEnum = {
+  Active: 'ACTIVE',
+  DeEnergised: 'DE_ENERGISED',
+  Extinct: 'EXTINCT',
+  Greenfield: 'GREENFIELD',
+  OffMarket: 'OFF_MARKET',
+} as const;
+
+export type EnergyServicePointDetailServicePointStatusEnum =
+  typeof EnergyServicePointDetailServicePointStatusEnum[keyof typeof EnergyServicePointDetailServicePointStatusEnum];
+export const EnergyServicePointDetailJurisdictionCodeEnum = {
+  All: 'ALL',
+  Act: 'ACT',
+  Nem: 'NEM',
+  Nsw: 'NSW',
+  Qld: 'QLD',
+  Sa: 'SA',
+  Tas: 'TAS',
+  Vic: 'VIC',
+} as const;
+
+export type EnergyServicePointDetailJurisdictionCodeEnum =
+  typeof EnergyServicePointDetailJurisdictionCodeEnum[keyof typeof EnergyServicePointDetailJurisdictionCodeEnum];
 
 /**
  *
@@ -8103,235 +8479,6 @@ export interface EnergyServicePointDetailDistributionLossFactor {
 /**
  *
  * @export
- * @interface EnergyServicePointDetailLocation
- */
-export interface EnergyServicePointDetailLocation {
-  /**
-   * The type of address object present
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocation
-   */
-  addressUType: EnergyServicePointDetailLocationAddressUTypeEnum;
-  /**
-   *
-   * @type {EnergyServicePointDetailLocationSimple}
-   * @memberof EnergyServicePointDetailLocation
-   */
-  simple?: EnergyServicePointDetailLocationSimple;
-  /**
-   *
-   * @type {EnergyServicePointDetailLocationPaf}
-   * @memberof EnergyServicePointDetailLocation
-   */
-  paf?: EnergyServicePointDetailLocationPaf;
-}
-
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailLocationAddressUTypeEnum {
-  Simple = 'simple',
-  Paf = 'paf',
-}
-
-/**
- * The address of the service point.  Mandatory if addressUType is set to paf. Formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
- * @export
- * @interface EnergyServicePointDetailLocationPaf
- */
-export interface EnergyServicePointDetailLocationPaf {
-  /**
-   * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  dpid?: string;
-  /**
-   * Thoroughfare number for a property (first number in a property ranged address)
-   * @type {number}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  thoroughfareNumber1?: number;
-  /**
-   * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  thoroughfareNumber1Suffix?: string;
-  /**
-   * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-   * @type {number}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  thoroughfareNumber2?: number;
-  /**
-   * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  thoroughfareNumber2Suffix?: string;
-  /**
-   * Type of flat or unit for the address
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  flatUnitType?: string;
-  /**
-   * Unit number (including suffix, if applicable)
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  flatUnitNumber?: string;
-  /**
-   * Type of floor or level for the address
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  floorLevelType?: string;
-  /**
-   * Floor or level number (including alpha characters)
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  floorLevelNumber?: string;
-  /**
-   * Allotment number for the address
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  lotNumber?: string;
-  /**
-   * Building/Property name 1
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  buildingName1?: string;
-  /**
-   * Building/Property name 2
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  buildingName2?: string;
-  /**
-   * The name of the street
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  streetName?: string;
-  /**
-   * The street type. Valid enumeration defined by Australia Post PAF code file
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  streetType?: string;
-  /**
-   * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  streetSuffix?: string;
-  /**
-   * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  postalDeliveryType?: string;
-  /**
-   * Postal delivery number if the address is a postal delivery type
-   * @type {number}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  postalDeliveryNumber?: number;
-  /**
-   * Postal delivery number prefix related to the postal delivery number
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  postalDeliveryNumberPrefix?: string;
-  /**
-   * Postal delivery number suffix related to the postal delivery number
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  postalDeliveryNumberSuffix?: string;
-  /**
-   * Full name of locality
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  localityName: string;
-  /**
-   * Postcode for the locality
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  postcode: string;
-  /**
-   * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationPaf
-   */
-  state: string;
-}
-/**
- * The address of the service point.  Mandatory if addressUType is set to simple
- * @export
- * @interface EnergyServicePointDetailLocationSimple
- */
-export interface EnergyServicePointDetailLocationSimple {
-  /**
-   * Name of the individual or business formatted for inclusion in an address used for physical mail
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  mailingName?: string;
-  /**
-   * First line of the standard address object
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  addressLine1: string;
-  /**
-   * Second line of the standard address object
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  addressLine2?: string;
-  /**
-   * Third line of the standard address object
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  addressLine3?: string;
-  /**
-   * Mandatory for Australian addresses
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  postcode?: string;
-  /**
-   * Name of the city or locality
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  city: string;
-  /**
-   * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  state: string;
-  /**
-   * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-   * @type {string}
-   * @memberof EnergyServicePointDetailLocationSimple
-   */
-  country?: string;
-}
-/**
- *
- * @export
  * @interface EnergyServicePointDetailMeters
  */
 export interface EnergyServicePointDetailMeters {
@@ -8343,194 +8490,118 @@ export interface EnergyServicePointDetailMeters {
   meterId: string;
   /**
    *
-   * @type {EnergyServicePointDetailMetersSpecifications}
+   * @type {EnergyServicePointDetailSpecifications}
    * @memberof EnergyServicePointDetailMeters
    */
-  specifications: EnergyServicePointDetailMetersSpecifications;
+  specifications: EnergyServicePointDetailSpecifications;
   /**
-   *
-   * @type {Array<EnergyServicePointDetailMetersRegisters>}
+   * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
+   * @type {Array<EnergyServicePointDetailRegisters>}
    * @memberof EnergyServicePointDetailMeters
    */
-  registers: Array<EnergyServicePointDetailMetersRegisters>;
+  registers?: Array<EnergyServicePointDetailRegisters>;
 }
 /**
- * Usage data registers available from the meter
+ *
  * @export
- * @interface EnergyServicePointDetailMetersRegisters
+ * @interface EnergyServicePointDetailRegisters
  */
-export interface EnergyServicePointDetailMetersRegisters {
+export interface EnergyServicePointDetailRegisters {
   /**
    * Unique identifier of the register within this service point.  Is not globally unique
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   registerId: string;
   /**
    * Register suffix of the meter register where the meter reads are obtained
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
-  registerSuffix: string;
+  registerSuffix?: string;
   /**
    * The energy delivered through a connection point or metering point over an extended period normalised to a \'per day\' basis (kWh). This value is calculated annually.
    * @type {number}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   averagedDailyLoad?: number;
   /**
    * Indicates the consumption type of register
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
-  registerConsumptionType: EnergyServicePointDetailMetersRegistersRegisterConsumptionTypeEnum;
+  registerConsumptionType: EnergyServicePointDetailRegistersRegisterConsumptionTypeEnum;
   /**
    * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   networkTariffCode?: string;
   /**
    * The unit of measure for data held in this register
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   unitOfMeasure?: string;
   /**
    * Code to identify the time validity of register contents
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
-  timeOfDay?: EnergyServicePointDetailMetersRegistersTimeOfDayEnum;
+  timeOfDay?: EnergyServicePointDetailRegistersTimeOfDayEnum;
   /**
    * Multiplier required to take a register value and turn it into a value representing billable energy
    * @type {number}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   multiplier?: number;
   /**
    * Indicates whether the energy recorded by this register is created under a Controlled Load regime
    * @type {boolean}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
   controlledLoad?: boolean;
   /**
    * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
    * @type {string}
-   * @memberof EnergyServicePointDetailMetersRegisters
+   * @memberof EnergyServicePointDetailRegisters
    */
-  consumptionType?: EnergyServicePointDetailMetersRegistersConsumptionTypeEnum;
+  consumptionType?: EnergyServicePointDetailRegistersConsumptionTypeEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailMetersRegistersRegisterConsumptionTypeEnum {
-  INTERVAL = 'INTERVAL',
-  BASIC = 'BASIC',
-  PROFILEDATA = 'PROFILE_DATA',
-  ACTIVEIMPORT = 'ACTIVE_IMPORT',
-  ACTIVE = 'ACTIVE',
-  REACTIVEIMPORT = 'REACTIVE_IMPORT',
-  REACTIVE = 'REACTIVE',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailMetersRegistersTimeOfDayEnum {
-  ALLDAY = 'ALLDAY',
-  INTERVAL = 'INTERVAL',
-  PEAK = 'PEAK',
-  BUSINESS = 'BUSINESS',
-  SHOULDER = 'SHOULDER',
-  EVENING = 'EVENING',
-  OFFPEAK = 'OFFPEAK',
-  CONTROLLED = 'CONTROLLED',
-  DEMAND = 'DEMAND',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailMetersRegistersConsumptionTypeEnum {
-  ACTUAL = 'ACTUAL',
-  CUMULATIVE = 'CUMULATIVE',
-}
+export const EnergyServicePointDetailRegistersRegisterConsumptionTypeEnum = {
+  Interval: 'INTERVAL',
+  Basic: 'BASIC',
+  ProfileData: 'PROFILE_DATA',
+  ActiveImport: 'ACTIVE_IMPORT',
+  Active: 'ACTIVE',
+  ReactiveImport: 'REACTIVE_IMPORT',
+  Reactive: 'REACTIVE',
+} as const;
 
-/**
- * Technical characteristics of the meter
- * @export
- * @interface EnergyServicePointDetailMetersSpecifications
- */
-export interface EnergyServicePointDetailMetersSpecifications {
-  /**
-   * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  status: EnergyServicePointDetailMetersSpecificationsStatusEnum;
-  /**
-   * The metering Installation type code indicates whether the metering installation has to be manually read. Note the details of enumeration values below: <ul><li>**BASIC** - Accumulation Meter â€“ Type 6</li><li>**COMMS1** - Interval Meter with communications â€“ Type 1</li><li>**COMMS2** - Interval Meter with communications â€“ Type 2</li><li>**COMMS3** - Interval Meter with communications â€“ Type 3</li><li>**COMMS4** - Interval Meter with communications â€“ Type 4</li><li>**COMMS4C** - CT connected metering installation that meets the minimum services specifications</li><li>**COMMS4D** - Whole current metering installation that meets the minimum services specifications</li><li>**MRAM** - Small customer metering installation â€“ Type 4A</li><li>**MRIM** - Manually Read Interval Meter â€“ Type 5</li><li>**UMCP** - Unmetered Supply â€“ Type 7</li><li>**VICAMI** - A relevant metering installation as defined in clause 9.9C of the NER</li><li>**NCONUML** - Non-contestable unmeter load - Introduced as part of Global Settlement</li></ul>
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  installationType: EnergyServicePointDetailMetersSpecificationsInstallationTypeEnum;
-  /**
-   * Free text field to identify the manufacturer of the installed meter
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  manufacturer?: string;
-  /**
-   * Free text field to identify the meter manufacturers designation for the meter model
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  model?: string;
-  /**
-   * Code to denote the method and frequency of Meter Reading. The value is formatted as follows: <ul><li>First Character = Remote (R) or Manual (M)</li><li>Second Character = Mode: T = telephone W = wireless P = powerline I = infra-red G = galvanic V = visual </li><li>Third Character = Frequency of Scheduled Meter Readings: 1 = Twelve times per year 2 = Six times per year 3 = Four times per year D = Daily or weekly</li><li>Optional Fourth Character = to identify what interval length the meter is capable of reading. This includes five, 15 and 30 minute granularity as the following: A â€“ 5 minute B â€“ 15 minute C â€“ 30 minute D â€“ Cannot convert to 5 minute (i.e. due to metering installation de-energised) M - Manually Read Accumulation Meter</li></ul> For example, <ul><li>MV3 = Manual, Visual, Quarterly</li> <li>MV3M = Manual, Visual, Quarterly, Manually Read Accumulation Meter</li> <li>RWDC = Remote, Wireless, Daily, 30 minutes interval</li></ul>
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  readType?: string;
-  /**
-   * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required
-   * @type {string}
-   * @memberof EnergyServicePointDetailMetersSpecifications
-   */
-  nextScheduledReadDate?: string;
-}
+export type EnergyServicePointDetailRegistersRegisterConsumptionTypeEnum =
+  typeof EnergyServicePointDetailRegistersRegisterConsumptionTypeEnum[keyof typeof EnergyServicePointDetailRegistersRegisterConsumptionTypeEnum];
+export const EnergyServicePointDetailRegistersTimeOfDayEnum = {
+  Allday: 'ALLDAY',
+  Interval: 'INTERVAL',
+  Peak: 'PEAK',
+  Business: 'BUSINESS',
+  Shoulder: 'SHOULDER',
+  Evening: 'EVENING',
+  Offpeak: 'OFFPEAK',
+  Controlled: 'CONTROLLED',
+  Demand: 'DEMAND',
+} as const;
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailMetersSpecificationsStatusEnum {
-  CURRENT = 'CURRENT',
-  DISCONNECTED = 'DISCONNECTED',
-}
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyServicePointDetailMetersSpecificationsInstallationTypeEnum {
-  BASIC = 'BASIC',
-  COMMS1 = 'COMMS1',
-  COMMS2 = 'COMMS2',
-  COMMS3 = 'COMMS3',
-  COMMS4 = 'COMMS4',
-  COMMS4C = 'COMMS4C',
-  COMMS4D = 'COMMS4D',
-  MRAM = 'MRAM',
-  MRIM = 'MRIM',
-  PROF = 'PROF',
-  SAMPLE = 'SAMPLE',
-  UMCP = 'UMCP',
-  VICAMI = 'VICAMI',
-  NCOLNUML = 'NCOLNUML',
-}
+export type EnergyServicePointDetailRegistersTimeOfDayEnum =
+  typeof EnergyServicePointDetailRegistersTimeOfDayEnum[keyof typeof EnergyServicePointDetailRegistersTimeOfDayEnum];
+export const EnergyServicePointDetailRegistersConsumptionTypeEnum = {
+  Actual: 'ACTUAL',
+  Cumulative: 'CUMULATIVE',
+} as const;
+
+export type EnergyServicePointDetailRegistersConsumptionTypeEnum =
+  typeof EnergyServicePointDetailRegistersConsumptionTypeEnum[keyof typeof EnergyServicePointDetailRegistersConsumptionTypeEnum];
 
 /**
  *
@@ -8552,15 +8623,85 @@ export interface EnergyServicePointDetailRelatedParticipants {
   role: EnergyServicePointDetailRelatedParticipantsRoleEnum;
 }
 
+export const EnergyServicePointDetailRelatedParticipantsRoleEnum = {
+  Frmp: 'FRMP',
+  Lnsp: 'LNSP',
+  Drsp: 'DRSP',
+} as const;
+
+export type EnergyServicePointDetailRelatedParticipantsRoleEnum =
+  typeof EnergyServicePointDetailRelatedParticipantsRoleEnum[keyof typeof EnergyServicePointDetailRelatedParticipantsRoleEnum];
+
 /**
+ * Technical characteristics of the meter
  * @export
- * @enum {string}
+ * @interface EnergyServicePointDetailSpecifications
  */
-export enum EnergyServicePointDetailRelatedParticipantsRoleEnum {
-  FRMP = 'FRMP',
-  LNSP = 'LNSP',
-  DRSP = 'DRSP',
+export interface EnergyServicePointDetailSpecifications {
+  /**
+   * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  status: EnergyServicePointDetailSpecificationsStatusEnum;
+  /**
+   * The metering Installation type code indicates whether the metering installation has to be manually read. Note the details of enumeration values below: <ul><li>**BASIC** - Accumulation Meter â€“ Type 6</li><li>**COMMS1** - Interval Meter with communications â€“ Type 1</li><li>**COMMS2** - Interval Meter with communications â€“ Type 2</li><li>**COMMS3** - Interval Meter with communications â€“ Type 3</li><li>**COMMS4** - Interval Meter with communications â€“ Type 4</li><li>**COMMS4C** - CT connected metering installation that meets the minimum services specifications</li><li>**COMMS4D** - Whole current metering installation that meets the minimum services specifications</li><li>**MRAM** - Small customer metering installation â€“ Type 4A</li><li>**MRIM** - Manually Read Interval Meter â€“ Type 5</li><li>**UMCP** - Unmetered Supply â€“ Type 7</li><li>**VICAMI** - A relevant metering installation as defined in clause 9.9C of the NER</li><li>**NCONUML** - Non-contestable unmeter load - Introduced as part of Global Settlement</li></ul>
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  installationType: EnergyServicePointDetailSpecificationsInstallationTypeEnum;
+  /**
+   * Free text field to identify the manufacturer of the installed meter
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  manufacturer?: string;
+  /**
+   * Free text field to identify the meter manufacturers designation for the meter model
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  model?: string;
+  /**
+   * Code to denote the method and frequency of Meter Reading. The value is formatted as follows: <ul><li>First Character = Remote (R) or Manual (M)</li><li>Second Character = Mode: T = telephone W = wireless P = powerline I = infra-red G = galvanic V = visual </li><li>Third Character = Frequency of Scheduled Meter Readings: 1 = Twelve times per year 2 = Six times per year 3 = Four times per year D = Daily or weekly</li><li>Optional Fourth Character = to identify what interval length the meter is capable of reading. This includes five, 15 and 30 minute granularity as the following: A â€“ 5 minute B â€“ 15 minute C â€“ 30 minute D â€“ Cannot convert to 5 minute (i.e. due to metering installation de-energised) M - Manually Read Accumulation Meter</li></ul> For example, <ul><li>MV3 = Manual, Visual, Quarterly</li> <li>MV3M = Manual, Visual, Quarterly, Manually Read Accumulation Meter</li> <li>RWDC = Remote, Wireless, Daily, 30 minutes interval</li></ul>
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  readType?: string;
+  /**
+   * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required
+   * @type {string}
+   * @memberof EnergyServicePointDetailSpecifications
+   */
+  nextScheduledReadDate?: string;
 }
+
+export const EnergyServicePointDetailSpecificationsStatusEnum = {
+  Current: 'CURRENT',
+  Disconnected: 'DISCONNECTED',
+} as const;
+
+export type EnergyServicePointDetailSpecificationsStatusEnum =
+  typeof EnergyServicePointDetailSpecificationsStatusEnum[keyof typeof EnergyServicePointDetailSpecificationsStatusEnum];
+export const EnergyServicePointDetailSpecificationsInstallationTypeEnum = {
+  Basic: 'BASIC',
+  Comms1: 'COMMS1',
+  Comms2: 'COMMS2',
+  Comms3: 'COMMS3',
+  Comms4: 'COMMS4',
+  Comms4C: 'COMMS4C',
+  Comms4D: 'COMMS4D',
+  Mram: 'MRAM',
+  Mrim: 'MRIM',
+  Prof: 'PROF',
+  Sample: 'SAMPLE',
+  Umcp: 'UMCP',
+  Vicami: 'VICAMI',
+  Ncolnuml: 'NCOLNUML',
+} as const;
+
+export type EnergyServicePointDetailSpecificationsInstallationTypeEnum =
+  typeof EnergyServicePointDetailSpecificationsInstallationTypeEnum[keyof typeof EnergyServicePointDetailSpecificationsInstallationTypeEnum];
 
 /**
  *
@@ -8632,7 +8773,7 @@ export interface EnergyUsageList {
  */
 export interface EnergyUsageListData {
   /**
-   * Array of meter reads
+   * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
    * @type {Array<EnergyUsageRead>}
    * @memberof EnergyUsageListData
    */
@@ -8667,7 +8808,7 @@ export interface EnergyUsageRead {
    * @type {string}
    * @memberof EnergyUsageRead
    */
-  meterID?: string;
+  meterId?: string;
   /**
    * Indicates whether the energy recorded by this register is created under a Controlled Load regime
    * @type {boolean}
@@ -8675,19 +8816,19 @@ export interface EnergyUsageRead {
    */
   controlledLoad?: boolean;
   /**
-   * Date time when the meter reads start
+   * Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.
    * @type {string}
    * @memberof EnergyUsageRead
    */
   readStartDate: string;
   /**
-   * Date time when the meter reads end.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate
+   * Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.
    * @type {string}
    * @memberof EnergyUsageRead
    */
   readEndDate?: string;
   /**
-   * Unit of measure of the meter reads. Refer to Appendix B of <a href=\'https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA\'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values
+   * Unit of measure of the meter reads. Refer to Appendix B of <a href=\'https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA\'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values.
    * @type {string}
    * @memberof EnergyUsageRead
    */
@@ -8718,14 +8859,13 @@ export interface EnergyUsageRead {
   adatree: Adatree;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyUsageReadReadUTypeEnum {
-  BasicRead = 'basicRead',
-  IntervalRead = 'intervalRead',
-}
+export const EnergyUsageReadReadUTypeEnum = {
+  BasicRead: 'basicRead',
+  IntervalRead: 'intervalRead',
+} as const;
+
+export type EnergyUsageReadReadUTypeEnum =
+  typeof EnergyUsageReadReadUTypeEnum[keyof typeof EnergyUsageReadReadUTypeEnum];
 
 /**
  * Mandatory if readUType is set to basicRead
@@ -8747,15 +8887,14 @@ export interface EnergyUsageReadBasicRead {
   value: number;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyUsageReadBasicReadQualityEnum {
-  ACTUAL = 'ACTUAL',
-  SUBSTITUTE = 'SUBSTITUTE',
-  FINALSUBSTITUTE = 'FINAL_SUBSTITUTE',
-}
+export const EnergyUsageReadBasicReadQualityEnum = {
+  Actual: 'ACTUAL',
+  Substitute: 'SUBSTITUTE',
+  FinalSubstitute: 'FINAL_SUBSTITUTE',
+} as const;
+
+export type EnergyUsageReadBasicReadQualityEnum =
+  typeof EnergyUsageReadBasicReadQualityEnum[keyof typeof EnergyUsageReadBasicReadQualityEnum];
 
 /**
  * Mandatory if readUType is set to intervalRead
@@ -8764,11 +8903,11 @@ export enum EnergyUsageReadBasicReadQualityEnum {
  */
 export interface EnergyUsageReadIntervalRead {
   /**
-   * Read interval length in minutes
+   * Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30
    * @type {number}
    * @memberof EnergyUsageReadIntervalRead
    */
-  readIntervalLength: number;
+  readIntervalLength?: number;
   /**
    * The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export
    * @type {number}
@@ -8776,41 +8915,51 @@ export interface EnergyUsageReadIntervalRead {
    */
   aggregateValue: number;
   /**
-   * Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
-   * @type {Array<EnergyUsageReadIntervalReadIntervalReads>}
+   * Array of Interval read values. If positive then it means consumption, if negative it means export. Required when interval-reads query parameter equals FULL or  MIN_30.<br>Each read value indicates the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
+   * @type {Array<number>}
    * @memberof EnergyUsageReadIntervalRead
    */
-  intervalReads: Array<EnergyUsageReadIntervalReadIntervalReads>;
+  intervalReads?: Array<number>;
+  /**
+   *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
+   * @type {Array<EnergyUsageReadIntervalReadReadQualities>}
+   * @memberof EnergyUsageReadIntervalRead
+   */
+  readQualities?: Array<EnergyUsageReadIntervalReadReadQualities>;
 }
 /**
  *
  * @export
- * @interface EnergyUsageReadIntervalReadIntervalReads
+ * @interface EnergyUsageReadIntervalReadReadQualities
  */
-export interface EnergyUsageReadIntervalReadIntervalReads {
+export interface EnergyUsageReadIntervalReadReadQualities {
   /**
-   * The quality of the read taken.  If absent then assumed to be ACTUAL
-   * @type {string}
-   * @memberof EnergyUsageReadIntervalReadIntervalReads
-   */
-  quality?: EnergyUsageReadIntervalReadIntervalReadsQualityEnum;
-  /**
-   * Interval value.  If positive then it means consumption, if negative it means export
+   * Start interval for read quality flag. First read begins at 1
    * @type {number}
-   * @memberof EnergyUsageReadIntervalReadIntervalReads
+   * @memberof EnergyUsageReadIntervalReadReadQualities
    */
-  value: number;
+  startInterval: number;
+  /**
+   * End interval for read quality flag
+   * @type {number}
+   * @memberof EnergyUsageReadIntervalReadReadQualities
+   */
+  endInterval: number;
+  /**
+   * The quality of the read taken
+   * @type {string}
+   * @memberof EnergyUsageReadIntervalReadReadQualities
+   */
+  quality: EnergyUsageReadIntervalReadReadQualitiesQualityEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum EnergyUsageReadIntervalReadIntervalReadsQualityEnum {
-  ACTUAL = 'ACTUAL',
-  SUBSTITUTE = 'SUBSTITUTE',
-  FINALSUBSTITUTE = 'FINAL_SUBSTITUTE',
-}
+export const EnergyUsageReadIntervalReadReadQualitiesQualityEnum = {
+  Substitute: 'SUBSTITUTE',
+  FinalSubstitute: 'FINAL_SUBSTITUTE',
+} as const;
+
+export type EnergyUsageReadIntervalReadReadQualitiesQualityEnum =
+  typeof EnergyUsageReadIntervalReadReadQualitiesQualityEnum[keyof typeof EnergyUsageReadIntervalReadReadQualitiesQualityEnum];
 
 /**
  *
@@ -8995,14 +9144,14 @@ export interface SecuredCdsDataApiError {
   retryAfter?: string;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum SecuredCdsDataApiErrorCodeEnum {
-  BALANCEREFRESHERROR = 'BALANCE_REFRESH_ERROR',
-  THROTTLEDBYDATAHOLDERERROR = 'THROTTLED_BY_DATA_HOLDER_ERROR',
-}
+export const SecuredCdsDataApiErrorCodeEnum = {
+  BalanceRefreshError: 'BALANCE_REFRESH_ERROR',
+  ConsumerPresentRefreshError: 'CONSUMER_PRESENT_REFRESH_ERROR',
+  ThrottledByDataHolderError: 'THROTTLED_BY_DATA_HOLDER_ERROR',
+} as const;
+
+export type SecuredCdsDataApiErrorCodeEnum =
+  typeof SecuredCdsDataApiErrorCodeEnum[keyof typeof SecuredCdsDataApiErrorCodeEnum];
 
 /**
  * BankingApi - axios parameter creator
@@ -9058,25 +9207,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       adatreeConsumerAuthDate?: string,
       adatreeConsumerIpAddress?: string,
       adatreeConsumerUserAgent?: string,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/accounts`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -9122,26 +9269,24 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      if (adatreeConsumerAuthDate !== undefined && adatreeConsumerAuthDate !== null) {
+      if (adatreeConsumerAuthDate != null) {
         localVarHeaderParameter['Adatree-Consumer-Auth-Date'] = String(adatreeConsumerAuthDate);
       }
 
-      if (adatreeConsumerIpAddress !== undefined && adatreeConsumerIpAddress !== null) {
+      if (adatreeConsumerIpAddress != null) {
         localVarHeaderParameter['Adatree-Consumer-Ip-Address'] = String(adatreeConsumerIpAddress);
       }
 
-      if (adatreeConsumerUserAgent !== undefined && adatreeConsumerUserAgent !== null) {
+      if (adatreeConsumerUserAgent != null) {
         localVarHeaderParameter['Adatree-Consumer-User-Agent'] = String(adatreeConsumerUserAgent);
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9187,25 +9332,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       >,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/payments/direct-debits`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -9251,14 +9394,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9287,25 +9428,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       payeeIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/payees`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -9343,14 +9482,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9384,25 +9521,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       productIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/products`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (dataHolderBrandIds) {
         localVarQueryParameter['dataHolderBrandIds'] = dataHolderBrandIds;
@@ -9424,14 +9559,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9472,25 +9605,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       newestTime?: string,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/transactions`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -9552,14 +9683,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9605,25 +9734,23 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
       >,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/banking/payments/scheduled`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -9669,14 +9796,12 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -9688,6 +9813,7 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
  * @export
  */
 export const BankingApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = BankingApiAxiosParamCreator(configuration);
   return {
     /**
      * Obtain the list of banking accounts that consumers have consented to share across all data holders
@@ -9737,9 +9863,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       adatreeConsumerAuthDate?: string,
       adatreeConsumerIpAddress?: string,
       adatreeConsumerUserAgent?: string,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingAccountList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingAccounts(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBankingAccounts(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -9756,10 +9882,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         adatreeConsumerUserAgent,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of banking direct debits that consumers have consented to share across all data holders
@@ -9803,9 +9926,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       >,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingDirectDebitAuthorisationList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingDirectDebits(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBankingDirectDebits(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -9819,10 +9942,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of banking payees that consumers have consented to share across all data holders
@@ -9849,9 +9969,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       payeeIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingPayeeList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingPayees(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBankingPayees(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -9863,10 +9983,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of banking products across all data holders in banking industry
@@ -9898,9 +10015,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       productIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingProductList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingProducts(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBankingProducts(
         dataHolderBrandIds,
         productCategories,
         productIds,
@@ -9908,10 +10025,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of banking transactions that consumers have consented to share across all data holders
@@ -9950,9 +10064,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       newestTime?: string,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingTransactionList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getBankingTransactions(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBankingTransactions(
         useCaseIds,
         accountIds,
         cdrArrangementIds,
@@ -9970,10 +10084,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of banking scheduled payments that consumers have consented to share across all data holders
@@ -10017,9 +10128,9 @@ export const BankingApiFp = function (configuration?: Configuration) {
       >,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BankingScheduledPaymentsList>> {
-      const localVarAxiosArgs = await BankingApiAxiosParamCreator(configuration).getScheduledPayments(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getScheduledPayments(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -10033,10 +10144,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -10046,6 +10154,7 @@ export const BankingApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const BankingApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = BankingApiFp(configuration);
   return {
     /**
      * Obtain the list of banking accounts that consumers have consented to share across all data holders
@@ -10097,7 +10206,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       adatreeConsumerUserAgent?: string,
       options?: any,
     ): AxiosPromise<BankingAccountList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getBankingAccounts(
           useCaseIds,
           cdrArrangementIds,
@@ -10161,7 +10270,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       pageSize?: number,
       options?: any,
     ): AxiosPromise<BankingDirectDebitAuthorisationList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getBankingDirectDebits(
           useCaseIds,
           cdrArrangementIds,
@@ -10205,7 +10314,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       pageSize?: number,
       options?: any,
     ): AxiosPromise<BankingPayeeList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getBankingPayees(
           useCaseIds,
           cdrArrangementIds,
@@ -10252,7 +10361,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       pageSize?: number,
       options?: any,
     ): AxiosPromise<BankingProductList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getBankingProducts(dataHolderBrandIds, productCategories, productIds, page, pageSize, options)
         .then((request) => request(axios, basePath));
     },
@@ -10295,7 +10404,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       pageSize?: number,
       options?: any,
     ): AxiosPromise<BankingTransactionList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getBankingTransactions(
           useCaseIds,
           accountIds,
@@ -10360,7 +10469,7 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
       pageSize?: number,
       options?: any,
     ): AxiosPromise<BankingScheduledPaymentsList> {
-      return BankingApiFp(configuration)
+      return localVarFp
         .getScheduledPayments(
           useCaseIds,
           cdrArrangementIds,
@@ -10436,7 +10545,7 @@ export class BankingApi extends BaseAPI {
     adatreeConsumerAuthDate?: string,
     adatreeConsumerIpAddress?: string,
     adatreeConsumerUserAgent?: string,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getBankingAccounts(
@@ -10502,7 +10611,7 @@ export class BankingApi extends BaseAPI {
     >,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getBankingDirectDebits(
@@ -10548,7 +10657,7 @@ export class BankingApi extends BaseAPI {
     payeeIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getBankingPayees(
@@ -10597,7 +10706,7 @@ export class BankingApi extends BaseAPI {
     productIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getBankingProducts(dataHolderBrandIds, productCategories, productIds, page, pageSize, options)
@@ -10642,7 +10751,7 @@ export class BankingApi extends BaseAPI {
     newestTime?: string,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getBankingTransactions(
@@ -10709,7 +10818,7 @@ export class BankingApi extends BaseAPI {
     >,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return BankingApiFp(this.configuration)
       .getScheduledPayments(
@@ -10755,14 +10864,16 @@ export const CommonApiAxiosParamCreator = function (configuration?: Configuratio
       consumerIds?: Array<string>,
       dataHolderBrandIds?: Array<string>,
       customerUTypes?: Array<'person' | 'organisation'>,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/common/customers`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -10791,14 +10902,12 @@ export const CommonApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['customerUTypes'] = customerUTypes;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -10810,6 +10919,7 @@ export const CommonApiAxiosParamCreator = function (configuration?: Configuratio
  * @export
  */
 export const CommonApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = CommonApiAxiosParamCreator(configuration);
   return {
     /**
      * Obtain a list of consumers that have consented to share across all data holders
@@ -10830,9 +10940,9 @@ export const CommonApiFp = function (configuration?: Configuration) {
       consumerIds?: Array<string>,
       dataHolderBrandIds?: Array<string>,
       customerUTypes?: Array<'person' | 'organisation'>,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseCommonCustomerList>> {
-      const localVarAxiosArgs = await CommonApiAxiosParamCreator(configuration).getCustomers(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getCustomers(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -10841,10 +10951,7 @@ export const CommonApiFp = function (configuration?: Configuration) {
         customerUTypes,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -10854,6 +10961,7 @@ export const CommonApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const CommonApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = CommonApiFp(configuration);
   return {
     /**
      * Obtain a list of consumers that have consented to share across all data holders
@@ -10876,7 +10984,7 @@ export const CommonApiFactory = function (configuration?: Configuration, basePat
       customerUTypes?: Array<'person' | 'organisation'>,
       options?: any,
     ): AxiosPromise<ResponseCommonCustomerList> {
-      return CommonApiFp(configuration)
+      return localVarFp
         .getCustomers(
           useCaseIds,
           cdrArrangementIds,
@@ -10918,7 +11026,7 @@ export class CommonApi extends BaseAPI {
     consumerIds?: Array<string>,
     dataHolderBrandIds?: Array<string>,
     customerUTypes?: Array<'person' | 'organisation'>,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return CommonApiFp(this.configuration)
       .getCustomers(useCaseIds, cdrArrangementIds, consentIds, consumerIds, dataHolderBrandIds, customerUTypes, options)
@@ -10955,25 +11063,23 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/accounts`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -11007,14 +11113,12 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -11043,25 +11147,23 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/bills`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -11099,14 +11201,12 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -11133,25 +11233,23 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/electricity/servicepoints`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -11185,19 +11283,17 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
     /**
-     * Obtain the list of electricity usage records that consumers have consented to share across all data holders
+     * Obtain the list of electricity usage records that consumers have consented to share across all data holders.  Provide Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address, Adatree-Consumer-User-Agent headers and consumerId parameter with exactly one value  to trigger a realtime data update
      * @summary Get Electricity Usage
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
      * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
@@ -11207,6 +11303,12 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
+     * @param {boolean} [refresh] toggle this on to retrieve data synchronously from the data holder. If using a Machine token, add the following headers to perform a consumer present request: Adatree-Consumer-User-Agent, Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address. If no headers are added, an unattended request will be made.
+     * @param {string} [oldestDate] Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.
+     * @param {string} [newestDate] Constrain the request to records with effective date at or before this date. If absent defaults to current date.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -11219,25 +11321,29 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      refresh?: boolean,
+      oldestDate?: string,
+      newestDate?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/electricity/usage`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -11271,14 +11377,36 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      if (refresh !== undefined) {
+        localVarQueryParameter['refresh'] = refresh;
+      }
+
+      if (oldestDate !== undefined) {
+        localVarQueryParameter['oldestDate'] = oldestDate;
+      }
+
+      if (newestDate !== undefined) {
+        localVarQueryParameter['newestDate'] = newestDate;
+      }
+
+      if (adatreeConsumerAuthDate != null) {
+        localVarHeaderParameter['Adatree-Consumer-Auth-Date'] = String(adatreeConsumerAuthDate);
+      }
+
+      if (adatreeConsumerIpAddress != null) {
+        localVarHeaderParameter['Adatree-Consumer-Ip-Address'] = String(adatreeConsumerIpAddress);
+      }
+
+      if (adatreeConsumerUserAgent != null) {
+        localVarHeaderParameter['Adatree-Consumer-User-Agent'] = String(adatreeConsumerUserAgent);
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -11307,25 +11435,23 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/invoices`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (useCaseIds) {
         localVarQueryParameter['useCaseIds'] = useCaseIds;
@@ -11363,14 +11489,12 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -11397,25 +11521,23 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options: any = {},
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/data/energy/plans`;
-      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
+
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
       // authentication bearerAuth required
       // http bearer authentication required
-      if (configuration && configuration.accessToken) {
-        const accessToken =
-          typeof configuration.accessToken === 'function' ? configuration.accessToken() : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-      }
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
       if (planIds) {
         localVarQueryParameter['planIds'] = planIds;
@@ -11449,14 +11571,12 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
         localVarQueryParameter['pageSize'] = pageSize;
       }
 
-      localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
-        url: globalImportUrl.format(localVarUrlObj),
+        url: toPathString(localVarUrlObj),
         options: localVarRequestOptions,
       };
     },
@@ -11468,6 +11588,7 @@ export const EnergyApiAxiosParamCreator = function (configuration?: Configuratio
  * @export
  */
 export const EnergyApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = EnergyApiAxiosParamCreator(configuration);
   return {
     /**
      * Obtain the list of energy accounts that consumers have consented to share across all data holders
@@ -11492,9 +11613,9 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyAccountList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyAccounts(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyAccounts(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -11505,10 +11626,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of energy bills that consumers have consented to share across all data holders
@@ -11535,9 +11653,9 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyBillingList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyBills(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyBills(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -11549,10 +11667,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of energy service points that consumers have consented to share across all data holders
@@ -11577,9 +11692,9 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyServicePointList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyElectricityServicePoints(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyElectricityServicePoints(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -11590,13 +11705,10 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Obtain the list of electricity usage records that consumers have consented to share across all data holders
+     * Obtain the list of electricity usage records that consumers have consented to share across all data holders.  Provide Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address, Adatree-Consumer-User-Agent headers and consumerId parameter with exactly one value  to trigger a realtime data update
      * @summary Get Electricity Usage
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
      * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
@@ -11606,6 +11718,12 @@ export const EnergyApiFp = function (configuration?: Configuration) {
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
+     * @param {boolean} [refresh] toggle this on to retrieve data synchronously from the data holder. If using a Machine token, add the following headers to perform a consumer present request: Adatree-Consumer-User-Agent, Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address. If no headers are added, an unattended request will be made.
+     * @param {string} [oldestDate] Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.
+     * @param {string} [newestDate] Constrain the request to records with effective date at or before this date. If absent defaults to current date.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -11618,9 +11736,15 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      refresh?: boolean,
+      oldestDate?: string,
+      newestDate?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyUsageList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyElectricityUsage(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyElectricityUsage(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -11629,12 +11753,15 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         dataHolderBrandIds,
         page,
         pageSize,
+        refresh,
+        oldestDate,
+        newestDate,
+        adatreeConsumerAuthDate,
+        adatreeConsumerIpAddress,
+        adatreeConsumerUserAgent,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of energy invoices that consumers have consented to share across all data holders
@@ -11661,9 +11788,9 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyInvoiceList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyInvoices(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyInvoices(
         useCaseIds,
         cdrArrangementIds,
         consentIds,
@@ -11675,10 +11802,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Obtain the list of energy plans across all data holders
@@ -11703,9 +11827,9 @@ export const EnergyApiFp = function (configuration?: Configuration) {
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
-      options?: any,
+      options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EnergyPlanList>> {
-      const localVarAxiosArgs = await EnergyApiAxiosParamCreator(configuration).getEnergyPlans(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnergyPlans(
         planIds,
         planTypes,
         fuelTypes,
@@ -11716,10 +11840,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
         pageSize,
         options,
       );
-      return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-        return axios.request(axiosRequestArgs);
-      };
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
@@ -11729,6 +11850,7 @@ export const EnergyApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const EnergyApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = EnergyApiFp(configuration);
   return {
     /**
      * Obtain the list of energy accounts that consumers have consented to share across all data holders
@@ -11755,7 +11877,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyAccountList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyAccounts(
           useCaseIds,
           cdrArrangementIds,
@@ -11796,7 +11918,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyBillingList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyBills(
           useCaseIds,
           cdrArrangementIds,
@@ -11836,7 +11958,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyServicePointList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyElectricityServicePoints(
           useCaseIds,
           cdrArrangementIds,
@@ -11851,7 +11973,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
         .then((request) => request(axios, basePath));
     },
     /**
-     * Obtain the list of electricity usage records that consumers have consented to share across all data holders
+     * Obtain the list of electricity usage records that consumers have consented to share across all data holders.  Provide Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address, Adatree-Consumer-User-Agent headers and consumerId parameter with exactly one value  to trigger a realtime data update
      * @summary Get Electricity Usage
      * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
      * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
@@ -11861,6 +11983,12 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
      * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
      * @param {number} [page] Page of results to request (standard pagination)
      * @param {number} [pageSize] Page size to request
+     * @param {boolean} [refresh] toggle this on to retrieve data synchronously from the data holder. If using a Machine token, add the following headers to perform a consumer present request: Adatree-Consumer-User-Agent, Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address. If no headers are added, an unattended request will be made.
+     * @param {string} [oldestDate] Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.
+     * @param {string} [newestDate] Constrain the request to records with effective date at or before this date. If absent defaults to current date.
+     * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+     * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -11873,9 +12001,15 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       dataHolderBrandIds?: Array<string>,
       page?: number,
       pageSize?: number,
+      refresh?: boolean,
+      oldestDate?: string,
+      newestDate?: string,
+      adatreeConsumerAuthDate?: string,
+      adatreeConsumerIpAddress?: string,
+      adatreeConsumerUserAgent?: string,
       options?: any,
     ): AxiosPromise<EnergyUsageList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyElectricityUsage(
           useCaseIds,
           cdrArrangementIds,
@@ -11885,6 +12019,12 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
           dataHolderBrandIds,
           page,
           pageSize,
+          refresh,
+          oldestDate,
+          newestDate,
+          adatreeConsumerAuthDate,
+          adatreeConsumerIpAddress,
+          adatreeConsumerUserAgent,
           options,
         )
         .then((request) => request(axios, basePath));
@@ -11916,7 +12056,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyInvoiceList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyInvoices(
           useCaseIds,
           cdrArrangementIds,
@@ -11956,7 +12096,7 @@ export const EnergyApiFactory = function (configuration?: Configuration, basePat
       pageSize?: number,
       options?: any,
     ): AxiosPromise<EnergyPlanList> {
-      return EnergyApiFp(configuration)
+      return localVarFp
         .getEnergyPlans(
           planIds,
           planTypes,
@@ -12004,7 +12144,7 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyAccounts(
@@ -12047,7 +12187,7 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyBills(
@@ -12089,7 +12229,7 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyElectricityServicePoints(
@@ -12107,7 +12247,7 @@ export class EnergyApi extends BaseAPI {
   }
 
   /**
-   * Obtain the list of electricity usage records that consumers have consented to share across all data holders
+   * Obtain the list of electricity usage records that consumers have consented to share across all data holders.  Provide Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address, Adatree-Consumer-User-Agent headers and consumerId parameter with exactly one value  to trigger a realtime data update
    * @summary Get Electricity Usage
    * @param {Array<string>} [useCaseIds] Used to filter results on the useCaseId field.
    * @param {Array<string>} [cdrArrangementIds] Used to filter results on the cdrArrangementId field.
@@ -12117,6 +12257,12 @@ export class EnergyApi extends BaseAPI {
    * @param {Array<string>} [dataHolderBrandIds] Used to filter results on the dataHolderBrandId field.
    * @param {number} [page] Page of results to request (standard pagination)
    * @param {number} [pageSize] Page size to request
+   * @param {boolean} [refresh] toggle this on to retrieve data synchronously from the data holder. If using a Machine token, add the following headers to perform a consumer present request: Adatree-Consumer-User-Agent, Adatree-Consumer-Auth-Date, Adatree-Consumer-Ip-Address. If no headers are added, an unattended request will be made.
+   * @param {string} [oldestDate] Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.
+   * @param {string} [newestDate] Constrain the request to records with effective date at or before this date. If absent defaults to current date.
+   * @param {string} [adatreeConsumerAuthDate] The time when the customer last logged in. Mandatory for consumer present calls using a Machine token.
+   * @param {string} [adatreeConsumerIpAddress] The consumer\&#39;s original IP address. Mandatory for consumer present calls using a Machine token.
+   * @param {string} [adatreeConsumerUserAgent] User Agent header of the consumer facing application. Mandatory for consumer present calls using a Machine token.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof EnergyApi
@@ -12130,7 +12276,13 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    refresh?: boolean,
+    oldestDate?: string,
+    newestDate?: string,
+    adatreeConsumerAuthDate?: string,
+    adatreeConsumerIpAddress?: string,
+    adatreeConsumerUserAgent?: string,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyElectricityUsage(
@@ -12142,6 +12294,12 @@ export class EnergyApi extends BaseAPI {
         dataHolderBrandIds,
         page,
         pageSize,
+        refresh,
+        oldestDate,
+        newestDate,
+        adatreeConsumerAuthDate,
+        adatreeConsumerIpAddress,
+        adatreeConsumerUserAgent,
         options,
       )
       .then((request) => request(this.axios, this.basePath));
@@ -12173,7 +12331,7 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyInvoices(
@@ -12215,7 +12373,7 @@ export class EnergyApi extends BaseAPI {
     dataHolderBrandIds?: Array<string>,
     page?: number,
     pageSize?: number,
-    options?: any,
+    options?: AxiosRequestConfig,
   ) {
     return EnergyApiFp(this.configuration)
       .getEnergyPlans(
