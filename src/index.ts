@@ -17,6 +17,7 @@ export { GeneralInformation } from './atoms/info-accordions/general-info.atom';
 export { Highlight } from './atoms/highlight-text/highlight-text.atom';
 export { IconListItem } from './atoms/icon-list-item/icon-list-item.atom';
 export { IconWithText } from './atoms/icon-with-text/icon-with-text.atom';
+export { InsightList } from './atoms/insight-list/insight-list.atom';
 export { LinkExternal } from './atoms/links/link-external.atom';
 export { MaxAccountConnectedMessage } from './atoms/max-account-connected-message/max-account-connected-message.atom';
 export { NewFeature } from './atoms/new-feature/new-feature.atom';
@@ -71,6 +72,7 @@ export { AppTheme, darkTheme, defaultTheme, ThemeMode } from './providers/themes
 // Types
 export { Copy } from './types/copy.type';
 export { DataRecipient } from './types/data-recipient.type';
+export { InsightResponse } from './types/insight-response.type';
 
 // Utils
 export { Debugger } from './utils/debug/debug';

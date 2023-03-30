@@ -3,6 +3,7 @@ import { bankData } from './test-data/bank-transactions';
 import { consent } from './test-data/consents';
 import { dataHolder } from './test-data/data-holders';
 import { dataRecipient } from './test-data/data-recipient';
+import { insights } from './test-data/insights';
 import { outsourcedServiceProvider } from './test-data/outsourced-service-providers';
 import { scope } from './test-data/scopes';
 import { useCase } from './test-data/use-cases';
@@ -20,6 +21,7 @@ export const TestUtil = {
     consent,
     dataHolder,
     dataRecipient,
+    insights,
     outsourcedServiceProvider,
     scope,
     useCase,
