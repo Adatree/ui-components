@@ -22,6 +22,7 @@ const baseConsentFormValues = {
   allAddScopesChecked: false,
   allRemoveScopesChecked: false,
   dataHolder: undefined,
+  insightsConfirmation: false,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,
