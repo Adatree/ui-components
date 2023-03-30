@@ -36,6 +36,7 @@ const baseConsentFormValues = {
   allAddScopesChecked: false,
   allRemoveScopesChecked: false,
   dataHolder: undefined,
+  insightsConfirmation: false,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,
@@ -159,6 +160,27 @@ WithMultiDatesAndCustom.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = TestUtil.testData.useCase.ongoingConsentMinScopes();
+
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
+export const WithInsights = Template.bind({});
+WithInsights.decorators = [
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+      sharingDurations: [SharingDuration.OnceOff],
+      accessFrequency: AccessFrequency.OnceOff,
+    };
+    context.args.insights = TestUtil.testData.insights.allWithDataRecipients();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>

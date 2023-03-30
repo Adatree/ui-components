@@ -5,6 +5,7 @@ type ConsentForm = {
   allAddScopesChecked: boolean;
   allRemoveScopesChecked: boolean;
   dataHolder: DataHolder | undefined;
+  insightsConfirmation: boolean;
   selectedSharingDurations: SharingDuration | undefined;
   postUsageAction: PostUsageAction | undefined;
   sharingEndDate: Date | undefined;
@@ -33,6 +34,7 @@ const ConsentFormDefaultValues: ConsentForm = {
   allAddScopesChecked: false,
   allRemoveScopesChecked: false,
   dataHolder: undefined,
+  insightsConfirmation: false,
   selectedSharingDurations: undefined,
   postUsageAction: PostUsageAction.Deletion,
   sharingEndDate: undefined,

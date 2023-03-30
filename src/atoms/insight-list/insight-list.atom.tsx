@@ -38,7 +38,12 @@ export const InsightList = (props: Props) => {
           return (
             <ListItem
               key={index}
-              sx={{ px: 1, py: 0.5, '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main } }}
+              sx={{
+                px: 1,
+                py: 0.5,
+                '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main },
+                height: '46px',
+              }}
             >
               <ListItemText
                 id={`insight-list-label-${index}`}

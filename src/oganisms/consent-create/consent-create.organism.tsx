@@ -6,6 +6,7 @@ import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-hol
 import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
+import { InsightResponse } from '../../types/insight-response.type';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -15,6 +16,7 @@ export type ConsentCreateProps = {
   favouriteDataHolders?: DataHolder[];
   hideMaxAccountConnectedBackButton?: boolean;
   allowMultiConsentsPerDataHolder?: boolean;
+  insights?: InsightResponse[];
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -28,6 +30,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     favouriteDataHolders,
     hideMaxAccountConnectedBackButton = false,
     allowMultiConsentsPerDataHolder = false,
+    insights,
     onCancel,
     onSubmit,
   } = props;
@@ -65,6 +68,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
               dataHandlers={dataRecipients}
+              insights={insights}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />

@@ -25,7 +25,7 @@ export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
       <Card error={showError} sx={{ mt: 1 }}>
         <Typography sx={{ mb: 1 }}>{message}</Typography>
         <InsightList insights={insights} />
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+        <Box sx={{ pr: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <FormControlLabel
             labelPlacement="start"
             control={<Checkbox color="button" onChange={handleConfirmationChange} />}

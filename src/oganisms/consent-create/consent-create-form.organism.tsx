@@ -11,22 +11,28 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
+import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
+import { InsightResponse } from '../../types/insight-response.type';
+import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
+import { Typography } from '@mui/material';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   dataHandlers?: DataRecipient[];
+  insights?: InsightResponse[];
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, onCancel, onSubmit } = props;
+  const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, insights, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
+  const [showInsightsError, setShowInsightsError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient } = useDataRecipients();
@@ -44,6 +50,11 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       consentForm.sharingEndDate = Helper.sharingDurationToDate(useCase.sharingDurations[0]);
       setConsentForm({ ...consentForm });
     }
+
+    if (!insights) {
+      consentForm.insightsConfirmation = true;
+      setConsentForm({ ...consentForm });
+    }
   }, []);
 
   useEffect(() => {
@@ -51,7 +62,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDateError(false);
     }
 
-    if (consentForm.allAddScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
+    if (
+      consentForm.allAddScopesChecked &&
+      consentForm.dataHolder &&
+      consentForm.selectedSharingDurations &&
+      consentForm.insightsConfirmation
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -79,6 +95,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
       setShowScopeError(consentForm.allAddScopesChecked === true ? false : true);
+      setShowInsightsError(consentForm.insightsConfirmation === true ? false : true);
     }
   };
 
@@ -86,6 +103,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     consentForm.allAddScopesChecked = isAllClicked;
     setConsentForm({ ...consentForm });
     setShowScopeError(false);
+  };
+
+  const handleInsightsChange = (isConformed: boolean) => {
+    consentForm.insightsConfirmation = isConformed;
+    setConsentForm({ ...consentForm });
+    setShowInsightsError(false);
   };
 
   const handleSubmit = () => {
@@ -109,6 +132,19 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
+          {insights && (
+            <InsightConfirmationForm
+              insights={insights}
+              showError={showInsightsError}
+              message={
+                <Typography>
+                  <Highlight>{primaryDataRecipient.name}</Highlight> would like to generate the following insights with
+                  your data:
+                </Typography>
+              }
+              onChange={handleInsightsChange}
+            />
+          )}
           <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
 
           <ConsentSectionActions
