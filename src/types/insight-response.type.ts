@@ -3,5 +3,6 @@ export interface InsightResponse {
   example: string;
   dataHolderName: string;
   dataScopes: { name: string }[];
+  dataRecipients?: string[];
   extraInfo?: string;
 }

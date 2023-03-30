@@ -30,7 +30,16 @@ const income = (): InsightResponse => {
 
 const all = (): InsightResponse[] => [identity(), accountBalance(), income()];
 
+const allWithDataRecipients = (): InsightResponse[] => {
+  return [
+    { ...identity(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2'] },
+    { ...accountBalance(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2'] },
+    { ...income(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2', 'Non AP Data Recipient 3'] },
+  ];
+};
+
 export const insights = {
   all,
+  allWithDataRecipients,
   identity,
 };

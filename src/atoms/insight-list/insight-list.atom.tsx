@@ -96,6 +96,20 @@ export const InsightList = (props: Props) => {
               ))}
             </ul>
             {insight?.extraInfo && <Typography sx={{ mt: 1 }}>{insight?.extraInfo}</Typography>}
+            {insight?.dataRecipients && (
+              <>
+                <Typography sx={{ mt: 2 }}>This insight will be shared with:</Typography>
+                <Box sx={{ pt: 1 }}>
+                  <ul>
+                    {insight?.dataRecipients.map((dataRecipient, i: number) => (
+                      <li key={i} style={{ listStyle: 'inside', paddingLeft: '12px' }}>
+                        {dataRecipient}
+                      </li>
+                    ))}
+                  </ul>
+                </Box>
+              </>
+            )}
           </Box>
         </DialogContent>
       </Dialog>

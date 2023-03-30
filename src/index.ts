@@ -39,6 +39,7 @@ export { DataHolderHeader } from './molecules/data-holder-header/data-holder-hea
 export { DateSelector } from './molecules/date-selector/date-selector.molecule';
 export { DateSummary } from './molecules/date-summary/date-summary.molecule';
 export { ErrorMessage } from './molecules/error-message/error-message.molecule';
+export { InsightConfirmationForm } from './molecules/insight-confirmation-form/insight-confirmation-form.molecule';
 export { RevokeDialog } from './molecules/revoke-dialog/revoke-dialog.molecule';
 export { SupportingParties } from './molecules/supporting-parties/supporting-parties.molecule';
 export { UseCaseSelector } from './molecules/use-case-selector/use-case-selector.molecule';
