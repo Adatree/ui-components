@@ -8,12 +8,13 @@ import { Card } from '../../atoms/card/card.atom';
 interface Props {
   insights: InsightResponse[];
   message: string | ReactElement;
+  dataHolderName: string;
   showError: boolean;
   onChange: (confirmation: boolean) => void;
 }
 
 export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
-  const { message, insights, onChange, showError = false } = props;
+  const { message, insights, dataHolderName, onChange, showError = false } = props;
 
   const handleConfirmationChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     event.stopPropagation();
@@ -24,7 +25,7 @@ export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
     <>
       <Card error={showError} sx={{ mt: 1 }}>
         <Typography sx={{ mb: 1 }}>{message}</Typography>
-        <InsightList insights={insights} />
+        <InsightList insights={insights} dataHolderName={dataHolderName} />
         <Box sx={{ pr: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <FormControlLabel
             labelPlacement="start"

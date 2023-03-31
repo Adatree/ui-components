@@ -16,6 +16,7 @@ const Template: ComponentStory<typeof InsightConfirmationForm> = (args) => <Insi
 export const WithOneInsight = Template.bind({});
 WithOneInsight.args = {
   insights: [TestUtil.testData.insights.identity()],
+  dataHolderName: 'Red Australian Bank',
   onChange: (confirmation) => {
     alert(`User has click the confirmation checkbox with the value: ${confirmation}`);
   },
@@ -24,6 +25,7 @@ WithOneInsight.args = {
 export const WithManyInsights = Template.bind({});
 WithManyInsights.args = {
   insights: TestUtil.testData.insights.all(),
+  dataHolderName: 'Red Australian Bank',
   onChange: (confirmation) => {
     alert(`User has click the confirmation checkbox with the value: ${confirmation}`);
   },
@@ -32,6 +34,7 @@ WithManyInsights.args = {
 export const WithManyInsightsAndDataRecipients = Template.bind({});
 WithManyInsightsAndDataRecipients.args = {
   insights: TestUtil.testData.insights.allWithDataRecipients(),
+  dataHolderName: 'Red Australian Bank',
   onChange: (confirmation) => {
     alert(`User has click the confirmation checkbox with the value: ${confirmation}`);
   },

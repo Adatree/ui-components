@@ -15,10 +15,11 @@ import { InsightResponse } from '../../types/insight-response.type';
 
 interface Props {
   insights: InsightResponse[];
+  dataHolderName: string;
 }
 
 export const InsightList = (props: Props) => {
-  const { insights } = props;
+  const { insights, dataHolderName } = props;
   const [insight, setInsight] = useState<InsightResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -91,7 +92,7 @@ export const InsightList = (props: Props) => {
           <Typography>We use your data to generate the insight:</Typography>
           <Typography sx={{ p: 0.8, mb: 1, fontStyle: 'italic' }}>{insight?.example}</Typography>
 
-          <Typography>To generate this insight we use the following data from {insight?.dataHolderName}</Typography>
+          <Typography>To generate this insight we use the following data from {dataHolderName}</Typography>
           <Box sx={{ pt: 1 }}>
             <ul>
               {insight?.dataScopes.map((scope, i: number) => (

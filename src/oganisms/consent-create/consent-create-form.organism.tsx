@@ -142,6 +142,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
                   your data:
                 </Typography>
               }
+              dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
               onChange={handleInsightsChange}
             />
           )}
