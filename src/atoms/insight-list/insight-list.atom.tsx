@@ -11,19 +11,19 @@ import {
   Typography,
 } from '@mui/material';
 import { InformationOutline, Close } from 'mdi-material-ui';
-import { InsightResponse } from '../../types/insight-response.type';
+import { Insight, InsightResponse } from '../../types/insight-response.type';
 
 interface Props {
-  insights: InsightResponse[];
+  insightResponse: InsightResponse;
   dataHolderName: string;
 }
 
 export const InsightList = (props: Props) => {
-  const { insights, dataHolderName } = props;
-  const [insight, setInsight] = useState<InsightResponse>();
+  const { insightResponse, dataHolderName } = props;
+  const [insight, setInsight] = useState<Insight>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleInfoClick = (insight: InsightResponse) => {
+  const handleInfoClick = (insight: Insight) => {
     setInsight(insight);
     setIsDialogOpen(true);
   };
@@ -35,7 +35,7 @@ export const InsightList = (props: Props) => {
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {insights.map((insight: InsightResponse, index: number) => {
+        {insightResponse.insights.map((insight: Insight, index: number) => {
           return (
             <ListItem
               key={index}
@@ -102,20 +102,6 @@ export const InsightList = (props: Props) => {
               ))}
             </ul>
             {insight?.extraInfo && <Typography sx={{ mt: 1 }}>{insight?.extraInfo}</Typography>}
-            {insight?.dataRecipients && (
-              <>
-                <Typography sx={{ mt: 2 }}>This insight will be shared with:</Typography>
-                <Box sx={{ pt: 1 }}>
-                  <ul>
-                    {insight?.dataRecipients.map((dataRecipient, i: number) => (
-                      <li key={i} style={{ listStyle: 'inside', paddingLeft: '12px' }}>
-                        {dataRecipient}
-                      </li>
-                    ))}
-                  </ul>
-                </Box>
-              </>
-            )}
           </Box>
         </DialogContent>
       </Dialog>

@@ -180,7 +180,7 @@ WithInsights.decorators = [
       sharingDurations: [SharingDuration.OnceOff],
       accessFrequency: AccessFrequency.OnceOff,
     };
-    context.args.insights = TestUtil.testData.insights.allWithDataRecipients();
+    context.args.insightResponse = TestUtil.testData.insights.single();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>

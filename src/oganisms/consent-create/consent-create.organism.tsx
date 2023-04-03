@@ -16,7 +16,7 @@ export type ConsentCreateProps = {
   favouriteDataHolders?: DataHolder[];
   hideMaxAccountConnectedBackButton?: boolean;
   allowMultiConsentsPerDataHolder?: boolean;
-  insights?: InsightResponse[];
+  insightResponse?: InsightResponse;
   onCancel: () => void;
   onSubmit: () => void;
 };
@@ -30,7 +30,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     favouriteDataHolders,
     hideMaxAccountConnectedBackButton = false,
     allowMultiConsentsPerDataHolder = false,
-    insights,
+    insightResponse,
     onCancel,
     onSubmit,
   } = props;
@@ -68,7 +68,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
               dataHandlers={dataRecipients}
-              insights={insights}
+              insightResponse={insightResponse}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />

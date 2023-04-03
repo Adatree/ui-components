@@ -20,13 +20,20 @@ export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   dataHandlers?: DataRecipient[];
-  insights?: InsightResponse[];
+  insightResponse?: InsightResponse;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, insights, onCancel, onSubmit } = props;
+  const {
+    useCase,
+    enablePartnerMessageDiscreetMode = false,
+    dataHandlers,
+    insightResponse,
+    onCancel,
+    onSubmit,
+  } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
@@ -51,7 +58,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setConsentForm({ ...consentForm });
     }
 
-    if (!insights) {
+    if (!insightResponse) {
       consentForm.insightsConfirmation = true;
       setConsentForm({ ...consentForm });
     }
@@ -123,18 +130,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
           />
 
-          <ConsentSectionScopes
-            message={copy.consent.edit.scope_create_message}
-            scopes={useCase.scopes}
-            showError={showScopeError}
-            onChange={handleScopeChange}
-          />
-
-          <ConsentSectionDates useCase={useCase} showError={showDateError} />
-
-          {insights && (
+          {insightResponse && (
             <InsightConfirmationForm
-              insights={insights}
+              insightResponse={insightResponse}
               showError={showInsightsError}
               message={
                 <Typography>
@@ -146,6 +144,16 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
               onChange={handleInsightsChange}
             />
           )}
+
+          <ConsentSectionScopes
+            message={copy.consent.edit.scope_create_message}
+            scopes={useCase.scopes}
+            showError={showScopeError}
+            onChange={handleScopeChange}
+          />
+
+          <ConsentSectionDates useCase={useCase} showError={showDateError} />
+
           <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
 
           <ConsentSectionActions

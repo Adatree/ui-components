@@ -1,6 +1,14 @@
-import { InsightResponse } from '../../../types/insight-response.type';
+import { Insight, InsightResponse } from '../../../types/insight-response.type';
 
-const identity = (): InsightResponse => {
+const accountInformation = (): Insight => {
+  return {
+    name: 'Account information',
+    example: 'BSB number, Account number,  Account balamce and Account addresses',
+    dataScopes: [{ name: 'Account balance and details' }, { name: 'Name and occupation' }],
+  };
+};
+
+const identity = (): Insight => {
   return {
     name: 'Verify your identity',
     example: 'Yes, identity details match.',
@@ -8,7 +16,7 @@ const identity = (): InsightResponse => {
   };
 };
 
-const accountBalance = (): InsightResponse => {
+const accountBalance = (): Insight => {
   return {
     name: 'Verify your account balance',
     example: 'Yes, account balance is more than $100.',
@@ -16,7 +24,7 @@ const accountBalance = (): InsightResponse => {
   };
 };
 
-const income = (): InsightResponse => {
+const income = (): Insight => {
   return {
     name: 'Verify your income',
     example: 'Based on the last 6 months, average monthly income is [amount].',
@@ -25,18 +33,21 @@ const income = (): InsightResponse => {
   };
 };
 
-const all = (): InsightResponse[] => [identity(), accountBalance(), income()];
+const all = (): InsightResponse => {
+  return {
+    nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
+    insights: [(accountInformation(), identity(), accountBalance(), income())],
+  };
+};
 
-const allWithDataRecipients = (): InsightResponse[] => {
-  return [
-    { ...identity(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2'] },
-    { ...accountBalance(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2'] },
-    { ...income(), dataRecipients: ['Non AP Data Recipient 1', 'Non AP Data Recipient 2', 'Non AP Data Recipient 3'] },
-  ];
+const single = (): InsightResponse => {
+  return {
+    nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
+    insights: [accountInformation()],
+  };
 };
 
 export const insights = {
   all,
-  allWithDataRecipients,
-  identity,
+  single,
 };

@@ -15,12 +15,12 @@ const Template: ComponentStory<typeof InsightList> = (args) => <InsightList {...
 
 export const WithOneInsight = Template.bind({});
 WithOneInsight.args = {
-  insights: [TestUtil.testData.insights.identity()],
+  insightResponse: TestUtil.testData.insights.single(),
   dataHolderName: 'Red Australian Bank',
 };
 
 export const WithManyInsights = Template.bind({});
 WithManyInsights.args = {
-  insights: TestUtil.testData.insights.all(),
+  insightResponse: TestUtil.testData.insights.all(),
   dataHolderName: 'Red Australian Bank',
 };
