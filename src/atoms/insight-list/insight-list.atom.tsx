@@ -89,7 +89,7 @@ export const InsightList = (props: Props) => {
         </DialogTitle>
 
         <DialogContent sx={{ pt: 2 }}>
-          <Typography>We use your data to generate the insight:</Typography>
+          <Typography>We use your data to provide the insight:</Typography>
           <Typography sx={{ p: 0.8, mb: 1, fontStyle: 'italic' }}>{insight?.example}</Typography>
 
           <Typography>To generate this insight we use the following data from {dataHolderName}</Typography>

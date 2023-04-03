@@ -126,24 +126,18 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <ConsentSectionHeader
-            dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-          />
-
           {insightResponse && (
             <InsightConfirmationForm
               insightResponse={insightResponse}
               showError={showInsightsError}
-              message={
-                <Typography>
-                  <Highlight>{primaryDataRecipient.name}</Highlight> would like to generate the following insights with
-                  your data:
-                </Typography>
-              }
               dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
               onChange={handleInsightsChange}
             />
           )}
+
+          <ConsentSectionHeader
+            dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
+          />
 
           <ConsentSectionScopes
             message={copy.consent.edit.scope_create_message}
