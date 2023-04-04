@@ -61,7 +61,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
         {renderListItem(copy.component.data_handling_info.list_non_adr_disclaimer(dataHandler.name), 0)}
         {renderListItem(
           copy.component.data_handling_info.list_data_policy(dataHandler.name, dataHandler.cdrPolicyUrl),
-          0,
+          1,
         )}
       </List>
     );
