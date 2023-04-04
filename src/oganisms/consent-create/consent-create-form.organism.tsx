@@ -38,6 +38,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
   const [showInsightsError, setShowInsightsError] = useState(false);
+  const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient, addDataRecipient } = useDataRecipients();
@@ -68,6 +69,10 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       });
       consentForm.insightsConfirmation = true;
       setConsentForm({ ...consentForm });
+
+      setSubTitle(
+        `${insightResponse.nonAccreditedDataRecipient} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
+      );
     }
   }, []);
 
@@ -134,16 +139,21 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       {useCase.dataHolders && useCase.scopes && (
         <>
           {insightResponse && (
-            <InsightConfirmationForm
-              insightResponse={insightResponse}
-              showError={showInsightsError}
-              dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-              onChange={handleInsightsChange}
-            />
+            <>
+              <InsightConfirmationForm
+                insightResponse={insightResponse}
+                showError={showInsightsError}
+                dataHolderName={
+                  consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName
+                }
+                onChange={handleInsightsChange}
+              />
+            </>
           )}
 
           <ConsentSectionHeader
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
+            subTitle={subTitle}
           />
 
           <ConsentSectionScopes
