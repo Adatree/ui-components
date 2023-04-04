@@ -55,6 +55,18 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
     );
   };
 
+  const renderNonAdrList = (dataHandler: DataRecipient): ReactElement => {
+    return (
+      <List sx={{ mb: '2rem' }}>
+        {renderListItem(copy.component.data_handling_info.list_non_adr_disclaimer(dataHandler.name), 0)}
+        {renderListItem(
+          copy.component.data_handling_info.list_data_policy(dataHandler.name, dataHandler.cdrPolicyUrl),
+          0,
+        )}
+      </List>
+    );
+  };
+
   const renderTaList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
@@ -90,6 +102,10 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
 
                 {dataHandler.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER && (
                   <>{renderTaspList(dataHandler)}</>
+                )}
+
+                {dataHandler.type === DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT && (
+                  <>{renderNonAdrList(dataHandler)}</>
                 )}
               </div>
             );

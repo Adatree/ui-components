@@ -54,7 +54,8 @@ export interface Copy {
       action: (name: string) => ReactElement;
     };
     data_handling_info: {
-      list_data_policy: (name: string) => ReactElement;
+      list_data_policy: (name: string, dataHandlingPolicy?: string) => ReactElement;
+      list_non_adr_disclaimer: (name: string) => ReactElement;
       title: string;
     };
     general_information: {

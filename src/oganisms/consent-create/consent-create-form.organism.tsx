@@ -13,8 +13,6 @@ import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/par
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
 import { InsightResponse } from '../../types/insight-response.type';
-import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
-import { Typography } from '@mui/material';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -42,7 +40,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showInsightsError, setShowInsightsError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const { primaryDataRecipient } = useDataRecipients();
+  const { primaryDataRecipient, addDataRecipient } = useDataRecipients();
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
   });
@@ -58,7 +56,16 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setConsentForm({ ...consentForm });
     }
 
-    if (!insightResponse) {
+    if (insightResponse !== undefined) {
+      addDataRecipient({
+        cdrPolicyUrl: insightResponse.dataHandlingUrl,
+        complaintEmail: '',
+        dataSharingRevocationEmail: '',
+        description: '',
+        logo: '',
+        name: insightResponse.nonAccreditedDataRecipient,
+        type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
+      });
       consentForm.insightsConfirmation = true;
       setConsentForm({ ...consentForm });
     }

@@ -36,6 +36,7 @@ const income = (): Insight => {
 const all = (): InsightResponse => {
   return {
     nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
+    dataHandlingUrl: 'https://example.com/our-data-policy',
     insights: [(accountInformation(), identity(), accountBalance(), income())],
   };
 };
@@ -43,6 +44,7 @@ const all = (): InsightResponse => {
 const single = (): InsightResponse => {
   return {
     nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
+    dataHandlingUrl: 'https://example.com/our-data-policy',
     insights: [accountInformation()],
   };
 };

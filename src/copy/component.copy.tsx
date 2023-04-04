@@ -35,9 +35,27 @@ export const componentCopy = (
       },
     },
     data_handling_info: {
-      list_data_policy: (name: string) => {
-        return <>Speak to {name} for more information about how they will handle your data.</>;
+      list_data_policy: (name: string, dataHandlingPolicy?: string) => {
+        return (
+          <>
+            Speak to <HL>{name}</HL> for more information about how they will handle your data.{' '}
+            {dataHandlingPolicy && (
+              <>
+                You can view their data handling policy <LinkExternal href={dataHandlingPolicy} text={'here'} />
+              </>
+            )}
+            .
+          </>
+        );
       },
+      list_non_adr_disclaimer: (name: string) => {
+        return (
+          <>
+            The data shared with <HL>{name}</HL> is not subject to CDR protections.
+          </>
+        );
+      },
+
       title: 'Who else has access to my data?',
     },
     general_information: {
