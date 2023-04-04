@@ -7,6 +7,7 @@ export interface Copy {
     adatree_name: string;
     button_label_back: string;
     button_label_finished: string;
+    button_label_next: string;
     button_label_no: string;
     button_label_yes: string;
     cdr_policy_label: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
@@ -7,6 +7,7 @@ import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { InsightResponse } from '../../types/insight-response.type';
+import { ConsentInsightForm } from './consent-insight-form.organism';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -35,6 +36,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     onSubmit,
   } = props;
   const [consentForm] = useConsentForm();
+  const [showInsights, setShowInsights] = useState<boolean>(insightResponse !== undefined);
   const { dataRecipients } = useDataRecipients();
 
   let disableDataHolders: DataHolder[] = [];
@@ -42,6 +44,14 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
   if (!allowMultiConsentsPerDataHolder) {
     disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(useCase.dataHolders, existingConsents, useCase);
   }
+
+  const handleInsightsCancel = () => {
+    onCancel();
+  };
+
+  const handleInsightsSubmit = () => {
+    setShowInsights(false);
+  };
 
   const handleCancel = () => {
     onCancel();
@@ -63,7 +73,14 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               blockedDataHolderList={blockedDataHolderList}
             />
           )}
-          {consentForm.dataHolder && (
+          {consentForm.dataHolder && showInsights && insightResponse && (
+            <ConsentInsightForm
+              insightResponse={insightResponse}
+              onCancel={handleInsightsCancel}
+              onSubmit={handleInsightsSubmit}
+            />
+          )}
+          {consentForm.dataHolder && !showInsights && (
             <ConsentCreateForm
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}

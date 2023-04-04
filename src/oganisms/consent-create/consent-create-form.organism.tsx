@@ -11,7 +11,6 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
-import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
 import { InsightResponse } from '../../types/insight-response.type';
 
 export type ConsentCreateFormProps = {
@@ -37,11 +36,10 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
-  const [showInsightsError, setShowInsightsError] = useState(false);
   const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const { primaryDataRecipient, addDataRecipient } = useDataRecipients();
+  const { primaryDataRecipient } = useDataRecipients();
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
   });
@@ -57,19 +55,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setConsentForm({ ...consentForm });
     }
 
-    if (insightResponse !== undefined) {
-      addDataRecipient({
-        cdrPolicyUrl: insightResponse.dataHandlingUrl,
-        complaintEmail: '',
-        dataSharingRevocationEmail: '',
-        description: '',
-        logo: '',
-        name: insightResponse.nonAccreditedDataRecipient,
-        type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
-      });
-      consentForm.insightsConfirmation = true;
-      setConsentForm({ ...consentForm });
-
+    if (insightResponse) {
       setSubTitle(
         `${insightResponse.nonAccreditedDataRecipient} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
       );
@@ -81,12 +67,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDateError(false);
     }
 
-    if (
-      consentForm.allAddScopesChecked &&
-      consentForm.dataHolder &&
-      consentForm.selectedSharingDurations &&
-      consentForm.insightsConfirmation
-    ) {
+    if (consentForm.allAddScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -114,7 +95,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
       setShowScopeError(consentForm.allAddScopesChecked === true ? false : true);
-      setShowInsightsError(consentForm.insightsConfirmation === true ? false : true);
     }
   };
 
@@ -122,12 +102,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     consentForm.allAddScopesChecked = isAllClicked;
     setConsentForm({ ...consentForm });
     setShowScopeError(false);
-  };
-
-  const handleInsightsChange = (isConformed: boolean) => {
-    consentForm.insightsConfirmation = isConformed;
-    setConsentForm({ ...consentForm });
-    setShowInsightsError(false);
   };
 
   const handleSubmit = () => {
@@ -138,19 +112,6 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          {insightResponse && (
-            <>
-              <InsightConfirmationForm
-                insightResponse={insightResponse}
-                showError={showInsightsError}
-                dataHolderName={
-                  consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName
-                }
-                onChange={handleInsightsChange}
-              />
-            </>
-          )}
-
           <ConsentSectionHeader
             dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
             subTitle={subTitle}

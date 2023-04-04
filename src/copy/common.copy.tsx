@@ -6,6 +6,7 @@ export const commonCopy = (): Copy['common'] => {
     adatree_name: 'Adatree',
     button_label_back: 'Back',
     button_label_finished: 'Done',
+    button_label_next: 'Next',
     button_label_no: 'No',
     button_label_yes: 'Yes',
     cdr_policy_label: 'CDR Policy',
