@@ -2,16 +2,16 @@ import { Insight, InsightResponse } from '../../../types/insight-response.type';
 
 const accountInformation = (): Insight => {
   return {
-    name: 'Account information',
-    example: 'BSB number, Account number,  Account balamce and Account addresses',
-    dataScopes: [{ name: 'Account balance and details' }, { name: 'Name and occupation' }],
+    name: 'BSB number, account number, balance',
+    example: 'We will recive your BSB number, account number and account balance.',
+    dataScopes: [{ name: 'Account balance and details' }],
   };
 };
 
 const identity = (): Insight => {
   return {
     name: 'Verify your identity',
-    example: 'Yes, identity details match.',
+    example: 'We will recive your name, address and occupation.',
     dataScopes: [{ name: 'Contact details' }, { name: 'Name and occupation' }],
   };
 };
@@ -19,7 +19,7 @@ const identity = (): Insight => {
 const accountBalance = (): Insight => {
   return {
     name: 'Verify your account balance',
-    example: 'Yes, account balance is more than $100.',
+    example: 'Yes, account balance is more than the required [amount].',
     dataScopes: [{ name: 'Account name, type and balance' }],
   };
 };
@@ -36,16 +36,16 @@ const income = (): Insight => {
 const all = (): InsightResponse => {
   return {
     nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
-    purpose: 'to verify your identity and income',
+    purpose: 'to verify your account details and income',
     dataHandlingUrl: 'https://example.com/our-data-policy',
-    insights: [(accountInformation(), identity(), accountBalance(), income())],
+    insights: [accountInformation(), identity(), accountBalance(), income()],
   };
 };
 
 const single = (): InsightResponse => {
   return {
     nonAccreditedDataRecipient: 'Non Accredited Data Recipient',
-    purpose: 'to verify your identity',
+    purpose: 'to verify your account details',
     dataHandlingUrl: 'https://example.com/our-data-policy',
     insights: [accountInformation()],
   };
