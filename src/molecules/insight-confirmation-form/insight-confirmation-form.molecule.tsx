@@ -26,7 +26,7 @@ export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
       <Box sx={{ mb: 3 }}>
         <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
           <Highlight>{insightResponse.nonAccreditedDataRecipient}</Highlight> needs your permission to receive the
-          following insights
+          following insights {insightResponse.purpose}
         </Typography>
       </Box>
 

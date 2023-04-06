@@ -171,8 +171,8 @@ WithMultiDatesAndCustom.decorators = [
 
 // ########################################################################
 
-export const WithInsights = Template.bind({});
-WithInsights.decorators = [
+export const WithInsightsSingle = Template.bind({});
+WithInsightsSingle.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = {
@@ -181,6 +181,25 @@ WithInsights.decorators = [
       accessFrequency: AccessFrequency.OnceOff,
     };
     context.args.insightResponse = TestUtil.testData.insights.single();
+
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+export const WithInsightsMany = Template.bind({});
+WithInsightsMany.decorators = [
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+      sharingDurations: [SharingDuration.OnceOff],
+      accessFrequency: AccessFrequency.OnceOff,
+    };
+    context.args.insightResponse = TestUtil.testData.insights.all();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>

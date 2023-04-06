@@ -7,6 +7,7 @@ export interface Insight {
 
 export interface InsightResponse {
   nonAccreditedDataRecipient: string;
+  purpose: string;
   dataHandlingUrl: string;
   insights: Insight[];
 }
