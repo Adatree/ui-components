@@ -49,7 +49,12 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {!nonAdrDataRecipient && renderListItem(copy.component.general_information.list_records)}
         {nonAdrDataRecipient && renderListItem(copy.component.general_information.list_records_with_insights)}
         {renderListItem(copy.component.general_information.list_sharing)}
-        {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
+        {!hideDuplicateListItem &&
+          !nonAdrDataRecipient &&
+          renderListItem(copy.component.general_information.list_deleted)}
+        {!hideDuplicateListItem &&
+          nonAdrDataRecipient &&
+          renderListItem(copy.component.general_information.list_deleted_with_insights)}
         {renderListItem(copy.component.general_information.list_revoked)}
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_primary_more_info)}
         {renderListItem(copy.component.general_information.list_complaint)}

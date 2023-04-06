@@ -5,7 +5,7 @@ import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/info-accordions/general-info.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info.atom';
-import { DataRecipient } from '../../types/data-recipient.type';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentSectionInfoProps = {
   useCase: UseCaseResponse;
@@ -15,10 +15,28 @@ export type ConsentSectionInfoProps = {
 export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
   const { useCase, dataHandlers } = props;
 
+  const getHideDuplicates = (): boolean => {
+    let hideDuplicates = false;
+
+    if (dataHandlers) {
+      const nonAdrFound = dataHandlers?.find((dataHandler) => {
+        return dataHandler.type === DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT;
+      });
+
+      if (nonAdrFound) {
+        hideDuplicates = false;
+      } else if (!nonAdrFound && dataHandlers.length >= 1) {
+        hideDuplicates = true;
+      }
+    }
+
+    return hideDuplicates;
+  };
+
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        <GeneralInformation hideDuplicateListItem={dataHandlers && dataHandlers.length >= 1} />
+        <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
         <Accordion title="What is the purpose of accessing my data?" content={useCase.description} />
         {dataHandlers && dataHandlers.length > 0 && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (

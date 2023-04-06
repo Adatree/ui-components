@@ -72,6 +72,7 @@ export const componentCopy = (
         </>
       ),
       list_deleted: `When your consent expires or is revoked, all of the data you shared with ${adrDataRecipient.name} is automatically deleted within seconds.`,
+      list_deleted_with_insights: `When your consent expires or is revoked, all of the data you shared with ${adrDataRecipient.name} which they are not legally required to keep is automatically deleted within seconds.`,
       list_marketing: (dataRecipientName: string) =>
         `${dataRecipientName} will never sell your data or use it for marketing.`,
       list_primary_more_info: (
