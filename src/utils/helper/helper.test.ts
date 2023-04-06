@@ -3,7 +3,7 @@ import { TestUtil } from '../test/test.util';
 import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '../../generated/consent';
 import { DateDurationList } from '../../consts/duration.const';
 import { DataRecipientType } from '../../types/data-recipient.type';
-import { addDays, addHours, addMonths, addWeeks, addYears, isWithinInterval } from 'date-fns';
+import { addDays, addHours, isWithinInterval } from 'date-fns';
 
 describe('Helper Utils', () => {
   TestUtil.suspendLogger();
@@ -326,6 +326,21 @@ describe('Helper Utils', () => {
       expect(Helper.getAdrDataRecipients(adrList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
       expect(Helper.getAdrDataRecipients(adrOnlyList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
       expect(Helper.getAdrDataRecipients(noAdrOnlyList).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
+    });
+  });
+
+  describe('getNonAdrDataRecipients', () => {
+    it('should get the non adr dataRecipient, if it is not present return undefined', () => {
+      const drList = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.nonAccreditedDataRecipient(),
+      ];
+      const adrOnlyList = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+
+      const nadr = Helper.getNonAdrDataRecipient(drList);
+
+      expect(nadr?.type).toEqual(DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getNonAdrDataRecipient(adrOnlyList)).toEqual(undefined);
     });
   });
 

@@ -36,6 +36,18 @@ export const granteeRepresentative = (): DataRecipient => {
   };
 };
 
+export const nonAccreditedDataRecipient = (): DataRecipient => {
+  return {
+    complaintEmail: 'adr-complaint@example.com',
+    cdrPolicyUrl: 'https://www.example.com/non-adr-cdr-policy',
+    dataSharingRevocationEmail: 'adr.data.sharing.revocation@example.com',
+    description: 'Non Accredited Data Recipient provides the service X.',
+    logo: '/assets/images/adr-test-company-logo.png',
+    name: 'Non Accredited Company',
+    type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
+  };
+};
+
 export const trustedAdvisor = (): DataRecipient => {
   return {
     complaintEmail: 'adr-complaint@example.com',
@@ -75,6 +87,7 @@ export const dataRecipient = {
   accreditedDataRecipient,
   cdrRepresentative,
   granteeRepresentative,
+  nonAccreditedDataRecipient,
   trustedAdvisor,
   trustedAdvisorServiceProvider,
 };

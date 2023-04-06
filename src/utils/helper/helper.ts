@@ -243,6 +243,14 @@ const getAdrDataRecipients = (dataRecipients: DataRecipient[]): DataRecipient =>
   }
 };
 
+const getNonAdrDataRecipient = (dataRecipients: DataRecipient[]): DataRecipient | undefined => {
+  const found = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT;
+  });
+
+  return found;
+};
+
 export const Helper = {
   accessFrequencyToString,
   dateDurationToDate,
@@ -250,6 +258,7 @@ export const Helper = {
   filterListbyStatus,
   getAdrDataRecipients,
   getPrimaryDataRecipients,
+  getNonAdrDataRecipient,
   getScopeDifference,
   isConsentEditable,
   parseSharingDuration,

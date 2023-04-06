@@ -67,6 +67,7 @@ export interface Copy {
       list_marketing: (dataRecipientName: string) => string;
       list_primary_more_info: ReactElement;
       list_records: ReactElement;
+      list_records_with_insights: ReactElement;
       list_revoked: string;
       list_security: (dataRecipientName: string) => string;
       list_sharing: ReactElement;

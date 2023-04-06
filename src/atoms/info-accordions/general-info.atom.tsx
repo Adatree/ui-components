@@ -12,7 +12,7 @@ export type GeneralInformationProps = {
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
   const { hideDuplicateListItem = false } = props;
   const [copy] = useCopy();
-  const { adrDataRecipient, primaryDataRecipient } = useDataRecipients();
+  const { adrDataRecipient, primaryDataRecipient, nonAdrDataRecipient } = useDataRecipients();
 
   const renderListItem = (text: ReactElement | string): ReactElement => {
     return (
@@ -46,7 +46,8 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           renderListItem(copy.component.general_information.list_security(adrDataRecipient.name))}
         {!hideDuplicateListItem &&
           renderListItem(copy.component.general_information.list_marketing(adrDataRecipient.name))}
-        {renderListItem(copy.component.general_information.list_records)}
+        {!nonAdrDataRecipient && renderListItem(copy.component.general_information.list_records)}
+        {nonAdrDataRecipient && renderListItem(copy.component.general_information.list_records_with_insights)}
         {renderListItem(copy.component.general_information.list_sharing)}
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_deleted)}
         {renderListItem(copy.component.general_information.list_revoked)}

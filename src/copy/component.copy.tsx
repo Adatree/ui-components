@@ -90,6 +90,17 @@ export const componentCopy = (
           .
         </>
       ),
+      list_records_with_insights: (
+        <>
+          You can request copies of records relating to your consent, the data collected and any insights disclosed by
+          emailing{' '}
+          <LinkExternal
+            href={`mailto:${primaryDataRecipient.dataSharingRevocationEmail}`}
+            text={primaryDataRecipient.dataSharingRevocationEmail}
+          />
+          .
+        </>
+      ),
       list_revoked: 'When you revoke consent, the services offered may cease to provide you with benefits.',
       list_security: (dataRecipientName: string) =>
         `${dataRecipientName} will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
