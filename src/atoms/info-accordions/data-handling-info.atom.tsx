@@ -91,7 +91,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
           {dataHandlers.map((dataHandler, index) => {
             return (
               <div key={index}>
-                <Typography variant="h3">{dataHandler.name}</Typography>
+                <Typography variant="h4">{dataHandler.name}</Typography>
                 <Typography sx={{ mt: 1 }}>{dataHandler.description}</Typography>
 
                 {dataHandler.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT && <>{renderAdrList(dataHandler)}</>}

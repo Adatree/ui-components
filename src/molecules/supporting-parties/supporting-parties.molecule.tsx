@@ -28,7 +28,7 @@ export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
           {outsourcedServiceProviders.map((osp) => {
             return (
               <Box sx={{ mb: 3 }} key={osp.providerName}>
-                <Typography variant="h3">{osp.providerName}</Typography>
+                <Typography variant="h5">{osp.providerName}</Typography>
                 {osp.accreditationId && (
                   <Typography sx={{ mb: 1 }} variant="body2">
                     Accredited ID: {osp.accreditationId}

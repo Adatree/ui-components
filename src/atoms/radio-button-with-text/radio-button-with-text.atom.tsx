@@ -48,7 +48,7 @@ export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) =
                 }}
                 value={item.value}
                 control={<Radio disabled={disabled} color="button" />}
-                label={<Typography variant="h3">{item.label}</Typography>}
+                label={<Typography variant="h5">{item.label}</Typography>}
                 labelPlacement="start"
               />
               {item.description && <Typography sx={{ pl: 1, mb: 1.5 }}>{item.description}</Typography>}

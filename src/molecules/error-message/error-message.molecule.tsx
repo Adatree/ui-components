@@ -38,33 +38,33 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
 
       {type && (
         <>
-          <Typography variant="h3">Type</Typography>
+          <Typography variant="h5">Type</Typography>
           <Typography sx={{ mb: 2 }}>{type}</Typography>
         </>
       )}
 
       {code && (
         <>
-          <Typography variant="h3">Code</Typography>
+          <Typography variant="h5">Code</Typography>
           <Typography sx={{ mb: 2 }}>{code}</Typography>
         </>
       )}
 
       {url && (
         <>
-          <Typography variant="h3">URL</Typography>
+          <Typography variant="h5">URL</Typography>
           <Typography sx={{ mb: 2, wordBreak: 'break-all' }}>{url}</Typography>
         </>
       )}
 
       <>
-        <Typography variant="h3">Time</Typography>
+        <Typography variant="h5">Time</Typography>
         <Typography sx={{ mb: 2 }}>{Formatter.formatDateTimeTz(timeStamp)}</Typography>
       </>
 
       {parsedData && (
         <>
-          <Typography variant="h3">Extra information</Typography>
+          <Typography variant="h5">Extra information</Typography>
           <Box
             sx={{
               display: 'block',

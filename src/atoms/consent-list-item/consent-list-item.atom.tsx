@@ -60,8 +60,8 @@ export const ConsentListItem: React.FC<ListItemProps> = (props) => {
           <Bank />
         </Avatar>
         <Box>
-          <Typography variant="h3">{consent.dataHolderName}</Typography>
-          <Typography variant="subtitle1" variantMapping={{ subtitle1: 'h4' }}>
+          <Typography variant="h5">{consent.dataHolderName}</Typography>
+          <Typography variant="subtitle1">
             <span>
               {subtitle} {textDate}
             </span>
