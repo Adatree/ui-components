@@ -123,13 +123,13 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
         fontSize: '1.4rem',
         letterSpacing: '0.1px',
         lineHeight: '1.4',
-        color: lighten(appTheme.colour.text.main, 0.18),
+        color: lighten(appTheme.colour.text.main, 0.3),
       },
       subtitle2: {
         fontSize: '1.2rem',
         letterSpacing: '0.1px',
         lineHeight: '1.4',
-        color: lighten(appTheme.colour.text.main, 0.18),
+        color: lighten(appTheme.colour.text.main, 0.3),
       },
     },
     components: {
