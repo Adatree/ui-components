@@ -21,7 +21,10 @@ const formatDate = (date: Date | string | undefined): string => {
       return '';
     }
   }
-  Logger.error('Unable to format date', date);
+  if (date) {
+    Logger.error('Unable to format date', date);
+  }
+
   return '';
 };
 
@@ -36,7 +39,10 @@ const formatDateTime = (date: Date | string | undefined): string => {
       return '';
     }
   }
-  Logger.error('Unable to format date', date);
+  if (date) {
+    Logger.error('Unable to format date', date);
+  }
+
   return '';
 };
 
@@ -51,7 +57,10 @@ const formatDateTimeTz = (date: Date | string | undefined): string => {
       return '';
     }
   }
-  Logger.error('Unable to format date', date);
+  if (date) {
+    Logger.error('Unable to format date', date);
+  }
+
   return '';
 };
 

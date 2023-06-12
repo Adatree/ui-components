@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Chip, IconButton, Link, Typography } from '@mui/material';
 import { ConsentResponse, Status } from '../../generated/consent';
-import { Formatter } from '../../utils/formatter/formater';
+import { Formatter } from '../../utils/formatter/formatter';
 import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 import { Bank, Delete, Pencil } from 'mdi-material-ui';
 

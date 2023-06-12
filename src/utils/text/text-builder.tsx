@@ -1,7 +1,7 @@
 import React from 'react';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { AccessFrequency, SharingDuration } from '../../generated/consent';
-import { Formatter } from '../formatter/formater';
+import { Formatter } from '../formatter/formatter';
 import { Helper } from '../helper/helper';
 
 const confirmation = (

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { ConsentResponse, AccessFrequency } from '../../generated/consent/api';
-import { Formatter } from '../../utils/formatter/formater';
+import { Formatter } from '../../utils/formatter/formatter';
 import { Helper } from '../../utils/helper/helper';
 import { Card } from '../../atoms/card/card.atom';
 

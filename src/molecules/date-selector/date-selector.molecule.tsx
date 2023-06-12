@@ -5,7 +5,7 @@ import { SharingDuration } from '../../generated/consent';
 import { DatePicker } from '../../atoms/date-picker/date-picker.atom';
 import { DateButton } from '../../atoms/date-button/date-button.atom';
 import { Helper } from '../../utils/helper/helper';
-import { Formatter } from '../../utils/formatter/formater';
+import { Formatter } from '../../utils/formatter/formatter';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 

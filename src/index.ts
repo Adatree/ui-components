@@ -77,7 +77,7 @@ export { InsightResponse } from './types/insight-response.type';
 
 // Utils
 export { Debugger } from './utils/debug/debug';
-export { Formatter } from './utils/formatter/formater';
+export { Formatter } from './utils/formatter/formatter';
 export { Helper } from './utils/helper/helper';
 export { Logger } from './utils/logger/logger';
 export { TestUtil } from './utils/test/test.util';

@@ -1,4 +1,4 @@
-import { Formatter } from './formater';
+import { Formatter } from './formatter';
 import { TestUtil } from '../test/test.util';
 
 /*

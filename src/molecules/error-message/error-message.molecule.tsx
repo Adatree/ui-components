@@ -4,7 +4,7 @@ import { AlertCircle } from 'mdi-material-ui';
 import { FeedbackMessage } from '../../atoms/feedback-message/feedback-message.atom';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { Box, Typography, useTheme } from '@mui/material';
-import { Formatter } from '../../utils/formatter/formater';
+import { Formatter } from '../../utils/formatter/formatter';
 
 export type ErrorMessageProps = {
   message: string;
