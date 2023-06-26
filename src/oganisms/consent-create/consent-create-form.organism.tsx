@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { useDataRecipients } from '../../context/data-recipient.context';
@@ -12,6 +12,7 @@ import { ConsentSectionActions } from '../../molecules/consent-section/consent-s
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { InsightResponse } from '../../types/insight-response.type';
+import { ConsentSectionDeletion } from '../../molecules/consent-section/consent-section-deletion.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -36,6 +37,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
+  const [showDeletionError, setShowDeletionError] = useState(false);
   const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
@@ -67,7 +69,12 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setShowDateError(false);
     }
 
-    if (consentForm.allAddScopesChecked && consentForm.dataHolder && consentForm.selectedSharingDurations) {
+    if (
+      consentForm.allAddScopesChecked &&
+      consentForm.dataHolder &&
+      consentForm.selectedSharingDurations &&
+      consentForm.postUsageAction
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -94,6 +101,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
+      setShowDeletionError(!consentForm.postUsageAction);
       setShowScopeError(consentForm.allAddScopesChecked === true ? false : true);
     }
   };
@@ -102,6 +110,17 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     consentForm.allAddScopesChecked = isAllClicked;
     setConsentForm({ ...consentForm });
     setShowScopeError(false);
+  };
+
+  const handleDeletionChange = (value: string) => {
+    if (value === PostUsageAction.DeIdentification) {
+      consentForm.postUsageAction = PostUsageAction.DeIdentification;
+    } else if (value === PostUsageAction.Deletion) {
+      consentForm.postUsageAction = PostUsageAction.Deletion;
+    }
+
+    setConsentForm({ ...consentForm });
+    setShowDeletionError(false);
   };
 
   const handleSubmit = () => {
@@ -125,6 +144,8 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
           />
 
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
+
+          <ConsentSectionDeletion showError={showDeletionError} onRadioCheck={handleDeletionChange} />
 
           <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
 
