@@ -13,15 +13,15 @@ import {
 import { InformationOutline, Close } from 'mdi-material-ui';
 
 export type SwitchDialogProps = {
-  switchTitle: string;
+  switchTitle: ReactElement;
   dialogTitle: string;
-  dialogContent: ReactElement;
+  children: ReactElement | ReactElement[];
   checked?: boolean;
   onCheck: (value: boolean) => void;
 };
 
 export const SwitchDialog: React.FC<SwitchDialogProps> = (props) => {
-  const { switchTitle, dialogTitle, dialogContent, checked = false, onCheck } = props;
+  const { switchTitle, dialogTitle, children, checked = false, onCheck } = props;
   const [isChecked, setIsChecked] = useState(checked);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -79,7 +79,7 @@ export const SwitchDialog: React.FC<SwitchDialogProps> = (props) => {
             <Close />
           </IconButton>
         </DialogTitle>
-        <DialogContent>{dialogContent}</DialogContent>
+        <DialogContent>{children}</DialogContent>
       </Dialog>
     </>
   );

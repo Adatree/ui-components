@@ -1,21 +1,21 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConsentSectionDeletion } from '../../lib';
+import { ConsentSectionDeIdentify } from '../../lib';
 
 export default {
-  title: 'Components/Molecules/Consent Section Deletion',
-  component: ConsentSectionDeletion,
+  title: 'Components/Molecules/Consent Section De-identify',
+  component: ConsentSectionDeIdentify,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof ConsentSectionDeletion>;
+} as ComponentMeta<typeof ConsentSectionDeIdentify>;
 
-const Template: ComponentStory<typeof ConsentSectionDeletion> = (args) => <ConsentSectionDeletion {...args} />;
+const Template: ComponentStory<typeof ConsentSectionDeIdentify> = (args) => <ConsentSectionDeIdentify {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   showError: false,
-  onRadioCheck: (value) => {
-    alert(`Radio button value is ${value}`);
+  onCheck: (value) => {
+    alert(`De-identify switch value is ${value}`);
   },
 };

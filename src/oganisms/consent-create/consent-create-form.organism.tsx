@@ -12,7 +12,7 @@ import { ConsentSectionActions } from '../../molecules/consent-section/consent-s
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { InsightResponse } from '../../types/insight-response.type';
-import { ConsentSectionDeletion } from '../../molecules/consent-section/consent-section-deletion.molecule';
+import { ConsentSectionDeIdentify } from '../../molecules/consent-section/consent-section-deletion.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -112,11 +112,11 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     setShowScopeError(false);
   };
 
-  const handleDeletionChange = (value: string) => {
-    if (value === PostUsageAction.DeIdentification) {
+  const handleDeletionChange = (value: boolean) => {
+    if (value) {
       consentForm.postUsageAction = PostUsageAction.DeIdentification;
-    } else if (value === PostUsageAction.Deletion) {
-      consentForm.postUsageAction = PostUsageAction.Deletion;
+    } else {
+      consentForm.postUsageAction = undefined;
     }
 
     setConsentForm({ ...consentForm });
@@ -143,9 +143,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
-          <ConsentSectionDates useCase={useCase} showError={showDateError} />
+          <ConsentSectionDeIdentify showError={showDeletionError} onCheck={handleDeletionChange} />
 
-          <ConsentSectionDeletion showError={showDeletionError} onRadioCheck={handleDeletionChange} />
+          <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
           <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
 

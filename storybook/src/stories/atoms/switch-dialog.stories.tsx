@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof SwitchDialog> = (args) => <SwitchDialog {.
 
 export const Default = Template.bind({});
 Default.args = {
-  switchTitle: 'Switch title',
+  switchTitle: <>Switch title</>,
   dialogTitle: 'Dialog title',
-  dialogContent: <>Some Dialog Content</>,
+  children: <>Some Dialog Content</>,
   onCheck: (value) => {
     alert(`Switch has been checked with value ${value}`);
   },
