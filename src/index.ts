@@ -27,6 +27,7 @@ export { SectionCard } from './atoms/section-card/section-card.atom';
 export { ScopeList } from './atoms/scope-list/scope-list.atom';
 export { ScopeListCheckbox } from './atoms/scope-list/scope-list-checkbox.atom';
 export { ScopeListSwitch } from './atoms/scope-list/scope-list-switch.atom';
+export { SwitchDialog } from './atoms/switch-with-dialog/switch-with-dialog.atom';
 export { Tooltip } from './atoms/tooltip/tooltip.atom';
 
 // Molecules
