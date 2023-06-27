@@ -4,7 +4,6 @@ import {
   AccessFrequency,
   ConsentFormProvider,
   ConsentCreate,
-  PostUsageAction,
   SharingDuration,
   TestUtil,
   UseCaseResponse,
@@ -160,6 +159,25 @@ WithMultiDatesAndCustom.decorators = [
   (Story, context) => {
     context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
     context.args.useCase = TestUtil.testData.useCase.ongoingConsentMinScopes();
+
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
+export const WithDeIdentifySection = Template.bind({});
+WithDeIdentifySection.decorators = [
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+      features: ['DE_IDENTIFICATION'],
+    };
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>

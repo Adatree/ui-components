@@ -37,11 +37,13 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
   const [showScopeError, setShowScopeError] = useState(false);
-  const [showDeletionError, setShowDeletionError] = useState(false);
+  const [showDeIdentifyError, setShowDeIdentifyError] = useState(false);
+  const [showDeIdentifySection, setShowDeIdentifySection] = useState(false);
   const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient } = useDataRecipients();
+
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
   });
@@ -61,6 +63,16 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setSubTitle(
         `${insightResponse.nonAccreditedDataRecipient} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
       );
+    }
+
+    // @ts-ignore
+    if (useCase.features && Array.isArray(useCase.features) && useCase.features.includes('DE_IDENTIFICATION')) {
+      consentForm.postUsageAction = undefined;
+      setConsentForm({ ...consentForm });
+      setShowDeIdentifySection(true);
+    } else {
+      consentForm.postUsageAction = PostUsageAction.Deletion;
+      setConsentForm({ ...consentForm });
     }
   }, []);
 
@@ -101,7 +113,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     } else {
       setShowDataHolderError(!consentForm.dataHolder);
       setShowDateError(!consentForm.selectedSharingDurations);
-      setShowDeletionError(!consentForm.postUsageAction);
+      setShowDeIdentifyError(!consentForm.postUsageAction);
       setShowScopeError(consentForm.allAddScopesChecked === true ? false : true);
     }
   };
@@ -112,7 +124,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     setShowScopeError(false);
   };
 
-  const handleDeletionChange = (value: boolean) => {
+  const handleDeIdentifyChange = (value: boolean) => {
     if (value) {
       consentForm.postUsageAction = PostUsageAction.DeIdentification;
     } else {
@@ -120,7 +132,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     }
 
     setConsentForm({ ...consentForm });
-    setShowDeletionError(false);
+    setShowDeIdentifyError(false);
   };
 
   const handleSubmit = () => {
@@ -143,8 +155,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
-          <ConsentSectionDeIdentify showError={showDeletionError} onCheck={handleDeletionChange} />
-
+          {showDeIdentifySection && (
+            <ConsentSectionDeIdentify showError={showDeIdentifyError} onCheck={handleDeIdentifyChange} />
+          )}
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 
           <ConsentSectionInfo useCase={useCase} dataHandlers={dataHandlersWithoutPrimary} />
