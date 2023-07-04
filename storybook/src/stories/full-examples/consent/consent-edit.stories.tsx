@@ -172,3 +172,27 @@ WithMultiDatesAndCustom.args = {
   onCancel: handleCancel,
   onSubmit: handleSummit,
 };
+
+// ####################################
+
+export const WithPostUsageActionDeidentification = Template.bind({});
+
+WithPostUsageActionDeidentification.decorators = [
+  (Story) => {
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+WithPostUsageActionDeidentification.args = {
+  consent: TestUtil.testData.consent.activeWithDeIdentification(),
+  useCase: {
+    ...TestUtil.testData.useCase.deIdentification(),
+    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
+  },
+  onCancel: handleCancel,
+  onSubmit: handleSummit,
+};

@@ -123,12 +123,31 @@ const openEnergy = (): UseCaseResponse => {
   };
 };
 
+const deIdentification = (): UseCaseResponse => {
+  return {
+    id: 'DE_IDENTIFICATION',
+    name: 'De-identification use case example',
+    dataHolders: dataHolder.allBanking(),
+    description: 'Data is used to assess your suitability and is de-identified on deletion',
+    //@ts-ignore
+    features: ['DE_IDENTIFICATION'],
+    industries: [Industry.Banking],
+    priority: 1,
+    historicalCollectionPeriodInDays: 90,
+    notificationType: NotificationType.Email,
+    scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
+    accessFrequency: AccessFrequency.OnceOff,
+    sharingDurations: [SharingDuration.OnceOff],
+  };
+};
+
 const all = (): UseCaseResponse[] => [
   onceOffConsentMinScopes(),
   ongoingConsentMinScopes(),
   homeLoan(),
   openEnergyLite(),
   openEnergy(),
+  deIdentification(),
 ];
 
 export const useCase = {
@@ -139,4 +158,5 @@ export const useCase = {
   homeLoanWithOsps,
   openEnergyLite,
   openEnergy,
+  deIdentification,
 };

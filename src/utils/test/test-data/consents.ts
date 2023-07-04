@@ -44,6 +44,13 @@ const activeWithGrantee = (): ConsentResponse => {
   };
 };
 
+const activeWithDeIdentification = (): ConsentResponse => {
+  return {
+    ...active(),
+    postUsageAction: PostUsageAction.DeIdentification,
+  };
+};
+
 const revoked = (): ConsentResponse => {
   return {
     consentId: 'f328b2fb-441e-951d-2f9e-2296af82cae1',
@@ -131,6 +138,7 @@ const expiredWithGrantee = (): ConsentResponse => {
 const all = (): ConsentResponse[] => {
   return [
     active(),
+    activeWithDeIdentification(),
     activeWithGrantee(),
     revoked(),
     requested(),
@@ -210,6 +218,7 @@ const getTestUuidV4 = () => {
 export const consent = {
   all,
   active,
+  activeWithDeIdentification,
   activeWithGrantee,
   expiredWithGrantee,
   requestedWithGrantee,
