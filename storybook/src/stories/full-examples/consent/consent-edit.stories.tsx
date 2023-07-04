@@ -40,8 +40,9 @@ const Template: ComponentStory<typeof ConsentEdit> = (args) => <ConsentEdit {...
 
 // ####################################
 
-export const WithNoChanges = Template.bind({});
-WithNoChanges.decorators = [
+export const WithPostUsageAction = Template.bind({});
+
+WithPostUsageAction.decorators = [
   (Story) => {
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -51,11 +52,11 @@ WithNoChanges.decorators = [
   },
 ];
 
-WithNoChanges.args = {
-  consent: TestUtil.testData.consent.active(),
+WithPostUsageAction.args = {
+  consent: TestUtil.testData.consent.activeWithDeIdentification(),
   useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    accessFrequency: AccessFrequency.Ongoing,
+    ...TestUtil.testData.useCase.deIdentification(),
+    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
   },
   onCancel: handleCancel,
   onSubmit: handleSummit,
@@ -84,115 +85,114 @@ WithNonActiveConsent.args = {
   onSubmit: handleSummit,
 };
 
-// ####################################
+// // ####################################
 
-export const WithCustomDate = Template.bind({});
-WithCustomDate.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
+// export const WithNoChanges = Template.bind({});
+// WithNoChanges.decorators = [
+//   (Story) => {
+//     return (
+//       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+//         <Story />
+//       </ConsentFormProvider>
+//     );
+//   },
+// ];
 
-WithCustomDate.args = {
-  consent: TestUtil.testData.consent.active(),
-  useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.Custom] },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
+// WithNoChanges.args = {
+//   consent: TestUtil.testData.consent.active(),
+//   useCase: {
+//     ...TestUtil.testData.useCase.homeLoan(),
+//     accessFrequency: AccessFrequency.Ongoing,
+//   },
+//   onCancel: handleCancel,
+//   onSubmit: handleSummit,
+// };
 
-// ####################################
+// // ####################################
 
-export const WithSingleDate = Template.bind({});
-WithSingleDate.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
+// export const WithCustomDate = Template.bind({});
+// WithCustomDate.decorators = [
+//   (Story) => {
+//     return (
+//       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+//         <Story />
+//       </ConsentFormProvider>
+//     );
+//   },
+// ];
 
-WithSingleDate.args = {
-  consent: TestUtil.testData.consent.active(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.OneMonth],
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
+// WithCustomDate.args = {
+//   consent: TestUtil.testData.consent.active(),
+//   useCase: { ...TestUtil.testData.useCase.homeLoan(), sharingDurations: [SharingDuration.Custom] },
+//   onCancel: handleCancel,
+//   onSubmit: handleSummit,
+// };
 
-// ####################################
+// // ####################################
 
-export const WithMultiDates = Template.bind({});
-WithMultiDates.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
+// export const WithSingleDate = Template.bind({});
+// WithSingleDate.decorators = [
+//   (Story) => {
+//     return (
+//       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+//         <Story />
+//       </ConsentFormProvider>
+//     );
+//   },
+// ];
 
-WithMultiDates.args = {
-  consent: TestUtil.testData.consent.active(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.OneMonth, SharingDuration.SixMonths, SharingDuration.OneYear],
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
+// WithSingleDate.args = {
+//   consent: TestUtil.testData.consent.active(),
+//   useCase: {
+//     ...TestUtil.testData.useCase.homeLoan(),
+//     sharingDurations: [SharingDuration.OneMonth],
+//   },
+//   onCancel: handleCancel,
+//   onSubmit: handleSummit,
+// };
 
-// ####################################
+// // ####################################
 
-export const WithMultiDatesAndCustom = Template.bind({});
-WithMultiDatesAndCustom.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
+// export const WithMultiDates = Template.bind({});
+// WithMultiDates.decorators = [
+//   (Story) => {
+//     return (
+//       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+//         <Story />
+//       </ConsentFormProvider>
+//     );
+//   },
+// ];
 
-WithMultiDatesAndCustom.args = {
-  consent: TestUtil.testData.consent.active(),
-  useCase: {
-    ...TestUtil.testData.useCase.homeLoan(),
-    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
+// WithMultiDates.args = {
+//   consent: TestUtil.testData.consent.active(),
+//   useCase: {
+//     ...TestUtil.testData.useCase.homeLoan(),
+//     sharingDurations: [SharingDuration.OneMonth, SharingDuration.SixMonths, SharingDuration.OneYear],
+//   },
+//   onCancel: handleCancel,
+//   onSubmit: handleSummit,
+// };
 
-// ####################################
+// // ####################################
 
-export const WithPostUsageActionDeidentification = Template.bind({});
+// export const WithMultiDatesAndCustom = Template.bind({});
+// WithMultiDatesAndCustom.decorators = [
+//   (Story) => {
+//     return (
+//       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+//         <Story />
+//       </ConsentFormProvider>
+//     );
+//   },
+// ];
 
-WithPostUsageActionDeidentification.decorators = [
-  (Story) => {
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <Story />
-      </ConsentFormProvider>
-    );
-  },
-];
-
-WithPostUsageActionDeidentification.args = {
-  consent: TestUtil.testData.consent.activeWithDeIdentification(),
-  useCase: {
-    ...TestUtil.testData.useCase.deIdentification(),
-    sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
-  },
-  onCancel: handleCancel,
-  onSubmit: handleSummit,
-};
+// WithMultiDatesAndCustom.args = {
+//   consent: TestUtil.testData.consent.active(),
+//   useCase: {
+//     ...TestUtil.testData.useCase.homeLoan(),
+//     sharingDurations: [SharingDuration.Custom, SharingDuration.SixMonths, SharingDuration.OneYear],
+//   },
+//   onCancel: handleCancel,
+//   onSubmit: handleSummit,
+// };
