@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ConsentResponse, Status, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';

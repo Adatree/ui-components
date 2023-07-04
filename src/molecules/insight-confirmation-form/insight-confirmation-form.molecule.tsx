@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react';
-
+import React from 'react';
 import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { InsightResponse } from '../../types/insight-response.type';
 import { InsightList } from '../../atoms/insight-list/insight-list.atom';
