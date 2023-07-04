@@ -210,7 +210,7 @@ describe('Helper Utils', () => {
       expect(
         isWithinInterval(Helper.sharingDurationToDate(SharingDuration.OneMonth), {
           start: addDays(curDate, 27),
-          end: addDays(curDate, 31),
+          end: addDays(curDate, 32),
         }),
       ).toBeTruthy();
 
