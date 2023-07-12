@@ -14,6 +14,10 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
   const { showError, onCheck } = props;
   const { primaryDataRecipient } = useDataRecipients();
 
+  // JIRA ADA-3547: Hard coded for now
+  const explanationMessage =
+    'Your data will be aggregated with other users in your area to create baseline statistics against which your energy efficiency can be compared. These baselines would only be disclosed to others users in your general area. Any data used to create these baselines will not be attributable to you and you will not be able to elect that it be deleted.';
+
   const handleSwitchCheck = (value: boolean) => {
     onCheck(value);
   };
@@ -31,7 +35,7 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
           dialogTitle={'De-identify'}
           onCheck={handleSwitchCheck}
         >
-          <>An explanation of what de-identify actually means.</>
+          <>{explanationMessage}</>
         </SwitchDialog>
       </Card>
 
