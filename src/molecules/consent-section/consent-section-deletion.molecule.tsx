@@ -16,7 +16,7 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
 
   // JIRA ADA-3547: Hard coded for now
   const explanationMessage =
-    'Your data will be aggregated with other users in your area to create baseline statistics against which your energy efficiency can be compared. These baselines would only be disclosed to others users in your general area. Any data used to create these baselines will not be attributable to you and you will not be able to elect that it be deleted.';
+    'We will aggregate your energy usage data with other users in your area to create baseline statistics against which your energy efficiency can be compared. These baselines will only be disclosed to other users in your general area. The data used to create these baselines will not be attributable to you, and you will not be able to elect that it be deleted.';
 
   const handleSwitchCheck = (value: boolean) => {
     onCheck(value);
