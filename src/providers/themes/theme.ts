@@ -154,6 +154,13 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
           },
         },
       },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            textTransform: 'capitalize',
+          },
+        },
+      },
     },
 
     // Set the spacing scaling factor (px)
