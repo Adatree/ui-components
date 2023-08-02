@@ -13,10 +13,11 @@ export type ConsentInputDataHolderProps = {
   useCase: UseCaseResponse;
   favouriteDataHolders?: DataHolder[];
   blockedDataHolderList?: DataHolder[];
+  onNotListedClick?: () => void;
 };
 
 export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
-  const { disableDataHolders, favouriteDataHolders, useCase, blockedDataHolderList = [] } = props;
+  const { disableDataHolders, favouriteDataHolders, useCase, blockedDataHolderList = [], onNotListedClick } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
@@ -35,6 +36,10 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
   const handleDataHolderChange = (dataHolder: DataHolder | null) => {
     if (dataHolder === null) {
       consentForm.dataHolder = undefined;
+    } else if (dataHolder.dataHolderBrandId === 'not-listed') {
+      if (onNotListedClick) {
+        onNotListedClick();
+      }
     } else if (isDataHolderBlocked(dataHolder)) {
       Logger.warn(
         `Data holder blocking enabled for ${dataHolder.brandName}, full list of blocked IDs`,

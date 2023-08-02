@@ -20,6 +20,18 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   const [copy] = useCopy();
 
   useEffect(() => {
+    const notListedId = 'not-listed';
+
+    if (!dataHolders.some((dataHolder) => dataHolder.dataHolderBrandId === notListedId)) {
+      dataHolders.push({
+        dataHolderBrandId: notListedId,
+        brandName: copy.component.data_holder.not_listed,
+        logoUri: 'https://design.adatree.com.au/assets/images/block-icon-grey.png',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (showError) {
       setError(inputValue === null ? true : false);
     }

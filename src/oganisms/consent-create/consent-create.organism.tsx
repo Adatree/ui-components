@@ -20,6 +20,7 @@ export type ConsentCreateProps = {
   insightResponse?: InsightResponse;
   onCancel: () => void;
   onSubmit: () => void;
+  onNotListedClick?: () => void;
 };
 
 export const ConsentCreate = (props: ConsentCreateProps) => {
@@ -34,6 +35,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     insightResponse,
     onCancel,
     onSubmit,
+    onNotListedClick,
   } = props;
   const [consentForm] = useConsentForm();
   const [showInsights, setShowInsights] = useState<boolean>(insightResponse !== undefined);
@@ -71,6 +73,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               useCase={useCase}
               favouriteDataHolders={favouriteDataHolders}
               blockedDataHolderList={blockedDataHolderList}
+              onNotListedClick={onNotListedClick}
             />
           )}
           {consentForm.dataHolder && showInsights && insightResponse && (

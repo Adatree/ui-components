@@ -58,6 +58,9 @@ export const componentCopy = (
 
       title: 'Who else has access to my data?',
     },
+    data_holder: {
+      not_listed: `My ${providerType} is not listed`,
+    },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} use ${adrDataRecipient.name} to help you consent and access your data.`,
       list_cdr_protection: `Data shared with ${primaryDataRecipient.name} is not subject to CDR Protections.`,

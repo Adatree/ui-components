@@ -59,6 +59,9 @@ export interface Copy {
       list_non_adr_disclaimer: (name: string) => ReactElement;
       title: string;
     };
+    data_holder: {
+      not_listed: string;
+    };
     general_information: {
       list_adr_context: string;
       list_cdr_protection: string;
