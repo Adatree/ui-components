@@ -10,11 +10,20 @@ export type CheckboxAccordionProps = {
   label?: string;
   disableDataHolders?: DataHolder[];
   showError?: boolean;
+  showNotListed?: boolean;
   onChange: (value: DataHolder | null) => void;
 };
 
 export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) => {
-  const { dataHolders, label = '', defaultValue = null, disableDataHolders = [], showError = false, onChange } = props;
+  const {
+    dataHolders,
+    label = '',
+    defaultValue = null,
+    disableDataHolders = [],
+    showError = false,
+    showNotListed = false,
+    onChange,
+  } = props;
   const [inputValue, setInputValue] = useState<DataHolder | null>(null);
   const [error, setError] = useState(showError);
   const [copy] = useCopy();
@@ -22,12 +31,14 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   useEffect(() => {
     const notListedId = 'not-listed';
 
-    if (!dataHolders.some((dataHolder) => dataHolder.dataHolderBrandId === notListedId)) {
-      dataHolders.push({
-        dataHolderBrandId: notListedId,
-        brandName: copy.component.data_holder.not_listed,
-        logoUri: 'https://design.adatree.com.au/assets/images/block-icon-grey.png',
-      });
+    if (showNotListed) {
+      if (!dataHolders.some((dataHolder) => dataHolder.dataHolderBrandId === notListedId)) {
+        dataHolders.push({
+          dataHolderBrandId: notListedId,
+          brandName: copy.component.data_holder.not_listed,
+          logoUri: 'https://design.adatree.com.au/assets/images/block-icon-grey.png',
+        });
+      }
     }
   }, []);
 

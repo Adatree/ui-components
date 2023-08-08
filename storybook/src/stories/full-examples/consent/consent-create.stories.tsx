@@ -264,6 +264,26 @@ WithBlockedRedBank.decorators = [
 
 // ########################################################################
 
+export const WithNoDataHolderListed = Template.bind({});
+WithNoDataHolderListed.decorators = [
+  (Story, context) => {
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+    };
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.onNotListedClick = () => {
+      alert('No data holder listed clicked');
+    };
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
   (Story, context) => {

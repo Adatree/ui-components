@@ -92,6 +92,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
             onChange={handleDataHolderChange}
             showError={showDataHolderError}
             label={copy.consent.create.data_holder_input_label}
+            showNotListed={onNotListedClick !== undefined}
           />
 
           {blockedDataHolderList.length >= 1 && blockedDataHolder && (
