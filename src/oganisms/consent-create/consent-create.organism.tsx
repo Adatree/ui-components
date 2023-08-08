@@ -47,10 +47,6 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(useCase.dataHolders, existingConsents, useCase);
   }
 
-  const handleInsightsCancel = () => {
-    onCancel();
-  };
-
   const handleInsightsSubmit = () => {
     setShowInsights(false);
   };
@@ -73,13 +69,14 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               useCase={useCase}
               favouriteDataHolders={favouriteDataHolders}
               blockedDataHolderList={blockedDataHolderList}
+              onCancel={handleCancel}
               onNotListedClick={onNotListedClick}
             />
           )}
           {consentForm.dataHolder && showInsights && insightResponse && (
             <ConsentInsightForm
               insightResponse={insightResponse}
-              onCancel={handleInsightsCancel}
+              onCancel={handleCancel}
               onSubmit={handleInsightsSubmit}
             />
           )}

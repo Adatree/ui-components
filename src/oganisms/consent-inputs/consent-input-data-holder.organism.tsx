@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DataHolder, UseCaseResponse } from '../../generated/consent';
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { useConsentForm } from '../../context/consentForm.context';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles.atom';
 import { useCopy } from '../../context/copy.context';
 import { Logger } from '../../utils/logger/logger';
@@ -11,13 +11,21 @@ import { BlockedDataholderDialog } from '../../molecules/blocked-dataholder-dial
 export type ConsentInputDataHolderProps = {
   disableDataHolders: DataHolder[];
   useCase: UseCaseResponse;
+  onCancel: () => void;
   favouriteDataHolders?: DataHolder[];
   blockedDataHolderList?: DataHolder[];
   onNotListedClick?: () => void;
 };
 
 export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
-  const { disableDataHolders, favouriteDataHolders, useCase, blockedDataHolderList = [], onNotListedClick } = props;
+  const {
+    disableDataHolders,
+    favouriteDataHolders,
+    useCase,
+    blockedDataHolderList = [],
+    onNotListedClick,
+    onCancel,
+  } = props;
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
@@ -98,6 +106,10 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
           )}
         </>
       )}
+
+      <Button variant="outlined" color="inherit" onClick={onCancel} sx={{ mt: 2 }}>
+        Cancel
+      </Button>
     </>
   );
 };
