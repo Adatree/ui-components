@@ -32,7 +32,7 @@ export default {
 
 const baseConsentFormValues = {
   accessFrequency: undefined,
-  allAddScopesChecked: false,
+  allAddScopesChecked: true,
   allRemoveScopesChecked: false,
   dataHolder: undefined,
   insightsConfirmation: false,

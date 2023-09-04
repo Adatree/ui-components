@@ -14,7 +14,7 @@ export type ConsentSectionScopesProps = {
 };
 
 export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props) => {
-  const { message, showError, scopes, readOnly = false, onChange } = props;
+  const { message, showError, scopes, readOnly = true, onChange } = props;
 
   const handleChange = (isAllClicked: boolean) => {
     if (onChange) {
