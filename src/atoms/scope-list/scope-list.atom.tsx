@@ -66,6 +66,9 @@ export const ScopeList: React.FC<ScopeListProps> = (props) => {
             </ListItem>
           );
         })}
+        <Typography variant="subtitle1" sx={{ px: 1, py: 1 }}>
+          We will only access what we need for this service
+        </Typography>
       </List>
 
       <Dialog onClose={handleDialogClose} open={isDialogOpen}>
