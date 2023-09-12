@@ -40,7 +40,7 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
         });
       }
     }
-  }, []);
+  }, [copy]);
 
   useEffect(() => {
     if (showError) {
