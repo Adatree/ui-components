@@ -32,13 +32,16 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
     const notListedId = 'not-listed';
 
     if (showNotListed) {
-      if (!dataHolders.some((dataHolder) => dataHolder.dataHolderBrandId === notListedId)) {
-        dataHolders.push({
-          dataHolderBrandId: notListedId,
-          brandName: copy.component.data_holder.not_listed,
-          logoUri: 'https://design.adatree.com.au/assets/images/block-icon-grey.png',
-        });
+      const index = dataHolders.findIndex((dataHolder) => dataHolder.dataHolderBrandId === notListedId);
+
+      if (index > -1) {
+        dataHolders.splice(index, 1);
       }
+      dataHolders.push({
+        dataHolderBrandId: notListedId,
+        brandName: copy.component.data_holder.not_listed,
+        logoUri: 'https://design.adatree.com.au/assets/images/block-icon-grey.png',
+      });
     }
   }, [copy]);
 
