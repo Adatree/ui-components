@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box } from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import { UseCaseResponse } from '../../generated/consent/api';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/info-accordions/general-info.atom';
@@ -37,7 +37,7 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
         <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
-        <Accordion title="What is the purpose of accessing my data?" content={useCase.description} />
+        <Accordion title="What is the purpose of accessing my data?" content={<Typography variant="body1">{useCase.description}</Typography>} />
         {dataHandlers && dataHandlers.length > 0 && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (
           <SupportingParties title={'Supporting Parties'} useCase={useCase} outsourcedServiceProviders={useCase.osps} />
