@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "jest": "^27.4.7",
-    "postcss": "^8.4.20",
+    "postcss": "^8.4.31",
     "prettier": "2.5.1",
     "process": "^0.11.10",
     "react": "^18.2.0",
