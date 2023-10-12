@@ -16,7 +16,7 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
 
   // JIRA ADA-3547: Hard coded for now
   const explanationMessage =
-    'We will aggregate your energy usage data with other users in your area to create baseline statistics against which your energy efficiency can be compared. These baselines will only be disclosed to other users in your general area. The data used to create these baselines will not be attributable to you, and you will not be able to elect that it be deleted.';
+    "We'll combine your energy use data with that of others in your neighbourhood to calculate average numbers. These averages help you see how your energy use compares to other households in your area. We'll remove any personal information that could identify you - including your name, contact information, and physical address. The data used to create these averages will not be attributable to you, and you will not be able to elect that it be deleted.";
 
   const handleSwitchCheck = (value: boolean) => {
     onCheck(value);
@@ -28,8 +28,8 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
         <SwitchDialog
           switchTitle={
             <>
-              <Highlight>{primaryDataRecipient.name}</Highlight> would like to de-identify your data to provide the
-              requested service
+              <Highlight>{primaryDataRecipient.name}</Highlight> would like to combine your anonymised data with others
+              in your area to calculate average numbers.
             </>
           }
           dialogTitle={'De-identify'}
