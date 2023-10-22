@@ -28,7 +28,7 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
         <SwitchDialog
           switchTitle={
             <>
-              <Highlight>{primaryDataRecipient.name}</Highlight> requires your anonymised data to provide you with enhanced insight.
+              <Highlight>{primaryDataRecipient.name}</Highlight> requires your consent to combine your anonymised data with that of others in your area in order to calculate average numbers.
             </>
           }
           dialogTitle={'De-identify'}
