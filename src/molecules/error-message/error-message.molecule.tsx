@@ -10,14 +10,24 @@ export type ErrorMessageProps = {
   message: string;
   code?: string;
   data?: object | string;
-  type?: string;
   timeStamp?: Date;
-  url?: string;
+  type?: string;
   supportContact?: string;
+  url?: string;
+  userMessage?: string;
 };
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessageProps) => {
-  const { message, code, data, type = 'UNKNOWN', timeStamp = new Date(), url, supportContact } = props;
+  const {
+    message,
+    code,
+    data,
+    timeStamp = new Date(),
+    type = 'UNKNOWN',
+    supportContact,
+    url,
+    userMessage = 'We are sorry but it looks like an error has occurred.',
+  } = props;
   const theme = useTheme();
   const bgCode = theme.palette.mode === 'light' ? '#F6F6F6' : '#444B5C';
   const iconFontSize = '56px';
@@ -98,7 +108,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessagePro
   return (
     <>
       <FeedbackMessage
-        message={'We are sorry but it looks like an error has occurred.'}
+        message={userMessage}
         icon={<AlertCircle sx={{ fontSize: iconFontSize, color: 'error.main' }} />}
       >
         {body}
