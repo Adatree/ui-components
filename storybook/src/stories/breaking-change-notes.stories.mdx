@@ -13,11 +13,11 @@ We introduce a generic analytics context provider to allow you to measuse the us
 When using components from this library, they need to be wrapped with the `AnalyticsProvider`.
 
 ```
-const myTrackingCallback = (componentId: string, componentDescription: string, action: string, value?: string) => {
+const myTrackingCallback = (event: string, componentId: string, componentDescription: string, action: string, value?: string) => {
 
     // Example using Mixpanel
     mixpanel.track(
-        componentDescription,
+        event,
         {
             "action": action,
             "value": value,

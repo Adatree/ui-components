@@ -7,6 +7,11 @@ export const AnalyticsComponentMeta = {
   ADT_CMP_DH_DD: { id: 'ADT_CMP_DH_DD', description: 'Data holder dropdown' },
 };
 
+export const AnalyticsEvents = {
+  PAGE_LOAD: 'Page load',
+  UI_INTERACTION: 'UI interaction',
+};
+
 export const AnalyticsAction = {
   OPEN: 'Open',
   CLICK: 'Click',
@@ -18,7 +23,7 @@ export const AnalyticsAction = {
 };
 
 interface ContextProps {
-  track: (componentId: string, componentDescription: string, action: string, value?: string) => void;
+  track: (event: string, componentId: string, componentDescription: string, action: string, value?: string) => void;
 }
 
 const AnalyticsContext = createContext<ContextProps | undefined>(undefined);
@@ -35,13 +40,14 @@ interface ProviderProps {
   /**
    * Called when a user interacts with a component. (Not all component interactions have been implemented, see Changelog for details)
    *
+   * @param event - Description of the event, Example: Page load or Consent created,
    * @param componentId - Unqie ID of the component.
-   * @param componentDescription - Text description of the component.
+   * @param componentDescription - Description of the component.
    * @param action - The action (CLICK, OPEN, CLOSED ...) performed on the component.
    * @param value - An optional value related to the component interaction. Example: the value of an item selected in a dropdown.
    *
    */
-  onTrack?: (componentId: string, componentDescription: string, action: string, value?: string) => void;
+  onTrack?: (event: string, componentId: string, componentDescription: string, action: string, value?: string) => void;
   children: ReactElement | ReactElement[];
 }
 /**
@@ -51,9 +57,9 @@ interface ProviderProps {
  *
  */
 const AnalyticsProvider = ({ children, onTrack }: ProviderProps) => {
-  const track = (componentId: string, componentDescription: string, action: string, value?: string) => {
+  const track = (event: string, componentId: string, componentDescription: string, action: string, value?: string) => {
     if (onTrack) {
-      onTrack(componentId, componentDescription, action, value);
+      onTrack(event, componentId, componentDescription, action, value);
     } else {
       Logger.warn(
         'useAnalytics onTrack function is not set. To remove this warning please provide an onTrack function to the AnalyticsProvider',

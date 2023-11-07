@@ -2,7 +2,12 @@ import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
-import { AnalyticsAction, AnalyticsComponentMeta, useAnalytics } from '../../context/analytics.context';
+import {
+  AnalyticsAction,
+  AnalyticsComponentMeta,
+  AnalyticsEvents,
+  useAnalytics,
+} from '../../context/analytics.context';
 
 export type DataHolderTilesProps = {
   dataHolders: DataHolder[];
@@ -23,6 +28,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   const handleClick = (dataHolder: DataHolder, disabled: boolean) => {
     if (!disabled) {
       track(
+        AnalyticsEvents.UI_INTERACTION,
         AnalyticsComponentMeta.ADT_CMP_DH_TILE.id,
         AnalyticsComponentMeta.ADT_CMP_DH_TILE.description,
         AnalyticsAction.CLICK,

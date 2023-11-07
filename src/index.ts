@@ -66,7 +66,7 @@ export * from './context/data-recipient.context';
 
 // Enum - Constant
 export { DataRecipientType } from './types/data-recipient.type';
-export { AnalyticsComponentMeta, AnalyticsAction } from './context/analytics.context';
+export { AnalyticsComponentMeta, AnalyticsAction, AnalyticsEvents } from './context/analytics.context';
 
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
