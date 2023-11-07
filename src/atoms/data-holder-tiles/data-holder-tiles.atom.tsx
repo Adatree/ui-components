@@ -2,6 +2,7 @@ import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '../../generated/consent/api';
 import { Card } from '../card/card.atom';
+import { AnalyticsAction, AnalyticsComponentMeta, useAnalytics } from '../../context/analytics.context';
 
 export type DataHolderTilesProps = {
   dataHolders: DataHolder[];
@@ -11,6 +12,7 @@ export type DataHolderTilesProps = {
 
 export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   const { dataHolders, disableDataHolders = [], onClick } = props;
+  const { track } = useAnalytics();
   const theme = useTheme();
 
   let titleBackground = '#fff';
@@ -20,6 +22,12 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
 
   const handleClick = (dataHolder: DataHolder, disabled: boolean) => {
     if (!disabled) {
+      track(
+        AnalyticsComponentMeta.ADT_CMP_DH_TILE.id,
+        AnalyticsComponentMeta.ADT_CMP_DH_TILE.description,
+        AnalyticsAction.CLICK,
+        dataHolder.brandName,
+      );
       onClick(dataHolder);
     }
   };

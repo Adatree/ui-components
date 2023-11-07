@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AnalyticsProvider,
   CopyProvider,
   darkTheme,
   defaultTheme,
@@ -128,6 +129,10 @@ const getTheme = (key) => {
   }
 };
 
+const handleAnalyticsOnTrack = (id, description, action, value) => {
+  console.log(`Dummy analytics track called with '${id}', '${description}', '${action}' and '${value}'`);
+};
+
 export const decorators = [
   (Story, context) => {
     getDataRecipients(context.globals.dataRecipient);
@@ -145,7 +150,9 @@ export const decorators = [
                 industry,
               )}
             >
-              <Story />
+              <AnalyticsProvider onTrack={handleAnalyticsOnTrack}>
+                <Story />
+              </AnalyticsProvider>
             </CopyProvider>
           </DataRecipientsProvider>
         </ThemeProvider>

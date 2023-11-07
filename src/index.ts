@@ -59,12 +59,14 @@ export { ApiCogIcon } from './atoms/icons/api-cog.icon';
 export { CopyBuilder } from './copy/copy';
 
 // Context
+export * from './context/analytics.context';
 export * from './context/consentForm.context';
 export * from './context/copy.context';
 export * from './context/data-recipient.context';
 
-// Enum
+// Enum - Constant
 export { DataRecipientType } from './types/data-recipient.type';
+export { AnalyticsComponentMeta, AnalyticsAction } from './context/analytics.context';
 
 // Providers
 export { ThemeProvider } from './providers/theme.provider';
