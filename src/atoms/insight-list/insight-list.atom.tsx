@@ -12,6 +12,12 @@ import {
 } from '@mui/material';
 import { InformationOutline, Close } from 'mdi-material-ui';
 import { Insight, InsightResponse } from '../../types/insight-response.type';
+import {
+  AnalyticsEvents,
+  AnalyticsAction,
+  AnalyticsComponentMeta,
+  useAnalytics,
+} from '../../context/analytics.context';
 
 interface Props {
   insightResponse: InsightResponse;
@@ -20,10 +26,18 @@ interface Props {
 
 export const InsightList = (props: Props) => {
   const { insightResponse, dataHolderName } = props;
+  const { track } = useAnalytics();
   const [insight, setInsight] = useState<Insight>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleInfoClick = (insight: Insight) => {
+    track(
+      AnalyticsEvents.UI_INTERACTION,
+      AnalyticsComponentMeta.ADT_CMP_INS_LT_INFO.id,
+      AnalyticsComponentMeta.ADT_CMP_INS_LT_INFO.description,
+      AnalyticsAction.OPEN,
+      insight.name,
+    );
     setInsight(insight);
     setIsDialogOpen(true);
   };

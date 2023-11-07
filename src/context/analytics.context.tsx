@@ -5,6 +5,7 @@ import { Logger } from '../utils/logger/logger';
 export const AnalyticsComponentMeta = {
   ADT_CMP_DH_TILE: { id: 'ADT_CMP_DH_TILE', description: 'Data holder tile' },
   ADT_CMP_DH_DD: { id: 'ADT_CMP_DH_DD', description: 'Data holder dropdown' },
+  ADT_CMP_INS_LT_INFO: { id: 'ADT_CMP_INS_LT_INFO', description: 'Insights list item info' },
 };
 
 export const AnalyticsEvents = {
