@@ -129,8 +129,8 @@ const getTheme = (key) => {
   }
 };
 
-const handleAnalyticsOnTrack = (id, description, action, value) => {
-  console.log(`Dummy analytics track called with '${id}', '${description}', '${action}' and '${value}'`);
+const handleAnalyticsOnTrack = (event, id, description, action, value) => {
+  console.log(`Dummy analytics track called with '${event}', '${id}', '${description}', '${action}' and '${value}'`);
 };
 
 export const decorators = [
