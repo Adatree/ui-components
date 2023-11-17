@@ -13,9 +13,37 @@ export default {
 const dataHolders = TestUtil.testData.dataHolder.allBanking();
 const Template: ComponentStory<typeof DataHolderTiles> = (args) => <DataHolderTiles {...args} />;
 
-export const WithAllEnabled = Template.bind({});
-WithAllEnabled.args = {
+export const With4Tiles = Template.bind({});
+With4Tiles.args = {
   dataHolders: dataHolders,
+  onClick: (dataHolder) => {
+    alert(`${dataHolder.brandName} was clicked.`);
+  },
+};
+
+export const With6Tiles = Template.bind({});
+With6Tiles.args = {
+  dataHolders: [
+    ...dataHolders,
+    TestUtil.testData.dataHolder.originalEnergy(),
+    TestUtil.testData.dataHolder.yourPowerEnergy(),
+  ],
+
+  onClick: (dataHolder) => {
+    alert(`${dataHolder.brandName} was clicked.`);
+  },
+};
+
+export const With8Tiles = Template.bind({});
+With8Tiles.args = {
+  dataHolders: [
+    ...dataHolders,
+    TestUtil.testData.dataHolder.originalEnergy(),
+    TestUtil.testData.dataHolder.yourPowerEnergy(),
+    TestUtil.testData.dataHolder.ecoPowerEnergy(),
+    TestUtil.testData.dataHolder.ozGasEnergy(),
+  ],
+
   onClick: (dataHolder) => {
     alert(`${dataHolder.brandName} was clicked.`);
   },
