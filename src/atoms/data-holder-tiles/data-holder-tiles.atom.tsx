@@ -20,6 +20,29 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   const { track } = useAnalytics();
   const theme = useTheme();
 
+  let tileWidthXS = '50%';
+  let tileWidthSM = '25%';
+  let tileWidthMD = '20%';
+
+  let cardHeightXS = '45vw';
+  let cardHeightSM = '16rem';
+
+  if (dataHolders.length > 4) {
+    tileWidthXS = '33%';
+    tileWidthSM = '25%';
+    tileWidthMD = '20%';
+    cardHeightXS = '28vw';
+    cardHeightSM = '12rem';
+  }
+
+  if (dataHolders.length === 6) {
+    tileWidthXS = '33%';
+    tileWidthSM = '33%';
+    tileWidthMD = '16%';
+    cardHeightXS = '28vw';
+    cardHeightSM = '12rem';
+  }
+
   let titleBackground = '#fff';
   if (theme.palette.mode === 'dark') {
     titleBackground = '#dfdfdf';
@@ -53,14 +76,19 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
           <Grid
             className="adt-card"
             item
-            sx={{ cursor: 'pointer', position: 'relative' }}
+            sx={{
+              cursor: 'pointer',
+              position: 'relative',
+              flexBasis: { xs: tileWidthXS, sm: tileWidthSM, md: tileWidthMD },
+            }}
             onClick={() => handleClick(dataHolder, disabled)}
             key={dataHolder.dataHolderBrandId}
           >
             <Card
               sx={{
+                p: { xs: '4px', sm: '0.8rem', md: '1.6rem' },
                 height: '100%',
-                minHeight: { xs: '45vw', sm: '16rem' },
+                minHeight: { xs: cardHeightXS, sm: cardHeightSM },
                 alignItems: 'center',
                 display: 'flex',
                 backgroundColor: titleBackground,

@@ -39,35 +39,6 @@ export const GlobalStyles = () => {
         '.adt-container': {
           containerType: 'inline-size',
         },
-
-        '.adt-card': {
-          flexBasis: '50%',
-        },
-
-        /* Legacy browser's that do not support @container */
-        '@media (min-width: 900px)': {
-          '.adt-card': {
-            flexBasis: '25%',
-          },
-        },
-
-        '@container (min-width: 0px)': {
-          '.adt-card': {
-            flexBasis: '100%',
-          },
-        },
-
-        '@container (min-width: 300px)': {
-          '.adt-card': {
-            flexBasis: '50%',
-          },
-        },
-
-        '@container (min-width: 600px)': {
-          '.adt-card': {
-            flexBasis: '25%',
-          },
-        },
       }}
     />
   );
