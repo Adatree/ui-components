@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
@@ -8,12 +8,14 @@ import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { InsightResponse } from '../../types/insight-response.type';
 import { ConsentInsightForm } from './consent-insight-form.organism';
+import { Logger } from '../../utils/logger/logger';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   blockedDataHolderList?: DataHolder[];
   enablePartnerMessageDiscreetMode?: boolean;
+  dataHolderId?: string;
   favouriteDataHolders?: DataHolder[];
   hideMaxAccountConnectedBackButton?: boolean;
   allowMultiConsentsPerDataHolder?: boolean;
@@ -29,6 +31,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     useCase,
     blockedDataHolderList = [],
     enablePartnerMessageDiscreetMode = false,
+    dataHolderId,
     favouriteDataHolders,
     hideMaxAccountConnectedBackButton = false,
     allowMultiConsentsPerDataHolder = false,
@@ -37,11 +40,26 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     onSubmit,
     onNotListedClick,
   } = props;
-  const [consentForm] = useConsentForm();
+  const [consentForm, setConsentForm] = useConsentForm();
   const [showInsights, setShowInsights] = useState<boolean>(insightResponse !== undefined);
   const { dataRecipients } = useDataRecipients();
 
   let disableDataHolders: DataHolder[] = [];
+
+  useEffect(() => {
+    if (dataHolderId && useCase && useCase.dataHolders) {
+      const foundDataHolder = useCase.dataHolders.find((dataHolder) => {
+        return dataHolderId === dataHolder.dataHolderBrandId;
+      });
+      if (foundDataHolder) {
+        consentForm.dataHolder = foundDataHolder;
+        setConsentForm({ ...consentForm });
+      }
+      if (!foundDataHolder) {
+        Logger.error(`Data holder ID ${dataHolderId} is not in use case allowed data holders`, useCase.dataHolders);
+      }
+    }
+  }, []);
 
   if (!allowMultiConsentsPerDataHolder) {
     disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(useCase.dataHolders, existingConsents, useCase);

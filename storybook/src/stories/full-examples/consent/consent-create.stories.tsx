@@ -264,6 +264,23 @@ WithBlockedRedBank.decorators = [
 
 // ########################################################################
 
+export const WithDataHolderPreselected = Template.bind({});
+WithDataHolderPreselected.decorators = [
+  (Story, context) => {
+    context.args.useCase = {
+      ...getUseCase(context.globals.industry),
+    };
+    context.args.dataHolderId = getFavouriteDataHolders(context.globals.industry)[0].dataHolderBrandId;
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
 export const WithNoDataHolderListed = Template.bind({});
 WithNoDataHolderListed.decorators = [
   (Story, context) => {

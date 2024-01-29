@@ -50,7 +50,7 @@ const tallBank = (): DataHolder => {
 
 const ecoPowerEnergy = (): DataHolder => {
   return {
-    dataHolderBrandId: 'a3e0c26a-db81-491f-bfb2-90ea2da621c8',
+    dataHolderBrandId: 'e3e0c26a-db81-491f-bfb2-90ea2da621c8',
     brandName: 'Eco Power',
     logoUri: 'https://design.adatree.com.au/assets/images/eco-logo.png',
   };
