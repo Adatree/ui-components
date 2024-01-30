@@ -26,6 +26,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
 
   let cardHeightXS = '45vw';
   let cardHeightSM = '16rem';
+  let cardHeightMD = '10rem';
 
   if (dataHolders.length > 4) {
     tileWidthXS = '33%';
@@ -33,6 +34,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
     tileWidthMD = '20%';
     cardHeightXS = '28vw';
     cardHeightSM = '12rem';
+    cardHeightMD = '10rem';
   }
 
   if (dataHolders.length === 6) {
@@ -41,6 +43,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
     tileWidthMD = '16%';
     cardHeightXS = '28vw';
     cardHeightSM = '12rem';
+    cardHeightMD = '10rem';
   }
 
   let titleBackground = '#fff';
@@ -88,7 +91,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
               sx={{
                 p: { xs: '4px', sm: '0.8rem', md: '1.6rem' },
                 height: '100%',
-                minHeight: { xs: cardHeightXS, sm: cardHeightSM },
+                minHeight: { xs: cardHeightXS, sm: cardHeightSM, md: cardHeightMD },
                 alignItems: 'center',
                 display: 'flex',
                 backgroundColor: titleBackground,
