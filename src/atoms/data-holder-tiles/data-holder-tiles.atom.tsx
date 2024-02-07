@@ -23,6 +23,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   let tileWidthXS = '50%';
   let tileWidthSM = '25%';
   let tileWidthMD = '20%';
+  let tileWidthLG = '10%';
 
   let cardHeightXS = '45vw';
   let cardHeightSM = '16rem';
@@ -44,6 +45,10 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
     cardHeightXS = '28vw';
     cardHeightSM = '12rem';
     cardHeightMD = '10rem';
+  }
+
+  if (dataHolders.length === 8) {
+    tileWidthMD = '25%';
   }
 
   let titleBackground = '#fff';
@@ -82,7 +87,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
             sx={{
               cursor: 'pointer',
               position: 'relative',
-              flexBasis: { xs: tileWidthXS, sm: tileWidthSM, md: tileWidthMD },
+              flexBasis: { xs: tileWidthXS, sm: tileWidthSM, md: tileWidthMD, lg: tileWidthLG },
             }}
             onClick={() => handleClick(dataHolder, disabled)}
             key={dataHolder.dataHolderBrandId}
