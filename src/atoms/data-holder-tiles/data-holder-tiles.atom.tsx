@@ -23,7 +23,7 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   let tileWidthXS = '50%';
   let tileWidthSM = '25%';
   let tileWidthMD = '20%';
-  let tileWidthLG = '10%';
+  const tileWidthLG = '10%';
 
   let cardHeightXS = '45vw';
   let cardHeightSM = '16rem';
