@@ -38,7 +38,7 @@ export const componentCopy = (
       list_data_policy: (name: string, dataHandlingPolicy?: string) => {
         return (
           <>
-            Speak to <HL>{name}</HL> for more information about how they will handle your data.{' '}
+            Speak to {name} for more information about how they will handle your data.{' '}
             {dataHandlingPolicy && (
               <>
                 You can view their data handling policy <LinkExternal href={dataHandlingPolicy} text={'here'} />
@@ -63,6 +63,13 @@ export const componentCopy = (
     },
     general_information: {
       list_adr_context: `${primaryDataRecipient.name} use ${adrDataRecipient.name} to help you consent and access your data.`,
+      list_cdr_acknowledgement: (dataHandlerName: string) => {
+        return (
+          <>
+            {dataHandlerName} is a CDR Representative of {adrDataRecipient}
+          </>
+        );
+      },
       list_cdr_protection: `Data shared with ${primaryDataRecipient.name} is not subject to CDR Protections.`,
       list_complaint: (
         <>
@@ -142,8 +149,8 @@ export const componentCopy = (
       discreet_label: 'consent service provided by',
       what_label: (
         <>
-          <HL>{primaryDataRecipient.name}</HL> use <HL>{adrDataRecipient.name}</HL> to help you consent and access your
-          data.
+          <HL>{primaryDataRecipient.name}</HL> is a CDR Representative of <HL>{adrDataRecipient.name}</HL>.
+          {primaryDataRecipient.name} use {adrDataRecipient.name} to help you consent and access your data.
         </>
       ),
       why_label: (dataHolderName: string) => {

@@ -47,9 +47,10 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
   const renderCdrrList = (dataHandler: DataRecipient): ReactElement => {
     return (
       <List sx={{ mb: '2rem' }}>
+        {renderListItem(copy.component.general_information.list_cdr_acknowledgement(dataHandler.name), 0)}
         {renderListItem(
           copy.component.general_information.list_third_party_more_info(dataHandler.name, dataHandler.cdrPolicyUrl),
-          0,
+          1,
         )}
       </List>
     );

@@ -64,6 +64,7 @@ export interface Copy {
     };
     general_information: {
       list_adr_context: string;
+      list_cdr_acknowledgement: (dataHandlerName: string) => ReactElement;
       list_cdr_protection: string;
       list_complaint: ReactElement;
       list_deleted: string;
