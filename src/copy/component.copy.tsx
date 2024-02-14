@@ -150,8 +150,6 @@ export const componentCopy = (
       what_label: (
         <>
           <HL>{primaryDataRecipient.name}</HL> is a CDR Representative of <HL>{adrDataRecipient.name}</HL>.
-          {' '}
-          {primaryDataRecipient.name} use {adrDataRecipient.name} to help you consent and access your data.
         </>
       ),
       why_label: (dataHolderName: string) => {
