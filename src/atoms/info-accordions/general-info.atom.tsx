@@ -58,6 +58,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
         {renderListItem(copy.component.general_information.list_revoked)}
         {!hideDuplicateListItem && renderListItem(copy.component.general_information.list_primary_more_info)}
         {renderListItem(copy.component.general_information.list_complaint)}
+        {renderListItem(copy.component.general_information.list_manage_consent)}
       </List>
     );
   };
