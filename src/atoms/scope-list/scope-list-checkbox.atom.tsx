@@ -3,6 +3,7 @@ import { List } from '@mui/material';
 import { ScopeResponse } from '../../generated/consent';
 import { CheckboxAccordion } from '../checkbox-accordion/checkbox-accordion.atom';
 import { useCopy } from '../../context/copy.context';
+import { Helper } from '../../utils/helper/helper';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
@@ -13,6 +14,7 @@ export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
   const { scopes, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [copy] = useCopy();
+  const sortedScopes = Helper.sortScopesByPriority(scopes);
 
   const handleChexboxClick = (isChecked: boolean, value: string) => {
     let tmpArray = clickedValues;
@@ -25,13 +27,13 @@ export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
       setclickedValues([...tmpArray]);
     }
 
-    onChange(tmpArray.length === scopes.length);
+    onChange(tmpArray.length === sortedScopes.length);
   };
 
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        {scopes.map((scope: ScopeResponse) => {
+        {sortedScopes.map((scope: ScopeResponse) => {
           return (
             <li key={scope.id}>
               <CheckboxAccordion

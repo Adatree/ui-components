@@ -15,6 +15,7 @@ import {
 import { ScopeResponse } from '../../generated/consent';
 import { useCopy } from '../../context/copy.context';
 import { InformationOutline, Close } from 'mdi-material-ui';
+import { Helper } from '../../utils/helper/helper';
 
 export type ScopeListProps = {
   scopes: ScopeResponse[];
@@ -29,6 +30,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [copy] = useCopy();
   const theme = useTheme();
+  const sortedScopes = Helper.sortScopesByPriority(scopes);
 
   const handleToggle = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
     const value = event.target.value;
@@ -42,7 +44,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
       setclickedValues([...tmpArray]);
     }
 
-    onChange(tmpArray.length === scopes.length);
+    onChange(tmpArray.length === sortedScopes.length);
   };
 
   const handleInfoClick = (scope: ScopeResponse) => {
@@ -57,7 +59,7 @@ export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {scopes.map((scope: ScopeResponse) => {
+        {sortedScopes.map((scope: ScopeResponse) => {
           return (
             <ListItem
               key={scope.id}

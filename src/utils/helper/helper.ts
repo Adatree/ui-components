@@ -251,6 +251,22 @@ const getNonAdrDataRecipient = (dataRecipients: DataRecipient[]): DataRecipient 
   return found;
 };
 
+const sortScopesByPriority = (scopes: ScopeResponse[]) => {
+  return scopes.sort((a: ScopeResponse, b: ScopeResponse) => {
+    if (a.priority !== undefined && b.priority !== undefined) {
+      if (a.priority < b.priority) {
+        return -1;
+      } else if (a.priority === b.priority) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } else {
+      return 0;
+    }
+  });
+};
+
 export const Helper = {
   accessFrequencyToString,
   dateDurationToDate,
@@ -266,4 +282,5 @@ export const Helper = {
   sharingDurationToDate,
   sharingDurationToString,
   sortListbyDate,
+  sortScopesByPriority,
 };
