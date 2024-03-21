@@ -1,5 +1,6 @@
 export enum DataRecipientType {
   ACCREDITED_DATA_RECIPIENT = 'ACCREDITED_DATA_RECIPIENT',
+  BUSINESS_CONSUMER_DISCLOSURE_CONSENT = 'BUSINESS_CONSUMER_DISCLOSURE_CONSENT',
   CDR_REPRESENTATIVE = 'CDR_REPRESENTATIVE',
   GRANTEE = 'GRANTEE',
   NON_ACCREDITED_DATA_RECIPIENT = 'NON_ACCREDITED_DATA_RECIPIENT',
@@ -13,5 +14,6 @@ export interface DataRecipient {
   description: string;
   logo: string;
   name: string;
+  website: string;
   type: DataRecipientType;
 }

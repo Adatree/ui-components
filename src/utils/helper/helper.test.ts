@@ -320,6 +320,7 @@ describe('Helper Utils', () => {
       const adrList = TestUtil.testData.dataRecipient.all();
       const adrOnlyList = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
       const noAdrOnlyList = [
+        TestUtil.testData.dataRecipient.businessConsumerDisclosureConsent(),
         TestUtil.testData.dataRecipient.cdrRepresentative(),
         TestUtil.testData.dataRecipient.trustedAdvisor(),
         TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),

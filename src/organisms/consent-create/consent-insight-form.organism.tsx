@@ -30,6 +30,7 @@ export const ConsentInsightForm = (props: ConsentInsightFormProps) => {
         description: '',
         logo: '',
         name: insightResponse.nonAccreditedDataRecipient,
+        website: '',
         type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
       });
     }
