@@ -62,3 +62,13 @@ WithRevokedStatusAndGrantee.args = {
     alert('The revoke button has been clicked');
   },
 };
+
+export const WithConsumerTypeOrganisation = Template.bind({});
+WithConsumerTypeOrganisation.args = {
+  consent: TestUtil.testData.consent.activeWithConsumerTypeOrganisation(),
+  dateTitle: 'Key dates',
+  useCasetTitle: 'Data we are currently receiving',
+  onRevokeClick: () => {
+    alert('The revoke button has been clicked');
+  },
+};

@@ -37,6 +37,13 @@ const active = (): ConsentResponse => {
   };
 };
 
+const activeWithConsumerTypeOrganisation = (): ConsentResponse => {
+  return {
+    ...active(),
+    useCase: useCase.consumerTypeOrg(),
+  };
+};
+
 const activeWithGrantee = (): ConsentResponse => {
   return {
     ...active(),
@@ -138,6 +145,7 @@ const expiredWithGrantee = (): ConsentResponse => {
 const all = (): ConsentResponse[] => {
   return [
     active(),
+    activeWithConsumerTypeOrganisation(),
     activeWithDeIdentification(),
     activeWithGrantee(),
     revoked(),
@@ -218,6 +226,7 @@ const getTestUuidV4 = () => {
 export const consent = {
   all,
   active,
+  activeWithConsumerTypeOrganisation,
   activeWithDeIdentification,
   activeWithGrantee,
   expiredWithGrantee,
