@@ -301,6 +301,22 @@ WithNoDataHolderListed.decorators = [
 
 // ########################################################################
 
+export const WithConsumerTypeOrganisation = Template.bind({});
+WithConsumerTypeOrganisation.decorators = [
+  (Story, context) => {
+    context.args.favouriteDataHolders = getFavouriteDataHolders(context.globals.industry);
+    context.args.useCase = TestUtil.testData.useCase.consumerTypeOrg();
+
+    return (
+      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
+        <Story />
+      </ConsentFormProvider>
+    );
+  },
+];
+
+// ########################################################################
+
 export const WithNoRemainingDataHolders = Template.bind({});
 WithNoRemainingDataHolders.decorators = [
   (Story, context) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { ConsumerType, PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { useDataRecipients } from '../../context/data-recipient.context';
@@ -13,6 +13,7 @@ import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/par
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { InsightResponse } from '../../types/insight-response.type';
 import { ConsentSectionDeIdentify } from '../../molecules/consent-section/consent-section-deletion.molecule';
+import { BusinessConsumerStatement } from '../../molecules/business-consumer-statement/business-consumer-statement.molecule';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -42,7 +43,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const { primaryDataRecipient } = useDataRecipients();
+  const { primaryDataRecipient, dataRecipients } = useDataRecipients();
 
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
@@ -154,6 +155,11 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             showError={showScopeError}
             onChange={handleScopeChange}
           />
+
+          {dataRecipients.some((dataRecipient) => {
+            return dataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT;
+          }) &&
+            useCase.consumerType === ConsumerType.Organisation && <BusinessConsumerStatement />}
 
           {showDeIdentifySection && (
             <ConsentSectionDeIdentify showError={showDeIdentifyError} onCheck={handleDeIdentifyChange} />

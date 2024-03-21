@@ -4,6 +4,7 @@ import {
   AccessFrequency,
   NotificationType,
   Industry,
+  ConsumerType,
 } from '../../../generated/consent/api';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
@@ -64,6 +65,23 @@ const homeLoan = (): UseCaseResponse => {
     scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
     accessFrequency: AccessFrequency.OnceOff,
     sharingDurations: [SharingDuration.OnceOff],
+  };
+};
+
+const consumerTypeOrg = (): UseCaseResponse => {
+  return {
+    id: 'CT_ORG',
+    name: 'Consumer Type Organisation',
+    dataHolders: dataHolder.allBanking(),
+    description: 'Data is used to assess only for business disclosures',
+    industries: [Industry.Banking],
+    priority: 1,
+    historicalCollectionPeriodInDays: 90,
+    notificationType: NotificationType.Email,
+    consumerType: ConsumerType.Organisation,
+    scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
+    accessFrequency: AccessFrequency.OnceOff,
+    sharingDurations: [SharingDuration.SixMonths, SharingDuration.OneYear],
   };
 };
 
@@ -145,6 +163,7 @@ const all = (): UseCaseResponse[] => [
   onceOffConsentMinScopes(),
   ongoingConsentMinScopes(),
   homeLoan(),
+  consumerTypeOrg(),
   openEnergyLite(),
   openEnergy(),
   deIdentification(),
@@ -155,6 +174,7 @@ export const useCase = {
   onceOffConsentMinScopes,
   ongoingConsentMinScopes,
   homeLoan,
+  consumerTypeOrg,
   homeLoanWithOsps,
   openEnergyLite,
   openEnergy,
