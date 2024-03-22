@@ -9,6 +9,7 @@ import { DataRecipient } from '../../types/data-recipient.type';
 import { DataDisclosure } from '../data-disclosure/data-disclosure.molecule';
 import { GranteeSummary } from '../grantee-summary/grantee-summary.molecule';
 import { BusinessConsumerStatement } from '../business-consumer-statement/business-consumer-statement.molecule';
+import { Helper } from '../../utils/helper/helper';
 
 export type ConsentDetailsProps = {
   consent: ConsentResponse;
@@ -28,7 +29,7 @@ export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
         <DataHolderHeader consent={consent} onRevokeClick={onRevokeClick} editUrl={editUrl} />
       </Box>
 
-      {consent.useCase && consent.useCase.consumerType === ConsumerType.Organisation && <BusinessConsumerStatement />}
+      {Helper.isBcdc(dataRecipients) && Helper.isOrganisation(consent.useCase) && <BusinessConsumerStatement />}
 
       {consent.grantee && <GranteeSummary gantee={consent.grantee} status={consent.status} />}
 

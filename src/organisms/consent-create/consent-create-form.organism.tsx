@@ -156,10 +156,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
             onChange={handleScopeChange}
           />
 
-          {dataRecipients.some((dataRecipient) => {
-            return dataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT;
-          }) &&
-            useCase.consumerType === ConsumerType.Organisation && <BusinessConsumerStatement />}
+          {Helper.isBcdc(dataRecipients) && Helper.isOrganisation(useCase) && <BusinessConsumerStatement />}
 
           {showDeIdentifySection && (
             <ConsentSectionDeIdentify showError={showDeIdentifyError} onCheck={handleDeIdentifyChange} />

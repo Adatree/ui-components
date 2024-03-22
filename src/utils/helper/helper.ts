@@ -7,6 +7,8 @@ import {
   UseCaseResponse,
   DataHolder,
   ScopeResponse,
+  ConsentUseCaseResponse,
+  ConsumerType,
 } from '../../generated/consent';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
@@ -251,6 +253,26 @@ const getNonAdrDataRecipient = (dataRecipients: DataRecipient[]): DataRecipient 
   return found;
 };
 
+const isBcdc = (dataRecipients?: DataRecipient[]): boolean => {
+  if (!dataRecipients) {
+    return false;
+  }
+
+  const found = dataRecipients.some((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT;
+  });
+
+  return found;
+};
+
+const isOrganisation = (useCase?: ConsentUseCaseResponse): boolean => {
+  if (!useCase) {
+    return false;
+  }
+
+  return useCase.consumerType === ConsumerType.Organisation;
+};
+
 const sortScopesByPriority = (scopes: ScopeResponse[]) => {
   return scopes.sort((a: ScopeResponse, b: ScopeResponse) => {
     if (a.priority !== undefined && b.priority !== undefined) {
@@ -276,7 +298,9 @@ export const Helper = {
   getPrimaryDataRecipients,
   getNonAdrDataRecipient,
   getScopeDifference,
+  isBcdc,
   isConsentEditable,
+  isOrganisation,
   parseSharingDuration,
   parseSharingDurations,
   sharingDurationToDate,

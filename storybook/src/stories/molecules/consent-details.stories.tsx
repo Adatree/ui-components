@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ConsentDetails, TestUtil } from '../../lib';
+import { StoryHelper } from '../helpers/story.helpers';
 
 export default {
   title: 'Components/Molecules/Consent Details',
@@ -64,11 +65,18 @@ WithRevokedStatusAndGrantee.args = {
 };
 
 export const WithConsumerTypeOrganisation = Template.bind({});
-WithConsumerTypeOrganisation.args = {
-  consent: TestUtil.testData.consent.activeWithConsumerTypeOrganisation(),
-  dateTitle: 'Key dates',
-  useCasetTitle: 'Data we are currently receiving',
-  onRevokeClick: () => {
-    alert('The revoke button has been clicked');
+WithConsumerTypeOrganisation.decorators = [
+  (Story, context) => {
+    context.args = {
+      consent: TestUtil.testData.consent.activeWithConsumerTypeOrganisation(),
+      dateTitle: 'Key dates',
+      dataRecipients: StoryHelper.getDataRecipients(context.globals.dataRecipient),
+      useCasetTitle: 'Data we are currently receiving',
+      onRevokeClick: () => {
+        alert('The revoke button has been clicked');
+      },
+    };
+
+    return <Story />;
   },
-};
+];
