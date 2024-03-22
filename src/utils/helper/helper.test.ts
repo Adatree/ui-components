@@ -20,8 +20,8 @@ describe('Helper Utils', () => {
       expect(sortedList[3].consentId).toEqual('f328b2fb-441e-951d-2f9e-2296af82cae1');
       expect(sortedList[4].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
       expect(sortedList[5].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
-      expect(sortedList[6].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
-      expect(sortedList[7].consentId).toEqual('3ad2f7ce-18f4-451f-afb6-0077b339ddb4');
+      expect(sortedList[6].consentId).toEqual('fed8d9c3-6527-4349-a8fb-d1f7f90f225d');
+      expect(sortedList[7].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
     });
 
     it('should handle Consents with undefined dates', () => {
@@ -54,11 +54,11 @@ describe('Helper Utils', () => {
     const requestedList = Helper.filterListbyStatus(list, Status.Requested);
     const revokedList = Helper.filterListbyStatus(list, Status.Revoked);
 
-    expect(activeList.length).toEqual(4);
+    expect(activeList.length).toEqual(5);
     expect(activeList[0].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
-    expect(activeList[1].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
+    expect(activeList[1].consentId).toEqual('fed8d9c3-6527-4349-a8fb-d1f7f90f225d');
     expect(activeList[2].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
-    expect(activeList[3].consentId).toEqual('3ad2f7ce-18f4-451f-afb6-0077b339ddb4');
+    expect(activeList[3].consentId).toEqual('abc8d9c3-6527-4349-a8fb-d1f7f90f225d');
 
     expect(expiredList.length).toEqual(1);
     expect(expiredList[0].consentId).toEqual('6e485649-3113-468d-8067-5f18580476f6');
@@ -268,6 +268,10 @@ describe('Helper Utils', () => {
         TestUtil.testData.dataRecipient.granteeRepresentative(),
         TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
       ];
+      const bcdcList1 = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.businessConsumerDisclosureConsent(),
+      ];
       const cdrrList1 = [
         TestUtil.testData.dataRecipient.accreditedDataRecipient(),
         TestUtil.testData.dataRecipient.cdrRepresentative(),
@@ -299,6 +303,9 @@ describe('Helper Utils', () => {
 
       expect(Helper.getPrimaryDataRecipients(oneList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
       expect(Helper.getPrimaryDataRecipients(twoList).type).toEqual(DataRecipientType.ACCREDITED_DATA_RECIPIENT);
+      expect(Helper.getPrimaryDataRecipients(bcdcList1).type).toEqual(
+        DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT,
+      );
       expect(Helper.getPrimaryDataRecipients(cdrrList1).type).toEqual(DataRecipientType.CDR_REPRESENTATIVE);
       expect(Helper.getPrimaryDataRecipients(granteeList1).type).toEqual(DataRecipientType.GRANTEE);
       expect(Helper.getPrimaryDataRecipients(taList1).type).toEqual(DataRecipientType.TRUSTED_ADVISER);

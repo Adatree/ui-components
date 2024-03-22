@@ -89,7 +89,7 @@ export interface Copy {
     };
     partner_message: {
       discreet_label: string;
-      what_label: ReactElement;
+      what_label: (dataRecipients: DataRecipient[]) => ReactElement;
       why_label: (dataHolderName: string) => ReactElement;
     };
   };

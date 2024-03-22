@@ -214,6 +214,14 @@ const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipien
     return foundTrustedAdviserServiceProvider;
   }
 
+  const foundBcdcRepresentative = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT;
+  });
+
+  if (foundBcdcRepresentative) {
+    return foundBcdcRepresentative;
+  }
+
   const foundCdrRepresentative = dataRecipients.find((dataRecipient) => {
     return dataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE;
   });

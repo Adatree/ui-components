@@ -3,6 +3,7 @@ import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
 import { LinkExternal } from '../atoms/links/link-external.atom';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
+import { Helper } from '../utils/helper/helper';
 
 export const componentCopy = (
   adrDataRecipient: DataRecipient,
@@ -149,11 +150,25 @@ export const componentCopy = (
     },
     partner_message: {
       discreet_label: 'consent service provided by',
-      what_label: (
-        <>
-          <HL>{primaryDataRecipient.name}</HL> is a CDR Representative of <HL>{adrDataRecipient.name}</HL>.
-        </>
-      ),
+      what_label: (dataRecipients: DataRecipient[]): React.ReactElement => {
+        const isBcdc = Helper.isBcdc(dataRecipients);
+
+        return (
+          <>
+            {isBcdc && (
+              <>
+                <HL>{primaryDataRecipient.name}</HL> is using <HL>{adrDataRecipient.name}</HL> services to provide
+                access to the consent data.
+              </>
+            )}
+            {!isBcdc && (
+              <>
+                <HL>{primaryDataRecipient.name}</HL> is a CDR Representative of <HL>{adrDataRecipient.name}</HL>.
+              </>
+            )}
+          </>
+        );
+      },
       why_label: (dataHolderName: string) => {
         return (
           <>

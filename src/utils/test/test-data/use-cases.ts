@@ -73,7 +73,7 @@ const consumerTypeOrg = (): UseCaseResponse => {
     id: 'CT_ORG',
     name: 'Consumer Type Organisation',
     dataHolders: dataHolder.allBanking(),
-    description: 'Data is used to assess only for business disclosures',
+    description: 'Data is used to assess only for business disclosures.',
     industries: [Industry.Banking],
     priority: 1,
     historicalCollectionPeriodInDays: 90,

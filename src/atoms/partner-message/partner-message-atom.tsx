@@ -10,7 +10,7 @@ export type PartnerMessageProps = {
 
 export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
   const { dataHolderName, discreetMode = false } = props;
-  const { primaryDataRecipient } = useDataRecipients();
+  const { primaryDataRecipient, dataRecipients } = useDataRecipients();
   const [copy] = useCopy();
 
   return (
@@ -29,7 +29,7 @@ export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
         </Typography>
       </div>
       <Box>
-        <Typography sx={{ mb: 1 }}>{copy.component.partner_message.what_label}</Typography>
+        <Typography sx={{ mb: 1 }}>{copy.component.partner_message.what_label(dataRecipients)}</Typography>
         <Typography sx={{ mt: 1.5, mb: 0 }}>{copy.component.partner_message.why_label(dataHolderName)}</Typography>
       </Box>
     </section>

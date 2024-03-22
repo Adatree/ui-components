@@ -40,6 +40,7 @@ const active = (): ConsentResponse => {
 const activeWithConsumerTypeOrganisation = (): ConsentResponse => {
   return {
     ...active(),
+    consentId: 'fed8d9c3-6527-4349-a8fb-d1f7f90f225d',
     useCase: useCase.consumerTypeOrg(),
   };
 };
