@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ConsumerType, PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { useDataRecipients } from '../../context/data-recipient.context';
