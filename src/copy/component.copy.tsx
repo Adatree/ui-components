@@ -67,7 +67,7 @@ export const componentCopy = (
       list_cdr_acknowledgement: (dataHandlerName: string) => {
         return (
           <>
-            {dataHandlerName} is a CDR Representative of {adrDataRecipient}
+            {dataHandlerName} is a CDR Representative of {adrDataRecipient.name}
           </>
         );
       },
