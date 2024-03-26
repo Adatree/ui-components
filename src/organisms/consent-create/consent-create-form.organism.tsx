@@ -106,7 +106,10 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     setIsPartnerDialogOpen(false);
 
     if (isFormValid) {
-      if (primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE) {
+      if (
+        primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE ||
+        primaryDataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT
+      ) {
         setIsPartnerDialogOpen(true);
       } else {
         handleSubmit();
