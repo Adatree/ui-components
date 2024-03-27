@@ -10,6 +10,7 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentEditPostUsage } from './consent-edit-post-usage.organism';
+import { ConsentEditDates } from './consent-edit-dates.organism';
 
 export type ConsentEditProps = {
   consent: ConsentResponse;
@@ -39,7 +40,10 @@ export const ConsentEdit = (props: ConsentEditProps) => {
   const handlePreSubmit = () => {
     setIsPartnerDialogOpen(false);
 
-    if (primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE) {
+    if (
+      primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE ||
+      primaryDataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT
+    ) {
       setIsPartnerDialogOpen(true);
     } else {
       handleSubmit();
@@ -79,6 +83,8 @@ export const ConsentEdit = (props: ConsentEditProps) => {
         </section>
       )}
 
+      {isEditable && <ConsentEditDates consent={consent} showError={false} useCase={useCase} />}
+
       {isEditable && <ConsentEditPostUsage defaultValue={consent.postUsageAction} />}
 
       <ConsentSectionInfo useCase={useCase} dataHandlers={dataRecipients} />
@@ -90,6 +96,7 @@ export const ConsentEdit = (props: ConsentEditProps) => {
           </Button>
         </Box>
       )}
+
       {isEditable && (
         <ConsentSectionActions
           actionButtonLabel={copy.consent.create.save_label}
