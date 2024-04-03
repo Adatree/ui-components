@@ -24,8 +24,15 @@ export const UseCaseSummary: React.FC<UseCaseSummaryProps> = (props) => {
     </ul>
   );
 
-  const purpose = <Typography>{useCase.name}</Typography>;
-
+  const purpose = useCase.description ? (
+    <>
+      <Typography>{useCase.description}</Typography>
+    </>
+  ) : (
+    <>
+      <Typography>{useCase.name}</Typography>
+    </>
+  );
   return (
     <Box sx={{ mb: 4 }}>
       <Typography variant="h2" sx={{ mb: 2 }}>
