@@ -1,0 +1,14 @@
+# Build
+/lib
+/dist
+
+# Development
+node_modules
+coverage
+
+# Local config
+.npmrc
+
+# Filesystem
+.DS_Store
+*storybook.log
