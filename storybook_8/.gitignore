@@ -3,6 +3,7 @@
 /dist
 
 # Development
+/src/lib
 node_modules
 coverage
 

@@ -27,6 +27,11 @@ export default [
         format: 'es',
         banner: '/* eslint-disable */',
       },
+      {
+        file: 'storybook_8/src/lib/index.js',
+        format: 'es',
+        banner: '/* eslint-disable */',
+      },
     ],
     external: (id) => /react|@emotion|@mui|mdi-material-ui|axios|date-fns/.test(id),
   },
