@@ -1,22 +1,11 @@
 {
-  "name": "@adatree/atomic-components",
-  "version": "6.5.2",
+  "name": "storybook",
+  "version": "8.0.0",
   "main": "dist/index.js",
-  "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
   "license": "SEE LICENSE IN LICENSE FILE",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
-    "build": "rm -rf dist/ && rollup -c",
-    "build:watch": "rollup -c -w",
-    "format": "yarn prettier --write .",
-    "lint": "eslint './src/**/*.{tsx,ts}' './storybook/**/*.{tsx,ts}'",
-    "package": "yarn test && yarn lint && yarn build && npm publish",
     "storybook": "storybook dev -p 6006",
-    "generate-openapi-consent-client": "openapi-generator-cli generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
-    "generate-openapi-data-client": "openapi-generator-cli generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/data.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/data",
     "test": "jest",
     "build-storybook": "storybook build"
   },
