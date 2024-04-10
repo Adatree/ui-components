@@ -6,7 +6,7 @@ const meta: Meta<typeof CheckboxAccordion> = {
   title: 'Components/Atoms/Checkbox Accordion',
   component: CheckboxAccordion,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

@@ -6,7 +6,7 @@ const meta: Meta<typeof ScopeListSwitch> = {
   title: 'Components/Atoms/Scope List Switch',
   component: ScopeListSwitch,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

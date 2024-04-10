@@ -1,19 +1,22 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ConsentList, TestUtil } from '../../lib';
 
-export default {
-  title: 'Components/Atoms/Consent list',
+const meta: Meta<typeof ConsentList> = {
+  title: 'Components/Atoms/Consent List',
   component: ConsentList,
-  argTypes: {
-    backgroundColor: { control: 'color' },
+  parameters: {
+    layout: 'centered',
   },
-} as ComponentMeta<typeof ConsentList>;
+  tags: ['autodocs'],
+};
 
-const Template: ComponentStory<typeof ConsentList> = (args) => <ConsentList {...args} />;
+export default meta;
+type Story = StoryObj<typeof ConsentList>;
 
-export const Active = Template.bind({});
-Active.args = {
-  consents: TestUtil.testData.consent.all(),
-  url: '/url-to-the-consent',
+export const Active: Story = {
+  args: {
+    consents: TestUtil.testData.consent.all(),
+    url: '/url-to-the-consent',
+  },
 };

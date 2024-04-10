@@ -6,7 +6,7 @@ const meta: Meta<typeof DataHolderTiles> = {
   title: 'Components/Atoms/DataHolder Tiles',
   component: DataHolderTiles,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

@@ -6,7 +6,7 @@ const meta: Meta<typeof ScopeListCheckbox> = {
   title: 'Components/Atoms/Scope List Checkbox',
   component: ScopeListCheckbox,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

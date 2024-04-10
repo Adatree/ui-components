@@ -6,7 +6,7 @@ const meta: Meta<typeof GeneralInformation> = {
   title: 'Components/Atoms/General Information',
   component: GeneralInformation,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

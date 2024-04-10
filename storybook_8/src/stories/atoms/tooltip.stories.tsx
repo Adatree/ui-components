@@ -6,7 +6,7 @@ const meta: Meta<typeof Tooltip> = {
   title: 'Components/Atoms/Tooltip',
   component: Tooltip,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

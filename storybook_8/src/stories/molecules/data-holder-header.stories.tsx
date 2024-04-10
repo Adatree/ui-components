@@ -6,7 +6,7 @@ const meta: Meta<typeof DataHolderHeader> = {
   title: 'Components/Molecules/Data Holder Header',
   component: DataHolderHeader,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

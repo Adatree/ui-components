@@ -66,8 +66,19 @@ const preview: Preview = {
       getIndustry(context.globals.industry);
       getTheme(context.globals.theme);
 
+      let width = '50rem';
+      const breakpoint = context.globals.viewport;
+
+      if (breakpoint === 'mobile1') {
+        width = '29rem';
+      } else if (breakpoint === 'mobile2') {
+        width = '39rem';
+      } else if (breakpoint === 'table') {
+        width = '50rem';
+      }
+
       return (
-        <div key={remountKey}>
+        <div key={remountKey} style={{ width: width }}>
           <ThemeProvider theme={theme}>
             <DataRecipientsProvider accreditationNum="ADR-1234-1234" initialDataRecipients={dataRecipients}>
               <CopyProvider

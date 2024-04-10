@@ -6,7 +6,7 @@ const meta: Meta<typeof ConsentListItem> = {
   title: 'Components/Atoms/Consent List Item',
   component: ConsentListItem,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

@@ -6,7 +6,7 @@ const meta: Meta<typeof AutocompleteDropdown> = {
   title: 'Components/Atoms/Autocomplete Dropdown',
   component: AutocompleteDropdown,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

@@ -6,7 +6,7 @@ const meta: Meta<typeof RadioButtonWithText> = {
   title: 'Components/Atoms/Radio Button with Text',
   component: RadioButtonWithText,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

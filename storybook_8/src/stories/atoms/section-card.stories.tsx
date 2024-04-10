@@ -6,7 +6,7 @@ const meta: Meta<typeof SectionCard> = {
   title: 'Components/Atoms/Section Card',
   component: SectionCard,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

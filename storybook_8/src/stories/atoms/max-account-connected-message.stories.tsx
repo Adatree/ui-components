@@ -6,7 +6,7 @@ const meta: Meta<typeof MaxAccountConnectedMessage> = {
   title: 'Components/Atoms/Max Account Message',
   component: MaxAccountConnectedMessage,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

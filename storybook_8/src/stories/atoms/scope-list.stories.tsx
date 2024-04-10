@@ -6,7 +6,7 @@ const meta: Meta<typeof ScopeList> = {
   title: 'Components/Atoms/Scope List',
   component: ScopeList,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };

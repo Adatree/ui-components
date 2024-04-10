@@ -6,7 +6,7 @@ const meta: Meta<typeof DataHandlingInfo> = {
   title: 'Components/Atoms/Data Handling Info',
   component: DataHandlingInfo,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
 };
