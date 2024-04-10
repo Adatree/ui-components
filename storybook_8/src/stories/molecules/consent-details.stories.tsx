@@ -71,15 +71,18 @@ export const WithRevokedStatusAndGrantee: Story = {
   },
 };
 
-// ToDo JK to fix hardcoded StoryHelper.getDataRecipients
 export const WithConsumerTypeOrganisation: Story = {
-  args: {
-    consent: TestUtil.testData.consent.activeWithConsumerTypeOrganisation(),
-    dateTitle: 'Key dates',
-    dataRecipients: StoryHelper.getDataRecipients('Accredited Data Recipient'),
-    useCasetTitle: 'Data we are currently receiving',
-    onRevokeClick: () => {
-      alert('The revoke button has been clicked');
-    },
+  render: (args, { globals: { dataRecipient } }) => {
+    return (
+      <ConsentDetails
+        consent={TestUtil.testData.consent.activeWithConsumerTypeOrganisation()}
+        dateTitle={'Key dates'}
+        dataRecipients={StoryHelper.getDataRecipients(dataRecipient)}
+        useCasetTitle={'Data we are currently receiving'}
+        onRevokeClick={() => {
+          alert('The revoke button has been clicked');
+        }}
+      />
+    );
   },
 };
