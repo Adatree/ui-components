@@ -14,7 +14,7 @@ const meta: Meta<typeof Accordion> = {
 export default meta;
 type Story = StoryObj<typeof Accordion>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     title: 'This is the title',
     content: <p>This is the Accordion content</p>,
