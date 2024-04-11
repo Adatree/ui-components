@@ -45,5 +45,5 @@ echo '##############################'
 echo 'Deploy to s3'
 echo '##############################'
 aws s3 rm s3://$APPLICATION_BUCKET_NAME --recursive
-aws s3 cp ./storybook/storybook-static s3://$APPLICATION_BUCKET_NAME --recursive
+aws s3 cp ./storybook_8/storybook-static s3://$APPLICATION_BUCKET_NAME --recursive
 aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"

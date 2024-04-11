@@ -1,6 +1,8 @@
 # Build
 /lib
 /dist
+/build
+/storybook-static
 
 # Development
 /src/lib
