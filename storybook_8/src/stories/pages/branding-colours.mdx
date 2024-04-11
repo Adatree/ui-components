@@ -1,0 +1,43 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import { defaultTheme } from '../../lib';
+
+<Meta title="Branding/Colours" />
+
+# Colours
+
+<br />
+<br />
+<br />
+
+<ColorPalette>
+  <ColorItem title="Primary" colors={[defaultTheme.colour.primary]} />
+  <ColorItem title="Secondary" colors={[defaultTheme.colour.secondary]} />
+</ColorPalette>
+
+<br />
+<br />
+<br />
+
+<ColorPalette>
+  <ColorItem
+    title="backgrounds"
+    subtitle='card - hover - inputs - modal - page'
+    colors={[
+      defaultTheme.colour.backgrounds.card,
+      defaultTheme.colour.backgrounds.hover,
+      defaultTheme.colour.backgrounds.inputs,
+      defaultTheme.colour.backgrounds.modal,
+      defaultTheme.colour.backgrounds.page]}
+  />
+  <ColorItem
+    title="button"
+    subtitle='background - text'
+    colors={[defaultTheme.colour.buttons.background, defaultTheme.colour.buttons.text]}
+  />
+  <ColorItem
+    title="text"
+    subtitle='main - link - highlight'
+    colors={[defaultTheme.colour.text.main, defaultTheme.colour.text.link, defaultTheme.colour.text.highlight]}
+  />
+
+</ColorPalette>
