@@ -1,0 +1,33 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Breaking change notes" />
+
+# Breaking change notes
+
+<br />
+<br />
+
+### [6.4.0] - 2023-11-06
+
+We introduce a generic analytics context provider to allow you to measuse the users interactions with components from this library.
+When using components from this library, they need to be wrapped with the `AnalyticsProvider`.
+
+```
+const myTrackingCallback = (event: string, componentId: string, componentDescription: string, action: string, value?: string) => {
+
+    // Example using Mixpanel
+    mixpanel.track(
+        event,
+        {
+            "action": action,
+            "value": value,
+            "id": componentId,
+            ...
+        }
+    )
+}
+
+<AnalyticsProvider onTrack={myTrackingCallback}>
+    ...
+</AnalyticsProvider>
+```

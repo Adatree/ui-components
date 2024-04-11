@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+<div >
+# Welcome to Adatree Design documentation
+
+The Adatree UI is built using [React](https://reactjs.org/).
+
+We use [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) principles to help organise and maintain our components.
+
+The design is based around [Material Design](https://material.io/) and uses the [Material UI library](https://mui.com/).
+
+<br />
+<br />
+<br />
+
+## Table of Contents
+
+<div class="cards">
+
+<a class="card" href="/story/getting-started--page">
+  <img alt="Fast icon" src="/assets/images/fast-icon.png" />
+  <p>Getting started</p>
+</a>
+<a class="card" href="/story/atomic-design--page">
+  <img alt="Atomic design-icon" src="/assets/images/atomic-design-icon.png" />
+  <p>Atomic Design</p>
+</a>
+<a class="card" href="/story/branding-colours--page">
+  <img alt="Colour palette icon" src="/assets/images/colour-palette-icon.png" />
+  <p>Branding - Colours</p>
+</a>
+<a class="card" href="/story/branding-logos--page">
+  <img alt="Logo icon" src="/assets/images/logo-icon.png" />
+  <p>Branding - Logos</p>
+</a>
+
+</div>
+
+</div>
+
+<style>
+  {`
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+  }
+  .card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 calc(100% - 10px);
+    height: 260px;
+    margin-top: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #F7F9FC;
+  }
+
+  .card:hover {
+    background-color: #EAF3FC;
+  }
+
+  .card p {
+    color: #1EA7FD;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 40em) {
+    .card {
+        flex: 0 1 calc(50% - 16px);
+    }
+  }
+
+  @media screen and (min-width: 80em) {
+    .card {
+        flex: 0 1 calc(25% - 16px);
+    }
+  }
+
+`}
+</style>
