@@ -98,12 +98,25 @@ const preview: Preview = {
       );
     },
   ],
-
   parameters: {
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    options: {
+      storySort: {
+        order: [
+          'Introduction',
+          'Getting started',
+          'Atomic Design',
+          'Changelog',
+          'Breaking change notes',
+          'Branding',
+          'Components',
+          'Full examples',
+        ],
       },
     },
   },
