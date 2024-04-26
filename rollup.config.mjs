@@ -23,7 +23,7 @@ export default [
         banner: '/* eslint-disable */',
       },
       {
-        file: 'storybook/src/lib/index.js',
+        file: 'storybook_old/src/lib/index.js',
         format: 'es',
         banner: '/* eslint-disable */',
       },
