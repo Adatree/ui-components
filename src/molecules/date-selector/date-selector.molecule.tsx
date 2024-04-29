@@ -21,12 +21,6 @@ export const DateSelector = (props: DateSelectorProps) => {
   const [sharingDuration, setSharingDuration] = useState<SharingDuration>();
   const [consentForm, setConsentForm] = useConsentForm();
 
-  let showAllOptions = showSharingDurationsOptions;
-
-  if (sharingDurations.length === 1 && sharingDurations[0] === SharingDuration.OnceOff) {
-    showAllOptions = false;
-  }
-
   const handleDatePickerChange = (date: Date) => {
     handleSharingEndDateChange(date, SharingDuration.Custom);
   };
@@ -42,6 +36,19 @@ export const DateSelector = (props: DateSelectorProps) => {
     setSharingEndDate(date);
     setSharingDuration(selectedSharingDuration);
   };
+
+  let showAllOptions = showSharingDurationsOptions;
+
+  if (sharingDurations.length === 1 && sharingDurations[0] === SharingDuration.OnceOff) {
+    showAllOptions = false;
+  } else if (
+    sharingDurations.length === 1 &&
+    sharingDurations[0] !== SharingDuration.OnceOff &&
+    sharingDurations[0] !== SharingDuration.Custom
+  ) {
+    const dateDurations = Helper.parseSharingDurations(sharingDurations);
+    handleDateButtonClick(Helper.dateDurationToDate(dateDurations[0]), dateDurations[0].type);
+  }
 
   return (
     <>
