@@ -62,16 +62,6 @@ export const DateSelector = (props: DateSelectorProps) => {
         </Typography>
       )}
 
-      {!showAllOptions &&
-        sharingDurations.length === 1 &&
-        !sharingDurations.includes(SharingDuration.Custom) &&
-        !sharingDurations.includes(SharingDuration.OnceOff) && (
-          <Typography sx={{ mb: 1.5 }}>
-            <Highlight>{companyName}</Highlight> will be able to access your data for{' '}
-            <Highlight>{Helper.sharingDurationToString(sharingDurations[0])}</Highlight>.
-          </Typography>
-        )}
-
       {!showAllOptions && sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.OnceOff) && (
         <Typography sx={{ mb: 1.5 }}>
           <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
