@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 import { SharingDuration } from '../../generated/consent';
@@ -41,14 +41,18 @@ export const DateSelector = (props: DateSelectorProps) => {
 
   if (sharingDurations.length === 1 && sharingDurations[0] === SharingDuration.OnceOff) {
     showAllOptions = false;
-  } else if (
-    sharingDurations.length === 1 &&
-    sharingDurations[0] !== SharingDuration.OnceOff &&
-    sharingDurations[0] !== SharingDuration.Custom
-  ) {
-    const dateDurations = Helper.parseSharingDurations(sharingDurations);
-    handleDateButtonClick(Helper.dateDurationToDate(dateDurations[0]), dateDurations[0].type);
   }
+
+  useEffect(() => {
+    if (
+      sharingDurations.length === 1 &&
+      sharingDurations[0] !== SharingDuration.OnceOff &&
+      sharingDurations[0] !== SharingDuration.Custom
+    ) {
+      const dateDurations = Helper.parseSharingDurations(sharingDurations);
+      handleDateButtonClick(Helper.dateDurationToDate(dateDurations[0]), dateDurations[0].type);
+    }
+  }, []);
 
   return (
     <>
