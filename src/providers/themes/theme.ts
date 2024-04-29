@@ -221,6 +221,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/lab/LoadingButton' {
+  interface ButtonPropsColorOverrides {
+    button: true;
+  }
+}
+
 declare module '@mui/material/Checkbox' {
   interface CheckboxPropsColorOverrides {
     button: true;
