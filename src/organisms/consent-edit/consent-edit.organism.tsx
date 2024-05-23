@@ -9,7 +9,6 @@ import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
-import { ConsentEditPostUsage } from './consent-edit-post-usage.organism';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 
 export type ConsentEditProps = {
@@ -84,8 +83,6 @@ export const ConsentEdit = (props: ConsentEditProps) => {
       )}
 
       {isEditable && <ConsentEditDates consent={consent} showError={false} useCase={useCase} />}
-
-      {isEditable && <ConsentEditPostUsage defaultValue={consent.postUsageAction} />}
 
       <ConsentSectionInfo useCase={useCase} dataHandlers={dataRecipients} />
 

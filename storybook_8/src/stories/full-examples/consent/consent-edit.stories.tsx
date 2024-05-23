@@ -63,20 +63,6 @@ export const WithNoChanges: Story = {
 
 // ####################################
 
-export const WithPostUsageAction: Story = {
-  render: (args) => {
-    args.consent = TestUtil.testData.consent.activeWithDeIdentification();
-    args.useCase = { ...TestUtil.testData.useCase.deIdentification() };
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <ConsentEdit {...args} />
-      </ConsentFormProvider>
-    );
-  },
-};
-
-// ####################################
-
 export const WithCustomDate: Story = {
   render: (args) => {
     args.useCase = {
