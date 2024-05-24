@@ -1,5 +1,5 @@
 import React from 'react';
-import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
+import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom';
 import { AccessFrequency, SharingDuration } from '../../generated/consent';
 import { Formatter } from '../formatter/formatter';
 import { Helper } from '../helper/helper';
@@ -11,26 +11,26 @@ const confirmation = (
 ): React.ReactNode => {
   const common = (
     <>
-      I confirm that I am allowing <Highlight>{companyName}</Highlight> to access my data (listed above)
+      I confirm that I am allowing <HL>{companyName}</HL> to access my data (listed above)
     </>
   );
 
   if (endDate && sharingDuration === SharingDuration.Custom) {
     return (
       <>
-        {common} until the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
+        {common} until the <HL>{Formatter.formatDateTime(endDate)}</HL>.
       </>
     );
   } else if (sharingDuration === SharingDuration.OnceOff) {
     return (
       <>
-        {common} <Highlight>once</Highlight>.
+        {common} <HL>once</HL>.
       </>
     );
   } else if (sharingDuration && sharingDuration !== SharingDuration.Custom) {
     return (
       <>
-        {common} for a period of <Highlight>{Helper.sharingDurationToString(sharingDuration)}</Highlight>.
+        {common} for a period of <HL>{Helper.sharingDurationToString(sharingDuration)}</HL>.
       </>
     );
   } else {
@@ -39,36 +39,32 @@ const confirmation = (
 };
 
 const accessFrequency = (companyName: string, accessFrequency: AccessFrequency | undefined): React.ReactNode => {
-  const common = (
-    <>
-      <Highlight>{companyName}</Highlight> will be able to access your data
-    </>
-  );
+  const common = <>{companyName} will be able to access your data</>;
 
   if (accessFrequency === AccessFrequency.OnceOff) {
     return (
       <>
-        Data sharing with <Highlight>{companyName}</Highlight> ends after first use.
+        Data sharing with {companyName} ends after <HL>first use</HL>.
       </>
     );
   } else if (accessFrequency === AccessFrequency.Ongoing) {
-    return <>{common} multiple times during this period.</>;
+    return (
+      <>
+        {common} <HL>multiple times</HL> during this period.
+      </>
+    );
   } else {
     return <>{common}.</>;
   }
 };
 
 const currentAccess = (companyName: string, endDate: string | undefined): React.ReactNode => {
-  const common = (
-    <>
-      You are currently allowing <Highlight>{companyName}</Highlight> to access your data
-    </>
-  );
+  const common = <>You are currently allowing {companyName} to access your data</>;
 
   if (endDate) {
     return (
       <>
-        {common} until the <Highlight>{Formatter.formatDateTime(endDate)}</Highlight>.
+        {common} until the <HL>{Formatter.formatDateTime(endDate)}</HL>.
       </>
     );
   } else {
