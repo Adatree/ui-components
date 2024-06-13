@@ -24,7 +24,7 @@ export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) =
   return (
     <>
       <Button
-        sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
+        sx={{ mb: 2, width: { xs: '100%', sm: '17rem' } }}
         variant="outlined"
         color="inherit"
         onClick={() => {

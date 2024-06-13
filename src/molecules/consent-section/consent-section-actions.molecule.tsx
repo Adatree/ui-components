@@ -41,7 +41,7 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
         }}
       >
         <Button
-          sx={{ mb: 2, width: { xs: '100%', sm: '20rem' } }}
+          sx={{ mb: 2, width: { xs: '100%', sm: '17rem' } }}
           variant="contained"
           color={isValid === true ? 'button' : 'inherit'}
           onClick={handleSubmit}
