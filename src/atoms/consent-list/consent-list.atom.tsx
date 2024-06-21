@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, List, Pagination } from '@mui/material';
 import { ConsentResponse } from '../../generated/consent';
 import { ConsentListItem } from '../consent-list-item/consent-list-item.atom';
@@ -33,7 +33,7 @@ export const ConsentList: React.FC<Props> = ({ consents, url = '/consent/', pagi
       </List>
       {onPagination && pagination && (
         <Box sx={{ display: 'flex', justifyContent: 'end', mt: 1 }}>
-          <Pagination count={pagination.totalPages} size="small" onChange={handleChange} />
+          <Pagination page={pagination.page} count={pagination.totalPages} size="small" onChange={handleChange} />
         </Box>
       )}
     </>

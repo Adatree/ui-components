@@ -28,3 +28,11 @@ export const WithPagination: Story = {
     onPagination: (page: number) => alert(`Showing page ${page}`),
   },
 };
+
+export const WithPaginationPage2: Story = {
+  args: {
+    consents: TestUtil.testData.consent.all(),
+    pagination: { page: 2, pageSize: 25, totalRecords: 52, totalPages: 3 },
+    onPagination: (page: number) => alert(`Showing page ${page}`),
+  },
+};
