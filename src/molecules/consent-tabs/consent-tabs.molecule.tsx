@@ -17,6 +17,9 @@ type TabPanelProps = {
   children?: React.ReactNode;
 };
 
+/**
+ * @deprecated since pagination was introduced. Use ConsentList and manage the Tabs layout on the client app if required.
+ */
 export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
   const { consents = [], isLoading = false, urlPrefix = '/consent/' } = props;
   const [value, setValue] = React.useState(0);

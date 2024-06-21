@@ -1,26 +1,41 @@
 import React from 'react';
-import { List } from '@mui/material';
+import { Box, List, Pagination } from '@mui/material';
 import { ConsentResponse } from '../../generated/consent';
 import { ConsentListItem } from '../consent-list-item/consent-list-item.atom';
+import { PaginationModel } from '../../types/pagination.type';
 
-export type ListItemProps = {
+interface Props {
   consents: ConsentResponse[];
   url?: string;
-};
+  pagination?: PaginationModel;
+  onPagination?: (page: number) => void;
+}
 
-export const ConsentList: React.FC<ListItemProps> = (props) => {
-  const { consents, url = '/consent/' } = props;
+export const ConsentList: React.FC<Props> = ({ consents, url = '/consent/', pagination, onPagination }: Props) => {
+  const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    event.stopPropagation();
+    if (onPagination) {
+      onPagination(page);
+    }
+  };
 
   return (
-    <List>
-      {consents.map((consent) => (
-        <ConsentListItem
-          key={consent.consentId}
-          consent={consent}
-          consentUrl={`${url}${consent.consentId}`}
-          dataHolderLogoUrl={consent.dataHolderLogoUri}
-        />
-      ))}
-    </List>
+    <>
+      <List>
+        {consents.map((consent) => (
+          <ConsentListItem
+            key={consent.consentId}
+            consent={consent}
+            consentUrl={`${url}${consent.consentId}`}
+            dataHolderLogoUrl={consent.dataHolderLogoUri}
+          />
+        ))}
+      </List>
+      {onPagination && pagination && (
+        <Box sx={{ display: 'flex', justifyContent: 'end', mt: 1 }}>
+          <Pagination count={pagination.totalPages} size="small" onChange={handleChange} />
+        </Box>
+      )}
+    </>
   );
 };

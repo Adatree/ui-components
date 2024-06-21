@@ -20,3 +20,11 @@ export const Active: Story = {
     url: '/url-to-the-consent',
   },
 };
+
+export const WithPagination: Story = {
+  args: {
+    consents: TestUtil.testData.consent.all(),
+    pagination: { page: 1, pageSize: 25, totalRecords: 52, totalPages: 3 },
+    onPagination: (page: number) => alert(`Showing page ${page}`),
+  },
+};
