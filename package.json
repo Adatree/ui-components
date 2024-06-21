@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "6.7.2",
+  "version": "6.7.3",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -20,20 +20,24 @@
     "test": "jest"
   },
   "dependencies": {
-    "@adatree/react-api-sdk": "1.0.10-rc",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/lab": "^5.0.0-alpha.117",
     "@mui/material": "^5.11.6",
-    "@mui/styled-engine": "latest",
-    "@mui/x-date-pickers": "^5.0.16",
+    "@mui/styled-engine": "5.15.14",
+    "@mui/x-date-pickers": "^7.7.1",
     "axios": "^0.25.0",
     "date-fns": "^2.28.0",
     "lodash": "^4.17.21",
     "mdi-material-ui": "7.6.0",
     "uuid": "^9.0.0"
   },
+  "peerDependencies": {
+    "@adatree/react-api-sdk": "1.0.10-rc",
+    "react": "^18.2.0"
+  },
   "devDependencies": {
+    "@adatree/react-api-sdk": "1.0.10-rc",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@testing-library/jest-dom": "^5.16.5",

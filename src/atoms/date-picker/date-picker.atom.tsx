@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { TextField } from '@mui/material';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
@@ -34,13 +33,11 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
         label={label}
         minDate={new Date()}
         maxDate={maxDate}
-        inputFormat={inputFormat}
+        format={inputFormat}
         value={value}
         disabled={disabled}
         onChange={handleChange}
-        renderInput={(params) => (
-          <TextField {...params} sx={{ input: { color: (theme) => theme.palette.text_main.main } }} />
-        )}
+        slotProps={{ textField: { sx: { input: { color: (theme) => theme.palette.text_main.main } } } }}
       />
     </LocalizationProvider>
   );
