@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, List, Pagination } from '@mui/material';
 import { ConsentResponse } from '../../generated/consent';
 import { ConsentListItem } from '../consent-list-item/consent-list-item.atom';
