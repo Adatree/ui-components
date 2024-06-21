@@ -79,6 +79,7 @@ export { AppTheme, darkTheme, defaultTheme, ThemeMode } from './providers/themes
 export { Copy } from './types/copy.type';
 export { DataRecipient } from './types/data-recipient.type';
 export { InsightResponse } from './types/insight-response.type';
+export { PaginationModel } from './types/pagination.type';
 
 // Utils
 export { Debugger } from './utils/debug/debug';

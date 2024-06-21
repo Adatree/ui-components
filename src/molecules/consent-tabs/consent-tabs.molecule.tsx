@@ -1,15 +1,25 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
-import { ConsentResponse, Status } from '../../generated/consent';
+import { ConsentApi } from '@adatree/react-api-sdk';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
-import { Helper } from '../../utils/helper/helper';
 import { Card } from '../../atoms/card/card.atom';
 
-export type ConsentTabsProps = {
-  consents: ConsentResponse[] | undefined;
+type PaginationModel = {
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  totalRecords: number;
+};
+
+export interface Props {
+  activeConsents: ConsentApi.ConsentResponse[] | undefined;
+  expiredConsents: ConsentApi.ConsentResponse[] | undefined;
+  revokedConsents: ConsentApi.ConsentResponse[] | undefined;
   isLoading?: boolean;
   urlPrefix?: string;
-};
+  pagination: PaginationModel;
+  onChange: (tabIndex: number, tabListPage: number) => void;
+}
 
 type TabPanelProps = {
   index: number;
@@ -17,23 +27,27 @@ type TabPanelProps = {
   children?: React.ReactNode;
 };
 
-/**
- * @deprecated since pagination was introduced. Use ConsentList and manage the Tabs layout on the client app if required.
- */
-export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
-  const { consents = [], isLoading = false, urlPrefix = '/consent/' } = props;
-  const [value, setValue] = React.useState(0);
+export const ConsentTabs: React.FC<Props> = ({
+  activeConsents = [],
+  expiredConsents = [],
+  revokedConsents = [],
+  isLoading = false,
+  urlPrefix = '/consent/',
+  pagination,
+  onChange,
+}: Props) => {
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const [paginationPage, setPaginationPage] = React.useState(1);
 
-  const activeConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Active));
-  const expiredConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Expired));
-  const revokedConsents = Helper.sortListbyDate(Helper.filterListbyStatus(consents, Status.Revoked));
+  const handleTabChange = (event: React.SyntheticEvent, newTabIndex: number) => {
+    event.stopPropagation();
+    setTabIndex(newTabIndex);
+    onChange(newTabIndex, paginationPage);
+  };
 
-  Helper.filterListbyStatus(consents, Status.Active);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    if (event) {
-      setValue(newValue);
-    }
+  const handlePaginationChange = (page: number) => {
+    setPaginationPage(page);
+    onChange(tabIndex, page);
   };
 
   const noConsentItems = (status: string) => {
@@ -48,8 +62,8 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
     <Box>
       <AppBar position="static" color="primary">
         <Tabs
-          value={value}
-          onChange={handleChange}
+          value={tabIndex}
+          onChange={handleTabChange}
           indicatorColor="secondary"
           textColor="inherit"
           variant="fullWidth"
@@ -60,32 +74,47 @@ export const ConsentTabs: React.FC<ConsentTabsProps> = (props) => {
           <Tab label="Revoked" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={tabIndex} index={0}>
         {isLoading && renderLoading()}
         {!isLoading && activeConsents.length > 0 && (
           <Card>
-            <ConsentList consents={activeConsents} url={urlPrefix} />
+            <ConsentList
+              consents={activeConsents}
+              url={urlPrefix}
+              onPagination={handlePaginationChange}
+              pagination={pagination}
+            />
           </Card>
         )}
-        {!isLoading && activeConsents.length === 0 && noConsentItems(Status.Active)}
+        {!isLoading && activeConsents.length === 0 && noConsentItems(ConsentApi.Status.Active)}
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={tabIndex} index={1}>
         {isLoading && renderLoading()}
         {!isLoading && expiredConsents.length > 0 && (
           <Card>
-            <ConsentList consents={expiredConsents} url={urlPrefix} />
+            <ConsentList
+              consents={expiredConsents}
+              url={urlPrefix}
+              onPagination={handlePaginationChange}
+              pagination={pagination}
+            />
           </Card>
         )}
-        {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.Expired)}
+        {!isLoading && expiredConsents.length === 0 && noConsentItems(ConsentApi.Status.Expired)}
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={tabIndex} index={2}>
         {isLoading && renderLoading()}
         {!isLoading && revokedConsents.length > 0 && (
           <Card>
-            <ConsentList consents={revokedConsents} url={urlPrefix} />
+            <ConsentList
+              consents={revokedConsents}
+              url={urlPrefix}
+              onPagination={handlePaginationChange}
+              pagination={pagination}
+            />
           </Card>
         )}
-        {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.Revoked)}
+        {!isLoading && revokedConsents.length === 0 && noConsentItems(ConsentApi.Status.Revoked)}
       </TabPanel>
     </Box>
   );
