@@ -9,6 +9,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 function randomEnum<T>(anEnum: T): T[keyof T] {
+  // @ts-ignore ignore
   const enumValues = Object.keys(anEnum)
     .map((n) => Number.parseInt(n))
     .filter((n) => !Number.isNaN(n)) as unknown as T[keyof T][];

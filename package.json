@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "6.7.1",
+  "version": "6.7.2",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -20,7 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@adatree/react-api-sdk": "1.0.11-rc",
+    "@adatree/react-api-sdk": "1.0.10-rc",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/lab": "^5.0.0-alpha.117",
