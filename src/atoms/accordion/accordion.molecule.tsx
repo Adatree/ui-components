@@ -11,11 +11,13 @@ import {
 export type AccordionProps = {
   title: string;
   content: ReactNode;
+  lazyLoad?: boolean;
 };
 
 export const Accordion: React.FC<AccordionProps> = (props) => {
-  const { title, content } = props;
+  const { title, content, lazyLoad = false } = props;
   const { track } = useAnalytics();
+  const slotProp = { transition: { unmountOnExit: true } };
 
   const handleOnChange = (event: React.SyntheticEvent, expanded: boolean) => {
     if (expanded && event) {
@@ -30,7 +32,12 @@ export const Accordion: React.FC<AccordionProps> = (props) => {
   };
 
   return (
-    <MuiAccordion elevation={0} sx={{ boxShadow: '0 1px 2px rgba(0,0,0,.1)' }} onChange={handleOnChange}>
+    <MuiAccordion
+      elevation={0}
+      sx={{ boxShadow: '0 1px 2px rgba(0,0,0,.1)' }}
+      slotProps={lazyLoad === true ? { ...slotProp } : {}}
+      onChange={handleOnChange}
+    >
       <AccordionSummary
         expandIcon={<ChevronDown />}
         aria-controls={`panel-content-${title.replace(' ', '-')}`}

@@ -20,3 +20,11 @@ export const Default: Story = {
     content: <p>This is the Accordion content</p>,
   },
 };
+
+export const WithLazyLoad: Story = {
+  args: {
+    title: 'This is the title',
+    content: <p>This is content is loaded in on click</p>,
+    lazyLoad: true,
+  },
+};
