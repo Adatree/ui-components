@@ -174,6 +174,28 @@ const energyElectricityServicepointsDetailRead = (): ScopeResponse => {
   };
 };
 
+const cdrInsightsOne = (): ScopeResponse => {
+  return {
+    name: 'CDR Insight 1',
+    id: 'insight:example.one.basic:read',
+    purpose: 'This is the CDR Insight purpose for CDR Insight 1.',
+    description: '',
+    claims: ['CDR claim 1', 'CDR claim 2', 'CDR claim 3'],
+    priority: 1,
+  };
+};
+
+const cdrInsightsTwo = (): ScopeResponse => {
+  return {
+    name: 'CDR Insight 2',
+    id: 'insight:example.two.basic:read',
+    purpose: 'This is the CDR Insight purpose for CDR Insight 2.',
+    description: '',
+    claims: ['CDR claim 4', 'CDR claim 5', 'CDR claim 6'],
+    priority: 2,
+  };
+};
+
 const energyElectricityDerRead = (): ScopeResponse => {
   return {
     name: 'Energy generation and storage',
@@ -213,6 +235,8 @@ export const scope = {
   bankAccountsBasicRead,
   bankAccountsDetailRead,
   bankTransactionsRead,
+  cdrInsightsOne,
+  cdrInsightsTwo,
   commonCustomerBasicRead,
   commonCustomerDetailRead,
   energyAccountsBasicRead,

@@ -147,7 +147,6 @@ const deIdentification = (): UseCaseResponse => {
     name: 'De-identification use case example',
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess your suitability and is de-identified on deletion',
-    //@ts-ignore
     features: ['DE_IDENTIFICATION'],
     industries: [Industry.Banking],
     priority: 1,
