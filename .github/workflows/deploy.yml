@@ -20,6 +20,13 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup registry access
+        run: |
+          echo "@adatree:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${NPM_PKG_TOKEN}" >> .npmrc
+        env:
+          NPM_PKG_TOKEN: ${{secrets.GH_NPM_PKG_TOKEN_FOR_REPO_ACTIONS}}
+
       - name: Build Components
         if: github.ref == 'refs/heads/main'
         run: |
