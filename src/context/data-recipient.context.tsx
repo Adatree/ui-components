@@ -48,7 +48,7 @@ const DataRecipientsProvider = ({ accreditationNum, children, initialDataRecipie
     setDataRecipients(dataRecipientsClone);
     setAdrDataRecipient(Helper.getAdrDataRecipients(dataRecipientsClone));
     setPrimaryDataRecipient(Helper.getPrimaryDataRecipients(dataRecipientsClone));
-    setNonAdrDataRecipient(Helper.getPrimaryDataRecipients(dataRecipientsClone));
+    setNonAdrDataRecipient(Helper.getNonAdrDataRecipient(dataRecipientsClone));
   };
 
   return (

@@ -11,34 +11,34 @@ import {
   Typography,
 } from '@mui/material';
 import { InformationOutline, Close } from 'mdi-material-ui';
-import { Insight, InsightResponse } from '../../types/insight-response.type';
 import {
   AnalyticsEvents,
   AnalyticsAction,
   AnalyticsComponentMeta,
   useAnalytics,
 } from '../../context/analytics.context';
+import { ScopeResponse } from '../../generated/consent';
 
 interface Props {
-  insightResponse: InsightResponse;
+  insightScopes: ScopeResponse[];
   dataHolderName: string;
 }
 
 export const InsightList = (props: Props) => {
-  const { insightResponse, dataHolderName } = props;
+  const { insightScopes, dataHolderName } = props;
   const { track } = useAnalytics();
-  const [insight, setInsight] = useState<Insight>();
+  const [insightScope, setInsightScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleInfoClick = (insight: Insight) => {
+  const handleInfoClick = (insightScope: ScopeResponse) => {
     track(
       AnalyticsEvents.UI_INTERACTION,
       AnalyticsComponentMeta.ADT_CMP_INS_LT_INFO.id,
       AnalyticsComponentMeta.ADT_CMP_INS_LT_INFO.description,
       AnalyticsAction.OPEN,
-      insight.name,
+      insightScope.name,
     );
-    setInsight(insight);
+    setInsightScope(insightScope);
     setIsDialogOpen(true);
   };
 
@@ -49,7 +49,7 @@ export const InsightList = (props: Props) => {
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-        {insightResponse.insights.map((insight: Insight, index: number) => {
+        {insightScopes.map((insight: ScopeResponse, index: number) => {
           return (
             <ListItem
               key={index}
@@ -86,7 +86,7 @@ export const InsightList = (props: Props) => {
 
       <Dialog onClose={handleDialogClose} open={isDialogOpen}>
         <DialogTitle>
-          <span style={{ marginRight: '2rem' }}>{insight?.name}</span>
+          <span style={{ marginRight: '2rem' }}>{insightScope?.name}</span>
 
           <IconButton
             aria-label="close"
@@ -104,18 +104,19 @@ export const InsightList = (props: Props) => {
 
         <DialogContent sx={{ pt: 2 }}>
           <Typography>We use your data to provide the insight:</Typography>
-          <Typography sx={{ p: 0.8, mb: 1, fontStyle: 'italic' }}>{insight?.example}</Typography>
+          <Typography sx={{ p: 0.8, mb: 1, fontStyle: 'italic' }}>{insightScope?.name}</Typography>
 
           <Typography>To generate this insight we use the following data from {dataHolderName}</Typography>
           <Box sx={{ pt: 1 }}>
             <ul>
-              {insight?.dataScopes.map((scope, i: number) => (
-                <li key={i} style={{ listStyle: 'inside', paddingLeft: '12px' }}>
-                  {scope.name}
-                </li>
-              ))}
+              {insightScope?.claims &&
+                insightScope?.claims.map((claim, i: number) => (
+                  <li key={i} style={{ listStyle: 'inside', paddingLeft: '12px' }}>
+                    {claim}
+                  </li>
+                ))}
             </ul>
-            {insight?.extraInfo && <Typography sx={{ mt: 1 }}>{insight?.extraInfo}</Typography>}
+            {insightScope?.description && <Typography sx={{ mt: 1 }}>{insightScope?.description}</Typography>}
           </Box>
         </DialogContent>
       </Dialog>

@@ -1,19 +1,21 @@
 import React from 'react';
 import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
-import { InsightResponse } from '../../types/insight-response.type';
 import { InsightList } from '../../atoms/insight-list/insight-list.atom';
 import { Card } from '../../atoms/card/card.atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
+import { ScopeResponse } from '../../generated/consent';
+import { useDataRecipients } from '../../context/data-recipient.context';
 
 interface Props {
-  insightResponse: InsightResponse;
+  insightScopes: ScopeResponse[];
   dataHolderName: string;
   showError: boolean;
   onChange: (confirmation: boolean) => void;
 }
 
 export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
-  const { insightResponse, dataHolderName, onChange, showError = false } = props;
+  const { insightScopes, dataHolderName, onChange, showError = false } = props;
+  const { nonAdrDataRecipient } = useDataRecipients();
 
   const handleConfirmationChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     event.stopPropagation();
@@ -24,21 +26,20 @@ export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
     <>
       <Box sx={{ mb: 3 }}>
         <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
-          <Highlight>{insightResponse.nonAccreditedDataRecipient}</Highlight> needs your permission to receive the
-          following insights {insightResponse.purpose}
+          <Highlight>{nonAdrDataRecipient?.name}</Highlight> needs your permission to receive the following insights:
         </Typography>
       </Box>
 
       <Card error={showError} sx={{ mt: 1 }}>
-        <InsightList insightResponse={insightResponse} dataHolderName={dataHolderName} />
+        <InsightList insightScopes={insightScopes} dataHolderName={dataHolderName} />
         <Box sx={{ mt: 1.5, pr: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <FormControlLabel
             labelPlacement="start"
             control={<Checkbox color="button" onChange={handleConfirmationChange} />}
             label={
               <Typography>
-                I confirm that <Highlight>{insightResponse.nonAccreditedDataRecipient}</Highlight> has permission to
-                receive the above insights.
+                I confirm that <Highlight>{nonAdrDataRecipient?.name}</Highlight> has permission to receive the above
+                insights.
               </Typography>
             }
           />

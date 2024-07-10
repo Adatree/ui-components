@@ -11,28 +11,20 @@ import { ConsentSectionInfo } from '../../molecules/consent-section/consent-sect
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { PartnerMessageDialog } from '../../molecules/partner-message-dialog/partner-message-dialog.molecule';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
-import { InsightResponse } from '../../types/insight-response.type';
 import { ConsentSectionDeIdentify } from '../../molecules/consent-section/consent-section-deletion.molecule';
 import { BusinessConsumerStatement } from '../../molecules/business-consumer-statement/business-consumer-statement.molecule';
+import { UseCaseFeature } from '../../consts/use-case-features.const';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   dataHandlers?: DataRecipient[];
-  insightResponse?: InsightResponse;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
-  const {
-    useCase,
-    enablePartnerMessageDiscreetMode = false,
-    dataHandlers,
-    insightResponse,
-    onCancel,
-    onSubmit,
-  } = props;
+  const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
@@ -43,7 +35,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [subTitle, setSubTitle] = useState<string>();
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const { primaryDataRecipient, dataRecipients } = useDataRecipients();
+  const { primaryDataRecipient, nonAdrDataRecipient, dataRecipients } = useDataRecipients();
 
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
@@ -60,14 +52,18 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
       setConsentForm({ ...consentForm });
     }
 
-    if (insightResponse) {
+    if (useCase.features?.includes(UseCaseFeature.CDR_INSIGHTS)) {
       setSubTitle(
-        `${insightResponse.nonAccreditedDataRecipient} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
+        `${nonAdrDataRecipient?.name} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
       );
     }
 
     // @ts-ignore
-    if (useCase.features && Array.isArray(useCase.features) && useCase.features.includes('DE_IDENTIFICATION')) {
+    if (
+      useCase.features &&
+      Array.isArray(useCase.features) &&
+      useCase.features.includes(UseCaseFeature.DE_IDENTIFICATION)
+    ) {
       consentForm.postUsageAction = undefined;
       setConsentForm({ ...consentForm });
       setShowDeIdentifySection(true);

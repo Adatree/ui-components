@@ -193,8 +193,8 @@ export const WithInsightsSingle: Story = {
       ...getUseCase(industry),
       sharingDurations: [SharingDuration.OnceOff],
       accessFrequency: AccessFrequency.OnceOff,
+      features: ['CDRInsights'],
     };
-    args.insightResponse = TestUtil.testData.insights.single();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
@@ -213,8 +213,8 @@ export const WithInsightsMany: Story = {
       ...getUseCase(industry),
       sharingDurations: [SharingDuration.OnceOff],
       accessFrequency: AccessFrequency.OnceOff,
+      features: ['CDRInsights'],
     };
-    args.insightResponse = TestUtil.testData.insights.all();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>

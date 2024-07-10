@@ -6,9 +6,10 @@ import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-hol
 import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
-import { InsightResponse } from '../../types/insight-response.type';
 import { ConsentInsightForm } from './consent-insight-form.organism';
 import { Logger } from '../../utils/logger/logger';
+import { UseCaseFeature } from '../../consts/use-case-features.const';
+import { DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -19,7 +20,6 @@ export type ConsentCreateProps = {
   favouriteDataHolders?: DataHolder[];
   hideMaxAccountConnectedBackButton?: boolean;
   allowMultiConsentsPerDataHolder?: boolean;
-  insightResponse?: InsightResponse;
   onCancel: () => void;
   onSubmit: () => void;
   onNotListedClick?: () => void;
@@ -35,14 +35,13 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     favouriteDataHolders,
     hideMaxAccountConnectedBackButton = false,
     allowMultiConsentsPerDataHolder = false,
-    insightResponse,
     onCancel,
     onSubmit,
     onNotListedClick,
   } = props;
   const [consentForm, setConsentForm] = useConsentForm();
-  const [showInsights, setShowInsights] = useState<boolean>(insightResponse !== undefined);
-  const { dataRecipients } = useDataRecipients();
+  const [showInsights, setShowInsights] = useState<boolean>(false);
+  const { dataRecipients, addDataRecipient } = useDataRecipients();
 
   let disableDataHolders: DataHolder[] = [];
 
@@ -58,6 +57,23 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
       if (!foundDataHolder) {
         Logger.error(`Data holder ID ${dataHolderId} is not in use case allowed data holders`, useCase.dataHolders);
       }
+    }
+
+    if (useCase.features?.includes(UseCaseFeature.CDR_INSIGHTS)) {
+      // Hard coded until nonADR is returned in dashboard config
+      addDataRecipient({
+        name: 'ServiceVic',
+        description:
+          'We help businesses buy better for their energy and solar, saving them time and improving their bottom lines.',
+        dataSharingRevocationEmail: 'consent@servicevic-nonprod.api.adatree.com.au',
+        logo: 'https://service.vic.gov.au/-/media/771616c32a624b7abc957d71d64ac46c.svg?h=50&iar=0&w=70&hash=FE013D959FE549F8134C0BC0B06426D0',
+        cdrPolicyUrl: '',
+        complaintEmail: '',
+        website: '',
+        type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
+      });
+
+      setShowInsights(true);
     }
   }, []);
 
@@ -91,9 +107,19 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               onNotListedClick={onNotListedClick}
             />
           )}
-          {consentForm.dataHolder && showInsights && insightResponse && (
+          {consentForm.dataHolder && showInsights && (
+            // Hard coded until insight scopes are returned in API
             <ConsentInsightForm
-              insightResponse={insightResponse}
+              insightScopes={[
+                {
+                  name: 'Insight name',
+                  id: 'insight:scope:cliam:id',
+                  purpose: 'Insight purpose',
+                  description: 'Insight description',
+                  claims: ['Claim 1', 'Claim 2'],
+                  priority: 1,
+                },
+              ]}
               onCancel={handleCancel}
               onSubmit={handleInsightsSubmit}
             />
@@ -103,7 +129,6 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
               dataHandlers={dataRecipients}
-              insightResponse={insightResponse}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
             />

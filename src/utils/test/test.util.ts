@@ -4,7 +4,6 @@ import { consent } from './test-data/consents';
 import { consentV2 } from './test-data/consents-v2';
 import { dataHolder } from './test-data/data-holders';
 import { dataRecipient } from './test-data/data-recipient';
-import { insights } from './test-data/insights';
 import { outsourcedServiceProvider } from './test-data/outsourced-service-providers';
 import { scope } from './test-data/scopes';
 import { useCase } from './test-data/use-cases';
@@ -24,7 +23,6 @@ export const TestUtil = {
     consentV2,
     dataHolder,
     dataRecipient,
-    insights,
     outsourcedServiceProvider,
     scope,
     useCase,

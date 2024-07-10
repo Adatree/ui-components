@@ -1,40 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useConsentForm } from '../../context/consentForm.context';
-import { useDataRecipients } from '../../context/data-recipient.context';
 import { useCopy } from '../../context/copy.context';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
-import { DataRecipientType } from '../../types/data-recipient.type';
 import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
-import { InsightResponse } from '../../types/insight-response.type';
+import { ScopeResponse } from '../../generated/consent';
 
 export type ConsentInsightFormProps = {
-  insightResponse: InsightResponse;
+  insightScopes: ScopeResponse[];
   onCancel: () => void;
   onSubmit: () => void;
 };
 
 export const ConsentInsightForm = (props: ConsentInsightFormProps) => {
-  const { insightResponse, onCancel, onSubmit } = props;
+  const { insightScopes, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [showInsightsError, setShowInsightsError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
-  const { addDataRecipient } = useDataRecipients();
-
-  useEffect(() => {
-    if (insightResponse !== undefined) {
-      addDataRecipient({
-        cdrPolicyUrl: insightResponse.dataHandlingUrl,
-        complaintEmail: '',
-        dataSharingRevocationEmail: '',
-        description: '',
-        logo: '',
-        name: insightResponse.nonAccreditedDataRecipient,
-        website: '',
-        type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (consentForm.insightsConfirmation) {
@@ -69,7 +51,7 @@ export const ConsentInsightForm = (props: ConsentInsightFormProps) => {
   return (
     <section>
       <InsightConfirmationForm
-        insightResponse={insightResponse}
+        insightScopes={insightScopes}
         showError={showInsightsError}
         dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
         onChange={handleInsightsChange}
