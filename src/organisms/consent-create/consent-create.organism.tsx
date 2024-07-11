@@ -9,7 +9,6 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 import { ConsentInsightForm } from './consent-insight-form.organism';
 import { Logger } from '../../utils/logger/logger';
 import { UseCaseFeature } from '../../consts/use-case-features.const';
-import { DataRecipientType } from '../../types/data-recipient.type';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -41,7 +40,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
   } = props;
   const [consentForm, setConsentForm] = useConsentForm();
   const [showInsights, setShowInsights] = useState<boolean>(false);
-  const { dataRecipients, addDataRecipient } = useDataRecipients();
+  const { dataRecipients } = useDataRecipients();
 
   let disableDataHolders: DataHolder[] = [];
 
@@ -60,19 +59,6 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     }
 
     if (useCase.features?.includes(UseCaseFeature.CDR_INSIGHTS)) {
-      // Hard coded until nonADR is returned in dashboard config
-      addDataRecipient({
-        name: 'ServiceVic',
-        description:
-          'We help businesses buy better for their energy and solar, saving them time and improving their bottom lines.',
-        dataSharingRevocationEmail: 'consent@servicevic-nonprod.api.adatree.com.au',
-        logo: 'https://service.vic.gov.au/-/media/771616c32a624b7abc957d71d64ac46c.svg?h=50&iar=0&w=70&hash=FE013D959FE549F8134C0BC0B06426D0',
-        cdrPolicyUrl: '',
-        complaintEmail: '',
-        website: '',
-        type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
-      });
-
       setShowInsights(true);
     }
   }, []);

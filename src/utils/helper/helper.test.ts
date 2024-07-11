@@ -349,7 +349,7 @@ describe('Helper Utils', () => {
 
       const nadr = Helper.getNonAdrDataRecipient(drList);
 
-      expect(nadr?.type).toEqual(DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT);
+      expect(nadr?.type).toEqual(DataRecipientType.NON_ACCREDITED_PERSON);
       expect(Helper.getNonAdrDataRecipient(adrOnlyList)).toEqual(undefined);
     });
   });

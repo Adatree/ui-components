@@ -255,7 +255,7 @@ const getAdrDataRecipients = (dataRecipients: DataRecipient[]): DataRecipient =>
 
 const getNonAdrDataRecipient = (dataRecipients: DataRecipient[]): DataRecipient | undefined => {
   const found = dataRecipients.find((dataRecipient) => {
-    return dataRecipient.type === DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT;
+    return dataRecipient.type === DataRecipientType.NON_ACCREDITED_PERSON;
   });
 
   return found;

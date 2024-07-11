@@ -105,9 +105,7 @@ export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
                   <>{renderTaspList(dataHandler)}</>
                 )}
 
-                {dataHandler.type === DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT && (
-                  <>{renderNonAdrList(dataHandler)}</>
-                )}
+                {dataHandler.type === DataRecipientType.NON_ACCREDITED_PERSON && <>{renderNonAdrList(dataHandler)}</>}
               </div>
             );
           })}

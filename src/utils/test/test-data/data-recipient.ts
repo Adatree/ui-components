@@ -61,7 +61,7 @@ export const nonAccreditedDataRecipient = (): DataRecipient => {
     logo: '/assets/images/adr-test-company-logo.png',
     name: 'Non Accredited Company',
     website: 'www.na.example.com',
-    type: DataRecipientType.NON_ACCREDITED_DATA_RECIPIENT,
+    type: DataRecipientType.NON_ACCREDITED_PERSON,
   };
 };
 
