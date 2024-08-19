@@ -6,9 +6,7 @@ import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-hol
 import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
-import { ConsentInsightForm } from './consent-insight-form.organism';
 import { Logger } from '../../utils/logger/logger';
-import { UseCaseFeature } from '../../consts/use-case-features.const';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -39,7 +37,6 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
     onNotListedClick,
   } = props;
   const [consentForm, setConsentForm] = useConsentForm();
-  const [showInsights, setShowInsights] = useState<boolean>(false);
   const { dataRecipients } = useDataRecipients();
 
   let disableDataHolders: DataHolder[] = [];
@@ -57,19 +54,11 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
         Logger.error(`Data holder ID ${dataHolderId} is not in use case allowed data holders`, useCase.dataHolders);
       }
     }
-
-    if (useCase.features?.includes(UseCaseFeature.CDR_INSIGHTS)) {
-      setShowInsights(true);
-    }
   }, []);
 
   if (!allowMultiConsentsPerDataHolder) {
     disableDataHolders = Helper.filterDataHoldersByConsentsAndUseCase(useCase.dataHolders, existingConsents, useCase);
   }
-
-  const handleInsightsSubmit = () => {
-    setShowInsights(false);
-  };
 
   const handleCancel = () => {
     onCancel();
@@ -93,24 +82,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
               onNotListedClick={onNotListedClick}
             />
           )}
-          {consentForm.dataHolder && showInsights && (
-            // Hard coded until insight scopes are returned in API
-            <ConsentInsightForm
-              insightScopes={[
-                {
-                  name: 'Insight name',
-                  id: 'insight:scope:cliam:id',
-                  purpose: 'Insight purpose',
-                  description: 'Insight description',
-                  claims: ['Claim 1', 'Claim 2'],
-                  priority: 1,
-                },
-              ]}
-              onCancel={handleCancel}
-              onSubmit={handleInsightsSubmit}
-            />
-          )}
-          {consentForm.dataHolder && !showInsights && (
+          {consentForm.dataHolder && (
             <ConsentCreateForm
               enablePartnerMessageDiscreetMode={enablePartnerMessageDiscreetMode}
               useCase={useCase}
