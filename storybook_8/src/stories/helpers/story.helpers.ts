@@ -4,6 +4,7 @@ export const dataRecipientValues = [
   'Accredited Data Recipient',
   'Business Consumer Disclosure Consent',
   'CDR representative',
+  'Non-Accredited Data Recipient',
   'Trusted Adviser',
   'Trusted Adviser with a TA Service Provider',
 ];
@@ -26,9 +27,14 @@ const getDataRecipients = (key: string): DataRecipient[] => {
   } else if (key === dataRecipientValues[3]) {
     dataRecipients = [
       TestUtil.testData.dataRecipient.accreditedDataRecipient(),
-      TestUtil.testData.dataRecipient.trustedAdvisor(),
+      TestUtil.testData.dataRecipient.nonAccreditedDataRecipient(),
     ];
   } else if (key === dataRecipientValues[4]) {
+    dataRecipients = [
+      TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+      TestUtil.testData.dataRecipient.trustedAdvisor(),
+    ];
+  } else if (key === dataRecipientValues[5]) {
     dataRecipients = [
       TestUtil.testData.dataRecipient.accreditedDataRecipient(),
       TestUtil.testData.dataRecipient.trustedAdvisor(),
