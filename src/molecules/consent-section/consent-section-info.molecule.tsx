@@ -17,30 +17,35 @@ export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => 
 
   const getHideDuplicates = (): boolean => {
     let hideDuplicates = false;
+    const isNonAdr = isNonADR();
 
-    if (dataHandlers) {
-      const nonAdrFound = dataHandlers?.find((dataHandler) => {
-        return dataHandler.type === DataRecipientType.NON_ACCREDITED_PERSON;
-      });
-
-      if (nonAdrFound) {
-        hideDuplicates = false;
-      } else if (!nonAdrFound && dataHandlers.length >= 1) {
-        hideDuplicates = true;
-      }
+    if (isNonAdr) {
+      hideDuplicates = false;
+    } else if (!isNonAdr && dataHandlers && dataHandlers.length >= 1) {
+      hideDuplicates = true;
     }
 
     return hideDuplicates;
+  };
+
+  const isNonADR = (): boolean => {
+    const nonAdrFound = dataHandlers?.find((dataHandler) => {
+      return dataHandler.type === DataRecipientType.NON_ACCREDITED_PERSON;
+    });
+
+    return nonAdrFound !== undefined;
   };
 
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
         <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
-        <Accordion
-          title="What is the purpose of accessing my data?"
-          content={<Typography variant="body1">{useCase.description}</Typography>}
-        />
+        {!isNonADR() && (
+          <Accordion
+            title="What is the purpose of accessing my data?"
+            content={<Typography variant="body1">{useCase.description}</Typography>}
+          />
+        )}
         {dataHandlers && dataHandlers.length > 0 && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (
           <SupportingParties title={'Supporting Parties'} useCase={useCase} outsourcedServiceProviders={useCase.osps} />

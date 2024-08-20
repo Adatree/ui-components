@@ -14,6 +14,7 @@ import { DataRecipient, DataRecipientType } from '../../types/data-recipient.typ
 import { ConsentSectionDeIdentify } from '../../molecules/consent-section/consent-section-deletion.molecule';
 import { BusinessConsumerStatement } from '../../molecules/business-consumer-statement/business-consumer-statement.molecule';
 import { UseCaseFeature } from '../../consts/use-case-features.const';
+import { ConsentCreateInsight } from './consent-create-insight.organism';
 
 export type ConsentCreateFormProps = {
   useCase: UseCaseResponse;
@@ -32,7 +33,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   const [showScopeError, setShowScopeError] = useState(false);
   const [showDeIdentifyError, setShowDeIdentifyError] = useState(false);
   const [showDeIdentifySection, setShowDeIdentifySection] = useState(false);
-  const [subTitle, setSubTitle] = useState<string>();
+  const [showInsights, setShowInsights] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient, nonAdrDataRecipient, dataRecipients } = useDataRecipients();
@@ -53,9 +54,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     }
 
     if (useCase.features?.includes(UseCaseFeature.CDR_INSIGHTS)) {
-      setSubTitle(
-        `${nonAdrDataRecipient?.name} has partnered with ${primaryDataRecipient.name} to securely access your data. ${primaryDataRecipient.description}`,
-      );
+      setShowInsights(true);
     }
 
     // @ts-ignore
@@ -143,17 +142,40 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
     <section>
       {useCase.dataHolders && useCase.scopes && (
         <>
-          <ConsentSectionHeader
-            dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-            subTitle={subTitle}
-          />
+          {showInsights && nonAdrDataRecipient && (
+            <ConsentCreateInsight
+              nonAdrDataRecipient={nonAdrDataRecipient}
+              primaryDataRecipient={primaryDataRecipient}
+              dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
+              insightScopes={[
+                {
+                  name: 'Insight name',
+                  id: 'insight:scope:cliam:id',
+                  purpose: 'Insight purpose',
+                  description: 'Insight description',
+                  claims: ['Claim 1', 'Claim 2'],
+                  priority: 1,
+                },
+              ]}
+            />
+          )}
 
-          <ConsentSectionScopes
-            message={copy.consent.edit.scope_create_message}
-            scopes={useCase.scopes}
-            showError={showScopeError}
-            onChange={handleScopeChange}
-          />
+          {!showInsights && (
+            <>
+              <ConsentSectionHeader
+                dataHolderName={
+                  consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName
+                }
+              />
+
+              <ConsentSectionScopes
+                message={copy.consent.edit.scope_create_message}
+                scopes={useCase.scopes}
+                showError={showScopeError}
+                onChange={handleScopeChange}
+              />
+            </>
+          )}
 
           {Helper.isBcdc(dataRecipients) && Helper.isOrganisation(useCase) && <BusinessConsumerStatement />}
 

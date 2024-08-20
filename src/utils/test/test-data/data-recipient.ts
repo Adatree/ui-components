@@ -28,7 +28,7 @@ export const businessConsumerDisclosureConsent = (): DataRecipient => {
 
 export const cdrRepresentative = (): DataRecipient => {
   return {
-    complaintEmail: 'adr-complaint@example.com',
+    complaintEmail: 'cdrr-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/cdrr-cdr-policy',
     dataSharingRevocationEmail: 'cdrr.data.sharing.revocation@example.com',
     description: 'CDR representative provides the service X.',
@@ -41,9 +41,9 @@ export const cdrRepresentative = (): DataRecipient => {
 
 export const granteeRepresentative = (): DataRecipient => {
   return {
-    complaintEmail: 'adr-complaint@example.com',
+    complaintEmail: 'gr-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/adr-cdr-policy',
-    dataSharingRevocationEmail: 'adr.data.sharing.revocation@example.com',
+    dataSharingRevocationEmail: 'gr.data.sharing.revocation@example.com',
     description: 'Grantee provides the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
     name: 'Grantee Company',
@@ -54,9 +54,9 @@ export const granteeRepresentative = (): DataRecipient => {
 
 export const nonAccreditedDataRecipient = (): DataRecipient => {
   return {
-    complaintEmail: 'adr-complaint@example.com',
+    complaintEmail: 'non-adr-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/non-adr-cdr-policy',
-    dataSharingRevocationEmail: 'adr.data.sharing.revocation@example.com',
+    dataSharingRevocationEmail: 'non-adr.data.sharing.revocation@example.com',
     description: 'Non Accredited Data Recipient provides the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
     name: 'Non Accredited Company',
@@ -67,7 +67,7 @@ export const nonAccreditedDataRecipient = (): DataRecipient => {
 
 export const trustedAdvisor = (): DataRecipient => {
   return {
-    complaintEmail: 'adr-complaint@example.com',
+    complaintEmail: 'ta-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/ta-cdr-policy',
     dataSharingRevocationEmail: 'ta-data.sharing.revocation@example.com',
     description: 'Trusted Adviser provides the service X.',
@@ -80,7 +80,7 @@ export const trustedAdvisor = (): DataRecipient => {
 
 export const trustedAdvisorServiceProvider = (): DataRecipient => {
   return {
-    complaintEmail: 'adr-complaint@example.com',
+    complaintEmail: 'tasp-complaint@example.com',
     cdrPolicyUrl: 'https://www.example.com/tasp-cdr-policy',
     dataSharingRevocationEmail: 'tasp-data.sharing.revocation@example.com',
     description: 'Trusted Adviser Service Provider provides the service X.',
