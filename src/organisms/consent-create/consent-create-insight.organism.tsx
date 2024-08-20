@@ -22,11 +22,13 @@ export const ConsentCreateInsight = ({
   return (
     <section>
       <Box sx={{ mb: 3 }}>
-        <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
+        <Typography sx={{ mb: 1.6, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
           <HL>{nonAdrDataRecipient.name}</HL> requires your consent to access the following Insight
         </Typography>
-        <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h2">
-          Insight name
+        <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h3">
+          {insightScopes.map((insightScope) => {
+            return <li>{insightScope.name}</li>;
+          })}
         </Typography>
       </Box>
 
@@ -37,6 +39,7 @@ export const ConsentCreateInsight = ({
       </Typography>
 
       <Card sx={{ mb: 3.6 }}>
+        <Typography>Insight details</Typography>
         <InsightList insightScopes={insightScopes} dataHolderName={dataHolderName} />
       </Card>
     </section>

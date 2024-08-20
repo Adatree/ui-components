@@ -149,7 +149,7 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
               dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
               insightScopes={[
                 {
-                  name: 'Insight name',
+                  name: 'Verify my Identity',
                   id: 'insight:scope:cliam:id',
                   purpose: 'Insight purpose',
                   description: 'Insight description',

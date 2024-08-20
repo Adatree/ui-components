@@ -53,7 +53,9 @@ export const InsightList = (props: Props) => {
           return (
             <ListItem
               key={index}
+              onClick={() => handleInfoClick(insight)}
               sx={{
+                cursor: 'pointer',
                 px: 1,
                 py: 0.5,
                 '&:hover': { backgroundColor: (theme) => theme.palette.background_hover.main },
@@ -72,8 +74,8 @@ export const InsightList = (props: Props) => {
                       }}
                     >
                       <Typography variant="body2">{insight.name}</Typography>
-                      <Box onClick={() => handleInfoClick(insight)} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <InformationOutline sx={{ mx: 1, cursor: 'pointer', color: '#66b0cc', fontSize: '18px' }} />
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <InformationOutline sx={{ mx: 1, color: '#66b0cc', fontSize: '18px' }} />
                       </Box>
                     </Box>
                   </>
