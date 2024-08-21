@@ -176,11 +176,11 @@ const energyElectricityServicepointsDetailRead = (): ScopeResponse => {
 
 const cdrInsightsOne = (): ScopeResponse => {
   return {
-    name: 'CDR Insight 1',
-    id: 'insight:example.one.basic:read',
-    purpose: 'This is the CDR Insight purpose for CDR Insight 1.',
+    name: 'Verify my Identity',
+    id: 'cdr:insights:verify.identity',
+    purpose: 'This is the CDR Insight purpose for Verify my Identity.',
     description: '',
-    claims: ['CDR claim 1', 'CDR claim 2', 'CDR claim 3'],
+    claims: ['Name', 'Residential address', 'Date of birth'],
     priority: 1,
   };
 };
@@ -188,7 +188,7 @@ const cdrInsightsOne = (): ScopeResponse => {
 const cdrInsightsTwo = (): ScopeResponse => {
   return {
     name: 'CDR Insight 2',
-    id: 'insight:example.two.basic:read',
+    id: 'cdr:insights:example.two.basic:read',
     purpose: 'This is the CDR Insight purpose for CDR Insight 2.',
     description: '',
     claims: ['CDR claim 4', 'CDR claim 5', 'CDR claim 6'],

@@ -147,16 +147,9 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
               nonAdrDataRecipient={nonAdrDataRecipient}
               primaryDataRecipient={primaryDataRecipient}
               dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-              insightScopes={[
-                {
-                  name: 'Verify my Identity',
-                  id: 'insight:scope:cliam:id',
-                  purpose: 'Insight purpose',
-                  description: 'Insight description',
-                  claims: ['Claim 1', 'Claim 2'],
-                  priority: 1,
-                },
-              ]}
+              insightScopes={useCase.scopes.filter((scope) => {
+                return scope.id?.startsWith('cdr:insights');
+              })}
             />
           )}
 

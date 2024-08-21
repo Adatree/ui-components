@@ -194,6 +194,11 @@ export const WithInsightsSingle: Story = {
       sharingDurations: [SharingDuration.OnceOff],
       accessFrequency: AccessFrequency.OnceOff,
       features: ['CDRInsights'],
+      scopes: [
+        TestUtil.testData.scope.commonCustomerBasicRead(),
+        TestUtil.testData.scope.commonCustomerDetailRead(),
+        TestUtil.testData.scope.cdrInsightsOne(),
+      ],
     };
 
     return (
