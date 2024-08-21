@@ -33,11 +33,11 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@adatree/react-api-sdk": "1.0.10-rc",
+    "@adatree/react-api-sdk": "1.13.0-rc",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@adatree/react-api-sdk": "1.0.10-rc",
+    "@adatree/react-api-sdk": "1.13.0-rc",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@testing-library/jest-dom": "^5.16.5",
