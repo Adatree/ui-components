@@ -26,8 +26,8 @@ export const ConsentCreateInsight = ({
           <HL>{nonAdrDataRecipient.name}</HL> requires your consent to access the following Insight
         </Typography>
         <Typography sx={{ mb: 1, textAlign: { xs: 'center', sm: 'left' } }} variant="h3">
-          {insightScopes.map((insightScope) => {
-            return <li>{insightScope.name}</li>;
+          {insightScopes.map((insightScope, index) => {
+            return <li key={`scope-name-${index}`}>{insightScope.name}</li>;
           })}
         </Typography>
       </Box>
