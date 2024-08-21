@@ -2332,7 +2332,7 @@ export const UseCaseApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
          * @summary Get Use-cases
-         * @param {boolean} [active] filter Use Cases by active status
+         * @param {boolean} [active] toggle flag to only fetch active Use Cases
          * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2390,7 +2390,7 @@ export const UseCaseApiFp = function(configuration?: Configuration) {
         /**
          * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
          * @summary Get Use-cases
-         * @param {boolean} [active] filter Use Cases by active status
+         * @param {boolean} [active] toggle flag to only fetch active Use Cases
          * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2412,7 +2412,7 @@ export const UseCaseApiFactory = function (configuration?: Configuration, basePa
         /**
          * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
          * @summary Get Use-cases
-         * @param {boolean} [active] filter Use Cases by active status
+         * @param {boolean} [active] toggle flag to only fetch active Use Cases
          * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2433,7 +2433,7 @@ export class UseCaseApi extends BaseAPI {
     /**
      * Get all use-cases that have been configured. A use case is your reason for requesting consent from a consumer e.g. a home loan assessment, a budgeting app.
      * @summary Get Use-cases
-     * @param {boolean} [active] filter Use Cases by active status
+     * @param {boolean} [active] toggle flag to only fetch active Use Cases
      * @param {boolean} [combineScopes] Combine scopes that can be combined according to the CDR Consumer Experience Standards
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
