@@ -42,6 +42,13 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
           <HL>{primaryDataRecipient.name}</HL> would like access to the following data:
         </>
       ),
+      scope_for_insights_create_message: (insight: string) => {
+        return (
+          <>
+            <HL>{primaryDataRecipient.name}</HL> would like access to the following data to {insight}
+          </>
+        );
+      },
       scope_read_only_message: (
         <>
           <HL>{primaryDataRecipient.name}</HL> has access to the following data:

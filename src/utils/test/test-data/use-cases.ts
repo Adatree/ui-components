@@ -158,6 +158,23 @@ const deIdentification = (): UseCaseResponse => {
   };
 };
 
+const verifyIdentity = (): UseCaseResponse => {
+  return {
+    features: ['CDRInsights'],
+    id: 'INSIGHT_VERIFY_ID',
+    name: 'Verify your identity',
+    dataHolders: dataHolder.allBanking(),
+    description: 'Access to your data is used to generate the insight Verify your identity.',
+    industries: [Industry.Banking],
+    priority: 1,
+    historicalCollectionPeriodInDays: 90,
+    notificationType: NotificationType.Email,
+    scopes: [scope.commonCustomerDetailRead(), scope.bankAccountsDetailRead()],
+    accessFrequency: AccessFrequency.OnceOff,
+    sharingDurations: [SharingDuration.OnceOff],
+  };
+};
+
 const all = (): UseCaseResponse[] => [
   onceOffConsentMinScopes(),
   ongoingConsentMinScopes(),
@@ -178,4 +195,5 @@ export const useCase = {
   openEnergyLite,
   openEnergy,
   deIdentification,
+  verifyIdentity,
 };

@@ -144,12 +144,10 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
         <>
           {showInsights && nonAdrDataRecipient && (
             <ConsentCreateInsight
+              useCase={useCase}
               nonAdrDataRecipient={nonAdrDataRecipient}
               primaryDataRecipient={primaryDataRecipient}
               dataHolderName={consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName}
-              insightScopes={useCase.scopes.filter((scope) => {
-                return scope.id?.startsWith('cdr:insights');
-              })}
             />
           )}
 
@@ -160,15 +158,19 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
                   consentForm.dataHolder?.brandName === undefined ? ' ' : consentForm.dataHolder?.brandName
                 }
               />
-
-              <ConsentSectionScopes
-                message={copy.consent.edit.scope_create_message}
-                scopes={useCase.scopes}
-                showError={showScopeError}
-                onChange={handleScopeChange}
-              />
             </>
           )}
+
+          <ConsentSectionScopes
+            message={
+              showInsights
+                ? copy.consent.edit.scope_for_insights_create_message(useCase.name ?? 'to generate the insight')
+                : copy.consent.edit.scope_create_message
+            }
+            scopes={useCase.scopes}
+            showError={showScopeError}
+            onChange={handleScopeChange}
+          />
 
           {Helper.isBcdc(dataRecipients) && Helper.isOrganisation(useCase) && <BusinessConsumerStatement />}
 

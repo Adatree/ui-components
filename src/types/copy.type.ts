@@ -40,6 +40,7 @@ export interface Copy {
       non_active_consent_message: (status: string) => string;
       scope_additional_message: ReactElement;
       scope_create_message: ReactElement;
+      scope_for_insights_create_message: (insight: string) => ReactElement;
       scope_read_only_message: ReactElement;
       scope_remove_message: ReactElement;
       up_to_date_message: string;

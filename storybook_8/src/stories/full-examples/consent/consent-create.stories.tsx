@@ -189,37 +189,7 @@ export const WithDeIdentifySection: Story = {
 export const WithInsightsSingle: Story = {
   render: (args, { globals: { industry } }) => {
     args.favouriteDataHolders = getFavouriteDataHolders(industry);
-    args.useCase = {
-      ...getUseCase(industry),
-      sharingDurations: [SharingDuration.OnceOff],
-      accessFrequency: AccessFrequency.OnceOff,
-      features: ['CDRInsights'],
-      scopes: [
-        TestUtil.testData.scope.commonCustomerBasicRead(),
-        TestUtil.testData.scope.commonCustomerDetailRead(),
-        TestUtil.testData.scope.cdrInsightsOne(),
-      ],
-    };
-
-    return (
-      <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
-        <ConsentCreate {...args} />
-      </ConsentFormProvider>
-    );
-  },
-};
-
-// ########################################################################
-
-export const WithInsightsMany: Story = {
-  render: (args, { globals: { industry } }) => {
-    args.favouriteDataHolders = getFavouriteDataHolders(industry);
-    args.useCase = {
-      ...getUseCase(industry),
-      sharingDurations: [SharingDuration.OnceOff],
-      accessFrequency: AccessFrequency.OnceOff,
-      features: ['CDRInsights'],
-    };
+    args.useCase = TestUtil.testData.useCase.verifyIdentity();
 
     return (
       <ConsentFormProvider initialValues={{ ...baseConsentFormValues }}>
