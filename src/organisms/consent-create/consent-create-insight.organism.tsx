@@ -37,8 +37,8 @@ export const ConsentCreateInsight = ({
         <Typography variant="body2" sx={{ color: (theme) => lighten(theme.palette.text_main.main, 0.3) }}>
           {nonAdrDataRecipient.name} is the Insight recipient. {nonAdrDataRecipient.name} has partnered with{' '}
           {primaryDataRecipient.name} to securely access your {useCase.industries?.toString().toLocaleLowerCase()} data
-          and generate the Insight "{useCase.name}". {primaryDataRecipient.name} will only share the generated Insight
-          with {nonAdrDataRecipient.name}.
+          and generate the Insight &ldquo;{useCase.name}&rdquo;. {primaryDataRecipient.name} will only share the
+          generated Insight with {nonAdrDataRecipient.name}.
         </Typography>
       </Card>
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
