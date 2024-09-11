@@ -89,7 +89,6 @@ export { TestUtil } from './utils/test/test.util';
 export { Images } from './utils/images/images.utils';
 
 // Open API
-export * from './generated/data/api';
 export * from './generated/consent/api';
 export { MetaPaginated, LinksPaginated } from './generated/consent/api';
 export { Configuration, ConfigurationParameters } from './generated/consent/configuration';

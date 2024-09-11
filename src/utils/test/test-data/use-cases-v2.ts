@@ -1,4 +1,4 @@
-import { ConsentApi } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk';
 import {
   SharingDuration,
   AccessFrequency,
@@ -9,8 +9,6 @@ import {
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';
-
-type UseCaseResponse = ConsentApi.UseCaseResponse;
 
 const onceOffConsentMinScopes = (): UseCaseResponse => {
   return {

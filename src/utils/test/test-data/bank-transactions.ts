@@ -1,11 +1,11 @@
 import {
+  BankingTransaction,
   BankingTransactionExtendedDataExtensionUTypeEnum,
   BankingTransactionExtendedDataServiceEnum,
   BankingTransactionList,
   BankingTransactionStatusEnum,
   BankingTransactionTypeEnum,
-  BankingTransaction,
-} from '../../../generated/data/api';
+} from '@adatree/react-api-sdk';
 import { v4 as uuidv4 } from 'uuid';
 
 function randomEnum<T>(anEnum: T): T[keyof T] {

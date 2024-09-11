@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
-import { ConsentApi } from '@adatree/react-api-sdk';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Card } from '../../atoms/card/card.atom';
+import { ConsentResponse, Status } from '@adatree/react-api-sdk';
 
 type PaginationModel = {
   page: number;
@@ -12,9 +12,9 @@ type PaginationModel = {
 };
 
 export interface Props {
-  activeConsents: ConsentApi.ConsentResponse[] | undefined;
-  expiredConsents: ConsentApi.ConsentResponse[] | undefined;
-  revokedConsents: ConsentApi.ConsentResponse[] | undefined;
+  activeConsents: ConsentResponse[] | undefined;
+  expiredConsents: ConsentResponse[] | undefined;
+  revokedConsents: ConsentResponse[] | undefined;
   isLoading?: boolean;
   urlPrefix?: string;
   pagination: PaginationModel;
@@ -86,7 +86,7 @@ export const ConsentTabs: React.FC<Props> = ({
             />
           </Card>
         )}
-        {!isLoading && activeConsents.length === 0 && noConsentItems(ConsentApi.Status.Active)}
+        {!isLoading && activeConsents.length === 0 && noConsentItems(Status.Active)}
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         {isLoading && renderLoading()}
@@ -100,7 +100,7 @@ export const ConsentTabs: React.FC<Props> = ({
             />
           </Card>
         )}
-        {!isLoading && expiredConsents.length === 0 && noConsentItems(ConsentApi.Status.Expired)}
+        {!isLoading && expiredConsents.length === 0 && noConsentItems(Status.Expired)}
       </TabPanel>
       <TabPanel value={tabIndex} index={2}>
         {isLoading && renderLoading()}
@@ -114,7 +114,7 @@ export const ConsentTabs: React.FC<Props> = ({
             />
           </Card>
         )}
-        {!isLoading && revokedConsents.length === 0 && noConsentItems(ConsentApi.Status.Revoked)}
+        {!isLoading && revokedConsents.length === 0 && noConsentItems(Status.Revoked)}
       </TabPanel>
     </Box>
   );

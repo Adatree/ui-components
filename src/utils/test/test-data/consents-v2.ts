@@ -1,9 +1,8 @@
-import { ConsentApi } from '@adatree/react-api-sdk';
+import { ConsentResponse } from '@adatree/react-api-sdk';
 import { CreateConsent, PostUsageAction, Status } from '../../../generated/consent/api';
 import { dataHolder } from './data-holders';
 import { useCaseV2 } from './use-cases-v2';
 
-type ConsentResponse = ConsentApi.ConsentResponse;
 const createConsent = (): CreateConsent => {
   let useCaseId = useCaseV2.homeLoan().id;
 
