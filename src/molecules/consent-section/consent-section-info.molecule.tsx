@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { UseCaseResponse } from '../../generated/consent/api';
+import { UseCaseResponse } from '@adatree/react-api-sdk';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { GeneralInformation } from '../../atoms/info-accordions/general-info.atom';
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';

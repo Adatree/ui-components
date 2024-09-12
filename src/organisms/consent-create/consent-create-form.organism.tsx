@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PostUsageAction, SharingDuration, UseCaseResponse } from '../../generated/consent';
+import { PostUsageAction, SharingDuration, UseCaseResponse } from '@adatree/react-api-sdk';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Helper } from '../../utils/helper/helper';
 import { useDataRecipients } from '../../context/data-recipient.context';

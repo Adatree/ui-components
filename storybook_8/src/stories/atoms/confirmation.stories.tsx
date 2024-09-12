@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Confirmation, SharingDuration } from '../../lib';
+import { Confirmation } from '../../lib';
+import { SharingDuration } from '@adatree/react-api-sdk';
 
 const meta: Meta<typeof Confirmation> = {
   title: 'Components/Atoms/Confirmation',

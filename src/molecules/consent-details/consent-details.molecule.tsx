@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
 
-import { ConsentResponse } from '../../generated/consent/api';
+import { ConsentResponse } from '@adatree/react-api-sdk';
 import { DataHolderHeader } from '../data-holder-header/data-holder-header.molecule';
 import { UseCaseSummary } from '../use-case-summary/use-case-summary.molecule';
 import { DateSummary } from '../date-summary/date-summary.molecule';

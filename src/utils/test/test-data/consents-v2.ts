@@ -1,5 +1,5 @@
 import { ConsentResponse } from '@adatree/react-api-sdk';
-import { CreateConsent, PostUsageAction, Status } from '../../../generated/consent/api';
+import { CreateConsent, PostUsageAction, Status } from '@adatree/react-api-sdk';
 import { dataHolder } from './data-holders';
 import { useCaseV2 } from './use-cases-v2';
 

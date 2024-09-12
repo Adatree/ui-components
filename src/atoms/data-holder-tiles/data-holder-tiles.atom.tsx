@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
-import { DataHolder } from '../../generated/consent/api';
+import { DataHolder } from '@adatree/react-api-sdk';
 import { Card } from '../card/card.atom';
 import {
   AnalyticsAction,

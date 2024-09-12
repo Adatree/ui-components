@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import { SharingDuration } from '../../generated/consent';
+import { SharingDuration } from '@adatree/react-api-sdk';
 import { DatePicker } from '../../atoms/date-picker/date-picker.atom';
 import { DateButton } from '../../atoms/date-button/date-button.atom';
 import { Helper } from '../../utils/helper/helper';

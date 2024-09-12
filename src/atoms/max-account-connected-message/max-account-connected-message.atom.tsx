@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { UseCaseResponse } from '../../generated/consent';
+import { UseCaseResponse } from '@adatree/react-api-sdk';
 import { useCopy } from '../../context/copy.context';
 
 export type PartnerMessageDialogProps = {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataHolder, PostUsageAction, SharingDuration } from '../generated/consent';
+import { DataHolder, PostUsageAction, SharingDuration } from '@adatree/react-api-sdk';
 
 type ConsentForm = {
   allAddScopesChecked: boolean;

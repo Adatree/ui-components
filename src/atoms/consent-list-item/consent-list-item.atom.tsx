@@ -1,9 +1,10 @@
 import React from 'react';
 import { Typography, Box, Avatar, ListItem, Button } from '@mui/material';
-import { ConsentResponse, Status } from '../../generated/consent';
+
 import { Formatter } from '../../utils/formatter/formatter';
 import { ChevronRight, Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
+import { ConsentResponse, Status } from '@adatree/react-api-sdk';
 
 export type ListItemProps = {
   consent: ConsentResponse;

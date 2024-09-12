@@ -1,4 +1,4 @@
-import { SharingDuration } from '../generated/consent/api';
+import { SharingDuration } from '@adatree/react-api-sdk';
 
 export type DateDuration = {
   type: SharingDuration;

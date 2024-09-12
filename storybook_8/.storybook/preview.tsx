@@ -8,12 +8,12 @@ import {
   defaultTheme,
   DataRecipientsProvider,
   ThemeProvider,
-  Industry,
   CopyBuilder,
   Helper,
   DataRecipient,
   AppTheme,
 } from '../src/lib';
+import { Industry } from '@adatree/react-api-sdk';
 
 const industryValues = ['Banking', 'Energy'];
 const themeValues = ['light', 'dark'];

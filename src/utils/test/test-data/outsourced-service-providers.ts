@@ -1,4 +1,4 @@
-import { OutsourcedServiceProvider } from '../../../generated/consent';
+import { OutsourcedServiceProvider } from '@adatree/react-api-sdk';
 
 const adatree = (): OutsourcedServiceProvider => {
   return {

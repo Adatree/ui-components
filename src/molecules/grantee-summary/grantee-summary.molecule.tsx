@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { Grantee, Status } from '../../generated/consent/api';
+import { Grantee, Status } from '@adatree/react-api-sdk';
 import { Card } from '../../atoms/card/card.atom';
 
 export type GranteeSummaryProps = {

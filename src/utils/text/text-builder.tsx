@@ -1,6 +1,6 @@
 import React from 'react';
 import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom';
-import { AccessFrequency, SharingDuration } from '../../generated/consent';
+import { AccessFrequency, SharingDuration } from '@adatree/react-api-sdk';
 import { Formatter } from '../formatter/formatter';
 import { Helper } from '../helper/helper';
 

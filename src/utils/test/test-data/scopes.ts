@@ -1,4 +1,4 @@
-import { ScopeResponse } from '../../../generated/consent/api';
+import { ScopeResponse } from '@adatree/react-api-sdk';
 
 const bankAccountsBasicRead = (): ScopeResponse => {
   return {

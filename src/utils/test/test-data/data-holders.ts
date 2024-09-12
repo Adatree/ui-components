@@ -1,4 +1,4 @@
-import { DataHolder } from '../../../generated/consent/api';
+import { DataHolder } from '@adatree/react-api-sdk';
 
 const redBank = (): DataHolder => {
   return {

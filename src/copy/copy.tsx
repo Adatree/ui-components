@@ -1,4 +1,4 @@
-import { Industry } from '../generated/consent';
+import { Industry } from '@adatree/react-api-sdk';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
 import { commonCopy } from './common.copy';

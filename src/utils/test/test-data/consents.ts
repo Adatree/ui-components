@@ -1,4 +1,4 @@
-import { CreateConsent, ConsentResponse, PostUsageAction, Status } from '../../../generated/consent/api';
+import { CreateConsent, ConsentResponse, PostUsageAction, Status } from '@adatree/react-api-sdk';
 import { dataHolder } from './data-holders';
 import { useCase } from './use-cases';
 
@@ -197,7 +197,7 @@ const generateConsent = (createConsent: CreateConsent): ConsentResponse => {
     status: Status.Active,
     created: new Date().toISOString(),
     firstDataCollection: new Date().toISOString(),
-    useCase: { id: createConsent.useCaseId },
+    useCase: { ...useCase.homeLoan(), id: createConsent.useCaseId },
     consumerEmail: createConsent.consumerEmail,
     sharingEndDate: createConsent.sharingEndDate,
     dataHolderBrandId: createConsent.dataHolderBrandId,

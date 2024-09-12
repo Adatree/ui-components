@@ -12,7 +12,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { ScopeResponse } from '../../generated/consent';
+import { ScopeResponse } from '@adatree/react-api-sdk';
 import { useCopy } from '../../context/copy.context';
 import { InformationOutline, Close } from 'mdi-material-ui';
 import { Helper } from '../../utils/helper/helper';

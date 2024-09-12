@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ConsentResponse, DataHolder, UseCaseResponse } from '../../generated/consent';
+import { ConsentResponse, DataHolder, UseCaseResponse } from '@adatree/react-api-sdk';
 import { MaxAccountConnectedMessage } from '../../atoms/max-account-connected-message/max-account-connected-message.atom';
 import { Helper } from '../../utils/helper/helper';
 import { ConsentInputDataHolder } from '../consent-inputs/consent-input-data-holder.organism';

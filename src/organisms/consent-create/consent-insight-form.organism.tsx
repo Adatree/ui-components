@@ -3,7 +3,7 @@ import { useConsentForm } from '../../context/consentForm.context';
 import { useCopy } from '../../context/copy.context';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';
 import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
-import { ScopeResponse } from '../../generated/consent';
+import { ScopeResponse } from '@adatree/react-api-sdk';
 
 export type ConsentInsightFormProps = {
   insightScopes: ScopeResponse[];

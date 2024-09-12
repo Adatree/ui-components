@@ -5,7 +5,7 @@ import {
   NotificationType,
   Industry,
   ConsumerType,
-} from '../../../generated/consent/api';
+} from '@adatree/react-api-sdk';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';
@@ -14,6 +14,9 @@ const onceOffConsentMinScopes = (): UseCaseResponse => {
   return {
     id: 'ONCE_OFF_CONSENT_MIN_SCOPES',
     name: 'Once Off Consent - Minimal Scopes',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test a once off consent scenario for minimal scopes and APIs',
     industries: [Industry.Banking],
@@ -35,6 +38,9 @@ const ongoingConsentMinScopes = (): UseCaseResponse => {
   return {
     id: 'ONGOING_CONSENT_MIN_SCOPES',
     name: 'Ongoing Consent - Minimal Scopes',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to test an ongoing consent scenario for minimal scopes and APIs',
     industries: [Industry.Banking],
@@ -56,6 +62,9 @@ const homeLoan = (): UseCaseResponse => {
   return {
     id: 'HOME_LOAN',
     name: 'Home Loan Application',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess your suitability for a home loan',
     industries: [Industry.Banking],
@@ -72,13 +81,15 @@ const consumerTypeOrg = (): UseCaseResponse => {
   return {
     id: 'CT_ORG',
     name: 'Consumer Type Organisation',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Organisation,
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess only for business disclosures.',
     industries: [Industry.Banking],
     priority: 1,
     historicalCollectionPeriodInDays: 90,
     notificationType: NotificationType.Email,
-    consumerType: ConsumerType.Organisation,
     scopes: [scope.bankAccountsBasicRead(), scope.bankTransactionsRead()],
     accessFrequency: AccessFrequency.OnceOff,
     sharingDurations: [SharingDuration.SixMonths, SharingDuration.OneYear],
@@ -96,6 +107,9 @@ const openEnergyLite = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY_LITE',
     name: 'Open Energy Lite',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.Energy],
@@ -117,6 +131,9 @@ const openEnergy = (): UseCaseResponse => {
   return {
     id: 'OPEN_ENERGY',
     name: 'Open Energy',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allEngery(),
     description: 'Your data will be used to assess the best energy provider for you',
     industries: [Industry.Energy],
@@ -145,6 +162,9 @@ const deIdentification = (): UseCaseResponse => {
   return {
     id: 'DE_IDENTIFICATION',
     name: 'De-identification use case example',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allBanking(),
     description: 'Data is used to assess your suitability and is de-identified on deletion',
     features: ['DE_IDENTIFICATION'],
@@ -163,6 +183,9 @@ const verifyIdentity = (): UseCaseResponse => {
     features: ['CDRInsights'],
     id: 'INSIGHT_VERIFY_ID',
     name: 'Verify your identity',
+    active: true,
+    softwareProductId: 'SPID-1234-5678',
+    consumerType: ConsumerType.Any,
     dataHolders: dataHolder.allBanking(),
     description: 'Access to your data is used to generate the insight Verify your identity.',
     industries: [Industry.Banking],

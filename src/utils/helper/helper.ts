@@ -9,7 +9,7 @@ import {
   ScopeResponse,
   ConsentUseCaseResponse,
   ConsumerType,
-} from '../../generated/consent';
+} from '@adatree/react-api-sdk';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 

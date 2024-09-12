@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
-import { ScopeResponse, UseCaseResponse } from '../../generated/consent/api';
+import { ScopeResponse, UseCaseResponse } from '@adatree/react-api-sdk';
 
 export type UseCaseSummaryProps = {
   title: string;

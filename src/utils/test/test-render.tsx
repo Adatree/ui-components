@@ -7,7 +7,7 @@ import { DataRecipientsProvider } from '../../context/data-recipient.context';
 import { ThemeProvider } from '../../providers/theme.provider';
 import { defaultTheme } from '../../providers/themes/app.theme';
 import { TestUtil } from './test.util';
-import { Industry } from '../../generated/consent';
+import { Industry } from '@adatree/react-api-sdk';
 import { AnalyticsProvider } from '../../context/analytics.context';
 
 const AddProviders = ({ children }: { children: React.ReactElement }) => {

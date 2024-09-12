@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ConsentFormProvider, DateSelector, SharingDuration } from '../../lib';
+import { ConsentFormProvider, DateSelector } from '../../lib';
+import { SharingDuration } from '@adatree/react-api-sdk';
 
 const meta: Meta<typeof DateSelector> = {
   title: 'Components/Molecules/Date Selector',

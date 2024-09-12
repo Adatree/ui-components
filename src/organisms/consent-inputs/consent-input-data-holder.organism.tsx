@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DataHolder, UseCaseResponse } from '../../generated/consent';
+import { DataHolder, UseCaseResponse } from '@adatree/react-api-sdk';
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Box, Button, Typography } from '@mui/material';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
-import { SharingDuration } from '../../generated/consent';
 import { TextBuilder } from '../../utils/text/text-builder';
+import { SharingDuration } from '@adatree/react-api-sdk';
 
 export type ConfirmationnProps = {
   companyName: string;

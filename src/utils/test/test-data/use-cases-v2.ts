@@ -1,11 +1,5 @@
 import { UseCaseResponse } from '@adatree/react-api-sdk';
-import {
-  SharingDuration,
-  AccessFrequency,
-  NotificationType,
-  Industry,
-  ConsumerType,
-} from '../../../generated/consent/api';
+import { SharingDuration, AccessFrequency, NotificationType, Industry, ConsumerType } from '@adatree/react-api-sdk';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';

@@ -15,7 +15,6 @@
     "lint": "eslint './src/**/*.{tsx,ts}'",
     "package": "yarn test && yarn lint && yarn build && npm publish",
     "storybook": "yarn --cwd ./storybook_8/ storybook",
-    "generate-openapi-consent-client": "openapi-generator-cli generate --skip-validate-spec -i https://raw.githubusercontent.com/Adatree/API-Specs/main/consent.yaml -g typescript-axios --additional-properties=modelPropertyNaming=original -o src/generated/consent",
     "test": "jest"
   },
   "dependencies": {
@@ -32,11 +31,11 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@adatree/react-api-sdk": "1.13.0-rc",
+    "@adatree/react-api-sdk": "1.15.5-rc",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@adatree/react-api-sdk": "1.15.2-rc",
+    "@adatree/react-api-sdk": "1.15.5-rc",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@testing-library/jest-dom": "^5.16.5",
