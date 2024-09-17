@@ -104,11 +104,13 @@ describe('Helper Utils', () => {
       const dataHolders = TestUtil.testData.dataHolder.allBanking();
       const consents = TestUtil.testData.consent.all();
       const useCase = TestUtil.testData.useCase.homeLoan();
+      // @ts-ignore for testing purposes
       useCase.id = undefined;
 
       const filteredDataHolders01 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, useCase);
       expect(filteredDataHolders01.length).toEqual(0);
 
+      // @ts-ignore for testing purposes
       const filteredDataHolders02 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, consents, {});
       expect(filteredDataHolders02.length).toEqual(0);
     });
@@ -133,6 +135,7 @@ describe('Helper Utils', () => {
       expect(filteredDataHolders03.length).toEqual(0);
 
       consent = TestUtil.testData.consent.active();
+      // @ts-ignore for testing purposes
       consent.useCase = { ...consent.useCase, id: undefined };
       const filteredDataHolders04 = Helper.filterDataHoldersByConsentsAndUseCase(dataHolders, [consent], useCase);
       expect(filteredDataHolders04.length).toEqual(0);
@@ -419,27 +422,48 @@ describe('Helper Utils', () => {
 
   describe('isConsentEditable', () => {
     it('should return false if a consent is not active', () => {
-      let consent: ConsentResponse = { status: Status.Expired };
-      const useCase: UseCaseResponse = { sharingDurations: [SharingDuration.Custom] };
+      let consent: ConsentResponse = { consentId: 'CID-1234-5678', status: Status.Expired };
+      const useCase: UseCaseResponse = {
+        sharingDurations: [SharingDuration.Custom],
+        id: '',
+        name: '',
+        active: false,
+        softwareProductId: '',
+        description: '',
+        priority: 0,
+        historicalCollectionPeriodInDays: 0,
+        notificationType: 'EMAIL',
+        scopes: [],
+        accessFrequency: 'ONCE_OFF',
+        dataHolders: [],
+        industries: [],
+        consumerType: 'ALL',
+      };
+
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
-      consent = { status: Status.Requested };
+      consent = { consentId: 'CID-1234-5678', status: Status.Requested };
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
-      consent = { status: Status.Revoked };
+      consent = { consentId: 'CID-1234-5678', status: Status.Revoked };
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
     });
 
     it('should return false if a use case does not have any Sharing Durations', () => {
-      const consent: ConsentResponse = { status: Status.Active };
+      const consent: ConsentResponse = { consentId: 'CID-1234-5678', status: Status.Active };
+      // @ts-ignore for testing purposes
       const useCase: UseCaseResponse = {};
       expect(Helper.isConsentEditable(consent, useCase)).toBeFalsy();
     });
 
     it('should return true if a use case one or more Sharing Durations and the consent is Active', () => {
-      const consent: ConsentResponse = { status: Status.Active };
+      const consent: ConsentResponse = { consentId: 'CID-1234-5678', status: Status.Active };
+
+      // @ts-ignore for testing purposes
       let useCase: UseCaseResponse = { sharingDurations: [SharingDuration.OneDay] };
       expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
+      // @ts-ignore for testing purposes
       useCase = { sharingDurations: [SharingDuration.SixMonths] };
       expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
+      // @ts-ignore for testing purposes
       useCase = { sharingDurations: [SharingDuration.Custom] };
       expect(Helper.isConsentEditable(consent, useCase)).toBeTruthy();
     });
