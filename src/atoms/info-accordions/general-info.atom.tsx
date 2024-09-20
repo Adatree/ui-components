@@ -33,7 +33,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
 
   const getList = (): ReactElement => {
     return (
-      <List>
+      <List sx={{ wordBreak: 'break-all' }}>
         {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
           renderListItem(copy.component.general_information.list_adr_context)}
         {primaryDataRecipient.type === DataRecipientType.TRUSTED_ADVISER &&

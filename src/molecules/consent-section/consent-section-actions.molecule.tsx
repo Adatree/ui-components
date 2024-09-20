@@ -53,7 +53,7 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
       <Typography sx={{ mb: 3, minHeight: '2.2rem' }} variant="body2" color="error.main">
         {showError && !isValid && 'Please fix the error(s) above.'}
       </Typography>
-      <Box sx={{ p: 2, m: 1, display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Accreditation
           accreditationNumber={accreditationNumber}
           companyName={accreditationName}
