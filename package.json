@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "6.10.0",
+  "version": "6.10.1",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -31,11 +31,11 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@adatree/react-api-sdk": "1.15.5-rc",
+    "@adatree/react-api-sdk": "1.15.13-rc",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@adatree/react-api-sdk": "1.15.5-rc",
+    "@adatree/react-api-sdk": "1.15.13-rc",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@testing-library/jest-dom": "^5.16.5",
