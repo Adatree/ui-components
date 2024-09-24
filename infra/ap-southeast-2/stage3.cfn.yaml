@@ -50,6 +50,17 @@ Resources:
             Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
             Principal:
               CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+          - Sid: "AllowSSLRequestsOnly"
+            Action:
+              - s3:*
+            Effect: Deny
+            Resource:
+              - !Sub "arn:aws:s3:::${S3Bucket}"
+              - !Sub "arn:aws:s3:::${S3Bucket}/*"
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Principal: "*"
 
   ARecord:
     Type: "AWS::Route53::RecordSetGroup"
