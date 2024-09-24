@@ -11,3 +11,7 @@ coverage
 
 # Filesystem
 .DS_Store
+
+# misc
+.idea/
+.vscode/

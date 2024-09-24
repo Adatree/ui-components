@@ -50,6 +50,7 @@ jobs:
           role-duration-seconds: 1200
 
       - name: Deploy
+        if: github.ref == 'refs/heads/main'
         env:
           FRONTEND_URL: design.adatree.com.au
           STACK_NAME: design-site
