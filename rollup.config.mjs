@@ -1,6 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
