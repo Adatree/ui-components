@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataHolder, UseCaseResponse } from '@adatree/react-api-sdk';
 import { AutocompleteDropdown } from '../../atoms/autocomplete-dropdown/autocomplete-dropdown.atom';
 import { useConsentForm } from '../../context/consentForm.context';
@@ -32,6 +32,10 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
 
   const [blockedDataHolder, setBlockedDataHolder] = useState<DataHolder | undefined>(undefined);
   const [isblockedDialogOpen, setBlockedDialogOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const isDataHolderBlocked = (dataHolder: DataHolder): boolean => {
     const isBlocked =
