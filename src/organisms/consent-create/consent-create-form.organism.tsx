@@ -43,6 +43,8 @@ export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (
       useCase.sharingDurations &&
       useCase.sharingDurations.length === 1 &&
