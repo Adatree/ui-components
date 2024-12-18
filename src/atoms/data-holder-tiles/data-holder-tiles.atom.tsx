@@ -55,13 +55,6 @@ export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
 
   const handleClick = (dataHolder: DataHolder, disabled: boolean) => {
     if (!disabled) {
-      track(
-        AnalyticsEvents.UI_INTERACTION,
-        AnalyticsComponentMeta.ADT_CMP_DH_TILE.id,
-        AnalyticsComponentMeta.ADT_CMP_DH_TILE.description,
-        AnalyticsAction.CLICK,
-        dataHolder.brandName,
-      );
       onClick(dataHolder);
     }
   };

@@ -123,7 +123,7 @@ const preview: Preview = {
 };
 
 const handleAnalyticsOnTrack = (event, id, description, action, value) => {
-  console.log(`Dummy analytics track called with '${event}', '${id}', '${description}', '${action}' and '${value}'`);
+  console.log(`Dummy preview analytics track called with '${event}', '${id}', '${description}', '${action}' and '${value}'`);
 };
 
 const getDataRecipients = (key) => {

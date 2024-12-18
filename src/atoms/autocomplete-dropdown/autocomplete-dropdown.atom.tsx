@@ -3,12 +3,6 @@ import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
 import { DataHolder } from '@adatree/react-api-sdk';
 import { Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
-import {
-  AnalyticsAction,
-  AnalyticsComponentMeta,
-  AnalyticsEvents,
-  useAnalytics,
-} from '../../context/analytics.context';
 
 export type CheckboxAccordionProps = {
   dataHolders: DataHolder[];
@@ -33,7 +27,6 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
   const [inputValue, setInputValue] = useState<DataHolder | null>(null);
   const [error, setError] = useState(showError);
   const [copy] = useCopy();
-  const { track } = useAnalytics();
 
   useEffect(() => {
     const notListedId = 'not-listed';
@@ -60,13 +53,6 @@ export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) =>
 
   const handleChange = (event: SyntheticEvent<Element, Event>, value: DataHolder | null) => {
     if (event) {
-      track(
-        AnalyticsEvents.UI_INTERACTION,
-        AnalyticsComponentMeta.ADT_CMP_DH_DD.id,
-        AnalyticsComponentMeta.ADT_CMP_DH_DD.description,
-        AnalyticsAction.CLICK,
-        value?.brandName,
-      );
       setInputValue(value);
       onChange(value);
     }
