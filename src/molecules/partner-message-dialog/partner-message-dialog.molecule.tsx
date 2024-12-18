@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton } from '@mui/material';
 import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom';
 import { Close } from 'mdi-material-ui';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
 export type PartnerMessageDialogProps = {
   dataHolderName: string;
@@ -13,12 +14,15 @@ export type PartnerMessageDialogProps = {
 
 export const PartnerMessageDialog: React.FC<PartnerMessageDialogProps> = (props) => {
   const { dataHolderName, isOpen, discreetMode = false, onClose, onSubmit } = props;
+  const { track } = useAnalytics();
 
   const handleClose = () => {
+    track(AnalyticsEvents.CONSENT_CONFIRMATION_CANCEL_CLICKED)
     onClose();
   };
 
   const handleSubmit = () => {
+    track(AnalyticsEvents.CONSENT_CONFIRMATION_BUTTON_CLICKED)
     onSubmit();
   };
 

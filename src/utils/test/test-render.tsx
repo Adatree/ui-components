@@ -14,8 +14,8 @@ const AddProviders = ({ children }: { children: React.ReactElement }) => {
   const dataRecipients = TestUtil.testData.dataRecipient.all();
   const accreditationNum = 'ADR-1234-1234';
 
-  const handleAnalyticsOnTrack = (event: string, id: string, description: string, action: string, value?: string) => {
-    console.log(`Dummy test render analytics track called with '${event}', '${id}', '${description}', '${action}' and '${value}'`);
+  const handleAnalyticsOnTrack = (event: string) => {
+    console.log(`Dummy test render analytics track called with event '${event}'`);
   };
 
   return (

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useCopy } from '../../context/copy.context';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
+import { useEffect } from 'react';
 
 export type ConsentSectionHeaderProps = {
   dataHolderName: string;
@@ -10,6 +12,11 @@ export type ConsentSectionHeaderProps = {
 export const ConsentSectionHeader: React.FC<ConsentSectionHeaderProps> = (props) => {
   const { dataHolderName, subTitle } = props;
   const [copy] = useCopy();
+  const { track } = useAnalytics();
+
+  useEffect(() => {
+    track(AnalyticsEvents.CONSENT_PAGE_LOADED)
+  }, [])
 
   return (
     <>

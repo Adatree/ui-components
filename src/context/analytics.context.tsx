@@ -42,7 +42,7 @@ export const AnalyticsAction = {
 };
 
 interface ContextProps {
-  track: (event: string, componentId: string, componentDescription: string, action: string, value?: string) => void;
+  track: (event: string) => void;
 }
 
 const AnalyticsContext = createContext<ContextProps | undefined>(undefined);
@@ -66,7 +66,7 @@ interface ProviderProps {
    * @param value - An optional value related to the component interaction. Example: the value of an item selected in a dropdown.
    *
    */
-  onTrack?: (event: string, componentId: string, componentDescription: string, action: string, value?: string) => void;
+  onTrack?: (event: string) => void;
   children: ReactElement | ReactElement[];
 }
 /**
@@ -76,16 +76,16 @@ interface ProviderProps {
  *
  */
 const AnalyticsProvider = ({ children, onTrack }: ProviderProps) => {
-  const track = (event: string, componentId: string, componentDescription: string, action: string, value?: string) => {
+  const track = (event: string) => {
     if (onTrack) {
-      onTrack(event, componentId, componentDescription, action, value);
+      onTrack(event);
     } else {
       Logger.warn(
         'useAnalytics onTrack function is not set. To remove this warning please provide an onTrack function to the AnalyticsProvider',
       );
 
       Logger.debug(
-        `useAnalytics track called with id '${componentId}', description '${componentDescription}' and action '${action}'`,
+        `useAnalytics track called with event '${event}'`,
       );
     }
   };

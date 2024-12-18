@@ -7,6 +7,7 @@ import { DataHolderTiles } from '../../atoms/data-holder-tiles/data-holder-tiles
 import { useCopy } from '../../context/copy.context';
 import { Logger } from '../../utils/logger/logger';
 import { BlockedDataholderDialog } from '../../molecules/blocked-dataholder-dialog/blocked-dataholder-dialog.molecule';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
 export type ConsentInputDataHolderProps = {
   disableDataHolders: DataHolder[];
@@ -29,12 +30,14 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
+  const { track } = useAnalytics();
 
   const [blockedDataHolder, setBlockedDataHolder] = useState<DataHolder | undefined>(undefined);
   const [isblockedDialogOpen, setBlockedDialogOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    track(AnalyticsEvents.CONSENT_DATAHOLDER_PAGE_LOADED)
   }, []);
 
   const isDataHolderBlocked = (dataHolder: DataHolder): boolean => {

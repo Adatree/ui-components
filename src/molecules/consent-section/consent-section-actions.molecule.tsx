@@ -4,6 +4,7 @@ import { ConsentCancelButton } from '../../atoms/consent-cancel-button/consent-c
 import { Accreditation } from '../../atoms/accreditation/accreditation.atom';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
 export type ConsentSectionActionsProps = {
   actionButtonLabel: string;
@@ -18,16 +19,19 @@ export type ConsentSectionActionsProps = {
 export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (props) => {
   const { actionButtonLabel, cancelButtonLabel, cancelButtonMessage, isValid, showError, onCancel, onSubmit } = props;
   const { accreditationNumber, primaryDataRecipient, adrDataRecipient } = useDataRecipients();
+  const { track } = useAnalytics();
   const accreditationName =
     primaryDataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE
       ? primaryDataRecipient.name
       : adrDataRecipient.name;
 
   const handleSubmit = () => {
+    track(AnalyticsEvents.CONSENT_BUTTON_CLICKED)
     onSubmit();
   };
 
   const handleCancel = () => {
+    track(AnalyticsEvents.CONSENT_PAGE_CANCEL_CLICKED)
     onCancel();
   };
 
