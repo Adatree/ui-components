@@ -16,6 +16,7 @@ export const AnalyticsEvents = {
   CONSENT_OTP_PAGE_CANCEL_CLICKED: 'Consent OTP page cancel clicked',
   CONSENT_USE_CASE_PAGE_LOADED: 'Consent use case page loaded',
   CONSENT_USE_CASE_PAGE_CANCEL_CLICKED: 'Consent use case page cancel clicked',
+  CONSENT_CUSTOM_DATA_PAGE_LOADED: 'Consent custom data page loaded',
   CONSENT_DATAHOLDER_PAGE_LOADED: 'Consent dataholder page loaded',
   CONSENT_DATAHOLDER_PAGE_CANCEL_CLICKED: 'Consent dataholder page cancel clicked',
   CONSENT_PAGE_LOADED: 'Consent page loaded',
