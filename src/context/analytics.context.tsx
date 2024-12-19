@@ -26,6 +26,7 @@ export const AnalyticsEvents = {
   PRE_CONSENT_RESPONSE_RECEIVED: 'Pre consent response received',
   PRE_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Pre consent authorization response received',
   CONSENT_CALLBACK_REDIRECT_PAGE_LOADED: 'Consent callback redirect page loaded',
+  CONSENT_CALLBACK_REDIRECT_ERROR_RECEIVED: 'Consent callback redirect error received',
   POST_CONSENT_REDIRECT_CALLED: 'Post consent redirect called',
   POST_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Post consent authorization response received',
 };
