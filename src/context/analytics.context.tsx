@@ -12,24 +12,43 @@ export const AnalyticsComponentMeta = {
 export const AnalyticsEvents = {
   CONSENT_EMAIL_SIGN_IN_PAGE_LOADED: 'Consent email sign in page loaded',
   CONSENT_EMAIL_SIGN_IN_PAGE_CANCEL_CLICKED: 'Consent email sign in page cancel clicked',
+  CONSENT_EMAIL_SIGN_IN_PAGE_ERROR_RECEIVED: 'Consent email sign in error received',
+
   CONSENT_OTP_PAGE_LOADED: 'Consent OTP page loaded',
   CONSENT_OTP_PAGE_CANCEL_CLICKED: 'Consent OTP page cancel clicked',
+  CONSENT_OTP_ERROR_RECEIVED: 'Consent OTP error received',
+
   CONSENT_USE_CASE_PAGE_LOADED: 'Consent use case page loaded',
   CONSENT_USE_CASE_PAGE_CANCEL_CLICKED: 'Consent use case page cancel clicked',
+  CONSENT_USE_CASE_ERROR_RECEIVED: 'Consent use case error received',
+
   CONSENT_CUSTOM_DATA_PAGE_LOADED: 'Consent custom data page loaded',
+  CONSENT_CUSTOM_DATA_ERROR_RECEIVED: 'Consent custom data error received',
+
   CONSENT_DATAHOLDER_PAGE_LOADED: 'Consent dataholder page loaded',
   CONSENT_DATAHOLDER_PAGE_CANCEL_CLICKED: 'Consent dataholder page cancel clicked',
+  CONSENT_DATAHOLDER_ERROR_RECEIVED: 'Consent dataholder error received',
+
   CONSENT_PAGE_LOADED: 'Consent page loaded',
   CONSENT_PAGE_CANCEL_CLICKED: 'Consent page cancel clicked',
+  CONSENT_ERROR_RECEIVED: 'Consent error received',
+
   CONSENT_BUTTON_CLICKED: 'Consent button clicked',
+
   CONSENT_CONFIRMATION_BUTTON_CLICKED: 'Consent confirmation button clicked',
   CONSENT_CONFIRMATION_CANCEL_CLICKED: 'Consent confirmation cancel clicked',
+
   PRE_CONSENT_RESPONSE_RECEIVED: 'Pre consent response received',
+  PRE_CONSENT_RESPONSE_ERROR_RECEIVED: 'Pre consent response error received',
   PRE_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Pre consent authorization response received',
+  PRE_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Pre consent authorization error received',
+
   CONSENT_CALLBACK_REDIRECT_PAGE_LOADED: 'Consent callback redirect page loaded',
   CONSENT_CALLBACK_REDIRECT_ERROR_RECEIVED: 'Consent callback redirect error received',
-  POST_CONSENT_REDIRECT_CALLED: 'Post consent redirect called',
+
   POST_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Post consent authorization response received',
+  POST_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Post consent authorization error received',
+  POST_CONSENT_REDIRECT_CALLED: 'Post consent redirect called',
 };
 
 export const AnalyticsAction = {
