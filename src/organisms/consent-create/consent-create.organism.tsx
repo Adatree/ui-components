@@ -7,6 +7,7 @@ import { ConsentCreateForm } from './consent-create-form.organism';
 import { useConsentForm } from '../../context/consentForm.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { Logger } from '../../utils/logger/logger';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
 export type ConsentCreateProps = {
   existingConsents: ConsentResponse[];
@@ -38,6 +39,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
   } = props;
   const [consentForm, setConsentForm] = useConsentForm();
   const { dataRecipients } = useDataRecipients();
+  const { track } = useAnalytics();
 
   let disableDataHolders: DataHolder[] = [];
 
@@ -51,6 +53,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
         setConsentForm({ ...consentForm });
       }
       if (!foundDataHolder) {
+        track(AnalyticsEvents.CONSENT_DATAHOLDER_ERROR_RECEIVED)
         Logger.error(`Data holder ID ${dataHolderId} is not in use case allowed data holders`, useCase.dataHolders);
       }
     }
