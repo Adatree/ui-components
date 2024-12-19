@@ -2,12 +2,6 @@ import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '@adatree/react-api-sdk';
 import { Card } from '../card/card.atom';
-import {
-  AnalyticsAction,
-  AnalyticsComponentMeta,
-  AnalyticsEvents,
-  useAnalytics,
-} from '../../context/analytics.context';
 
 export type DataHolderTilesProps = {
   dataHolders: DataHolder[];
@@ -17,7 +11,6 @@ export type DataHolderTilesProps = {
 
 export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
   const { dataHolders, disableDataHolders = [], onClick } = props;
-  const { track } = useAnalytics();
   const theme = useTheme();
 
   let tileWidthXS = '50%';

@@ -48,6 +48,11 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
     return isBlocked;
   };
 
+  const handleDataHolderCancel = () => {
+    track(AnalyticsEvents.CONSENT_DATAHOLDER_PAGE_CANCEL_CLICKED);
+    onCancel();
+  };
+
   const handleDataHolderChange = (dataHolder: DataHolder | null) => {
     if (dataHolder === null) {
       consentForm.dataHolder = undefined;
@@ -115,7 +120,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
         </>
       )}
 
-      <Button variant="outlined" color="inherit" onClick={onCancel} sx={{ mt: 2 }}>
+      <Button variant="outlined" color="inherit" onClick={handleDataHolderCancel} sx={{ mt: 2 }}>
         Cancel
       </Button>
     </>
