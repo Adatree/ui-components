@@ -12,7 +12,7 @@ export const AnalyticsComponentMeta = {
 export const AnalyticsEvents = {
   CONSENT_EMAIL_SIGN_IN_PAGE_LOADED: 'Consent email sign in page loaded',
   CONSENT_EMAIL_SIGN_IN_PAGE_CANCEL_CLICKED: 'Consent email sign in page cancel clicked',
-  CONSENT_EMAIL_SIGN_IN_PAGE_ERROR_RECEIVED: 'Consent email sign in error received',
+  CONSENT_EMAIL_SIGN_IN_ERROR_RECEIVED: 'Consent email sign in error received',
 
   CONSENT_OTP_PAGE_LOADED: 'Consent OTP page loaded',
   CONSENT_OTP_PAGE_CANCEL_CLICKED: 'Consent OTP page cancel clicked',
