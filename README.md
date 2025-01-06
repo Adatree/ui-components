@@ -8,7 +8,7 @@ The components are based on [atomic design principles](https://bradfrost.com/blo
 
 You need to be authorised with a GitHub personal token to access the npm package.
 
-Create a personal token (Classic), for details see [GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+Create a personal token (Classic), for details see [GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 You need the following scope to download the package
 
