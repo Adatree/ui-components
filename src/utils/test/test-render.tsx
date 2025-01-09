@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { CopyProvider } from '../../context/copy.context';
 import { CopyBuilder } from '../../copy/copy';
@@ -10,7 +10,7 @@ import { TestUtil } from './test.util';
 import { Industry } from '@adatree/react-api-sdk';
 import { AnalyticsProvider } from '../../context/analytics.context';
 
-const AddProviders = ({ children }: { children: React.ReactElement }) => {
+const AddProviders = ({ children }: { children: React.ReactNode }) => {
   const dataRecipients = TestUtil.testData.dataRecipient.all();
   const accreditationNum = 'ADR-1234-1234';
 
@@ -35,7 +35,7 @@ const AddProviders = ({ children }: { children: React.ReactElement }) => {
   );
 };
 
-const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
+const customRender = (ui: ReactNode, options?: Omit<RenderOptions, 'wrapper'>) =>
   render(ui, { wrapper: AddProviders, ...options });
 
 // re-export everything

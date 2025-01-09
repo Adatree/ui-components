@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createContext, ReactElement, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { Logger } from '../utils/logger/logger';
 
 export const AnalyticsComponentMeta = {
@@ -88,7 +88,7 @@ interface ProviderProps {
    *
    */
   onTrack?: (event: string) => void;
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
 }
 /**
  * A generic analytics context provider.
@@ -105,9 +105,7 @@ const AnalyticsProvider = ({ children, onTrack }: ProviderProps) => {
         'useAnalytics onTrack function is not set. To remove this warning please provide an onTrack function to the AnalyticsProvider',
       );
 
-      Logger.debug(
-        `useAnalytics track called with event '${event}'`,
-      );
+      Logger.debug(`useAnalytics track called with event '${event}'`);
     }
   };
 
