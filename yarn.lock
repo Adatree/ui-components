@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adatree/react-api-sdk@1.17.1-rc":
-  version "1.17.1-rc"
-  resolved "https://npm.pkg.github.com/download/@adatree/react-api-sdk/1.17.1-rc/084a74fe4559d95c54f5309a6e8da41ad62a333e#084a74fe4559d95c54f5309a6e8da41ad62a333e"
-  integrity sha512-Qh14zauZKeWFKvFudY0pzEcjVzPibElfEzjz1yNQWuMJyrge9DGxxkncLtKpXOCq1i8h5XAQ1Xv1L4pi0vVUsg==
+"@adatree/react-api-sdk@1.17.5-rc":
+  version "1.17.5-rc"
+  resolved "https://npm.pkg.github.com/download/@adatree/react-api-sdk/1.17.5-rc/d99c72cc27ad4ea5fb172bfadace2907e1cd6eb3#d99c72cc27ad4ea5fb172bfadace2907e1cd6eb3"
+  integrity sha512-d2GBF7sfYH0OXieS2vMhGngXcqYgxHIX5ElRSWAY/OIE1TJf7vGGabkNf9k0vIEOmolMzn5CsQ/62J/q5ksX/w==
   dependencies:
     luxon "^3.3.0"
     swr "^2.0.4"

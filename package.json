@@ -31,11 +31,11 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@adatree/react-api-sdk": "1.17.1-rc",
+    "@adatree/react-api-sdk": "1.17.5-rc",
     "react": "^19.0.0"
   },
   "devDependencies": {
-    "@adatree/react-api-sdk": "1.17.1-rc",
+    "@adatree/react-api-sdk": "1.17.5-rc",
     "@babel/preset-env": "^7.26.0",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
