@@ -13,7 +13,7 @@ interface Props {
   onChange: (confirmation: boolean) => void;
 }
 
-export const InsightConfirmationForm: React.FC<Props> = (props: Props) => {
+export const InsightConfirmationForm = (props: Props) => {
   const { insightScopes, dataHolderName, onChange, showError = false } = props;
   const { nonAdrDataRecipient } = useDataRecipients();
 

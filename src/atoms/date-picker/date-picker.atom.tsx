@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-export type DatePickerProps = {
+interface Props {
   label: string;
   date?: Date;
   inputFormat?: string;
   disabled?: boolean;
   onChange: (data: Date) => void;
-};
-export const DatePicker: React.FC<DatePickerProps> = (props) => {
+}
+export const DatePicker = (props: Props) => {
   const { label, date = null, inputFormat = 'dd/MM/yyyy', disabled = false, onChange } = props;
   const [value, setValue] = useState<Date | null>(date);
 

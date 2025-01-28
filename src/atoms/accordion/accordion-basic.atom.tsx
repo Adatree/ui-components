@@ -2,12 +2,12 @@ import React, { ReactNode, useState } from 'react';
 import { Typography, Box, Collapse } from '@mui/material';
 import { ChevronDown, Circle } from 'mdi-material-ui';
 
-export type AccordionBasicProps = {
+interface Props {
   title: string;
   children: ReactNode;
-};
+}
 
-export const AccordionBasic: React.FC<AccordionBasicProps> = (props) => {
+export const AccordionBasic = (props: Props) => {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

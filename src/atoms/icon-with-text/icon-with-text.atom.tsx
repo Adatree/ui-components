@@ -10,7 +10,7 @@ import {
   Tablet,
 } from 'mdi-material-ui';
 
-export type IconWithTextProps = {
+interface Props {
   icon:
     | 'CheckboxMultipleMarked'
     | 'BankCheck'
@@ -21,9 +21,9 @@ export type IconWithTextProps = {
     | 'BankTransferOut';
   title?: string;
   text?: string;
-};
+}
 
-export const IconWithText: React.FC<IconWithTextProps> = (props) => {
+export const IconWithText = (props: Props) => {
   const { icon, title, text } = props;
   const iconFontSize = '80px';
   let altText = 'Avatar icon';

@@ -3,12 +3,12 @@ import { Box, Typography } from '@mui/material';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { ScopeResponse, UseCaseResponse } from '@adatree/react-api-sdk';
 
-export type UseCaseSummaryProps = {
+interface Props {
   title: string;
   useCase: UseCaseResponse;
-};
+}
 
-export const UseCaseSummary: React.FC<UseCaseSummaryProps> = (props) => {
+export const UseCaseSummary = (props: Props) => {
   const { title, useCase } = props;
 
   const scopes = (

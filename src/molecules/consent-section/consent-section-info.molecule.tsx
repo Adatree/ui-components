@@ -7,12 +7,12 @@ import { SupportingParties } from '../supporting-parties/supporting-parties.mole
 import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info.atom';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
-export type ConsentSectionInfoProps = {
+interface Props {
   useCase: UseCaseResponse;
   dataHandlers?: DataRecipient[];
-};
+}
 
-export const ConsentSectionInfo: React.FC<ConsentSectionInfoProps> = (props) => {
+export const ConsentSectionInfo = (props: Props) => {
   const { useCase, dataHandlers } = props;
 
   const getHideDuplicates = (): boolean => {

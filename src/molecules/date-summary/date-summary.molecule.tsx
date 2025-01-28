@@ -5,12 +5,12 @@ import { Formatter } from '../../utils/formatter/formatter';
 import { Helper } from '../../utils/helper/helper';
 import { Card } from '../../atoms/card/card.atom';
 
-export type DateSummaryProps = {
+interface Props {
   title: string;
   consent: ConsentResponse;
-};
+}
 
-export const DateSummary: React.FC<DateSummaryProps> = (props) => {
+export const DateSummary = (props: Props) => {
   const { title, consent } = props;
 
   let sharingEndDate: Date | string = 'After first use';

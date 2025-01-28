@@ -4,14 +4,14 @@ import { Helper } from '../../utils/helper/helper';
 import { DateDuration } from '../../consts/duration.const';
 import { SharingDuration } from '@adatree/react-api-sdk';
 
-export type DateButtonProps = {
+interface Props {
   sharingDurations: SharingDuration[];
   selectedSharingDuration?: SharingDuration;
   disabled?: boolean;
   onClick: (date: Date, selected: SharingDuration) => void;
-};
+}
 
-export const DateButton: React.FC<DateButtonProps> = (props) => {
+export const DateButton = (props: Props) => {
   const { sharingDurations: sharingDuration, selectedSharingDuration, disabled = false, onClick } = props;
   const dateDurations = Helper.parseSharingDurations(sharingDuration);
 

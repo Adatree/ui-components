@@ -10,15 +10,15 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-export type RevokeDialogProps = {
+interface Props {
   isOpen: boolean;
   isLoading: boolean;
   dataHolderName: string;
   onCancelClick: () => void;
   onRevokeClick: () => void;
-};
+}
 
-export const RevokeDialog: React.FC<RevokeDialogProps> = (props) => {
+export const RevokeDialog = (props: Props) => {
   const { isOpen, isLoading, dataHolderName, onCancelClick, onRevokeClick } = props;
 
   const handleRevokeDialogClose = () => {

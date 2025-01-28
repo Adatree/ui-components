@@ -13,11 +13,11 @@ import {
 import { DataRecipient } from '../../types/data-recipient.type';
 import { InformationOutline, Close } from 'mdi-material-ui';
 
-export type DataHandlerListProps = {
+interface Props {
   dataHandlers: DataRecipient[];
-};
+}
 
-export const DataHandlerList: React.FC<DataHandlerListProps> = (props) => {
+export const DataHandlerList = (props: Props) => {
   const { dataHandlers } = props;
   const [listItem, setListItem] = useState<DataRecipient>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);

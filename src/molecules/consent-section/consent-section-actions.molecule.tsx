@@ -6,7 +6,7 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
 import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
-export type ConsentSectionActionsProps = {
+interface Props {
   actionButtonLabel: string;
   cancelButtonLabel: string;
   cancelButtonMessage: string;
@@ -14,9 +14,9 @@ export type ConsentSectionActionsProps = {
   showError: boolean;
   onCancel: () => void;
   onSubmit: () => void;
-};
+}
 
-export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (props) => {
+export const ConsentSectionActions = (props: Props) => {
   const { actionButtonLabel, cancelButtonLabel, cancelButtonMessage, isValid, showError, onCancel, onSubmit } = props;
   const { accreditationNumber, primaryDataRecipient, adrDataRecipient } = useDataRecipients();
   const { track } = useAnalytics();
@@ -26,12 +26,12 @@ export const ConsentSectionActions: React.FC<ConsentSectionActionsProps> = (prop
       : adrDataRecipient.name;
 
   const handleSubmit = () => {
-    track(AnalyticsEvents.CONSENT_BUTTON_CLICKED)
+    track(AnalyticsEvents.CONSENT_BUTTON_CLICKED);
     onSubmit();
   };
 
   const handleCancel = () => {
-    track(AnalyticsEvents.CONSENT_PAGE_CANCEL_CLICKED)
+    track(AnalyticsEvents.CONSENT_PAGE_CANCEL_CLICKED);
     onCancel();
   };
 

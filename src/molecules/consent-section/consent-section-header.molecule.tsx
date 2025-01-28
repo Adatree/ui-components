@@ -4,19 +4,19 @@ import { useCopy } from '../../context/copy.context';
 import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 import { useEffect } from 'react';
 
-export type ConsentSectionHeaderProps = {
+interface Props {
   dataHolderName: string;
   subTitle?: string;
-};
+}
 
-export const ConsentSectionHeader: React.FC<ConsentSectionHeaderProps> = (props) => {
+export const ConsentSectionHeader = (props: Props) => {
   const { dataHolderName, subTitle } = props;
   const [copy] = useCopy();
   const { track } = useAnalytics();
 
   useEffect(() => {
-    track(AnalyticsEvents.CONSENT_PAGE_LOADED)
-  }, [])
+    track(AnalyticsEvents.CONSENT_PAGE_LOADED);
+  }, []);
 
   return (
     <>

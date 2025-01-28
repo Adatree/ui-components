@@ -3,13 +3,13 @@ import { Box, Button, Typography } from '@mui/material';
 import { UseCaseResponse } from '@adatree/react-api-sdk';
 import { useCopy } from '../../context/copy.context';
 
-export type PartnerMessageDialogProps = {
+interface Props {
   useCase: UseCaseResponse;
   hideBackButton?: boolean;
   onClick: () => void;
-};
+}
 
-export const MaxAccountConnectedMessage: React.FC<PartnerMessageDialogProps> = (props) => {
+export const MaxAccountConnectedMessage = (props: Props) => {
   const { useCase, hideBackButton = false, onClick } = props;
   const [copy] = useCopy();
 

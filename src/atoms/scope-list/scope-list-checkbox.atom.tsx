@@ -5,12 +5,12 @@ import { CheckboxAccordion } from '../checkbox-accordion/checkbox-accordion.atom
 import { useCopy } from '../../context/copy.context';
 import { Helper } from '../../utils/helper/helper';
 
-export type ScopeListProps = {
+interface Props {
   scopes: ScopeResponse[];
   onChange: (isAllClicked: boolean) => void;
-};
+}
 
-export const ScopeListCheckbox: React.FC<ScopeListProps> = (props) => {
+export const ScopeListCheckbox = (props: Props) => {
   const { scopes, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [copy] = useCopy();

@@ -9,7 +9,7 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 import { Logger } from '../../utils/logger/logger';
 import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
-export type ConsentCreateProps = {
+interface Props {
   existingConsents: ConsentResponse[];
   useCase: UseCaseResponse;
   blockedDataHolderList?: DataHolder[];
@@ -21,9 +21,9 @@ export type ConsentCreateProps = {
   onCancel: () => void;
   onSubmit: () => void;
   onNotListedClick?: () => void;
-};
+}
 
-export const ConsentCreate = (props: ConsentCreateProps) => {
+export const ConsentCreate = (props: Props) => {
   const {
     existingConsents,
     useCase,
@@ -53,7 +53,7 @@ export const ConsentCreate = (props: ConsentCreateProps) => {
         setConsentForm({ ...consentForm });
       }
       if (!foundDataHolder) {
-        track(AnalyticsEvents.CONSENT_DATAHOLDER_ERROR_RECEIVED)
+        track(AnalyticsEvents.CONSENT_DATAHOLDER_ERROR_RECEIVED);
         Logger.error(`Data holder ID ${dataHolderId} is not in use case allowed data holders`, useCase.dataHolders);
       }
     }

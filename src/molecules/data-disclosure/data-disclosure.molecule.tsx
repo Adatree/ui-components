@@ -5,11 +5,11 @@ import { DataRecipient } from '../../types/data-recipient.type';
 import { useCopy } from '../../context/copy.context';
 import { Card } from '../../atoms/card/card.atom';
 
-export type DataDisclosureProps = {
+interface Props {
   dataRecipients: DataRecipient[];
-};
+}
 
-export const DataDisclosure: React.FC<DataDisclosureProps> = (props) => {
+export const DataDisclosure = (props: Props) => {
   const { dataRecipients } = props;
   const [copy] = useCopy();
 

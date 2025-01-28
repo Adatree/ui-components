@@ -17,13 +17,13 @@ import { useCopy } from '../../context/copy.context';
 import { InformationOutline, Close } from 'mdi-material-ui';
 import { Helper } from '../../utils/helper/helper';
 
-export type ScopeListProps = {
+interface Props {
   scopes: ScopeResponse[];
   enableAll?: boolean;
   onChange: (isAllClicked: boolean) => void;
-};
+}
 
-export const ScopeListSwitch: React.FC<ScopeListProps> = (props) => {
+export const ScopeListSwitch = (props: Props) => {
   const { scopes, enableAll = false, onChange } = props;
   const [clickedValues, setclickedValues] = useState<string[]>([]);
   const [scope, setScope] = useState<ScopeResponse>();

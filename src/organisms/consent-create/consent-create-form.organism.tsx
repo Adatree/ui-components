@@ -16,15 +16,15 @@ import { BusinessConsumerStatement } from '../../molecules/business-consumer-sta
 import { UseCaseFeature } from '../../consts/use-case-features.const';
 import { ConsentCreateInsight } from './consent-create-insight.organism';
 
-export type ConsentCreateFormProps = {
+interface Props {
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   dataHandlers?: DataRecipient[];
   onCancel: () => void;
   onSubmit: () => void;
-};
+}
 
-export const ConsentCreateForm = (props: ConsentCreateFormProps) => {
+export const ConsentCreateForm = (props: Props) => {
   const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);

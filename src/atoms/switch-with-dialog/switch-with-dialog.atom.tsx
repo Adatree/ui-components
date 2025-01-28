@@ -12,15 +12,15 @@ import {
 } from '@mui/material';
 import { InformationOutline, Close } from 'mdi-material-ui';
 
-export type SwitchDialogProps = {
+interface Props {
   switchTitle: ReactElement;
   dialogTitle: string;
   children: ReactElement | ReactElement[];
   checked?: boolean;
   onCheck: (value: boolean) => void;
-};
+}
 
-export const SwitchDialog: React.FC<SwitchDialogProps> = (props) => {
+export const SwitchDialog = (props: Props) => {
   const { switchTitle, dialogTitle, children, checked = false, onCheck } = props;
   const [isChecked, setIsChecked] = useState(checked);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

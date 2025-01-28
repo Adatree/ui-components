@@ -6,13 +6,13 @@ import { ChevronRight, Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
 import { ConsentResponse, Status } from '@adatree/react-api-sdk';
 
-export type ListItemProps = {
+interface Props {
   consent: ConsentResponse;
   consentUrl: string;
   dataHolderLogoUrl: string | undefined;
-};
+}
 
-export const ConsentListItem: React.FC<ListItemProps> = (props) => {
+export const ConsentListItem = (props: Props) => {
   const { consent, dataHolderLogoUrl, consentUrl } = props;
   const [copy] = useCopy();
   const grantee = consent.grantee;

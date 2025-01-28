@@ -11,16 +11,16 @@ import { GranteeSummary } from '../grantee-summary/grantee-summary.molecule';
 import { BusinessConsumerStatement } from '../business-consumer-statement/business-consumer-statement.molecule';
 import { Helper } from '../../utils/helper/helper';
 
-export type ConsentDetailsProps = {
+interface Props {
   consent: ConsentResponse;
   dateTitle: string;
   useCasetTitle: string;
   dataRecipients?: DataRecipient[];
   editUrl?: string;
   onRevokeClick: () => void;
-};
+}
 
-export const ConsentDetails: React.FC<ConsentDetailsProps> = (props) => {
+export const ConsentDetails = (props: Props) => {
   const { consent, dateTitle, useCasetTitle, editUrl, dataRecipients, onRevokeClick } = props;
 
   return (

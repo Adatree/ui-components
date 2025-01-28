@@ -8,13 +8,13 @@ export type RadioButtonItem = {
   disable?: boolean;
 };
 
-export type radioButtonWithTextProps = {
+interface Props {
   radioButtonItems: RadioButtonItem[];
   label?: string;
   defaultValue?: string;
   onChange: (value: string) => void;
-};
-export const RadioButtonWithText: React.FC<radioButtonWithTextProps> = (props) => {
+}
+export const RadioButtonWithText = (props: Props) => {
   const { label, radioButtonItems, defaultValue = '', onChange } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

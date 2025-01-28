@@ -2,13 +2,13 @@ import React, { ReactNode } from 'react';
 import { Accordion as MuiAccordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import { ChevronDown } from 'mdi-material-ui';
 
-export type AccordionProps = {
+interface Props {
   title: string;
   content: ReactNode;
   lazyLoad?: boolean;
-};
+}
 
-export const Accordion: React.FC<AccordionProps> = (props) => {
+export const Accordion = (props: Props) => {
   const { title, content, lazyLoad = false } = props;
   const slotProp = { transition: { unmountOnExit: true } };
 

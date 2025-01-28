@@ -2,13 +2,14 @@ import React, { ReactElement } from 'react';
 import { Box, Card, CardContent, Skeleton, Typography } from '@mui/material';
 import { Tooltip } from '../tooltip/tooltip.atom';
 
-export type SectionCardProps = {
+interface Props {
   title: string;
   subtitle: string;
   content: ReactElement;
   tooltip?: ReactElement | string;
-};
-export const SectionCard: React.FC<SectionCardProps> = (props) => {
+}
+
+export const SectionCard = (props: Props) => {
   const { title, subtitle, content, tooltip } = props;
 
   return (

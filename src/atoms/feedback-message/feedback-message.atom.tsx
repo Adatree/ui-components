@@ -1,14 +1,14 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
 
-export type FeedbackMessageProps = {
+interface Props {
   message: string;
   showSpinner?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
-};
+}
 
-export const FeedbackMessage: React.FC<FeedbackMessageProps> = (props: FeedbackMessageProps) => {
+export const FeedbackMessage = (props: Props) => {
   const { message, icon, children, showSpinner = false } = props;
   return (
     <Box sx={{ p: 2, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>

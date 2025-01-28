@@ -6,14 +6,14 @@ import { DateSelector } from '../date-selector/date-selector.molecule';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { useDataRecipients } from '../../context/data-recipient.context';
 
-export type ConsentSectionDatesProps = {
+interface Props {
   useCase: UseCaseResponse;
   showError: boolean;
   editMessage?: string;
   showSharingDurationsOptions?: boolean;
-};
+}
 
-export const ConsentSectionDates: React.FC<ConsentSectionDatesProps> = (props) => {
+export const ConsentSectionDates = (props: Props) => {
   const { useCase, showError, showSharingDurationsOptions = false } = props;
   const { primaryDataRecipient } = useDataRecipients();
 

@@ -5,9 +5,9 @@ import { Typography } from '@mui/material';
 import { RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { useConsentForm } from '../../context/consentForm.context';
 
-type Props = {
+interface Props {
   defaultValue: PostUsageAction | undefined;
-};
+}
 
 export const ConsentEditPostUsage = ({ defaultValue }: Props) => {
   const [consentForm, setConsentForm] = useConsentForm();

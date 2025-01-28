@@ -4,11 +4,11 @@ import { Accordion } from '../accordion/accordion.molecule';
 import { useCopy } from '../../context/copy.context';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
-export type DataHandlingInfoProps = {
+interface Props {
   dataHandlers: DataRecipient[];
-};
+}
 
-export const DataHandlingInfo: React.FC<DataHandlingInfoProps> = (props) => {
+export const DataHandlingInfo = (props: Props) => {
   const { dataHandlers } = props;
   const [copy] = useCopy();
 

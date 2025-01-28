@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
-export type IconListItemProps = {
+interface Props {
   icon: ReactNode;
   content: string | ReactNode;
   alignIcon?: 'center' | 'flex-start' | undefined;
-};
-export const IconListItem: React.FC<IconListItemProps> = (props) => {
+}
+export const IconListItem = (props: Props) => {
   const { icon, content, alignIcon = 'center' } = props;
 
   return (

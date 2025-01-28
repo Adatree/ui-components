@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, FormControlLabel, FormGroup, Link, Checkbox, Typography, Box } from '@mui/material';
 
-export type CheckboxAccordionProps = {
+interface Props {
   title: string;
   checkboxValue: string;
   checked?: boolean;
@@ -10,9 +10,9 @@ export type CheckboxAccordionProps = {
   openLabel?: string;
   closeLabel?: string;
   onChange: (isChecked: boolean, value: string) => void;
-};
+}
 
-export const CheckboxAccordion: React.FC<CheckboxAccordionProps> = (props) => {
+export const CheckboxAccordion = (props: Props) => {
   const {
     title,
     subtitle,

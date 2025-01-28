@@ -5,16 +5,16 @@ import { Helper } from '../../utils/helper/helper';
 import { useCopy } from '../../context/copy.context';
 import { useConsentForm } from '../../context/consentForm.context';
 
-export type ConsentEditScopesProps = {
+interface Props {
   consent: ConsentResponse;
   useCase: UseCaseResponse;
   showAddScopeError: boolean;
   showRemoveScopeError: boolean;
   onAddScopeChange: (isAllScopesClicked: boolean) => void;
   onRemoveScopeChange: (isAllScopesClicked: boolean) => void;
-};
+}
 
-export const ConsentEditScopes = (props: ConsentEditScopesProps) => {
+export const ConsentEditScopes = (props: Props) => {
   const { consent, useCase, showAddScopeError, showRemoveScopeError, onAddScopeChange, onRemoveScopeChange } = props;
   const [userConsentedScopes, setUserConsentedScopes] = useState<ScopeResponse[]>([]);
   const [additionalScopes, setAdditionalScopes] = useState<ScopeResponse[]>([]);

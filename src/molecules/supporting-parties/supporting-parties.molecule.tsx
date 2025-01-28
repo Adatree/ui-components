@@ -4,13 +4,13 @@ import { OutsourcedServiceProvider, UseCaseResponse } from '@adatree/react-api-s
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { LinkExternal } from '../../atoms/links/link-external.atom';
 
-export type SupportingPartiesProps = {
+interface Props {
   title: string;
   useCase: UseCaseResponse;
   outsourcedServiceProviders: OutsourcedServiceProvider[];
-};
+}
 
-export const SupportingParties: React.FC<SupportingPartiesProps> = (props) => {
+export const SupportingParties = (props: Props) => {
   const { title, useCase, outsourcedServiceProviders } = props;
 
   return (

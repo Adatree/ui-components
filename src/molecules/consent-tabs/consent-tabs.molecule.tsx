@@ -11,7 +11,7 @@ type PaginationModel = {
   totalRecords: number;
 };
 
-export interface Props {
+interface Props {
   activeConsents: ConsentResponse[] | undefined;
   expiredConsents: ConsentResponse[] | undefined;
   revokedConsents: ConsentResponse[] | undefined;
@@ -27,7 +27,7 @@ type TabPanelProps = {
   children?: React.ReactNode;
 };
 
-export const ConsentTabs: React.FC<Props> = ({
+export const ConsentTabs = ({
   activeConsents = [],
   expiredConsents = [],
   revokedConsents = [],

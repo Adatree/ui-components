@@ -5,13 +5,13 @@ import { ConsentSectionActions } from '../../molecules/consent-section/consent-s
 import { InsightConfirmationForm } from '../../molecules/insight-confirmation-form/insight-confirmation-form.molecule';
 import { ScopeResponse } from '@adatree/react-api-sdk';
 
-export type ConsentInsightFormProps = {
+interface Props {
   insightScopes: ScopeResponse[];
   onCancel: () => void;
   onSubmit: () => void;
-};
+}
 
-export const ConsentInsightForm = (props: ConsentInsightFormProps) => {
+export const ConsentInsightForm = (props: Props) => {
   const { insightScopes, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
   const [showInsightsError, setShowInsightsError] = useState(false);

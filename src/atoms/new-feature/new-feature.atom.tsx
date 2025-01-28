@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 
-export type NewFeatureProps = {
+interface Props {
   children: React.ReactElement;
   open: boolean;
   title?: string;
@@ -20,9 +20,9 @@ export type NewFeatureProps = {
     | 'top-start'
     | 'top';
   onClose: () => void;
-};
+}
 
-export const NewFeature: React.FC<NewFeatureProps> = (props) => {
+export const NewFeature = (props: Props) => {
   const { title = 'New', open, children, placement, description, onClose } = props;
 
   const content = (

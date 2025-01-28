@@ -9,16 +9,16 @@ import { Logger } from '../../utils/logger/logger';
 import { BlockedDataholderDialog } from '../../molecules/blocked-dataholder-dialog/blocked-dataholder-dialog.molecule';
 import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
-export type ConsentInputDataHolderProps = {
+interface Props {
   disableDataHolders: DataHolder[];
   useCase: UseCaseResponse;
   onCancel: () => void;
   favouriteDataHolders?: DataHolder[];
   blockedDataHolderList?: DataHolder[];
   onNotListedClick?: () => void;
-};
+}
 
-export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
+export const ConsentInputDataHolder = (props: Props) => {
   const {
     disableDataHolders,
     favouriteDataHolders,
@@ -37,7 +37,7 @@ export const ConsentInputDataHolder = (props: ConsentInputDataHolderProps) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    track(AnalyticsEvents.CONSENT_DATAHOLDER_PAGE_LOADED)
+    track(AnalyticsEvents.CONSENT_DATAHOLDER_PAGE_LOADED);
   }, []);
 
   const isDataHolderBlocked = (dataHolder: DataHolder): boolean => {

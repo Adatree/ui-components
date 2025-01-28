@@ -9,14 +9,14 @@ import { Helper } from '../../utils/helper/helper';
 import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom';
 import { Formatter } from '../../utils/formatter/formatter';
 
-export type ConsentEditDatesProps = {
+interface Props {
   consent: ConsentResponse;
   showError: boolean;
   useCase: UseCaseResponse;
   showSharingDurationsOptions?: boolean;
-};
+}
 
-export const ConsentEditDates = (props: ConsentEditDatesProps) => {
+export const ConsentEditDates = (props: Props) => {
   const { consent, showError = false, useCase, showSharingDurationsOptions = false } = props;
   const { primaryDataRecipient } = useDataRecipients();
   const singleDateExtention =

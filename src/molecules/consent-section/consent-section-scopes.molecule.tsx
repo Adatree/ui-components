@@ -5,15 +5,15 @@ import { Card } from '../../atoms/card/card.atom';
 import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { ScopeList } from '../../atoms/scope-list/scope-list.atom';
 
-export type ConsentSectionScopesProps = {
+interface Props {
   message: string | ReactElement;
   scopes: ScopeResponse[];
   showError: boolean;
   readOnly?: boolean;
   onChange?: (isAllClicked: boolean) => void;
-};
+}
 
-export const ConsentSectionScopes: React.FC<ConsentSectionScopesProps> = (props) => {
+export const ConsentSectionScopes = (props: Props) => {
   const { message, showError, scopes, readOnly = true, onChange } = props;
 
   const handleChange = (isAllClicked: boolean) => {

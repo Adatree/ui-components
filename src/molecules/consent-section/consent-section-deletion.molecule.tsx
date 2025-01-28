@@ -5,12 +5,12 @@ import { SwitchDialog } from '../../atoms/switch-with-dialog/switch-with-dialog.
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 import { useDataRecipients } from '../../context/data-recipient.context';
 
-type Props = {
+interface Props {
   showError: boolean;
   onCheck: (value: boolean) => void;
-};
+}
 
-export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
+export const ConsentSectionDeIdentify = (props: Props) => {
   const { showError, onCheck } = props;
   const { primaryDataRecipient } = useDataRecipients();
 
@@ -28,7 +28,8 @@ export const ConsentSectionDeIdentify: React.FC<Props> = (props) => {
         <SwitchDialog
           switchTitle={
             <>
-              <Highlight>{primaryDataRecipient.name}</Highlight> requires your consent to combine your anonymised data with that of others in your area in order to calculate average numbers.
+              <Highlight>{primaryDataRecipient.name}</Highlight> requires your consent to combine your anonymised data
+              with that of others in your area in order to calculate average numbers.
             </>
           }
           dialogTitle={'De-identify'}

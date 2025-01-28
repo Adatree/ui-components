@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react';
 import { Tooltip as MuiTooltip, Typography } from '@mui/material';
 import { InformationOutline } from 'mdi-material-ui';
 
-export type TooltipProps = {
+interface Props {
   content: ReactElement | string;
   title?: ReactElement;
-};
-export const Tooltip: React.FC<TooltipProps> = (props) => {
+}
+export const Tooltip = (props: Props) => {
   const { content, title } = props;
 
   const body =

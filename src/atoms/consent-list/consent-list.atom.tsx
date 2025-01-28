@@ -11,7 +11,7 @@ interface Props {
   onPagination?: (page: number) => void;
 }
 
-export const ConsentList: React.FC<Props> = ({ consents, url = '/consent/', pagination, onPagination }: Props) => {
+export const ConsentList = ({ consents, url = '/consent/', pagination, onPagination }: Props) => {
   const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
     event.stopPropagation();
     if (onPagination) {

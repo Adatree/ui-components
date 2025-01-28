@@ -3,7 +3,7 @@ import { Alert, AlertColor, Box, Button, Stack, TextField, Typography } from '@m
 import { LoadingButton } from '@mui/lab';
 import { useState } from 'react';
 
-export type AlertInputFromProps = {
+export interface Props {
   alertSeverity: AlertColor;
   alertMessage: string;
   inputErrorMessage: string;
@@ -16,9 +16,9 @@ export type AlertInputFromProps = {
   secondaryMessage?: string;
   secondaryOnClick?: () => void;
   fullWidth?: boolean;
-};
+}
 
-export const AlertInputFrom: React.FC<AlertInputFromProps> = (props) => {
+export const AlertInputFrom = (props: Props) => {
   const {
     alertSeverity,
     alertMessage,

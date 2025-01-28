@@ -5,18 +5,14 @@ import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom'
 import { DataRecipient } from '../../types/data-recipient.type';
 import { Card } from '../../atoms/card/card.atom';
 
-export type ConsentInsightFormProps = {
+interface Props {
   useCase: UseCaseResponse;
   nonAdrDataRecipient: DataRecipient;
   primaryDataRecipient: DataRecipient;
   dataHolderName?: string;
-};
+}
 
-export const ConsentCreateInsight = ({
-  nonAdrDataRecipient,
-  primaryDataRecipient,
-  useCase,
-}: ConsentInsightFormProps) => {
+export const ConsentCreateInsight = ({ nonAdrDataRecipient, primaryDataRecipient, useCase }: Props) => {
   return (
     <>
       <Box sx={{ mb: 3 }}>

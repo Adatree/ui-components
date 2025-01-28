@@ -3,13 +3,13 @@ import { Typography, Box, useTheme } from '@mui/material';
 import { LinkExternal } from '../links/link-external.atom';
 import { useCopy } from '../../context/copy.context';
 
-export type AccreditationProps = {
+interface Props {
   accreditationNumber: string;
   companyName: string;
   underCdrPrincipal: boolean;
-};
+}
 
-export const Accreditation: React.FC<AccreditationProps> = (props) => {
+export const Accreditation = (props: Props) => {
   const { accreditationNumber, companyName, underCdrPrincipal = false } = props;
   const [copy] = useCopy();
   const theme = useTheme();

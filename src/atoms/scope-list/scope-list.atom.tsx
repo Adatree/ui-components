@@ -16,11 +16,11 @@ import { useCopy } from '../../context/copy.context';
 import { InformationOutline, Close } from 'mdi-material-ui';
 import { Helper } from '../../utils/helper/helper';
 
-export type ScopeListProps = {
+interface Props {
   scopes: ScopeResponse[];
-};
+}
 
-export const ScopeList: React.FC<ScopeListProps> = (props) => {
+export const ScopeList = (props: Props) => {
   const { scopes } = props;
   const [scope, setScope] = useState<ScopeResponse>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);

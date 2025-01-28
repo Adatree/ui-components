@@ -9,13 +9,13 @@ import { Formatter } from '../../utils/formatter/formatter';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
 
-export type DateSelectorProps = {
+interface Props {
   companyName: string;
   sharingDurations: SharingDuration[];
   showSharingDurationsOptions?: boolean;
-};
+}
 
-export const DateSelector = (props: DateSelectorProps) => {
+export const DateSelector = (props: Props) => {
   const { companyName, sharingDurations, showSharingDurationsOptions = false } = props;
   const [sharingEndDate, setSharingEndDate] = useState<Date>();
   const [sharingDuration, setSharingDuration] = useState<SharingDuration>();

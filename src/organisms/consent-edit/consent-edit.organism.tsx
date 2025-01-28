@@ -11,15 +11,15 @@ import { DataRecipientType } from '../../types/data-recipient.type';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentEditDates } from './consent-edit-dates.organism';
 
-export type ConsentEditProps = {
+interface Props {
   consent: ConsentResponse;
   useCase: UseCaseResponse;
   enablePartnerMessageDiscreetMode?: boolean;
   onCancel: () => void;
   onSubmit: () => void;
-};
+}
 
-export const ConsentEdit = (props: ConsentEditProps) => {
+export const ConsentEdit = (props: Props) => {
   const { consent, useCase, enablePartnerMessageDiscreetMode = false, onCancel, onSubmit } = props;
   const [isEditable] = useState(consent.status === Status.Active);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { SvgIcon, SvgIconProps } from '@mui/material/';
 
-export interface ApiCogIconProps extends SvgIconProps {
+export interface Props extends SvgIconProps {
   textColor?: string;
 }
 
-export const ApiCogIcon = (props: ApiCogIconProps) => {
+export const ApiCogIcon = (props: Props) => {
   const { textColor = '#fff' } = props;
   return (
     <SvgIcon {...props}>

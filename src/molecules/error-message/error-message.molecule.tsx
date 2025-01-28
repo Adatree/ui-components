@@ -6,7 +6,7 @@ import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { Box, Typography, useTheme } from '@mui/material';
 import { Formatter } from '../../utils/formatter/formatter';
 
-export type ErrorMessageProps = {
+interface Props {
   message: string;
   code?: string;
   data?: object | string;
@@ -15,9 +15,9 @@ export type ErrorMessageProps = {
   supportContact?: string;
   url?: string;
   userMessage?: string;
-};
+}
 
-export const ErrorMessage: React.FC<ErrorMessageProps> = (props: ErrorMessageProps) => {
+export const ErrorMessage = (props: Props) => {
   const {
     message,
     code,

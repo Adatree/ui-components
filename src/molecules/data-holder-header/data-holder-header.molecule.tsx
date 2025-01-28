@@ -5,13 +5,13 @@ import { Formatter } from '../../utils/formatter/formatter';
 import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 import { Bank, Delete, Pencil } from 'mdi-material-ui';
 
-export type DataHolderHeaderProps = {
+interface Props {
   consent: ConsentResponse;
   editUrl?: string;
   onRevokeClick?: () => void;
-};
+}
 
-export const DataHolderHeader: React.FC<DataHolderHeaderProps> = (props) => {
+export const DataHolderHeader = (props: Props) => {
   const { consent, editUrl = '', onRevokeClick } = props;
 
   let textDate = '';

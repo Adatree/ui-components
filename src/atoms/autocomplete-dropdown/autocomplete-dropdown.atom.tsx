@@ -4,7 +4,7 @@ import { DataHolder } from '@adatree/react-api-sdk';
 import { Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
 
-export type CheckboxAccordionProps = {
+interface Props {
   dataHolders: DataHolder[];
   defaultValue?: DataHolder;
   label?: string;
@@ -12,9 +12,9 @@ export type CheckboxAccordionProps = {
   showError?: boolean;
   showNotListed?: boolean;
   onChange: (value: DataHolder | null) => void;
-};
+}
 
-export const AutocompleteDropdown: React.FC<CheckboxAccordionProps> = (props) => {
+export const AutocompleteDropdown = (props: Props) => {
   const {
     dataHolders,
     label = '',

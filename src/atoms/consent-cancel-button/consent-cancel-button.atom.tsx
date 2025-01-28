@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 import { useCopy } from '../../context/copy.context';
 
-export type ConsentCancelButtonProps = {
+interface Props {
   label: string;
   dialogText: string;
   onCancel: () => void;
-};
+}
 
-export const ConsentCancelButton: React.FC<ConsentCancelButtonProps> = (props) => {
+export const ConsentCancelButton = (props: Props) => {
   const { label, dialogText, onCancel } = props;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [copy] = useCopy();

@@ -10,7 +10,7 @@ interface Props {
   extendTheme?: Partial<ThemeOptions>;
 }
 
-export const ThemeProvider: React.FC<Props> = ({ theme, children, extendTheme }: Props) => {
+export const ThemeProvider = ({ theme, children, extendTheme }: Props) => {
   return (
     <MuiThemeProvider theme={CreateTheme(theme, extendTheme)}>
       <CssBaseline />

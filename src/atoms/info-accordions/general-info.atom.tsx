@@ -5,11 +5,11 @@ import { useCopy } from '../../context/copy.context';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
 
-export type GeneralInformationProps = {
+interface Props {
   hideDuplicateListItem?: boolean;
-};
+}
 
-export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
+export const GeneralInformation = (props: Props) => {
   const { hideDuplicateListItem = false } = props;
   const [copy] = useCopy();
   const { adrDataRecipient, primaryDataRecipient, nonAdrDataRecipient } = useDataRecipients();

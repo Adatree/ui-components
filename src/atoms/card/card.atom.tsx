@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import { Card as MuiCard, CardProps as MuiCardProps } from '@mui/material';
 
-interface CardProps extends MuiCardProps {
+interface Props extends MuiCardProps {
   children: ReactNode;
   error?: boolean;
 }
 
-export const Card: React.FC<CardProps> = (props) => {
+export const Card = (props: Props) => {
   const { children, error = false, sx } = props;
 
   return (

@@ -3,12 +3,12 @@ import { UseCaseResponse } from '@adatree/react-api-sdk';
 import { RadioButtonItem, RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { Card } from '../../atoms/card/card.atom';
 
-export type UseCaseSelectorProps = {
+interface Props {
   useCases: UseCaseResponse[];
   onChange: (useCaseId: string) => void;
-};
+}
 
-export const UseCaseSelector: React.FC<UseCaseSelectorProps> = (props) => {
+export const UseCaseSelector = (props: Props) => {
   const { useCases, onChange } = props;
   let radioButtonItems: RadioButtonItem[] = [];
 

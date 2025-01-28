@@ -4,25 +4,25 @@ import { PartnerMessage } from '../../atoms/partner-message/partner-message-atom
 import { Close } from 'mdi-material-ui';
 import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
-export type PartnerMessageDialogProps = {
+interface Props {
   dataHolderName: string;
   isOpen: boolean;
   discreetMode?: boolean;
   onClose: () => void;
   onSubmit: () => void;
-};
+}
 
-export const PartnerMessageDialog: React.FC<PartnerMessageDialogProps> = (props) => {
+export const PartnerMessageDialog = (props: Props) => {
   const { dataHolderName, isOpen, discreetMode = false, onClose, onSubmit } = props;
   const { track } = useAnalytics();
 
   const handleClose = () => {
-    track(AnalyticsEvents.CONSENT_CONFIRMATION_CANCEL_CLICKED)
+    track(AnalyticsEvents.CONSENT_CONFIRMATION_CANCEL_CLICKED);
     onClose();
   };
 
   const handleSubmit = () => {
-    track(AnalyticsEvents.CONSENT_CONFIRMATION_BUTTON_CLICKED)
+    track(AnalyticsEvents.CONSENT_CONFIRMATION_BUTTON_CLICKED);
     onSubmit();
   };
 

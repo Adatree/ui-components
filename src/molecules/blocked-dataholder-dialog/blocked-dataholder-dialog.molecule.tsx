@@ -4,13 +4,13 @@ import { DataHolder } from '@adatree/react-api-sdk';
 import { useCopy } from '../../context/copy.context';
 import { Close } from 'mdi-material-ui';
 
-export type BlockedDataholderDialogProps = {
+interface Props {
   dataHolder: DataHolder;
   isOpen: boolean;
   onClose: () => void;
-};
+}
 
-export const BlockedDataholderDialog: React.FC<BlockedDataholderDialogProps> = (props) => {
+export const BlockedDataholderDialog = (props: Props) => {
   const { dataHolder, isOpen, onClose } = props;
   const [copy] = useCopy();
 

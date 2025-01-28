@@ -3,12 +3,12 @@ import { Box, Typography } from '@mui/material';
 import { Grantee, Status } from '@adatree/react-api-sdk';
 import { Card } from '../../atoms/card/card.atom';
 
-export type GranteeSummaryProps = {
+interface Props {
   gantee: Grantee;
   status?: Status;
-};
+}
 
-export const GranteeSummary: React.FC<GranteeSummaryProps> = (props) => {
+export const GranteeSummary = (props: Props) => {
   const { gantee, status } = props;
 
   let text = gantee.name;

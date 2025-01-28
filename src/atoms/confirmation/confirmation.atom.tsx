@@ -3,14 +3,14 @@ import { Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
 import { TextBuilder } from '../../utils/text/text-builder';
 import { SharingDuration } from '@adatree/react-api-sdk';
 
-export type ConfirmationnProps = {
+interface Props {
   companyName: string;
   sharingDuration: SharingDuration | undefined;
   endDate: Date | undefined;
   onChange: (checked: boolean) => void;
-};
+}
 
-export const Confirmation: React.FC<ConfirmationnProps> = (props) => {
+export const Confirmation = (props: Props) => {
   const { companyName, sharingDuration, endDate, onChange } = props;
 
   const handleConfirmationChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {

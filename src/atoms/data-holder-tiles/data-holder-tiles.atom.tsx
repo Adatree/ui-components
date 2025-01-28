@@ -3,13 +3,13 @@ import { Chip, Grid, useTheme } from '@mui/material';
 import { DataHolder } from '@adatree/react-api-sdk';
 import { Card } from '../card/card.atom';
 
-export type DataHolderTilesProps = {
+interface Props {
   dataHolders: DataHolder[];
   disableDataHolders: DataHolder[];
   onClick: (dataHolder: DataHolder) => void;
-};
+}
 
-export const DataHolderTiles: React.FC<DataHolderTilesProps> = (props) => {
+export const DataHolderTiles = (props: Props) => {
   const { dataHolders, disableDataHolders = [], onClick } = props;
   const theme = useTheme();
 

@@ -3,12 +3,12 @@ import { Box, Typography } from '@mui/material';
 import { useDataRecipients } from '../../context/data-recipient.context';
 import { useCopy } from '../../context/copy.context';
 
-export type PartnerMessageProps = {
+interface Props {
   dataHolderName: string;
   discreetMode?: boolean;
-};
+}
 
-export const PartnerMessage: React.FC<PartnerMessageProps> = (props) => {
+export const PartnerMessage = (props: Props) => {
   const { dataHolderName, discreetMode = false } = props;
   const { primaryDataRecipient, dataRecipients } = useDataRecipients();
   const [copy] = useCopy();
