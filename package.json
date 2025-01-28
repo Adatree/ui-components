@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "6.12.6",
+  "version": "6.13.0",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",
@@ -18,12 +18,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mui/lab": "^5.0.0-alpha.117",
-    "@mui/material": "^5.11.6",
-    "@mui/styled-engine": "5.15.14",
-    "@mui/x-date-pickers": "^7.7.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/lab": "^6.0.0-beta.24",
+    "@mui/material": "^6.4.1",
+    "@mui/styled-engine": "6.4.0",
+    "@mui/x-date-pickers": "^7.24.1",
     "axios": "^0.25.0",
     "date-fns": "^2.28.0",
     "lodash": "^4.17.21",
