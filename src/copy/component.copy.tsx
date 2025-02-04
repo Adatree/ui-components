@@ -42,10 +42,9 @@ export const componentCopy = (
             Speak to {name} for more information about how they will handle your data.{' '}
             {dataHandlingPolicy && (
               <>
-                You can view their data handling policy <LinkExternal href={dataHandlingPolicy} text={'here'} />
+                You can view their data handling policy <LinkExternal href={dataHandlingPolicy} text={'here'} />.
               </>
             )}
-            .
           </>
         );
       },
@@ -121,7 +120,7 @@ export const componentCopy = (
         `${dataRecipientName} will never ask for your ${providerType} login password. Your ${providerType} will send you a one-time password.`,
       list_sharing: (
         <>
-          You can stop sharing data at any time by clicking the revoke button in the consent record. You can also email{' '}
+          You can stop sharing data at any time by pressing the revoke button in the consent record. You can also email{' '}
           <LinkExternal
             href={`mailto:${primaryDataRecipient.dataSharingRevocationEmail}`}
             text={primaryDataRecipient.dataSharingRevocationEmail}

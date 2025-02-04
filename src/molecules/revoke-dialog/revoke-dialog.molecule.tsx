@@ -37,7 +37,7 @@ export const RevokeDialog = (props: Props) => {
       aria-describedby="alert-dialog-description"
     >
       <>
-        <DialogTitle id="alert-dialog-title">{'Are you sure you want to revoke this consent?'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{'Revoke consent?'}</DialogTitle>
         <DialogContent>
           {isLoading && (
             <Box sx={{ top: 'calc(50% - 30px)', position: 'absolute', left: 'calc(50% - 30px)' }}>
@@ -49,8 +49,8 @@ export const RevokeDialog = (props: Props) => {
             id="alert-dialog-description"
             sx={{ visibility: isLoading === true ? 'hidden' : 'visible', color: 'text_main.main' }}
           >
-            {`Revoking access will ensure that we are no longer able to receive your data from ${dataHolderName}.
-    Any revocation will take impact immediately. If you revoke consent, our service to you may be impacted.`}
+            {`We will no longer receive your data from ${dataHolderName}.
+    This will take effect immediately. If you revoke your consent, our service to you may be impacted.`}
           </DialogContentText>
         </DialogContent>
       </>
