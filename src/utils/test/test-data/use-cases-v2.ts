@@ -1,5 +1,11 @@
-import { UseCaseResponse } from '@adatree/react-api-sdk';
-import { SharingDuration, AccessFrequency, NotificationType, Industry, ConsumerType } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
+import {
+  SharingDuration,
+  AccessFrequency,
+  NotificationType,
+  Industry,
+  ConsumerType,
+} from '@adatree/react-api-sdk-dashboard';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';

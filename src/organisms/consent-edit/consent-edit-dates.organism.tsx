@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConsentResponse, SharingDuration, UseCaseResponse } from '@adatree/react-api-sdk';
+import { ConsentResponse, SharingDuration, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { ConsentSectionDates } from '../../molecules/consent-section/consent-section-dates.molecule';
 import { Card } from '../../atoms/card/card.atom';
 import { TextBuilder } from '../../utils/text/text-builder';

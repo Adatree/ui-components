@@ -1,4 +1,4 @@
-import { OutsourcedServiceProvider } from '@adatree/react-api-sdk';
+import { OutsourcedServiceProvider } from '@adatree/react-api-sdk-dashboard';
 
 const adatree = (): OutsourcedServiceProvider => {
   return {

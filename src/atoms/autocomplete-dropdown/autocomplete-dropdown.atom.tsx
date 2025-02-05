@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Autocomplete, Avatar, TextField, Typography } from '@mui/material';
-import { DataHolder } from '@adatree/react-api-sdk';
+import { DataHolder } from '@adatree/react-api-sdk-dashboard';
 import { Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
 

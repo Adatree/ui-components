@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, List, Pagination } from '@mui/material';
 import { ConsentListItem } from '../consent-list-item/consent-list-item.atom';
 import { PaginationModel } from '../../types/pagination.type';
-import { ConsentResponse } from '@adatree/react-api-sdk';
+import { ConsentResponse } from '@adatree/react-api-sdk-dashboard';
 
 interface Props {
   consents: ConsentResponse[];

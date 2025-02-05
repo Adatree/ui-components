@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { UseCaseResponse } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { RadioButtonItem, RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';
 import { Card } from '../../atoms/card/card.atom';
 

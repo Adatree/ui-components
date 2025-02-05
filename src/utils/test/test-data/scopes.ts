@@ -1,4 +1,4 @@
-import { ScopeResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse } from '@adatree/react-api-sdk-dashboard';
 
 const bankAccountsBasicRead = (): ScopeResponse => {
   return {

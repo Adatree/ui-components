@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Box, Typography } from '@mui/material';
 import { Highlight as HL } from '../highlight-text/highlight-text.atom';
-import { ScopeResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse } from '@adatree/react-api-sdk-dashboard';
 interface Props {
   insightScopes: ScopeResponse[];
   dataHolderName: string;

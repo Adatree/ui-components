@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DateButton } from '../../lib';
-import { SharingDuration } from '@adatree/react-api-sdk';
+import { SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
 const meta: Meta<typeof DateButton> = {
   title: 'Components/Atoms/Date Button',

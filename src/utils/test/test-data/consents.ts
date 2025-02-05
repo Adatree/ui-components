@@ -1,4 +1,4 @@
-import { CreateConsent, ConsentResponse, PostUsageAction, Status } from '@adatree/react-api-sdk';
+import { CreateConsent, ConsentResponse, PostUsageAction, Status } from '@adatree/react-api-sdk-dashboard';
 import { dataHolder } from './data-holders';
 import { useCase } from './use-cases';
 

@@ -13,7 +13,7 @@ import {
   DataRecipient,
   AppTheme,
 } from '../src/lib';
-import { Industry } from '@adatree/react-api-sdk';
+import { Industry } from '@adatree/react-api-sdk-dashboard';
 
 const industryValues = ['Banking', 'Energy'];
 const themeValues = ['light', 'dark'];

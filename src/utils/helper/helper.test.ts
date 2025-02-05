@@ -1,6 +1,12 @@
 import { Helper } from './helper';
 import { TestUtil } from '../test/test.util';
-import { AccessFrequency, ConsentResponse, SharingDuration, Status, UseCaseResponse } from '@adatree/react-api-sdk';
+import {
+  AccessFrequency,
+  ConsentResponse,
+  SharingDuration,
+  Status,
+  UseCaseResponse,
+} from '@adatree/react-api-sdk-dashboard';
 import { DateDurationList } from '../../consts/duration.const';
 import { DataRecipientType } from '../../types/data-recipient.type';
 import { addDays, addHours, isWithinInterval } from 'date-fns';

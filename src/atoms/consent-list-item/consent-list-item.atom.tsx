@@ -4,7 +4,7 @@ import { Typography, Box, Avatar, ListItem, Button } from '@mui/material';
 import { Formatter } from '../../utils/formatter/formatter';
 import { ChevronRight, Bank } from 'mdi-material-ui';
 import { useCopy } from '../../context/copy.context';
-import { ConsentResponse, Status } from '@adatree/react-api-sdk';
+import { ConsentResponse, Status } from '@adatree/react-api-sdk-dashboard';
 
 interface Props {
   consent: ConsentResponse;

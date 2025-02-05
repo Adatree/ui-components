@@ -1,4 +1,4 @@
-import { DataHolder } from '@adatree/react-api-sdk';
+import { DataHolder } from '@adatree/react-api-sdk-dashboard';
 
 const HighResDataHoldersLogos = [
   {

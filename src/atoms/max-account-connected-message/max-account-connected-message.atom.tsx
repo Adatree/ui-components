@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { UseCaseResponse } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { useCopy } from '../../context/copy.context';
 
 interface Props {

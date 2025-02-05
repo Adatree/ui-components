@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ConsentResponse, Status, UseCaseResponse } from '@adatree/react-api-sdk';
+import { ConsentResponse, Status, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { useConsentForm } from '../../context/consentForm.context';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
 import { ConsentSectionActions } from '../../molecules/consent-section/consent-section-actions.molecule';

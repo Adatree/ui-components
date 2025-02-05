@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { List } from '@mui/material';
-import { ScopeResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse } from '@adatree/react-api-sdk-dashboard';
 import { CheckboxAccordion } from '../checkbox-accordion/checkbox-accordion.atom';
 import { useCopy } from '../../context/copy.context';
 import { Helper } from '../../utils/helper/helper';

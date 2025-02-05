@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ConsentFormProvider, ConsentEdit, TestUtil } from '../../../lib';
-import { AccessFrequency, PostUsageAction, SharingDuration } from '@adatree/react-api-sdk';
+import { AccessFrequency, PostUsageAction, SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
 const handleSummit = () => {
   alert('Consent submitted');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
-import { DataHolder } from '@adatree/react-api-sdk';
+import { DataHolder } from '@adatree/react-api-sdk-dashboard';
 import { useCopy } from '../../context/copy.context';
 import { Close } from 'mdi-material-ui';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UseCaseResponse } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { Box, lighten, Typography } from '@mui/material';
 import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom';
 import { DataRecipient } from '../../types/data-recipient.type';

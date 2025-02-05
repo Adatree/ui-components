@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, Grid, useTheme } from '@mui/material';
-import { DataHolder } from '@adatree/react-api-sdk';
+import { DataHolder } from '@adatree/react-api-sdk-dashboard';
 import { Card } from '../card/card.atom';
 
 interface Props {

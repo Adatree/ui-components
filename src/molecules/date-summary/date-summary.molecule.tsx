@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { ConsentResponse, AccessFrequency } from '@adatree/react-api-sdk';
+import { ConsentResponse, AccessFrequency } from '@adatree/react-api-sdk-dashboard';
 import { Formatter } from '../../utils/formatter/formatter';
 import { Helper } from '../../utils/helper/helper';
 import { Card } from '../../atoms/card/card.atom';

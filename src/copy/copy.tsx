@@ -1,4 +1,4 @@
-import { Industry } from '@adatree/react-api-sdk';
+import { Industry } from '@adatree/react-api-sdk-dashboard';
 import { Copy } from '../types/copy.type';
 import { DataRecipient } from '../types/data-recipient.type';
 import { commonCopy } from './common.copy';

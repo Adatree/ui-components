@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button } from '@mui/material';
 import { Helper } from '../../utils/helper/helper';
 import { DateDuration } from '../../consts/duration.const';
-import { SharingDuration } from '@adatree/react-api-sdk';
+import { SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
 interface Props {
   sharingDurations: SharingDuration[];

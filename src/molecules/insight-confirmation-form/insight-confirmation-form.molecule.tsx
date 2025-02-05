@@ -3,7 +3,7 @@ import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { InsightList } from '../../atoms/insight-list/insight-list.atom';
 import { Card } from '../../atoms/card/card.atom';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
-import { ScopeResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse } from '@adatree/react-api-sdk-dashboard';
 import { useDataRecipients } from '../../context/data-recipient.context';
 
 interface Props {

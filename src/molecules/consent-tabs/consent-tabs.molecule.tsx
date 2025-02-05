@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Card } from '../../atoms/card/card.atom';
-import { ConsentResponse, Status } from '@adatree/react-api-sdk';
+import { ConsentResponse, Status } from '@adatree/react-api-sdk-dashboard';
 
 type PaginationModel = {
   page: number;

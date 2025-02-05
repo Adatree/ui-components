@@ -1,5 +1,4 @@
 import { Logger } from '../logger/logger';
-import { bankData } from './test-data/bank-transactions';
 import { consent } from './test-data/consents';
 import { consentV2 } from './test-data/consents-v2';
 import { dataHolder } from './test-data/data-holders';
@@ -18,7 +17,6 @@ const suspendLogger = (): void => {
 
 export const TestUtil = {
   testData: {
-    bankData,
     consent,
     consentV2,
     dataHolder,

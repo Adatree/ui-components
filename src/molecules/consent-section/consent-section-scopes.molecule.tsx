@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Typography } from '@mui/material';
-import { ScopeResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse } from '@adatree/react-api-sdk-dashboard';
 import { Card } from '../../atoms/card/card.atom';
 import { ScopeListSwitch } from '../../atoms/scope-list/scope-list-switch.atom';
 import { ScopeList } from '../../atoms/scope-list/scope-list.atom';

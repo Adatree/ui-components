@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Box, Chip, IconButton, Link, Typography } from '@mui/material';
-import { ConsentResponse, Status } from '@adatree/react-api-sdk';
+import { ConsentResponse, Status } from '@adatree/react-api-sdk-dashboard';
 import { Formatter } from '../../utils/formatter/formatter';
 import { Tooltip } from '../../atoms/tooltip/tooltip.atom';
 import { Bank, Delete, Pencil } from 'mdi-material-ui';

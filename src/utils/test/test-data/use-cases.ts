@@ -5,7 +5,7 @@ import {
   NotificationType,
   Industry,
   ConsumerType,
-} from '@adatree/react-api-sdk';
+} from '@adatree/react-api-sdk-dashboard';
 import { dataHolder } from './data-holders';
 import { outsourcedServiceProvider } from './outsourced-service-providers';
 import { scope } from './scopes';

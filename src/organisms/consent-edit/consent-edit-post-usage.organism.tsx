@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostUsageAction } from '@adatree/react-api-sdk';
+import { PostUsageAction } from '@adatree/react-api-sdk-dashboard';
 import { Card } from '../../atoms/card/card.atom';
 import { Typography } from '@mui/material';
 import { RadioButtonWithText } from '../../atoms/radio-button-with-text/radio-button-with-text.atom';

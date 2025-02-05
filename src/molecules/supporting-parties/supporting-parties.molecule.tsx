@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { OutsourcedServiceProvider, UseCaseResponse } from '@adatree/react-api-sdk';
+import { OutsourcedServiceProvider, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
 import { LinkExternal } from '../../atoms/links/link-external.atom';
 

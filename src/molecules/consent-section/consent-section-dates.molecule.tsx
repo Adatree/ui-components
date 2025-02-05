@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
-import { UseCaseResponse } from '@adatree/react-api-sdk';
+import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { Card } from '../../atoms/card/card.atom';
 import { DateSelector } from '../date-selector/date-selector.molecule';
 import { TextBuilder } from '../../utils/text/text-builder';

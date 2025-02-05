@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
-import { ScopeResponse, UseCaseResponse } from '@adatree/react-api-sdk';
+import { ScopeResponse, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 
 interface Props {
   title: string;

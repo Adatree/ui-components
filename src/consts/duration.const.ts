@@ -1,4 +1,4 @@
-import { SharingDuration } from '@adatree/react-api-sdk';
+import { SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
 export type DateDuration = {
   type: SharingDuration;

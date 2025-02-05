@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
 import { TextBuilder } from '../../utils/text/text-builder';
-import { SharingDuration } from '@adatree/react-api-sdk';
+import { SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
 interface Props {
   companyName: string;

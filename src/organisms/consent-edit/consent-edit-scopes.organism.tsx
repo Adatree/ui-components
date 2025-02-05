@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ConsentResponse, ScopeResponse, Status, UseCaseResponse } from '@adatree/react-api-sdk';
+import { ConsentResponse, ScopeResponse, Status, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { Helper } from '../../utils/helper/helper';
 import { useCopy } from '../../context/copy.context';
