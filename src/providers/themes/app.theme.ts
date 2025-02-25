@@ -26,6 +26,8 @@ export type AppTheme = {
       link: string;
       highlight: string;
     };
+    hover?: string;
+    disable?: string;
   };
   components?: {
     button?: {
@@ -59,6 +61,8 @@ export const defaultTheme: AppTheme = {
       link: '#1a0dab',
       highlight: '#1d50bf',
     },
+    hover: '#C4F4F0',
+    disable: '#f5f5f5',
   },
   font: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
@@ -71,21 +75,23 @@ export const darkTheme: AppTheme = {
     primary: '#48dfd2',
     secondary: '#021c55',
     backgrounds: {
-      card: '#283461',
-      hover: '#4a5271',
-      inputs: '#283461',
-      modal: '#1f294d',
-      page: '#182039',
+      card: '#272728',
+      hover: '#30353d',
+      inputs: '#272728',
+      modal: '#1B1D21',
+      page: '#151619',
     },
     buttons: {
       background: '#48dfd2',
       text: '#000',
     },
     text: {
-      main: '#f9f9f9',
+      main: '#d6d6d6',
       link: '#f6ca6e',
-      highlight: '#48dfd2',
+      highlight: '#43484f',
     },
+    hover: '#43484f',
+    disable: '#151619',
   },
   font: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',

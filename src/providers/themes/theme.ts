@@ -55,6 +55,8 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
         default: appTheme.colour.backgrounds.modal,
         paper: appTheme.colour.backgrounds.card,
       },
+      hover: generatePaletteColor(appTheme.colour.hover ?? '#C4F4F0'),
+      disable: generatePaletteColor(appTheme.colour.hover ?? '#f5f5f5'),
     },
     typography: {
       fontFamily: fontFamilyBase,
@@ -200,6 +202,8 @@ declare module '@mui/material/styles' {
     text_main: Palette['primary'];
     text_link: Palette['primary'];
     text_highlight: Palette['primary'];
+    hover: Palette['primary'];
+    disable: Palette['primary'];
   }
   interface PaletteOptions {
     background_card?: PaletteOptions['primary'];
@@ -211,6 +215,8 @@ declare module '@mui/material/styles' {
     text_main?: PaletteOptions['primary'];
     text_link?: PaletteOptions['primary'];
     text_highlight?: PaletteOptions['primary'];
+    hover?: PaletteOptions['primary'];
+    disable?: PaletteOptions['primary'];
   }
 }
 
