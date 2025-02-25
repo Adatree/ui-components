@@ -64,7 +64,7 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
     scope: {
       tooltip_label: (
         <>
-          <HL>{primaryDataRecipient.name}</HL> will receive access to the following data:
+          <HL>{primaryDataRecipient.name}</HL> will have access to the following data:
         </>
       ),
     },
