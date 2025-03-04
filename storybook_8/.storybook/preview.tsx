@@ -109,7 +109,6 @@ const preview: Preview = {
       storySort: {
         order: [
           'Introduction',
-          'Getting started',
           'Atomic Design',
           'Changelog',
           'Breaking change notes',
