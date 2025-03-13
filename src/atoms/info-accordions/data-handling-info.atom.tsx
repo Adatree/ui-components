@@ -60,10 +60,6 @@ export const DataHandlingInfo = (props: Props) => {
     return (
       <List sx={{ mb: '2rem' }}>
         {renderListItem(copy.component.data_handling_info.list_non_adr_disclaimer(dataHandler.name), 0)}
-        {renderListItem(
-          copy.component.data_handling_info.list_data_policy(dataHandler.name, dataHandler.cdrPolicyUrl),
-          1,
-        )}
       </List>
     );
   };
