@@ -1,6 +1,6 @@
 {
   "name": "@adatree/atomic-components",
-  "version": "6.14.4",
+  "version": "6.14.5",
   "main": "dist/index.js",
   "repository": "https://github.com/Adatree/atomic-components.git",
   "author": "Adatree",

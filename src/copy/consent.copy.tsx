@@ -45,7 +45,7 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
       scope_for_insights_create_message: (insight: string) => {
         return (
           <>
-            <HL>{primaryDataRecipient.name}</HL> would like access to the following data to {insight}:
+            <HL>{primaryDataRecipient.name}</HL> would like access to the following data to {insight.toLowerCase()}:
           </>
         );
       },
