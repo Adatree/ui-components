@@ -51,8 +51,8 @@ export const componentCopy = (
       list_non_adr_disclaimer: (name: string) => {
         return (
           <>
-            <HL>{name}</HL> only has access to the Insight not your {providerType} data used to generate the Insight.
-            The Insight shared with <HL>{name}</HL> is not subject to CDR protections.
+            <HL>{name}</HL> only has access to the insight not your {providerType} data used to generate the insight.
+            The insight shared with <HL>{name}</HL> is not subject to CDR protections.
           </>
         );
       },
