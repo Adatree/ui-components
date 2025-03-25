@@ -179,6 +179,10 @@ export const WithDeIdentifySection: Story = {
 };
 
 // ########################################################################
+/*
+   Note this story is hidden from the sidebar
+   Managed in storybook_8/.storybook/manager.ts
+*/
 
 export const WithInsightsSingle: Story = {
   render: (args, { globals: { industry } }) => {
