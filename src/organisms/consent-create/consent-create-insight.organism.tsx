@@ -43,7 +43,7 @@ export const ConsentCreateInsight = ({ nonAdrDataRecipient, primaryDataRecipient
         <Typography variant="body2" sx={{ color: (theme) => lighten(theme.palette.text_main.main, 0.28), mb: 1.6 }}>
           {primaryDataRecipient.name} is an accredited provider for securely accessing{' '}
           {getIndusrtryNoun(useCase.industries)} data. This process is automatic. {primaryDataRecipient.name} checks
-          your {getIndusrtryNoun(useCase.industries)} account usage to ensure it meets {nonAdrDataRecipient.name}{' '}
+          your {getIndusrtryNoun(useCase.industries)} account usage to ensure it meets {nonAdrDataRecipient.name}&apos;s{' '}
           requirements. {primaryDataRecipient.name} does not send {nonAdrDataRecipient.name} your transaction details.
           Only the outcome of this check, which is called an &quot;insight&quot;.
         </Typography>
