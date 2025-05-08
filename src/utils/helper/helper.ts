@@ -241,6 +241,51 @@ const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipien
   return dataRecipients[0];
 };
 
+/**
+ * Returns the email address from the non ADR recipients or finally from the ADR recipient if none other exists
+ *
+ * @param dataRecipients
+ * @returns
+ */
+const getDataSharingRevocationEmail = (dataRecipients: DataRecipient[]): string => {
+  const foundBCDC = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT;
+  });
+  if (foundBCDC && foundBCDC.dataSharingRevocationEmail) return foundBCDC.dataSharingRevocationEmail;
+
+  const foundCDR = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE;
+  });
+  if (foundCDR && foundCDR.dataSharingRevocationEmail) return foundCDR.dataSharingRevocationEmail;
+
+  const foundGRT = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.GRANTEE;
+  });
+  if (foundGRT && foundGRT.dataSharingRevocationEmail) return foundGRT.dataSharingRevocationEmail;
+
+  const foundNAP = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.NON_ACCREDITED_PERSON;
+  });
+  if (foundNAP && foundNAP.dataSharingRevocationEmail) return foundNAP.dataSharingRevocationEmail;
+
+  const foundTA = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.TRUSTED_ADVISER;
+  });
+  if (foundTA && foundTA.dataSharingRevocationEmail) return foundTA.dataSharingRevocationEmail;
+
+  const foundTASP = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER;
+  });
+  if (foundTASP && foundTASP.dataSharingRevocationEmail) return foundTASP.dataSharingRevocationEmail;
+
+  const foundADR = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
+  });
+  if (foundADR && foundADR.dataSharingRevocationEmail) return foundADR.dataSharingRevocationEmail;
+
+  return '';
+};
+
 const getAdrDataRecipients = (dataRecipients: DataRecipient[]): DataRecipient => {
   const found = dataRecipients.find((dataRecipient) => {
     return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
@@ -305,6 +350,7 @@ export const Helper = {
   getAdrDataRecipients,
   getPrimaryDataRecipients,
   getNonAdrDataRecipient,
+  getDataSharingRevocationEmail,
   getScopeDifference,
   isBcdc,
   isConsentEditable,

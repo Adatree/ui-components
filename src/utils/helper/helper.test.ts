@@ -363,6 +363,44 @@ describe('Helper Utils', () => {
     });
   });
 
+  describe('getDataSharingRevocationEmail', () => {
+    it('should get the correct data Sharing Revocation email', () => {
+      const allDR = TestUtil.testData.dataRecipient.all();
+      const adr = [TestUtil.testData.dataRecipient.accreditedDataRecipient()];
+      const bcdc = [...adr, TestUtil.testData.dataRecipient.businessConsumerDisclosureConsent()];
+      const cdr = [...adr, TestUtil.testData.dataRecipient.cdrRepresentative()];
+      const grt = [...adr, TestUtil.testData.dataRecipient.granteeRepresentative()];
+      const nap = [...adr, TestUtil.testData.dataRecipient.nonAccreditedDataRecipient()];
+      const ta = [...adr, TestUtil.testData.dataRecipient.trustedAdvisor()];
+      const tasp = [...adr, TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider()];
+
+      expect(Helper.getDataSharingRevocationEmail(allDR)).toEqual(
+        TestUtil.testData.dataRecipient.businessConsumerDisclosureConsent().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(adr)).toEqual(
+        TestUtil.testData.dataRecipient.accreditedDataRecipient().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(bcdc)).toEqual(
+        TestUtil.testData.dataRecipient.businessConsumerDisclosureConsent().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(cdr)).toEqual(
+        TestUtil.testData.dataRecipient.cdrRepresentative().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(grt)).toEqual(
+        TestUtil.testData.dataRecipient.granteeRepresentative().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(nap)).toEqual(
+        TestUtil.testData.dataRecipient.nonAccreditedDataRecipient().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(ta)).toEqual(
+        TestUtil.testData.dataRecipient.trustedAdvisor().dataSharingRevocationEmail,
+      );
+      expect(Helper.getDataSharingRevocationEmail(tasp)).toEqual(
+        TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider().dataSharingRevocationEmail,
+      );
+    });
+  });
+
   describe('getScopeDifference', () => {
     it('should get scope difference between scope array A and B', () => {
       // Same
