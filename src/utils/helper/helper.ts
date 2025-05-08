@@ -234,6 +234,18 @@ const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipien
     return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
   });
 
+  // if there is a non AP recipient, sent back the ADR recipient as the primary but with the non AP dataSharingRevocationEmail
+  const foundNonAccreditedPerson = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.NON_ACCREDITED_PERSON;
+  });
+
+  if (foundNonAccreditedPerson && foundAccreditedDataRecipient) {
+    return {
+      ...foundAccreditedDataRecipient,
+      dataSharingRevocationEmail: getDataSharingRevocationEmail(dataRecipients),
+    };
+  }
+
   if (foundAccreditedDataRecipient) {
     return foundAccreditedDataRecipient;
   }
