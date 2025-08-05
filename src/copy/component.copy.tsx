@@ -72,6 +72,7 @@ export const componentCopy = (
         );
       },
       list_cdr_protection: `Data shared with ${primaryDataRecipient.name} is not subject to CDR Protections.`,
+      list_ta_acknowledgement: `The ${primaryDataRecipient.name} is a Trusted Adviser of ${adrDataRecipient.name}.`,
       list_complaint: (
         <>
           If you would like to make a complaint, please email{' '}

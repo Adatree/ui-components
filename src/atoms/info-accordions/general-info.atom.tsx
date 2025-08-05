@@ -36,8 +36,12 @@ export const GeneralInformation = (props: Props) => {
       <List sx={{ wordBreak: 'break-word' }}>
         {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&
           renderListItem(copy.component.general_information.list_adr_context)}
-        {primaryDataRecipient.type === DataRecipientType.TRUSTED_ADVISER &&
-          renderListItem(copy.component.general_information.list_cdr_protection)}
+        {primaryDataRecipient.type === DataRecipientType.TRUSTED_ADVISER && (
+          <>
+            {renderListItem(copy.component.general_information.list_ta_acknowledgement)}
+            {renderListItem(copy.component.general_information.list_cdr_protection)}
+          </>
+        )}
         {primaryDataRecipient.type === DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER &&
           renderListItem(copy.component.general_information.list_cdr_protection)}
         {primaryDataRecipient.type !== DataRecipientType.ACCREDITED_DATA_RECIPIENT &&

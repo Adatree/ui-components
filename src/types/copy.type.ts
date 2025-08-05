@@ -67,6 +67,7 @@ export interface Copy {
       list_adr_context: string;
       list_cdr_acknowledgement: (dataHandlerName: string) => ReactElement;
       list_cdr_protection: string;
+      list_ta_acknowledgement: string;
       list_complaint: ReactElement;
       list_deleted: string;
       list_deleted_with_insights: string;
