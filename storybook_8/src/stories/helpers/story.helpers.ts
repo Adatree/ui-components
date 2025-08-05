@@ -37,7 +37,6 @@ const getDataRecipients = (key: string): DataRecipient[] => {
   } else if (key === dataRecipientValues[5]) {
     dataRecipients = [
       TestUtil.testData.dataRecipient.accreditedDataRecipient(),
-      TestUtil.testData.dataRecipient.trustedAdvisor(),
       TestUtil.testData.dataRecipient.trustedAdvisorServiceProvider(),
     ];
   }
