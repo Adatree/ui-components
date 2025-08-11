@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Tabs, Tab, Box, Typography, Skeleton } from '@mui/material';
+import { AppBar, Tabs, Tab, Box, Typography, Skeleton, Button } from '@mui/material';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Card } from '../../atoms/card/card.atom';
 import { ConsentResponse, Status } from '@adatree/react-api-sdk-dashboard';
@@ -19,6 +19,7 @@ interface Props {
   urlPrefix?: string;
   pagination: PaginationModel;
   onChange: (tabIndex: number, tabListPage: number) => void;
+  onNavigation?: () => void;
 }
 
 type TabPanelProps = {
@@ -35,6 +36,7 @@ export const ConsentTabs = ({
   urlPrefix = '/consent/',
   pagination,
   onChange,
+  onNavigation,
 }: Props) => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [paginationPage, setPaginationPage] = React.useState(1);
@@ -51,11 +53,27 @@ export const ConsentTabs = ({
   };
 
   const noConsentItems = (status: string) => {
-    return (
-      <Typography variant="h5" sx={{ py: 5, textAlign: 'center' }}>
-        You do not have any {status.toLocaleLowerCase()} consents.
-      </Typography>
-    );
+    if (onNavigation) {
+      return (
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="h3" sx={{ mt: 4, mb: 1.5 }}>
+            You do not have any {status.toLocaleLowerCase()} consents.
+          </Typography>
+          <Typography variant="subtitle1">
+            Get started by creating your first consent to manage your data preferences.
+          </Typography>
+          <Button sx={{ m: 2, mt: 5 }} variant="contained" color="primary" onClick={onNavigation}>
+            Create Consent
+          </Button>
+        </Box>
+      );
+    } else {
+      return (
+        <Typography variant="h5" sx={{ py: 5, textAlign: 'center' }}>
+          You do not have any {status.toLocaleLowerCase()} consents.
+        </Typography>
+      );
+    }
   };
 
   return (

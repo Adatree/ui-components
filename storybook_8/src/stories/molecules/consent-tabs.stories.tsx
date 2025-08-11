@@ -41,6 +41,14 @@ export const WithNoConsents: Story = {
   args: {},
 };
 
+export const WithNoConsentsAndNavigation: Story = {
+  args: {
+    onNavigation: () => {
+      alert('Button clicked');
+    },
+  },
+};
+
 export const Loading: Story = {
   args: {
     isLoading: true,
