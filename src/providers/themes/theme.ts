@@ -49,12 +49,14 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
       background_page: generatePaletteColor(appTheme.colour.backgrounds.page),
       button: generatePaletteColor(appTheme.colour.buttons.background, appTheme.colour.buttons.text),
       text_main: generatePaletteColor(appTheme.colour.text.main),
+      text_secondary: generatePaletteColor(appTheme.colour.text.secondary ?? appTheme.colour.text.main),
       text_link: generatePaletteColor(appTheme.colour.text.link),
       text_highlight: generatePaletteColor(appTheme.colour.text.highlight),
       background: {
         default: appTheme.colour.backgrounds.modal,
         paper: appTheme.colour.backgrounds.card,
       },
+      border: generatePaletteColor(appTheme.colour.border ?? appTheme.colour.backgrounds.card),
       hover: generatePaletteColor(appTheme.colour.hover ?? '#C4F4F0'),
       disable: generatePaletteColor(appTheme.colour.hover ?? '#f5f5f5'),
     },
@@ -188,7 +190,7 @@ export const CreateTheme = (appTheme: AppTheme, extendTheme?: Partial<ThemeOptio
     };
   }
 
-  return MuiCreateTheme(theme);
+  return MuiCreateTheme({ ...theme, custom: appTheme.custom });
 };
 
 declare module '@mui/material/styles' {
@@ -198,8 +200,10 @@ declare module '@mui/material/styles' {
     background_inputs: Palette['primary'];
     background_modal: Palette['primary'];
     background_page: Palette['primary'];
+    border: Palette['primary'];
     button: Palette['primary'];
     text_main: Palette['primary'];
+    text_secondary: Palette['primary'];
     text_link: Palette['primary'];
     text_highlight: Palette['primary'];
     hover: Palette['primary'];
@@ -211,8 +215,10 @@ declare module '@mui/material/styles' {
     background_inputs?: PaletteOptions['primary'];
     background_modal?: PaletteOptions['primary'];
     background_page?: PaletteOptions['primary'];
+    border?: PaletteOptions['primary'];
     button?: PaletteOptions['primary'];
     text_main?: PaletteOptions['primary'];
+    text_secondary?: PaletteOptions['primary'];
     text_link?: PaletteOptions['primary'];
     text_highlight?: PaletteOptions['primary'];
     hover?: PaletteOptions['primary'];
@@ -254,5 +260,25 @@ declare module '@mui/material/Switch' {
 declare module '@mui/material/SvgIcon' {
   interface SvgIconPropsColorOverrides {
     button: true;
+  }
+}
+
+// Add the custom props
+declare module '@mui/material/styles' {
+  interface Theme {
+    custom?: {
+      spacing?: {
+        borderRadiusSmall: string;
+        borderRadius: string;
+      };
+    };
+  }
+  interface ThemeOptions {
+    custom?: {
+      spacing?: {
+        borderRadiusSmall?: string;
+        borderRadius?: string;
+      };
+    };
   }
 }

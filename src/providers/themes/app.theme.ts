@@ -17,12 +17,14 @@ export type AppTheme = {
       modal: string;
       page: string;
     };
+    border?: string;
     buttons: {
       background: string;
       text: string;
     };
     text: {
       main: string;
+      secondary?: string;
       link: string;
       highlight: string;
     };
@@ -37,6 +39,12 @@ export type AppTheme = {
   font: {
     fontFamily: string;
     fontFamilyHeadings?: string;
+  };
+  custom?: {
+    spacing?: {
+      borderRadiusSmall: string;
+      borderRadius: string;
+    };
   };
 };
 
@@ -72,8 +80,8 @@ export const defaultTheme: AppTheme = {
 export const darkTheme: AppTheme = {
   mode: ThemeMode.DARK,
   colour: {
-    primary: '#48dfd2',
-    secondary: '#021c55',
+    primary: '#9dbcff',
+    secondary: '#9dbcff',
     backgrounds: {
       card: '#272728',
       hover: '#30353d',
@@ -81,12 +89,14 @@ export const darkTheme: AppTheme = {
       modal: '#1B1D21',
       page: '#151619',
     },
+    border: '#39393a',
     buttons: {
-      background: '#48dfd2',
-      text: '#000',
+      background: '#1f62f2',
+      text: '#fff',
     },
     text: {
       main: '#d6d6d6',
+      secondary: '#d7d7d7ff',
       link: '#f6ca6e',
       highlight: '#43484f',
     },
@@ -95,5 +105,12 @@ export const darkTheme: AppTheme = {
   },
   font: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+  },
+  // Remember to add new props to the theme.ts declare module
+  custom: {
+    spacing: {
+      borderRadiusSmall: '4px',
+      borderRadius: '8px',
+    },
   },
 };
