@@ -177,7 +177,11 @@ export const ConsentCreateForm = (props: Props) => {
           {Helper.isBcdc(dataRecipients) && Helper.isOrganisation(useCase) && <BusinessConsumerStatement />}
 
           {showDeIdentifySection && (
-            <ConsentSectionDeIdentify showError={showDeIdentifyError} onCheck={handleDeIdentifyChange} />
+            <ConsentSectionDeIdentify
+              showError={showDeIdentifyError}
+              deIdentifyCopy={useCase.anonymisationDetails}
+              onCheck={handleDeIdentifyChange}
+            />
           )}
           <ConsentSectionDates useCase={useCase} showError={showDateError} />
 

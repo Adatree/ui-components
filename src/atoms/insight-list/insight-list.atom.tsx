@@ -23,7 +23,7 @@ export const InsightList = (props: Props) => {
               </Typography>
 
               <Box sx={{ pl: 2 }}>
-                {insight.description && <Typography sx={{ mb: 1 }}>{insight.description}</Typography>}
+                {insight.purpose && <Typography sx={{ mb: 1 }}>{insight.purpose}</Typography>}
                 <Typography sx={{ mb: 0.6 }}>
                   To generate this insight we use the following data from <HL>{dataHolderName}</HL>
                 </Typography>

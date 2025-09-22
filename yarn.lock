@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adatree/react-api-sdk-dashboard@1.0.0-rc":
-  version "1.0.0-rc"
-  resolved "https://npm.pkg.github.com/download/@adatree/react-api-sdk-dashboard/1.0.0-rc/4b53de864ce5721ac64c069ad6c4e983b6691221#4b53de864ce5721ac64c069ad6c4e983b6691221"
-  integrity sha512-GyRQ+fdHtY3GzrOX6EMvhjglMV62BJi6F/gDQpA+1oQTyjHc5UZWpxqrZDh2ppJT+Gh9UB6B47dGiLsb46zh3A==
+"@adatree/react-api-sdk-dashboard@2.0.0":
+  version "2.0.0"
+  resolved "https://npm.pkg.github.com/download/@adatree/react-api-sdk-dashboard/2.0.0/e2872ea2fe45644a451cc27ae4ba0b8020bd3d3a#e2872ea2fe45644a451cc27ae4ba0b8020bd3d3a"
+  integrity sha512-V5KGuxWFioA0V8HfpTmR99lGTb5en3cW3JHrDlaBJIWh2euLqts/SuY7x6HStexisPz1sFUESw6C01A1U3BFhg==
   dependencies:
     luxon "^3.3.0"
     swr "^2.0.4"

@@ -7,7 +7,6 @@ import {
   UseCaseResponse,
   DataHolder,
   ScopeResponse,
-  ConsentUseCaseResponse,
   ConsumerType,
 } from '@adatree/react-api-sdk-dashboard';
 import { addDays, addWeeks, addMonths, addYears } from 'date-fns';
@@ -330,7 +329,7 @@ const isBcdc = (dataRecipients?: DataRecipient[]): boolean => {
   return found;
 };
 
-const isOrganisation = (useCase?: ConsentUseCaseResponse): boolean => {
+const isOrganisation = (useCase?: UseCaseResponse): boolean => {
   if (!useCase) {
     return false;
   }
