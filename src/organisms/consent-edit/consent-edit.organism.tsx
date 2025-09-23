@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ConsentResponse, Status, UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { useConsentForm } from '../../context/consentForm.context';
 import { ConsentSectionInfo } from '../../molecules/consent-section/consent-section-info.molecule';
@@ -10,6 +10,7 @@ import { useDataRecipients } from '../../context/data-recipient.context';
 import { DataRecipientType } from '../../types/data-recipient.type';
 import { ConsentSectionScopes } from '../../molecules/consent-section/consent-section-scopes.molecule';
 import { ConsentEditDates } from './consent-edit-dates.organism';
+import { AnalyticsEvents, useAnalytics } from '../../context/analytics.context';
 
 interface Props {
   consent: ConsentResponse;
@@ -27,12 +28,18 @@ export const ConsentEdit = (props: Props) => {
   const [copy] = useCopy();
   const { primaryDataRecipient } = useDataRecipients();
   const { dataRecipients } = useDataRecipients();
+  const { track } = useAnalytics();
+
+  useEffect(() => {
+    track(AnalyticsEvents.EDIT_CONSENT_PAGE_LOADED);
+  }, []);
 
   const handlePartnerDialogClose = () => {
     setIsPartnerDialogOpen(false);
   };
 
   const handleCancel = () => {
+    track(AnalyticsEvents.EDIT_CONSENT_PAGE_CANCEL_CLICKED);
     onCancel();
   };
 
