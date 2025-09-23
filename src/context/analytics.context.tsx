@@ -45,21 +45,13 @@ export const AnalyticsEvents = {
   PRE_CONSENT_RESPONSE_ERROR_RECEIVED: 'Pre consent response error received',
   PRE_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Pre consent authorization response received',
   PRE_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Pre consent authorization error received',
-  PRE_EDIT_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Pre edit consent authorization error received',
-  PRE_EDIT_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Pre edit consent authorization response received',
 
   CONSENT_CALLBACK_REDIRECT_PAGE_LOADED: 'Consent callback redirect page loaded',
   CONSENT_CALLBACK_REDIRECT_ERROR_RECEIVED: 'Consent callback redirect error received',
-  EDIT_CONSENT_CALLBACK_REDIRECT_PAGE_LOADED: 'Edit consent callback redirect page loaded',
-  EDIT_CONSENT_CALLBACK_REDIRECT_ERROR_RECEIVED: 'Edit consent callback redirect error received',
 
   POST_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Post consent authorization response received',
   POST_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Post consent authorization error received',
   POST_CONSENT_REDIRECT_CALLED: 'Post consent redirect called',
-
-  POST_EDIT_CONSENT_AUTHORIZATION_RESPONSE_RECEIVED: 'Post edit consent authorization response received',
-  POST_EDIT_CONSENT_AUTHORIZATION_ERROR_RECEIVED: 'Post edit consent authorization error received',
-  POST_EDIT_CONSENT_REDIRECT_CALLED: 'Post edit consent redirect called',
 };
 
 export const AnalyticsAction = {
