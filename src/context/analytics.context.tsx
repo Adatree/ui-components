@@ -67,6 +67,7 @@ export const AnalyticsAction = {
 
 interface ContextProps {
   track: (event: string, properties?: Record<string, string>) => void;
+  reset: () => void;
 }
 
 const AnalyticsContext = createContext<ContextProps | undefined>(undefined);
@@ -91,15 +92,17 @@ interface ProviderProps {
    *
    */
   onTrack?: (event: string, properties?: Record<string, string>) => void;
+  onReset?: () => void;
   children: ReactNode | ReactNode[];
 }
 /**
  * A generic analytics context provider.
  *
  * @param onTrack - Callback function to handle the components tracking calls
+ * @param onReset - Callback function to handle the reset your analytics provider
  *
  */
-const AnalyticsProvider = ({ children, onTrack }: ProviderProps) => {
+const AnalyticsProvider = ({ children, onTrack, onReset }: ProviderProps) => {
   const track = (event: string, properties?: Record<string, string>) => {
     if (onTrack) {
       onTrack(event, properties);
@@ -112,11 +115,22 @@ const AnalyticsProvider = ({ children, onTrack }: ProviderProps) => {
     }
   };
 
+  const reset = () => {
+    if (onReset) {
+      onReset();
+    } else {
+      Logger.warn(
+        'useAnalytics onReset function is not set. To remove this warning please provide an onReset function to the AnalyticsProvider',
+      );
+    }
+  };
+
   return (
     <>
       <AnalyticsContext.Provider
         value={{
           track,
+          reset,
         }}
       >
         {children}
