@@ -8,6 +8,7 @@ import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { Helper } from '../../utils/helper/helper';
 import { LibertyGeneralInformation } from '../../atoms/info-accordions/liberty-general-info.atom';
+import { useDataRecipients } from '../../context/data-recipient.context';
 
 interface Props {
   useCase: UseCaseResponse;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const ConsentSectionInfo = (props: Props) => {
+  const { primaryDataRecipient } = useDataRecipients();
   const { useCase, dataHandlers } = props;
 
   const getHideDuplicates = (): boolean => {
@@ -41,7 +43,7 @@ export const ConsentSectionInfo = (props: Props) => {
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        {dataHandlers && Helper.getAdrDataRecipients(dataHandlers).name === 'Liberty' ? (
+        {primaryDataRecipient && primaryDataRecipient.name === 'Liberty' ? (
           <LibertyGeneralInformation />
         ) : (
           <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
