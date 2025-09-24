@@ -5,7 +5,6 @@ const bankAccountsBasicRead = (): ScopeResponse => {
     name: 'Account name, type and balance',
     id: 'bank:accounts.basic:read',
     purpose: 'We need your account name, type and balance for X reason.',
-    description: 'This will allow us to access basic account information including the account balance.',
     claims: ['Name of account', 'Type of account', 'Account balance'],
     priority: 2,
   };
@@ -16,8 +15,6 @@ const bankAccountsDetailRead = (): ScopeResponse => {
     name: 'Account numbers and features',
     id: 'bank:accounts.detail:read',
     purpose: 'We need your account numbers and features for X reason.',
-    description:
-      'This will allow us to access detailed bank account information including basic account information plus account identifiers and product information.',
     claims: ['Account number', 'Interest rates', 'Fees', 'Discounts', 'Account terms', 'Account mail address'],
     priority: 3,
   };
@@ -28,7 +25,6 @@ const bankTransactionsRead = (): ScopeResponse => {
     name: 'Transaction details',
     id: 'bank:transactions:read',
     purpose: 'We need your transaction details for X reason.',
-    description: 'This will allow us to access bank account transaction data.',
     claims: [
       'Incoming and outgoing transactions',
       'Amounts',
@@ -45,8 +41,6 @@ const commonCustomerBasicRead = (): ScopeResponse => {
     name: 'Name and occupation',
     id: 'common:customer.basic:read',
     purpose: 'We need your name and occupation for X reason.',
-    description:
-      'This will allow us to access personally identifiable information about the customer. For retail customers this would be information about the customer. For businesses it would be the name of the specific user and information about the business.',
     claims: ['Name', 'Occupation'],
     priority: 0,
   };
@@ -57,7 +51,6 @@ const commonCustomerDetailRead = (): ScopeResponse => {
     name: 'Contact details',
     id: 'common:customer.detail:read',
     purpose: 'We need your personal details to X reason.',
-    description: 'This will allow us to access more detailed customer information such as contact details.',
     claims: ['Phone', 'Email address', 'Mail address', 'Residential address'],
     priority: 1,
   };
@@ -68,7 +61,6 @@ const energyAccountsBasicRead = (): ScopeResponse => {
     name: 'Accounts and plans',
     id: 'energy:accounts.basic:read',
     purpose: 'We need your basic account information to X reason.',
-    description: '',
     claims: ['Account and plan information', 'National Meter Identifier (NMI)'],
     priority: 7,
   };
@@ -79,7 +71,6 @@ const energyBillingRead = (): ScopeResponse => {
     name: 'Billing payments and history',
     id: 'energy:billing:read',
     purpose: 'We need your billing information to X reason.',
-    description: '',
     claims: [
       'Account balance',
       'National Meter Identifier (NMI)',
@@ -100,7 +91,6 @@ const energyElectricityUsageRead = (): ScopeResponse => {
     name: 'Electricity usage',
     id: 'energy:electricity.usage:read',
     purpose: 'We need your usage information to X reason.',
-    description: '',
     claims: ['Usage', 'Meter details'],
     priority: 15,
   };
@@ -111,7 +101,6 @@ const energyAccountsDetailRead = (): ScopeResponse => {
     name: 'Account and plan details',
     id: 'energy:accounts.detail:read',
     purpose: 'We need your detailed account information to X reason.',
-    description: '',
     claims: [
       'Account and plan information',
       'National Meter Identifier (NMI)',
@@ -128,7 +117,6 @@ const energyAccountsConcessionsRead = (): ScopeResponse => {
     name: 'Concessions and assistance',
     id: 'energy:accounts.concessions:read',
     purpose: 'We need your concession information to X reason.',
-    description: '',
     claims: ['Concession type', 'Concession information'],
     priority: 9,
   };
@@ -139,7 +127,6 @@ const energyAccountsPaymentscheduleRead = (): ScopeResponse => {
     name: 'Stored payment information',
     id: 'energy:accounts.paymentschedule:read',
     purpose: 'We need your payments information to X reason.',
-    description: '',
     claims: ['Payment details', 'Scheduled payment amount'],
     priority: 10,
   };
@@ -150,7 +137,6 @@ const energyElectricityServicepointsBasicRead = (): ScopeResponse => {
     name: 'Electricity connection',
     id: 'energy:electricity.servicepoints.basic:read',
     purpose: 'We need your basic service point information to X reason.',
-    description: '',
     claims: ['National Meter Identifier (NMI)', 'Customer type', 'Connection point details'],
     priority: 12,
   };
@@ -161,7 +147,6 @@ const energyElectricityServicepointsDetailRead = (): ScopeResponse => {
     name: 'Electricity connection and meter',
     id: 'energy:electricity.servicepoints.detail:read',
     purpose: 'We need your detailed service point information to X reason.',
-    description: '',
     claims: [
       'National Meter Identifier (NMI)',
       'Supply address',
@@ -179,7 +164,6 @@ const cdrInsightsOne = (): ScopeResponse => {
     name: 'Verify my Identity',
     id: 'cdr:insights:verify.identity',
     purpose: 'This is the CDR Insight purpose for Verify my Identity.',
-    description: '',
     claims: ['Name', 'Residential address', 'Date of birth'],
     priority: 1,
   };
@@ -190,7 +174,6 @@ const cdrInsightsTwo = (): ScopeResponse => {
     name: 'CDR Insight 2',
     id: 'cdr:insights:example.two.basic:read',
     purpose: 'This is the CDR Insight purpose for CDR Insight 2.',
-    description: '',
     claims: ['CDR claim 4', 'CDR claim 5', 'CDR claim 6'],
     priority: 2,
   };
@@ -201,7 +184,6 @@ const energyElectricityDerRead = (): ScopeResponse => {
     name: 'Energy generation and storage',
     id: 'energy:electricity.der:read',
     purpose: 'We need your energy generation information to X reason.',
-    description: '',
     claims: [
       'Generation information',
       'Generation or storage device type',

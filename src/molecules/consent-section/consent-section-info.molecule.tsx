@@ -6,6 +6,8 @@ import { GeneralInformation } from '../../atoms/info-accordions/general-info.ato
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info.atom';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
+import { Helper } from '../../utils/helper/helper';
+import { LibertyGeneralInformation } from '../../atoms/info-accordions/liberty-general-info.atom';
 
 interface Props {
   useCase: UseCaseResponse;
@@ -39,7 +41,12 @@ export const ConsentSectionInfo = (props: Props) => {
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
+        {dataHandlers && Helper.getAdrDataRecipients(dataHandlers).name === 'Liberty' ? (
+          <LibertyGeneralInformation />
+        ) : (
+          <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
+        )}
+
         {!isNonADR() && (
           <Accordion
             title="What is the purpose of accessing my data?"
