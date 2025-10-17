@@ -67,15 +67,7 @@ export const ConsentCreateForm = (props: Props) => {
       Array.isArray(useCase.features) &&
       useCase.features.includes(UseCaseFeature.DE_IDENTIFICATION)
     ) {
-      // Hardcode rule for SunSpot :(
-      if (primaryDataRecipient.name === 'SunSPOT') {
-        Logger.debug('Applying PostUsageAction rule for SunSPOT');
-        consentForm.postUsageAction = PostUsageAction.DeIdentification;
-        setDeIdentificationCheck(true);
-      } else {
-        consentForm.postUsageAction = undefined;
-      }
-
+      setPostUsageAction(true);
       setConsentForm({ ...consentForm });
       setShowDeIdentifySection(true);
     } else {
@@ -139,7 +131,7 @@ export const ConsentCreateForm = (props: Props) => {
     if (value) {
       consentForm.postUsageAction = PostUsageAction.DeIdentification;
     } else {
-      consentForm.postUsageAction = undefined;
+      setPostUsageAction(false);
     }
 
     setConsentForm({ ...consentForm });
@@ -148,6 +140,17 @@ export const ConsentCreateForm = (props: Props) => {
 
   const handleSubmit = () => {
     onSubmit();
+  };
+
+  const setPostUsageAction = (isChecked: boolean) => {
+    // Hardcode rule for SunSpot :(
+    if (primaryDataRecipient.name === 'SunSPOT') {
+      consentForm.postUsageAction = isChecked ? PostUsageAction.DeIdentification : PostUsageAction.Deletion;
+      setDeIdentificationCheck(true);
+      Logger.debug('Applying PostUsageAction rule for SunSPOT. Setting value to', consentForm.postUsageAction);
+    } else {
+      consentForm.postUsageAction = undefined;
+    }
   };
 
   return (
