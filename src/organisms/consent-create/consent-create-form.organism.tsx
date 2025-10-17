@@ -38,6 +38,7 @@ export const ConsentCreateForm = (props: Props) => {
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient, nonAdrDataRecipient, dataRecipients } = useDataRecipients();
+  let deIdentificationCheck = false;
 
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
@@ -70,6 +71,7 @@ export const ConsentCreateForm = (props: Props) => {
       if (primaryDataRecipient.name === 'SunSPOT') {
         Logger.debug('Applying PostUsageAction rule for SunSPOT');
         consentForm.postUsageAction = PostUsageAction.DeIdentification;
+        deIdentificationCheck = true;
       } else {
         consentForm.postUsageAction = undefined;
       }
@@ -188,6 +190,7 @@ export const ConsentCreateForm = (props: Props) => {
             <ConsentSectionDeIdentify
               showError={showDeIdentifyError}
               deIdentifyCopy={useCase.anonymisationDetails}
+              checked={deIdentificationCheck}
               onCheck={handleDeIdentifyChange}
             />
           )}

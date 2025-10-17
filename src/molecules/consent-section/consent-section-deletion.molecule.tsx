@@ -8,9 +8,10 @@ interface Props {
   showError: boolean;
   onCheck: (value: boolean) => void;
   deIdentifyCopy?: string;
+  checked?: boolean;
 }
 
-export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyCopy }: Props) => {
+export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyCopy, checked }: Props) => {
   const { primaryDataRecipient } = useDataRecipients();
 
   let title = `${primaryDataRecipient.name} requires your consent to combine your anonymised data with that of others in your area in order to calculate average numbers.`;
@@ -28,7 +29,12 @@ export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyCopy }:
   return (
     <>
       <Card error={showError}>
-        <SwitchDialog switchTitle={<>{title}</>} dialogTitle={'De-identify'} onCheck={handleSwitchCheck}>
+        <SwitchDialog
+          switchTitle={<>{title}</>}
+          dialogTitle={'De-identify'}
+          onCheck={handleSwitchCheck}
+          checked={checked}
+        >
           <>{explanationMessage}</>
         </SwitchDialog>
       </Card>
