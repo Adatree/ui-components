@@ -6,7 +6,6 @@ import { GeneralInformation } from '../../atoms/info-accordions/general-info.ato
 import { SupportingParties } from '../supporting-parties/supporting-parties.molecule';
 import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info.atom';
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
-import { Helper } from '../../utils/helper/helper';
 import { LibertyGeneralInformation } from '../../atoms/info-accordions/liberty-general-info.atom';
 import { useDataRecipients } from '../../context/data-recipient.context';
 
