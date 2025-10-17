@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataHolder, PostUsageAction, SharingDuration } from '@adatree/react-api-sdk-dashboard';
 
-type ConsentForm = {
+export type ConsentForm = {
   allAddScopesChecked: boolean;
   allRemoveScopesChecked: boolean;
   dataHolder: DataHolder | undefined;
@@ -30,7 +30,7 @@ type ConsentFormProviderProps = {
   initialValues?: ConsentForm;
 };
 
-const ConsentFormDefaultValues: ConsentForm = {
+export const ConsentFormDefaultValues: ConsentForm = {
   allAddScopesChecked: true,
   allRemoveScopesChecked: false,
   dataHolder: undefined,
