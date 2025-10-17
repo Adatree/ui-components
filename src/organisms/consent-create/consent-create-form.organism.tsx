@@ -69,7 +69,7 @@ export const ConsentCreateForm = (props: Props) => {
       // Hardcode rule for SunSpot :(
       if (primaryDataRecipient.name === 'SunSPOT') {
         Logger.debug('Applying PostUsageAction rule for SunSPOT');
-        consentForm.postUsageAction = PostUsageAction.Deletion;
+        consentForm.postUsageAction = PostUsageAction.DeIdentification;
       } else {
         consentForm.postUsageAction = undefined;
       }
