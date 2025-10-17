@@ -59,7 +59,7 @@ export const SwitchDialog = (props: Props) => {
             </>
           }
         />
-        <Switch edge="end" value={isChecked} onChange={handleToggle} color="button" />
+        <Switch edge="end" defaultChecked={checked} value={isChecked} onChange={handleToggle} color="button" />
       </ListItem>
 
       <Dialog onClose={handleDialogClose} open={isDialogOpen}>

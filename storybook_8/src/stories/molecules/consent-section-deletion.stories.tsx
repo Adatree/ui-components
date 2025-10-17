@@ -22,3 +22,13 @@ export const Default: Story = {
     },
   },
 };
+
+export const WithChecked: Story = {
+  args: {
+    showError: false,
+    checked: true,
+    onCheck: (value) => {
+      alert(`De-identify switch value is ${value}`);
+    },
+  },
+};
