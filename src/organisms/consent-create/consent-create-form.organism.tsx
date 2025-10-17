@@ -15,6 +15,7 @@ import { ConsentSectionDeIdentify } from '../../molecules/consent-section/consen
 import { BusinessConsumerStatement } from '../../molecules/business-consumer-statement/business-consumer-statement.molecule';
 import { UseCaseFeature } from '../../consts/use-case-features.const';
 import { ConsentCreateInsight } from './consent-create-insight.organism';
+import { Logger } from '../../utils/logger/logger';
 
 interface Props {
   useCase: UseCaseResponse;
@@ -65,7 +66,14 @@ export const ConsentCreateForm = (props: Props) => {
       Array.isArray(useCase.features) &&
       useCase.features.includes(UseCaseFeature.DE_IDENTIFICATION)
     ) {
-      consentForm.postUsageAction = undefined;
+      // Hardcode rule for SunSpot :(
+      if (primaryDataRecipient.name === 'SunSPOT') {
+        Logger.debug('Applying PostUsageAction rule for SunSPOT');
+        consentForm.postUsageAction = PostUsageAction.Deletion;
+      } else {
+        consentForm.postUsageAction = undefined;
+      }
+
       setConsentForm({ ...consentForm });
       setShowDeIdentifySection(true);
     } else {
