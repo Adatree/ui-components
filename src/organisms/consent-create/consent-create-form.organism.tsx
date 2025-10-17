@@ -28,6 +28,7 @@ interface Props {
 export const ConsentCreateForm = (props: Props) => {
   const { useCase, enablePartnerMessageDiscreetMode = false, dataHandlers, onCancel, onSubmit } = props;
   const [isFormValid, setIsFormValid] = useState(false);
+  const [deIdentificationCheck, setDeIdentificationCheck] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [showDataHolderError, setShowDataHolderError] = useState(false);
   const [showDateError, setShowDateError] = useState(false);
@@ -38,7 +39,6 @@ export const ConsentCreateForm = (props: Props) => {
   const [consentForm, setConsentForm] = useConsentForm();
   const [copy] = useCopy();
   const { primaryDataRecipient, nonAdrDataRecipient, dataRecipients } = useDataRecipients();
-  let deIdentificationCheck = false;
 
   const dataHandlersWithoutPrimary = dataHandlers?.filter((dataRecipient) => {
     return dataRecipient.type !== primaryDataRecipient.type;
@@ -71,7 +71,7 @@ export const ConsentCreateForm = (props: Props) => {
       if (primaryDataRecipient.name === 'SunSPOT') {
         Logger.debug('Applying PostUsageAction rule for SunSPOT');
         consentForm.postUsageAction = PostUsageAction.DeIdentification;
-        deIdentificationCheck = true;
+        setDeIdentificationCheck(true);
       } else {
         consentForm.postUsageAction = undefined;
       }
