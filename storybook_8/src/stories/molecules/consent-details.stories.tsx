@@ -71,6 +71,18 @@ export const WithRevokedStatusAndGrantee: Story = {
   },
 };
 
+export const WithEdit: Story = {
+  args: {
+    consent: TestUtil.testData.consent.active(),
+    dateTitle: 'Key dates',
+    useCasetTitle: 'Data we are currently receiving',
+    editUrl: 'some-url',
+    onRevokeClick: () => {
+      alert('The revoke button has been clicked');
+    },
+  },
+};
+
 export const WithConsumerTypeOrganisation: Story = {
   render: (args, { globals: { dataRecipient } }) => {
     return (
