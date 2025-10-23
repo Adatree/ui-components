@@ -141,6 +141,26 @@ export const componentCopy = (
       },
       title: 'General information',
     },
+    de_identify: {
+      title: (name: string) => {
+        if (name === 'EnergyFlex') {
+          return 'EnergyFlex requires your consent to combine your anonymised data with that of others in your area in order to calculate average numbers.';
+        }
+        if (name === 'SunSPOT') {
+          return 'SunSPOT would like to save your de-identified data to use for academic research and to improve the accuracy of SunSPOT. This is optional and wont affect your use of SunSPOT.';
+        }
+
+        return 'Consent to Use of De-Identified Data';
+      },
+
+      tooltip: (text?: string) => {
+        if (text) {
+          return text;
+        }
+
+        return "We'll combine your energy use data with that of others in your neighbourhood to calculate average numbers. These averages help you see how your energy use compares to other households in your area. We'll remove any personal information that could identify you - including your name, contact information, and physical address. The data used to create these averages will not be attributable to you, and you will not be able to elect that it be deleted.";
+      },
+    },
     max_account_connected_message: {
       list_label: 'You currently have the following active consents:',
       list_item: (useCaeName: string, dataHolderName: string) => {

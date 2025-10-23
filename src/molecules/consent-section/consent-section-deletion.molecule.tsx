@@ -2,26 +2,16 @@ import * as React from 'react';
 import { Typography } from '@mui/material';
 import { Card } from '../../atoms/card/card.atom';
 import { SwitchDialog } from '../../atoms/switch-with-dialog/switch-with-dialog.atom';
-import { useDataRecipients } from '../../context/data-recipient.context';
 
 interface Props {
   showError: boolean;
   onCheck: (value: boolean) => void;
-  deIdentifyCopy?: string;
+  deIdentifyTitle: string;
+  deIdentifyCopy: string;
   checked?: boolean;
 }
 
-export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyCopy, checked }: Props) => {
-  const { primaryDataRecipient } = useDataRecipients();
-
-  let title = `${primaryDataRecipient.name} requires your consent to combine your anonymised data with that of others in your area in order to calculate average numbers.`;
-  let explanationMessage =
-    "We'll combine your energy use data with that of others in your neighbourhood to calculate average numbers. These averages help you see how your energy use compares to other households in your area. We'll remove any personal information that could identify you - including your name, contact information, and physical address. The data used to create these averages will not be attributable to you, and you will not be able to elect that it be deleted.";
-
-  if (deIdentifyCopy) {
-    title = 'Consent to Use of De-Identified Data';
-    explanationMessage = deIdentifyCopy;
-  }
+export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyTitle, deIdentifyCopy, checked }: Props) => {
   const handleSwitchCheck = (value: boolean) => {
     onCheck(value);
   };
@@ -30,12 +20,12 @@ export const ConsentSectionDeIdentify = ({ showError, onCheck, deIdentifyCopy, c
     <>
       <Card error={showError}>
         <SwitchDialog
-          switchTitle={<>{title}</>}
+          switchTitle={<>{deIdentifyTitle}</>}
           dialogTitle={'De-identify'}
           onCheck={handleSwitchCheck}
           checked={checked}
         >
-          <>{explanationMessage}</>
+          <>{deIdentifyCopy}</>
         </SwitchDialog>
       </Card>
 

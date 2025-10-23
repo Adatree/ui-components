@@ -63,6 +63,10 @@ export interface Copy {
     data_holder: {
       not_listed: string;
     };
+    de_identify: {
+      title: (name: string) => string;
+      tooltip: (text?: string) => string;
+    };
     general_information: {
       list_adr_context: string;
       list_cdr_acknowledgement: (dataHandlerName: string) => ReactElement;

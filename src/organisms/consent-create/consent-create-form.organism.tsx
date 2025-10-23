@@ -192,7 +192,8 @@ export const ConsentCreateForm = (props: Props) => {
           {showDeIdentifySection && (
             <ConsentSectionDeIdentify
               showError={showDeIdentifyError}
-              deIdentifyCopy={useCase.anonymisationDetails}
+              deIdentifyTitle={copy.component.de_identify.title(primaryDataRecipient.name)}
+              deIdentifyCopy={copy.component.de_identify.tooltip(useCase.anonymisationDetails)}
               checked={deIdentificationCheck}
               onCheck={handleDeIdentifyChange}
             />
