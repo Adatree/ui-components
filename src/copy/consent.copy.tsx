@@ -16,7 +16,7 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
           ? `Choose your ${providerType} or non ${providerType} lender`
           : `Choose your ${providerType} provider`,
       select_favourite_data_holder_title: `Select your ${providerType}`,
-      select_more_data_holder_title: 'More',
+      select_more_data_holder_title: 'More options',
       title: (name: string) => {
         return (
           <>
