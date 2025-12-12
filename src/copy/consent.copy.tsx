@@ -11,12 +11,12 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
       save_label: 'Save',
       cancel_consent_message: 'Are you sure you want to cancel this consent?',
       cancel_edit_message: 'Are you sure you want to cancel editing this consent?',
-      data_holder_input_label: `Choose your ${providerType}`,
-      select_favourite_data_holder_title: `Select your ${providerType}`,
-      select_more_data_holder_title:
+      data_holder_input_label:
         providerType && providerType.toLowerCase() === 'bank'
-          ? `More ${providerType}s and non bank lenders`
-          : `More ${providerType}s`,
+          ? `Choose your ${providerType} or non ${providerType} lender`
+          : `Choose your ${providerType} provider`,
+      select_favourite_data_holder_title: `Select your ${providerType}`,
+      select_more_data_holder_title: 'More',
       title: (name: string) => {
         return (
           <>
