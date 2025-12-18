@@ -37,10 +37,7 @@ export const LibertyGeneralInformation = () => {
           `You can stop sharing data at any time by clicking the revoke button in the consent record. You can also email ${primaryDataRecipient.dataSharingRevocationEmail}`,
         )}
         {renderListItem(
-          'If your consent expires or you revoke it, all of the data you have shared with us will be deleted unless you have consented for us to de-identify the data to use for our general research purposes (i.e. to innovate and improve our products, features and services).  If you consent to us using your de-identified data, this means you also consent to us providing your de-identified data to one of our Supporting Partners, Experian Australia Pty Ltd. Find out more information below under the section headed “SUPPORTING PARTNERS”.',
-        )}
-        {renderListItem(
-          'If you consent to your redundant data being de-identified we will ensure to remove any reference to your name, address and bank account details.',
+          'If your consent expires or you revoke it, all of the data you have shared with us will be deleted unless you have consented for us to de-identify the data to use for our general research purposes (i.e. to innovate and improve our products, features and services).  If you consent to us using your de-identified data, this means you also consent to us providing your de-identified data to one of our Supporting Partners, Experian Open Data Solutions Pty Ltd. Find out more information below under the section headed “SUPPORTING PARTNERS”.',
         )}
         {renderListItem(
           'PLEASE NOTE: When you revoke consent to sharing the data, the services offered may cease to provide you with the benefits. This may mean that your loan application will be incomplete as we do not have the information we require to properly assess it.',
