@@ -31,13 +31,13 @@ export const LibertyGeneralInformation = () => {
           `We, Liberty Financial, are the accredited recipient (accredited number ${accreditationNumber}) of the data you consent to share.`,
         )}
         {renderListItem(
-          'The data has been requested by us for the Liberty loan that you have applied for. This information is required for us to properly in assess your application.',
+          'The data has been requested by us for the Liberty loan that you have applied for. This information is required for us to properly assess your application.',
         )}
         {renderListItem(
           `You can stop sharing data at any time by clicking the revoke button in the consent record. You can also email ${primaryDataRecipient.dataSharingRevocationEmail}`,
         )}
         {renderListItem(
-          'If your consent expires or you revoke it, all of the data you have shared with us will be deleted unless you have consented for us to de-identify the data to use for our general research purposes (i.e. to innovate and improve our products, features and services).',
+          'If your consent expires or you revoke it, all of the data you have shared with us will be deleted unless you have consented for us to de-identify the data to use for our general research purposes (i.e. to innovate and improve our products, features and services).  If you consent to us using your de-identified data, this means you also consent to us providing your de-identified data to one of our Supporting Partners, Experian Australia Pty Ltd. Find out more information below under the section headed “SUPPORTING PARTNERS”.',
         )}
         {renderListItem(
           'If you consent to your redundant data being de-identified we will ensure to remove any reference to your name, address and bank account details.',
@@ -52,7 +52,7 @@ export const LibertyGeneralInformation = () => {
         )}
         {renderListItem(
           <>
-            Find our more information on how Liberty handles your CDR data here{' '}
+            Find out more information on how Liberty handles your CDR data here{' '}
             <LinkExternal href={primaryDataRecipient.cdrPolicyUrl} text={'here'} />
           </>,
         )}
