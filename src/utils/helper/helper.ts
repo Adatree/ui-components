@@ -229,6 +229,14 @@ const getPrimaryDataRecipients = (dataRecipients: DataRecipient[]): DataRecipien
     return foundCdrRepresentative;
   }
 
+  const foundD2cRepresentative = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER;
+  });
+
+  if (foundD2cRepresentative) {
+    return foundD2cRepresentative;
+  }
+
   const foundAccreditedDataRecipient = dataRecipients.find((dataRecipient) => {
     return dataRecipient.type === DataRecipientType.ACCREDITED_DATA_RECIPIENT;
   });
@@ -268,6 +276,11 @@ const getDataSharingRevocationEmail = (dataRecipients: DataRecipient[]): string 
     return dataRecipient.type === DataRecipientType.CDR_REPRESENTATIVE;
   });
   if (foundCDR && foundCDR.dataSharingRevocationEmail) return foundCDR.dataSharingRevocationEmail;
+
+  const foundD2C = dataRecipients.find((dataRecipient) => {
+    return dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER;
+  });
+  if (foundD2C && foundD2C.dataSharingRevocationEmail) return foundD2C.dataSharingRevocationEmail;
 
   const foundGRT = dataRecipients.find((dataRecipient) => {
     return dataRecipient.type === DataRecipientType.GRANTEE;

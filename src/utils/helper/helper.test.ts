@@ -285,6 +285,10 @@ describe('Helper Utils', () => {
         TestUtil.testData.dataRecipient.accreditedDataRecipient(),
         TestUtil.testData.dataRecipient.cdrRepresentative(),
       ];
+      const d2cList1 = [
+        TestUtil.testData.dataRecipient.accreditedDataRecipient(),
+        TestUtil.testData.dataRecipient.d2cRepresentative(),
+      ];
       const taList1 = [
         TestUtil.testData.dataRecipient.accreditedDataRecipient(),
         TestUtil.testData.dataRecipient.trustedAdvisor(),
@@ -316,6 +320,7 @@ describe('Helper Utils', () => {
         DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT,
       );
       expect(Helper.getPrimaryDataRecipients(cdrrList1).type).toEqual(DataRecipientType.CDR_REPRESENTATIVE);
+      expect(Helper.getPrimaryDataRecipients(d2cList1).type).toEqual(DataRecipientType.DIRECT_TO_CONSUMER);
       expect(Helper.getPrimaryDataRecipients(granteeList1).type).toEqual(DataRecipientType.GRANTEE);
       expect(Helper.getPrimaryDataRecipients(taList1).type).toEqual(DataRecipientType.TRUSTED_ADVISER);
       expect(Helper.getPrimaryDataRecipients(taList2).type).toEqual(DataRecipientType.TRUSTED_ADVISER);

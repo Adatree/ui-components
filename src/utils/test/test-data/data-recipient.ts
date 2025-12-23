@@ -39,6 +39,19 @@ export const cdrRepresentative = (): DataRecipient => {
   };
 };
 
+export const d2cRepresentative = (): DataRecipient => {
+  return {
+    complaintEmail: 'd2c-complaint@example.com',
+    cdrPolicyUrl: 'https://www.example.com/d2c-cdr-policy',
+    dataSharingRevocationEmail: 'd2c.data.sharing.revocation@example.com',
+    description: 'D2C representative provides the service X.',
+    logo: '/assets/images/d2c-test-company-logo.png',
+    name: 'D2C Representative Company',
+    website: 'www.d2c.example.com',
+    type: DataRecipientType.DIRECT_TO_CONSUMER,
+  };
+};
+
 export const granteeRepresentative = (): DataRecipient => {
   return {
     complaintEmail: 'gr-complaint@example.com',
@@ -96,6 +109,7 @@ const all = (): DataRecipient[] => {
     accreditedDataRecipient(),
     businessConsumerDisclosureConsent(),
     cdrRepresentative(),
+    d2cRepresentative(),
     granteeRepresentative(),
     trustedAdvisor(),
     trustedAdvisorServiceProvider(),
@@ -107,6 +121,7 @@ export const dataRecipient = {
   accreditedDataRecipient,
   businessConsumerDisclosureConsent,
   cdrRepresentative,
+  d2cRepresentative,
   granteeRepresentative,
   nonAccreditedDataRecipient,
   trustedAdvisor,
