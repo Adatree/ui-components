@@ -56,7 +56,7 @@ export const ConsentSectionInfo = (props: Props) => {
         )}
         {dataHandlers && dataHandlers.length > 0 && <DataHandlingInfo dataHandlers={dataHandlers} />}
         {useCase.osps && useCase.osps.length > 0 && (
-          <SupportingParties title={'Supporting Parties'} useCase={useCase} outsourcedServiceProviders={useCase.osps} />
+          <SupportingParties title={'Supporting Parties'} outsourcedServiceProviders={useCase.osps} />
         )}
       </Box>
     </>
