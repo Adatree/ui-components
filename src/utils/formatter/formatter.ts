@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import { Logger } from '../logger/logger';
+import { DateTimeFormatOptions, DateTimePreference } from '../../types/date-time.type';
 
 const DATE_FORMAT = 'dd/MM/yyyy';
 const DATE_TIME_FORMAT = 'dd/MM/yyyy hh:mm aaa';
@@ -64,8 +65,38 @@ const formatDateTimeTz = (date: Date | string | undefined): string => {
   return '';
 };
 
+export const formatDateTimeV2 = (
+  input: Date | number | string | undefined,
+  preference: DateTimePreference,
+  opts: DateTimeFormatOptions = {},
+): string => {
+  if (input) {
+    const date = input instanceof Date ? input : new Date(input);
+    if (Number.isNaN(date.getTime())) return 'Invalid date';
+
+    const { locale, intlOptions } = opts;
+
+    const formatter = new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      ...(preference === 'utc' ? { timeZone: 'UTC' } : {}),
+      ...intlOptions,
+    });
+
+    return formatter.format(date);
+  } else {
+    return '';
+  }
+};
+
 export const Formatter = {
   formatDate,
   formatDateTime,
+  formatDateTimeV2,
   formatDateTimeTz,
 };

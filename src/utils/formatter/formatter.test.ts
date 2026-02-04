@@ -105,4 +105,75 @@ describe('Formatter Utils', () => {
       expect(Formatter.formatDateTimeTz(date4)).toEqual(expectedValidFormat4);
     });
   });
+
+  type Preference = 'local' | 'utc';
+
+  // This test works even when CI runs in different timezones because the local test builds the expected value using the same runtime Intl behavior.
+  const referenceFormat = (
+    input: Date | number | string,
+    preference: Preference,
+    locale?: string,
+    intlOptions?: Intl.DateTimeFormatOptions,
+  ) => {
+    const date = input instanceof Date ? input : new Date(input);
+    if (Number.isNaN(date.getTime())) return 'Invalid date';
+
+    const formatter = new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      ...(preference === 'utc' ? { timeZone: 'UTC' } : {}),
+      ...intlOptions,
+    });
+
+    return formatter.format(date);
+  };
+
+  describe('formatDateTimeV2', () => {
+    it('formats UTC preference using UTC timezone', () => {
+      const value = new Date('2026-02-04T12:34:56Z');
+      const result = Formatter.formatDateTimeV2(value, 'utc');
+      const expected = referenceFormat(value, 'utc');
+
+      expect(result).toBe(expected);
+    });
+
+    it("formats local preference using the runtime's local timezone", () => {
+      const value = new Date('2026-02-04T12:34:56Z');
+      const result = Formatter.formatDateTimeV2(value, 'local');
+      const expected = referenceFormat(value, 'local');
+
+      expect(result).toBe(expected);
+    });
+
+    it("returns 'Invalid date' for invalid inputs", () => {
+      expect(Formatter.formatDateTimeV2(undefined, 'utc')).toBe('');
+      expect(Formatter.formatDateTimeV2(Number.NaN, 'local')).toBe('');
+      expect(Formatter.formatDateTimeV2('not-a-date' as unknown as string, 'utc')).toBe('Invalid date');
+      expect(Formatter.formatDateTimeV2(new Date('invalid'), 'utc')).toBe('Invalid date');
+    });
+
+    it('supports locale and Intl options overrides', () => {
+      const value = new Date('2026-02-04T12:34:56Z');
+      const locale = 'en-IE';
+      const intlOptions: Intl.DateTimeFormatOptions = {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: undefined, // omit seconds
+        hour12: false,
+      };
+
+      const result = Formatter.formatDateTimeV2(value, 'utc', { locale, intlOptions });
+      const expected = referenceFormat(value, 'utc', locale, intlOptions);
+
+      expect(result).toBe(expected);
+    });
+  });
 });
