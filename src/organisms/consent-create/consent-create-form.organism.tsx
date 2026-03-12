@@ -93,12 +93,23 @@ export const ConsentCreateForm = (props: Props) => {
     }
   }, [consentForm]);
 
+  useEffect(() => {
+    scrollToFirstError();
+  }, [showScopeError, showScopeError, showDateError, showDeIdentifyError]);
+
   const handlePartnerDialogClose = () => {
     setIsPartnerDialogOpen(false);
   };
 
   const handleCancel = () => {
     onCancel();
+  };
+
+  const scrollToFirstError = () => {
+    const firstError = document.querySelector('.error');
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   };
 
   const handlePreSubmit = () => {
@@ -207,7 +218,7 @@ export const ConsentCreateForm = (props: Props) => {
             cancelButtonLabel={copy.consent.create.cancel_label}
             cancelButtonMessage={copy.consent.create.cancel_consent_message}
             isValid={isFormValid}
-            showError={showDataHolderError || showDateError || showScopeError}
+            showError={showDataHolderError || showDateError || showScopeError || showDeIdentifyError}
             onCancel={handleCancel}
             onSubmit={handlePreSubmit}
           />
