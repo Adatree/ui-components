@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Tabs, Tab, Box, Typography, Skeleton, Button } from '@mui/material';
+import { AppBar, Tabs, Tab, Box, Typography, Skeleton, Button, useTheme } from '@mui/material';
 import { ConsentList } from '../../atoms/consent-list/consent-list.atom';
 import { Card } from '../../atoms/card/card.atom';
 import { ConsentResponse, Status } from '@adatree/react-api-sdk-dashboard';
@@ -40,6 +40,7 @@ export const ConsentTabs = ({
 }: Props) => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [paginationPage, setPaginationPage] = React.useState(1);
+  const theme = useTheme();
 
   const handleTabChange = (event: React.SyntheticEvent, newTabIndex: number) => {
     event.stopPropagation();
@@ -62,7 +63,7 @@ export const ConsentTabs = ({
           <Typography variant="subtitle1">
             Get started by creating your first consent to manage your data preferences.
           </Typography>
-          <Button sx={{ m: 2, mt: 5 }} variant="contained" color="primary" onClick={onNavigation}>
+          <Button sx={{ m: 2, mt: 5 }} variant="contained" color="button" onClick={onNavigation}>
             Create Consent
           </Button>
         </Box>
@@ -82,10 +83,14 @@ export const ConsentTabs = ({
         <Tabs
           value={tabIndex}
           onChange={handleTabChange}
-          indicatorColor="secondary"
-          textColor="inherit"
+          indicatorColor="secondary"          
           variant="fullWidth"
           aria-label="Consent tabs"
+          sx={{
+            '& .MuiTab-root': {
+                color: theme.palette.button.contrastText,
+              },
+          }}
         >
           <Tab label="Current" {...a11yProps(0)} />
           <Tab label="Expired" {...a11yProps(1)} />
