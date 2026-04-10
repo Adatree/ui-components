@@ -90,6 +90,9 @@ export const ConsentTabs = ({
             '& .MuiTab-root': {
                 color: theme.palette.button.contrastText,
               },
+            '& .MuiTab-root.Mui-selected': {
+                color: theme.palette.button.contrastText,
+              },
           }}
         >
           <Tab label="Current" {...a11yProps(0)} />
