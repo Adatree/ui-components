@@ -23,12 +23,13 @@ export const ConsentSectionDates = (props: Props) => {
         {useCase.sharingDurations && (
           <DateSelector
             companyName={primaryDataRecipient.name}
+            dataRecipient={primaryDataRecipient}
             sharingDurations={useCase.sharingDurations}
             showSharingDurationsOptions={showSharingDurationsOptions}
           />
         )}
         <Typography sx={{ mt: 1.5, mb: 0 }}>
-          {TextBuilder.accessFrequency(primaryDataRecipient.name, useCase.accessFrequency)}
+          {TextBuilder.accessFrequency(primaryDataRecipient, useCase.accessFrequency)}
         </Typography>
       </Card>
       <Typography sx={{ mb: 1, minHeight: '2.2rem' }} variant="body2" color="error.main">

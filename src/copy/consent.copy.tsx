@@ -1,7 +1,7 @@
 import React from 'react';
 import { Highlight as HL } from '../atoms/highlight-text/highlight-text.atom';
 import { Copy } from '../types/copy.type';
-import { DataRecipient } from '../types/data-recipient.type';
+import { DataRecipient, DataRecipientType } from '../types/data-recipient.type';
 
 export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: string): Copy['consent'] => {
   return {
@@ -20,7 +20,16 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
       title: (name: string) => {
         return (
           <>
-            <HL>{primaryDataRecipient.name}</HL> requests access to your <HL>{name}</HL> account data
+            {primaryDataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+              <>
+                Share your <HL>{name}</HL> data with your <HL>{primaryDataRecipient.name}</HL> account
+              </>
+            )}
+            {primaryDataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+              <>
+                <HL>{primaryDataRecipient.name}</HL> requests access to your <HL>{name}</HL> account data
+              </>
+            )}
           </>
         );
       },
@@ -42,7 +51,16 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
       ),
       scope_create_message: (
         <>
-          <HL>{primaryDataRecipient.name}</HL> would like access to the following data:
+          {primaryDataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+            <>
+              Your <HL>{primaryDataRecipient.name}</HL> account will have access to the following data:
+            </>
+          )}
+          {primaryDataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+            <>
+              <HL>{primaryDataRecipient.name}</HL> would like access to the following data:
+            </>
+          )}
         </>
       ),
       scope_for_insights_create_message: (insight: string) => {
@@ -67,7 +85,16 @@ export const consentCopy = (primaryDataRecipient: DataRecipient, providerType: s
     scope: {
       tooltip_label: (
         <>
-          <HL>{primaryDataRecipient.name}</HL> will have access to the following data:
+          {primaryDataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+            <>
+              Your <HL>{primaryDataRecipient.name}</HL> account will have access to the following data:
+            </>
+          )}
+          {primaryDataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+            <>
+              <HL>{primaryDataRecipient.name}</HL> will have access to the following data:
+            </>
+          )}
         </>
       ),
     },

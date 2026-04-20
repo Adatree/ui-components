@@ -8,15 +8,17 @@ import { Helper } from '../../utils/helper/helper';
 import { Formatter } from '../../utils/formatter/formatter';
 import { useConsentForm } from '../../context/consentForm.context';
 import { Highlight } from '../../atoms/highlight-text/highlight-text.atom';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 interface Props {
   companyName: string;
   sharingDurations: SharingDuration[];
+  dataRecipient: DataRecipient;
   showSharingDurationsOptions?: boolean;
 }
 
 export const DateSelector = (props: Props) => {
-  const { companyName, sharingDurations, showSharingDurationsOptions = false } = props;
+  const { companyName, dataRecipient, sharingDurations, showSharingDurationsOptions = false } = props;
   const [sharingEndDate, setSharingEndDate] = useState<Date>();
   const [sharingDuration, setSharingDuration] = useState<SharingDuration>();
   const [consentForm, setConsentForm] = useConsentForm();
@@ -54,17 +56,43 @@ export const DateSelector = (props: Props) => {
     }
   }, []);
 
+  const sharedPrefixText = (
+    <>
+      <>
+        {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+          <>Your {companyName} account will be able to access your data</>
+        )}
+        {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+          <>{companyName} will be able to access your data</>
+        )}
+      </>
+    </>
+  );
+
+  const sharedPrefixQuestion = (
+    <>
+      <>
+        {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+          <>
+            your <Highlight>{companyName}</Highlight> account
+          </>
+        )}
+        {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && <Highlight>{companyName}</Highlight>}
+      </>
+    </>
+  );
+
   return (
     <>
       {(showAllOptions || sharingDurations.length > 1 || sharingDurations.includes(SharingDuration.Custom)) && (
         <Typography sx={{ mb: 2 }}>
-          How long would you like <Highlight>{companyName}</Highlight> to be able to access your data?
+          How long would you like {sharedPrefixQuestion} to be able to access your data?
         </Typography>
       )}
 
       {!showAllOptions && sharingDurations.length === 1 && sharingDurations.includes(SharingDuration.OnceOff) && (
         <Typography sx={{ mb: 1.5 }}>
-          <Highlight>{companyName}</Highlight> will be able to access your data <Highlight>once</Highlight>.
+          {sharedPrefixText} <Highlight>once</Highlight>.
         </Typography>
       )}
 
@@ -104,13 +132,12 @@ export const DateSelector = (props: Props) => {
       )}
       {sharingEndDate && sharingDuration === SharingDuration.Custom && (
         <Typography sx={{ my: 1.5 }}>
-          <Highlight>{companyName}</Highlight> will be able to access your data until the{' '}
-          <Highlight>{Formatter.formatDateTime(sharingEndDate)}</Highlight>.
+          {sharedPrefixText} until the <Highlight>{Formatter.formatDateTime(sharingEndDate)}</Highlight>.
         </Typography>
       )}
       {sharingDuration && sharingDuration !== SharingDuration.Custom && (
         <Typography sx={{ my: 1.5 }}>
-          <Highlight>{companyName}</Highlight> will be able to access your data{' '}
+          {sharedPrefixText}{' '}
           {sharingDuration === SharingDuration.OnceOff && (
             <>
               <Highlight>once</Highlight>.

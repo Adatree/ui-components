@@ -33,7 +33,7 @@ export const ConsentEditDates = (props: Props) => {
         </Typography>
 
         <Typography sx={{ mt: 1.5, mb: 0 }}>
-          {TextBuilder.currentAccess(primaryDataRecipient.name, consent.sharingEndDate)}
+          {TextBuilder.currentAccess(primaryDataRecipient, consent.sharingEndDate)}
         </Typography>
 
         {singleDateExtention && useCase && useCase.sharingDurations && (

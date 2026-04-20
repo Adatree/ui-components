@@ -3,15 +3,25 @@ import { Highlight as HL } from '../../atoms/highlight-text/highlight-text.atom'
 import { AccessFrequency, SharingDuration } from '@adatree/react-api-sdk-dashboard';
 import { Formatter } from '../formatter/formatter';
 import { Helper } from '../helper/helper';
+import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 
 const confirmation = (
-  companyName: string,
+  dataRecipient: DataRecipient,
   endDate: Date | undefined,
   sharingDuration: SharingDuration | undefined,
 ): React.ReactNode => {
   const common = (
     <>
-      I confirm that I am allowing <HL>{companyName}</HL> to access my data (listed above)
+      {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>
+          I confirm that I am allowing my <HL>{dataRecipient.name}</HL> account to access my data (listed above)
+        </>
+      )}
+      {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>
+          I confirm that I am allowing <HL>{dataRecipient.name}</HL> to access my data (listed above)
+        </>
+      )}
     </>
   );
 
@@ -38,13 +48,32 @@ const confirmation = (
   }
 };
 
-const accessFrequency = (companyName: string, accessFrequency: AccessFrequency | undefined): React.ReactNode => {
-  const common = <>{companyName} will be able to access your data</>;
+const accessFrequency = (
+  dataRecipient: DataRecipient,
+  accessFrequency: AccessFrequency | undefined,
+): React.ReactNode => {
+  const common = (
+    <>
+      {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>Your {dataRecipient.name} account will be able to access your data</>
+      )}
+      {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>{dataRecipient.name} will be able to access your data</>
+      )}
+    </>
+  );
+
+  const commonOnceOff = (
+    <>
+      {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && <>your {dataRecipient.name} account</>}
+      {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && <>{dataRecipient.name}</>}
+    </>
+  );
 
   if (accessFrequency === AccessFrequency.OnceOff) {
     return (
       <>
-        Data sharing with {companyName} ends after <HL>first use</HL>.
+        Data sharing with {commonOnceOff} ends after <HL>first use</HL>.
       </>
     );
   } else if (accessFrequency === AccessFrequency.Ongoing) {
@@ -58,8 +87,17 @@ const accessFrequency = (companyName: string, accessFrequency: AccessFrequency |
   }
 };
 
-const currentAccess = (companyName: string, endDate: string | undefined): React.ReactNode => {
-  const common = <>You are currently allowing {companyName} to access your data</>;
+const currentAccess = (dataRecipient: DataRecipient, endDate: string | undefined): React.ReactNode => {
+  const common = (
+    <>
+      {dataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>You are currently allowing your {dataRecipient.name} account to access your data</>
+      )}
+      {dataRecipient.type !== DataRecipientType.DIRECT_TO_CONSUMER && (
+        <>You are currently allowing {dataRecipient.name} to access your data</>
+      )}
+    </>
+  );
 
   if (endDate) {
     return (
