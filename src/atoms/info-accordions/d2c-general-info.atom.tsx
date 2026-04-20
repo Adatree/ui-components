@@ -30,7 +30,7 @@ export const D2cGeneralInformation = () => {
         {
           <>
             {renderListItem(
-              `You confirm the account that you hold with ${primaryDataRecipient.name} as the location for ${adrDataRecipient.name} to disclose CDR data under CDR Rule 7.5(1)(d). ${adrDataRecipient.name} sends your CDR data to your account with the ${primaryDataRecipient.name} in accordance with your instruction.`,
+              `You confirm the account that you hold with ${primaryDataRecipient.name} as the location for ${adrDataRecipient.name} to disclose CDR data under CDR Rule 7.5(1)(d). ${adrDataRecipient.name} sends your CDR data to your account with ${primaryDataRecipient.name} in accordance with your instruction.`,
             )}
             {renderListItem(
               `The disclosure by ${adrDataRecipient.name}, an accredited data recipient, is made to your account held by ${primaryDataRecipient.name}, a third party.`,
