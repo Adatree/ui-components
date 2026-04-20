@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import { UseCaseResponse } from '@adatree/react-api-sdk-dashboard';
 import { Accordion } from '../../atoms/accordion/accordion.molecule';
@@ -8,6 +9,7 @@ import { DataHandlingInfo } from '../../atoms/info-accordions/data-handling-info
 import { DataRecipient, DataRecipientType } from '../../types/data-recipient.type';
 import { LibertyGeneralInformation } from '../../atoms/info-accordions/liberty-general-info.atom';
 import { useDataRecipients } from '../../context/data-recipient.context';
+import { D2cGeneralInformation } from '../../atoms/info-accordions/d2c-general-info.atom';
 
 interface Props {
   useCase: UseCaseResponse;
@@ -39,14 +41,20 @@ export const ConsentSectionInfo = (props: Props) => {
     return nonAdrFound !== undefined;
   };
 
+  const renderGeneralInformation = (): ReactNode => {
+    if (primaryDataRecipient && primaryDataRecipient.name === 'Liberty') {
+      return <LibertyGeneralInformation />;
+    } else if (primaryDataRecipient && primaryDataRecipient.type === DataRecipientType.DIRECT_TO_CONSUMER) {
+      return <D2cGeneralInformation />;
+    } else {
+      return <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />;
+    }
+  };
+
   return (
     <>
       <Box sx={{ mb: 4, position: 'relative' }}>
-        {primaryDataRecipient && primaryDataRecipient.name === 'Liberty' ? (
-          <LibertyGeneralInformation />
-        ) : (
-          <GeneralInformation hideDuplicateListItem={getHideDuplicates()} />
-        )}
+        {renderGeneralInformation()}
 
         {!isNonADR() && (
           <Accordion

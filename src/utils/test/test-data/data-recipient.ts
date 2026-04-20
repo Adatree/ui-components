@@ -7,7 +7,7 @@ export const accreditedDataRecipient = (): DataRecipient => {
     dataSharingRevocationEmail: 'adr.data.sharing.revocation@example.com',
     description: 'Accredited Data Recipient provides the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
-    name: 'Accredited Company',
+    name: 'ACCREDITED_COMPANY_NAME',
     website: 'www.adr.example.com',
     type: DataRecipientType.ACCREDITED_DATA_RECIPIENT,
   };
@@ -20,7 +20,7 @@ export const businessConsumerDisclosureConsent = (): DataRecipient => {
     dataSharingRevocationEmail: 'bcdc.data.sharing.revocation@example.com',
     description: 'BCDC representative provides the service X.',
     logo: '/assets/images/bcdc-test-company-logo.png',
-    name: 'BCDC Representative Company',
+    name: 'BCDC_COMPANY_NAME',
     website: 'www.bcdc.example.com',
     type: DataRecipientType.BUSINESS_CONSUMER_DISCLOSURE_CONSENT,
   };
@@ -33,7 +33,7 @@ export const cdrRepresentative = (): DataRecipient => {
     dataSharingRevocationEmail: 'cdrr.data.sharing.revocation@example.com',
     description: 'CDR representative provides the service X.',
     logo: '/assets/images/cdrr-test-company-logo.png',
-    name: 'CDR Representative Company',
+    name: 'CDR_COMPANY_NAME',
     website: 'www.cdr.example.com',
     type: DataRecipientType.CDR_REPRESENTATIVE,
   };
@@ -46,7 +46,7 @@ export const d2cRepresentative = (): DataRecipient => {
     dataSharingRevocationEmail: 'd2c.data.sharing.revocation@example.com',
     description: 'D2C representative provides the service X.',
     logo: '/assets/images/d2c-test-company-logo.png',
-    name: 'D2C Representative Company',
+    name: 'D2C_COMPANY_NAME',
     website: 'www.d2c.example.com',
     type: DataRecipientType.DIRECT_TO_CONSUMER,
   };
@@ -59,7 +59,7 @@ export const granteeRepresentative = (): DataRecipient => {
     dataSharingRevocationEmail: 'gr.data.sharing.revocation@example.com',
     description: 'Grantee provides the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
-    name: 'Grantee Company',
+    name: 'GRANTEE_NAME',
     website: 'www.gr.example.com',
     type: DataRecipientType.GRANTEE,
   };
@@ -72,7 +72,7 @@ export const nonAccreditedDataRecipient = (): DataRecipient => {
     dataSharingRevocationEmail: 'non-adr.data.sharing.revocation@example.com',
     description: 'Non Accredited Data Recipient provides the service X.',
     logo: '/assets/images/adr-test-company-logo.png',
-    name: 'Non Accredited Company',
+    name: 'NON_ACCREDITED_COMPANY_NAME',
     website: 'www.na.example.com',
     type: DataRecipientType.NON_ACCREDITED_PERSON,
   };
@@ -85,7 +85,7 @@ export const trustedAdvisor = (): DataRecipient => {
     dataSharingRevocationEmail: 'ta-data.sharing.revocation@example.com',
     description: 'Trusted Adviser provides the service X.',
     logo: '/assets/images/ta-test-company-logo.png',
-    name: 'Trusted Advisor Company',
+    name: 'TRUSTED_ADVISOR_NAME',
     website: 'www.ta.example.com',
     type: DataRecipientType.TRUSTED_ADVISER,
   };
@@ -98,7 +98,7 @@ export const trustedAdvisorServiceProvider = (): DataRecipient => {
     dataSharingRevocationEmail: 'tasp-data.sharing.revocation@example.com',
     description: 'Trusted Adviser Service Provider provides the service X.',
     logo: '/assets/images/tasp-test-company-logo.png',
-    name: 'Trusted Advisor Service Provider Company',
+    name: 'TRUSTED_ADVISOR_SP_NAME',
     website: 'www.tas.example.com',
     type: DataRecipientType.TRUSTED_ADVISER_SERVICE_PROVIDER,
   };

@@ -38,6 +38,7 @@ export { BlockedDataholderDialog } from './molecules/blocked-dataholder-dialog/b
 export { ConsentTabs } from './molecules/consent-tabs/consent-tabs.molecule';
 export { ConsentDetails } from './molecules/consent-details/consent-details.molecule';
 export { ConsentSectionDeIdentify } from './molecules/consent-section/consent-section-deletion.molecule';
+export { ConsentSectionInfo } from './molecules/consent-section/consent-section-info.molecule';
 export { DataDisclosure } from './molecules/data-disclosure/data-disclosure.molecule';
 export { DataHolderHeader } from './molecules/data-holder-header/data-holder-header.molecule';
 export { DateSelector } from './molecules/date-selector/date-selector.molecule';
